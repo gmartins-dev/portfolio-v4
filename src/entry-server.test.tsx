@@ -3,7 +3,18 @@ import { prerenderPaths, render } from "./entry-server";
 
 describe("server render", () => {
 	it("prerenders every page in both locales", () => {
-		expect(prerenderPaths).toEqual(["/", "/about", "/pt-br", "/pt-br/about"]);
+		expect(prerenderPaths).toEqual([
+			"/",
+			"/work",
+			"/work/sdd-agentic-flow",
+			"/work/payments-api-node",
+			"/about",
+			"/pt-br",
+			"/pt-br/work",
+			"/pt-br/work/sdd-agentic-flow",
+			"/pt-br/work/payments-api-node",
+			"/pt-br/about",
+		]);
 	});
 
 	it("emits a complete localized document for a PT-BR page", async () => {

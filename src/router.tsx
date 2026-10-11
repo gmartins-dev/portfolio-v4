@@ -12,10 +12,13 @@ import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
 import { copy, t } from "./content/copy";
 import type { Localized } from "./content/schema";
+import { caseStudies } from "./content/work";
 import { type Locale, localeFromPath, locales, localizedPath } from "./i18n";
 import stylesheet from "./index.css?url";
 import { AboutPage } from "./pages/about";
+import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
+import { WorkPage } from "./pages/work";
 import { buildHead } from "./seo";
 import { themeBootstrapScript } from "./theme";
 
@@ -76,6 +79,22 @@ const pages: Page[] = [
 		...copy.meta.home,
 		render: (locale) => <HomePage locale={locale} />,
 	},
+	{
+		path: "/work",
+		...copy.meta.work,
+		render: (locale) => <WorkPage locale={locale} />,
+	},
+	...caseStudies.map(
+		(study): Page => ({
+			path: `/work/${study.slug}`,
+			title: {
+				en: `${study.title} | ${copy.meta.siteName.en}`,
+				"pt-BR": `${study.title} | ${copy.meta.siteName["pt-BR"]}`,
+			},
+			description: study.summary,
+			render: (locale) => <CaseStudyPage study={study} locale={locale} />,
+		}),
+	),
 	{
 		path: "/about",
 		...copy.meta.about,

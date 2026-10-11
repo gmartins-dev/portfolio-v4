@@ -140,7 +140,7 @@ const payments: CaseStudy = {
 			"Uma API de pagamentos em que retentativas e requisições concorrentes com a mesma Idempotency-Key sempre devolvem o mesmo resultado salvo, sem processamento duplicado.",
 	},
 	role: { en: "Sole developer", "pt-BR": "Desenvolvedor único" },
-	period: { start: "2026-03" },
+	period: { start: "2026-03", end: "2026-03" },
 	stack: ["Node.js", "TypeScript", "Express", "PostgreSQL", "React", "Vite"],
 	facts: {
 		en: [
@@ -191,7 +191,7 @@ const payments: CaseStudy = {
 			body: {
 				en: [
 					"The database decides who processes a payment. The idempotency key is unique, and the first request to insert a PENDING row owns the work. Every other request with that key reads the stored row instead.",
-					"The final HTTP status code and response body are persisted with the payment, so a retry replays the original answer byte for byte: 200 for a stored success, 503 for a stored failure, and 202 while the first request is still pending after a short poll (every 100 ms, up to 3 s).",
+					"The final HTTP status code and response body are persisted with the payment, so a retry replays exactly the original answer: 200 for a stored success, 503 for a stored failure, and 202 while the first request is still pending after a short poll (every 100 ms, up to 3 s).",
 				],
 				"pt-BR": [
 					"Quem decide qual requisição processa o pagamento é o banco. A chave de idempotência é única, e a primeira requisição que insere a linha PENDING fica com o trabalho. As demais com a mesma chave leem a linha salva.",
