@@ -4,7 +4,7 @@ import { useLocale } from "../use-locale";
 import { buttonVariants } from "./ui/button";
 
 const footerLinkClass =
-	"text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline";
+	"inline-flex min-h-6 items-center text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline";
 
 /** Site-wide contact section: the one "contact" call to action on every page. */
 export function SiteFooter() {

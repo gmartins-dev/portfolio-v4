@@ -92,7 +92,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 						<a
 							href={profile.resume.en}
 							hrefLang="en"
-							className="text-brand underline-offset-4 hover:underline"
+							className="inline-flex min-h-6 items-center text-brand underline-offset-4 hover:underline"
 						>
 							{t(copy.footer.resumeEn, locale)}
 						</a>
@@ -101,7 +101,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 						<a
 							href={profile.resume["pt-BR"]}
 							hrefLang="pt-BR"
-							className="text-brand underline-offset-4 hover:underline"
+							className="inline-flex min-h-6 items-center text-brand underline-offset-4 hover:underline"
 						>
 							{t(copy.footer.resumePt, locale)}
 						</a>

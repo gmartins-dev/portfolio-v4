@@ -21,7 +21,7 @@ export function CaseStudyPage({
 		<article className="pt-12 md:pt-16">
 			<Link
 				to={localizedPath(locale, "/work")}
-				className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
 			>
 				<ArrowLeft aria-hidden="true" className="size-4" />
 				{t(copy.work.back, locale)}
@@ -72,8 +72,10 @@ export function CaseStudyPage({
 				/>
 			</figure>
 
-			<div className="mt-16 grid gap-12 md:grid-cols-[1fr_16rem] md:gap-16">
-				<div className="grid gap-12">
+			{/* grid-cols-1 is minmax(0, 1fr): with the default auto minimum the
+			    code block would widen the page instead of scrolling (WCAG 1.4.10). */}
+			<div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-16">
+				<div className="grid grid-cols-1 gap-12">
 					{study.sections.map((section) => (
 						<section key={section.heading.en}>
 							<h2 className="text-2xl font-semibold tracking-tight">
@@ -118,7 +120,7 @@ export function CaseStudyPage({
 							<li key={link.href}>
 								<a
 									href={link.href}
-									className="inline-flex items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
+									className="inline-flex min-h-6 items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
 								>
 									{t(link.label, locale)}
 									<ArrowUpRight aria-hidden="true" className="size-3.5" />

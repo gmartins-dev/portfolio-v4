@@ -6,7 +6,7 @@ import { ThemeToggle } from "../theme";
 import { useLocale } from "../use-locale";
 
 const navLinkClass =
-	"underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline";
+	"inline-flex min-h-6 items-center underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline";
 
 export function SiteHeader() {
 	const { locale, page, href } = useLocale();
@@ -62,7 +62,7 @@ export function SiteHeader() {
 							hrefLang={other}
 							lang={other}
 							aria-label={t(copy.nav.languageLabel, locale)}
-							className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+							className="inline-flex min-h-6 items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
 						>
 							{t(copy.nav.language, locale)}
 						</Link>
