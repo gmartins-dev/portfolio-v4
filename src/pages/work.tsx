@@ -22,6 +22,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 						locale={locale}
 						headingLevel="h2"
 						reverse={index % 2 === 1}
+						priority={index === 0}
 					/>
 				))}
 			</div>

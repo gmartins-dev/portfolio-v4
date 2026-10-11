@@ -21,18 +21,24 @@ export function formatPeriod(
 export function WorkImage({
 	image,
 	locale,
+	sizes,
 	priority = false,
 	className,
 }: {
 	image: CaseStudy["image"];
 	locale: Locale;
-	/** The page's main image: load it eagerly for LCP. */
+	/** Rendered width per breakpoint, so the browser picks the right variant. */
+	sizes: string;
+	/** Likely the largest element in the first viewport: load it eagerly. */
 	priority?: boolean;
 	className?: string;
 }) {
+	const variant = (width: number) => `${image.src}-${width}.webp`;
 	return (
 		<img
-			src={image.src}
+			src={variant(Math.max(...image.widths))}
+			srcSet={image.widths.map((w) => `${variant(w)} ${w}w`).join(", ")}
+			sizes={sizes}
 			width={image.width}
 			height={image.height}
 			alt={t(image.alt, locale)}
@@ -56,11 +62,14 @@ export function CaseStudyTeaser({
 	locale,
 	headingLevel: Heading = "h3",
 	reverse = false,
+	priority = false,
 }: {
 	study: CaseStudy;
 	locale: Locale;
 	headingLevel?: "h2" | "h3";
 	reverse?: boolean;
+	/** First teaser on the page: often the mobile LCP element. */
+	priority?: boolean;
 }) {
 	const href = localizedPath(locale, `/work/${study.slug}`);
 	return (
@@ -69,6 +78,8 @@ export function CaseStudyTeaser({
 				<WorkImage
 					image={{ ...study.image, alt: { en: "", "pt-BR": "" } }}
 					locale={locale}
+					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, 100vw"
+					priority={priority}
 					className="aspect-[4/3]"
 				/>
 			</div>
@@ -118,6 +129,7 @@ export function ShortWorkItem({
 				<WorkImage
 					image={item.image}
 					locale={locale}
+					sizes="(min-width: 1024px) 590px, (min-width: 768px) 58vw, 100vw"
 					className="aspect-[16/9]"
 				/>
 			)}

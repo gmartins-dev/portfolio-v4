@@ -32,8 +32,8 @@ describe("server render", () => {
 		expect(html).toContain(
 			'<link rel="alternate" hrefLang="en" href="https://gmartins.dev/about"/>',
 		);
-		expect(html).toContain(
-			'<script type="module" src="/assets/entry-client-test.js"></script>',
+		expect(html).toMatch(
+			/<script type="module" src="\/assets\/entry-client-test.js"[^>]*><\/script>/,
 		);
 		// Dehydrated router state the client hydrates from.
 		expect(html).toContain("$_TSR");

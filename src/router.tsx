@@ -56,7 +56,12 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 		],
 		scripts: [
 			{ children: themeBootstrapScript },
-			{ type: "module", src: match.context.entryScript },
+			// The page is fully prerendered; hydration can wait behind the LCP image.
+			{
+				type: "module",
+				src: match.context.entryScript,
+				fetchPriority: "low",
+			},
 		],
 	}),
 	component: Document,

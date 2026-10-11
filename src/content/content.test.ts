@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { experience, profile } from "./profile";
@@ -51,6 +52,19 @@ describe("content", () => {
 	it("only publishes case studies cleared for disclosure", () => {
 		for (const study of caseStudies) {
 			expect(["public", "anonymized"]).toContain(study.disclosure);
+		}
+	});
+
+	it("has every image variant on disk", () => {
+		const images = [...caseStudies, ...otherWork].flatMap((item) =>
+			item.image ? [item.image] : [],
+		);
+		for (const image of images) {
+			for (const width of image.widths) {
+				const file = `public${image.src}-${width}.webp`;
+				expect(existsSync(file), file).toBe(true);
+			}
+			expect(Math.max(...image.widths)).toBe(image.width);
 		}
 	});
 

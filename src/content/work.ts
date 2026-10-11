@@ -37,9 +37,10 @@ const saf: CaseStudy = {
 		],
 	},
 	image: {
-		src: "/work/sdd-agentic-flow.jpg",
+		src: "/work/sdd-agentic-flow",
+		widths: [640, 838],
 		width: 838,
-		height: 900,
+		height: 629,
 		alt: {
 			en: "The sdd-agentic-flow README on GitHub: logo, tagline and project summary.",
 			"pt-BR":
@@ -151,9 +152,10 @@ const payments: CaseStudy = {
 		],
 	},
 	image: {
-		src: "/work/payments-api-node.jpg",
-		width: 1440,
-		height: 900,
+		src: "/work/payments-api-node",
+		widths: [640, 1280],
+		width: 1280,
+		height: 800,
 		alt: {
 			en: "The live demo, in Portuguese: one key, one stored result, no duplicate processing.",
 			"pt-BR":
@@ -268,9 +270,10 @@ export const otherWork: ShortWork[] = [
 		},
 		href: "https://github.com/gmartins-dev/links",
 		image: {
-			src: "/work/links.jpg",
-			width: 1440,
-			height: 900,
+			src: "/work/links",
+			widths: [640, 1280],
+			width: 1280,
+			height: 800,
 			alt: {
 				en: "The links project page, a collaborative list in Portuguese with contributor avatars.",
 				"pt-BR":

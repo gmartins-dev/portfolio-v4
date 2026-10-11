@@ -67,8 +67,13 @@ export const caseStudySchema = z.object({
 	period: z.object({ start: yearMonth, end: yearMonth.optional() }),
 	stack: z.array(z.string()).min(1),
 	facts: localizedList,
+	/**
+	 * Responsive WebP variants at public<src>-<width>.webp
+	 * (scripts/capture-work-images.mjs); width and height are the largest.
+	 */
 	image: z.object({
-		src: z.string().startsWith("/"),
+		src: z.string().regex(/^\/[\w/-]+$/),
+		widths: z.array(z.number().int().positive()).min(1),
 		width: z.number().int().positive(),
 		height: z.number().int().positive(),
 		alt: localized,

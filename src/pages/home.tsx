@@ -61,6 +61,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							study={study}
 							locale={locale}
 							reverse={index % 2 === 1}
+							priority={index === 0}
 						/>
 					))}
 				</div>

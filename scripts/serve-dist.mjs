@@ -1,10 +1,12 @@
 // Static server for dist/ that behaves like Vercel with cleanUrls: /about
-// serves about.html, unknown paths get 404.html with a 404 status, and
-// vercel.json redirects answer with their status. Used by the end-to-end
+// serves about.html, unknown paths get 404.html with a 404 status,
+// vercel.json redirects answer with their status, and text responses are
+// compressed as a CDN would. Used by the end-to-end
 // tests: `node scripts/serve-dist.mjs [port]`.
 import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
+import { gzipSync } from "node:zlib";
 
 const root = new URL("../dist/", import.meta.url).pathname;
 const port = Number(process.argv[2] ?? 4173);
@@ -32,6 +34,23 @@ async function existing(path) {
 	}
 }
 
+const compressible = new Set([".html", ".js", ".css", ".xml", ".txt", ".svg"]);
+
+async function send(req, res, status, file) {
+	const type = extname(file);
+	let body = await readFile(file);
+	const headers = { "content-type": types[type] ?? "application/octet-stream" };
+	if (
+		compressible.has(type) &&
+		/\bgzip\b/.test(req.headers["accept-encoding"] ?? "")
+	) {
+		body = gzipSync(body);
+		headers["content-encoding"] = "gzip";
+	}
+	res.writeHead(status, headers);
+	res.end(body);
+}
+
 createServer(async (req, res) => {
 	const pathname = decodeURIComponent(new URL(req.url, "http://x").pathname);
 	const redirect = redirects.find((r) => r.source === pathname);
@@ -51,12 +70,6 @@ createServer(async (req, res) => {
 	const file =
 		(extname(pathname) && (await existing(base))) ||
 		(await existing(join(root, `${page}.html`)));
-	if (file) {
-		res.writeHead(200, {
-			"content-type": types[extname(file)] ?? "application/octet-stream",
-		});
-		return res.end(await readFile(file));
-	}
-	res.writeHead(404, { "content-type": types[".html"] });
-	res.end(await readFile(join(root, "404.html")));
+	if (file) return send(req, res, 200, file);
+	return send(req, res, 404, join(root, "404.html"));
 }).listen(port, () => console.log(`serving dist/ on http://localhost:${port}`));
