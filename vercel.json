@@ -29,7 +29,7 @@
 		},
 		{
 			"source": "/email",
-			"destination": "mailto:contact@gmartins.dev",
+			"destination": "/#contact",
 			"permanent": false
 		},
 		{
