@@ -79,6 +79,8 @@ export const caseStudySchema = z.object({
 		width: z.number().int().positive(),
 		height: z.number().int().positive(),
 		alt: localized,
+		/** "contain" shows the whole image (diagrams); default crops to fill. */
+		fit: z.enum(["cover", "contain"]).optional(),
 	}),
 	/** Public links; anonymized work may have none (see the refinement below). */
 	links: z.array(z.object({ label: localized, href: externalUrl })),

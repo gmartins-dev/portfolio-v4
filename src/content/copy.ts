@@ -193,9 +193,9 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Most of my work as an employee, contractor or consultant is private under confidentiality terms, so this page focuses on personal and public projects.",
+			en: "Most of my work as an employee, contractor or consultant is private under confidentiality terms, so this page focuses on personal and public projects, plus one anonymized professional case study.",
 			"pt-BR":
-				"A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade, então esta página se concentra em projetos pessoais e públicos.",
+				"A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade, então esta página se concentra em projetos pessoais e públicos, mais um estudo de caso profissional anonimizado.",
 		},
 		otherHeading: {
 			en: "Client and community work",
@@ -208,6 +208,10 @@ export const copy = {
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
 		back: { en: "All work", "pt-BR": "Todos os trabalhos" },
 		present: { en: "present", "pt-BR": "atual" },
+		fullImage: {
+			en: "Open the full-size diagram",
+			"pt-BR": "Abrir o diagrama em tamanho real",
+		},
 	},
 	projects: {
 		heading: { en: "More projects", "pt-BR": "Mais projetos" },

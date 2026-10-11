@@ -46,7 +46,8 @@ export function WorkImage({
 			fetchPriority={priority ? "high" : "auto"}
 			decoding="async"
 			className={cn(
-				"h-auto w-full rounded-lg border bg-card object-cover object-top",
+				"h-auto w-full rounded-lg border bg-card object-top",
+				image.fit === "contain" ? "object-contain p-4" : "object-cover",
 				className,
 			)}
 		/>

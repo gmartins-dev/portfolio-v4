@@ -2,6 +2,11 @@
 export const pages = [
 	{ path: "/", lang: "en", h1: "From problem definition to production." },
 	{ path: "/work", lang: "en", h1: "Work" },
+	{
+		path: "/work/ai-first-online-banking",
+		lang: "en",
+		h1: "AI-first online banking platform",
+	},
 	{ path: "/work/sdd-agentic-flow", lang: "en", h1: "sdd-agentic-flow" },
 	{ path: "/work/priorize-me", lang: "en", h1: "Priorize.me" },
 	{
@@ -17,6 +22,11 @@ export const pages = [
 		h1: "Da definição do problema ao software em produção.",
 	},
 	{ path: "/pt-br/work", lang: "pt-BR", h1: "Trabalhos" },
+	{
+		path: "/pt-br/work/ai-first-online-banking",
+		lang: "pt-BR",
+		h1: "AI-first online banking platform",
+	},
 	{
 		path: "/pt-br/work/sdd-agentic-flow",
 		lang: "pt-BR",

@@ -75,6 +75,18 @@ export function CaseStudyPage({
 					priority
 					className="max-h-[36rem]"
 				/>
+				{study.image.fit === "contain" && (
+					// Diagrams shrink to fit the page; offer the full-size file.
+					<figcaption className="mt-2 text-sm">
+						<a
+							href={`${study.image.src}-${Math.max(...study.image.widths)}.webp`}
+							className="inline-flex min-h-6 items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
+						>
+							{t(copy.work.fullImage, locale)}
+							<ArrowUpRight aria-hidden="true" className="size-3.5" />
+						</a>
+					</figcaption>
+				)}
 			</figure>
 
 			{/* grid-cols-1 is minmax(0, 1fr): with the default auto minimum the

@@ -121,7 +121,8 @@ describe("head extras", () => {
 	});
 
 	it("links case studies to the person, the repository and a breadcrumb", () => {
-		const [study] = caseStudies;
+		const study = caseStudies.find((item) => item.slug === "sdd-agentic-flow");
+		if (!study) throw new Error("sdd-agentic-flow case study missing");
 		const [document] = caseStudyStructuredData("en", study);
 		const nodes = (document as { "@graph": Record<string, unknown>[] })[
 			"@graph"
