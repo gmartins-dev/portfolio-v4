@@ -25,3 +25,7 @@ dist-ssr
 
 # Local planning docs (not versioned)
 .local/
+
+# Playwright
+test-results/
+playwright-report/
