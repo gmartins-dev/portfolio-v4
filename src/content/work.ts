@@ -261,8 +261,57 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 export const caseStudies: CaseStudy[] = [saf, payments];
 
 export const otherWork: ShortWork[] = [
+	// deborablaso.com.br and psicologiadamoda.club: built by the owner for the
+	// same client (the club's pages name Débora Blaso as supervisor). Facts
+	// from the live sites and their repositories, checked 2026-10-11.
+	{
+		title: "Débora Blaso",
+		kind: { en: "Client website", "pt-BR": "Site para cliente" },
+		summary: {
+			en: "Professional website for a clinical psychologist and image consultant in Belo Horizonte, built with React, Vite and Tailwind CSS, with PostHog and Vercel analytics.",
+			"pt-BR":
+				"Site profissional de uma psicóloga clínica e consultora de imagem em Belo Horizonte, feito com React, Vite e Tailwind CSS, com analytics do PostHog e da Vercel.",
+		},
+		href: "https://www.deborablaso.com.br/",
+		image: {
+			src: "/images/work/debora-blaso",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The home page of deborablaso.com.br, in Portuguese, with the psychologist's portrait and a call to meet her.",
+				"pt-BR":
+					"A página inicial de deborablaso.com.br, com o retrato da psicóloga e um convite para conhecê-la.",
+			},
+		},
+	},
+	{
+		title: "Psicologia da Moda Clube",
+		kind: {
+			en: "Client product site",
+			"pt-BR": "Site de produto para cliente",
+		},
+		summary: {
+			en: "Landing pages for the same client's study group for psychologists, built with Next.js and focused on technical SEO, answer-engine readiness and mobile conversion.",
+			"pt-BR":
+				"Landing pages do grupo de estudos para psicólogas da mesma cliente, feitas com Next.js e focadas em SEO técnico, mecanismos de resposta e conversão no mobile.",
+		},
+		href: "https://www.psicologiadamoda.club/",
+		image: {
+			src: "/images/work/psicologia-da-moda-clube",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The study group landing page, in Portuguese, with its title and a call to join the group.",
+				"pt-BR":
+					"A landing page do grupo de estudos, com o título e um convite para participar do grupo.",
+			},
+		},
+	},
 	{
 		title: "links",
+		kind: { en: "Community project", "pt-BR": "Projeto da comunidade" },
 		summary: {
 			en: "A community-maintained list of free tools and resources for developers, started in 2022. 406 stars and 15 contributors on GitHub.",
 			"pt-BR":

@@ -109,7 +109,10 @@ export const copy = {
 		},
 		experienceHeading: { en: "Where I have worked", "pt-BR": "Onde trabalhei" },
 		fullHistory: { en: "Full background", "pt-BR": "Trajetória completa" },
-		openSourceHeading: { en: "Community", "pt-BR": "Comunidade" },
+		openSourceHeading: {
+			en: "Client and community work",
+			"pt-BR": "Clientes e comunidade",
+		},
 	},
 	capabilities: [
 		{
@@ -179,13 +182,13 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Two case studies in depth, plus community work. The About page covers client projects under NDA, without details.",
+			en: "Case studies in depth, plus client websites and community work. The About page covers client projects under NDA, without details.",
 			"pt-BR":
-				"Dois estudos de caso em profundidade, mais trabalhos com a comunidade. Projetos de clientes sob NDA aparecem na página Sobre, sem detalhes.",
+				"Estudos de caso em profundidade, mais sites para clientes e trabalhos com a comunidade. Projetos de clientes sob NDA aparecem na página Sobre, sem detalhes.",
 		},
 		otherHeading: {
-			en: "Community and other work",
-			"pt-BR": "Comunidade e outros trabalhos",
+			en: "Client and community work",
+			"pt-BR": "Clientes e comunidade",
 		},
 		role: { en: "Role", "pt-BR": "Papel" },
 		period: { en: "Period", "pt-BR": "Período" },
