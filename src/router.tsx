@@ -22,6 +22,7 @@ import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
 import { NotFoundPage } from "./pages/not-found";
+import { ProjectsPage } from "./pages/projects";
 import { WorkPage } from "./pages/work";
 import {
 	aboutStructuredData,
@@ -29,6 +30,7 @@ import {
 	caseStudyOgImage,
 	caseStudyStructuredData,
 	homeStructuredData,
+	projectsStructuredData,
 	workStructuredData,
 } from "./seo";
 import { themeBootstrapScript } from "./theme";
@@ -165,6 +167,12 @@ const pages: Page[] = [
 			render: (locale) => <CaseStudyPage study={study} locale={locale} />,
 		}),
 	),
+	{
+		path: "/projects",
+		...copy.meta.projects,
+		structuredData: projectsStructuredData,
+		render: (locale) => <ProjectsPage locale={locale} />,
+	},
 	{
 		path: "/about",
 		...copy.meta.about,

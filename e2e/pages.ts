@@ -9,6 +9,7 @@ export const pages = [
 		lang: "en",
 		h1: "Idempotent payments API",
 	},
+	{ path: "/projects", lang: "en", h1: "More projects" },
 	{ path: "/about", lang: "en", h1: "About" },
 	{
 		path: "/pt-br",
@@ -27,5 +28,6 @@ export const pages = [
 		lang: "pt-BR",
 		h1: "Idempotent payments API",
 	},
+	{ path: "/pt-br/projects", lang: "pt-BR", h1: "Mais projetos" },
 	{ path: "/pt-br/about", lang: "pt-BR", h1: "Sobre" },
 ] as const;

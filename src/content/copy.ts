@@ -32,6 +32,17 @@ export const copy = {
 					"Estudos de caso e projetos de Guilherme Martins: um SaaS colaborativo, ferramentas para desenvolvedores, consistência no backend, sites para clientes e projetos da comunidade.",
 			},
 		},
+		projects: {
+			title: {
+				en: "More projects | Guilherme Martins",
+				"pt-BR": "Mais projetos | Guilherme Martins",
+			},
+			description: {
+				en: "Smaller projects, technical challenges and earlier work by Guilherme Martins, with live demos and source code.",
+				"pt-BR":
+					"Projetos menores, desafios técnicos e trabalhos anteriores de Guilherme Martins, com demos e código-fonte.",
+			},
+		},
 		about: {
 			title: {
 				en: "About Guilherme Martins | Software Engineer",
@@ -197,6 +208,22 @@ export const copy = {
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
 		back: { en: "All work", "pt-BR": "Todos os trabalhos" },
 		present: { en: "present", "pt-BR": "atual" },
+	},
+	projects: {
+		heading: { en: "More projects", "pt-BR": "Mais projetos" },
+		intro: {
+			en: "Smaller projects, technical challenges and earlier work, kept here for reference. The Work page has my current work in depth.",
+			"pt-BR":
+				"Projetos menores, desafios técnicos e trabalhos anteriores, reunidos aqui como referência. A página Trabalhos mostra meu trabalho atual em profundidade.",
+		},
+		recent: {
+			en: "Recent projects and technical challenges",
+			"pt-BR": "Projetos recentes e desafios técnicos",
+		},
+		earlier: { en: "Earlier projects", "pt-BR": "Projetos anteriores" },
+		demo: { en: "Live demo", "pt-BR": "Demo" },
+		source: { en: "Source code", "pt-BR": "Código-fonte" },
+		link: { en: "More projects", "pt-BR": "Mais projetos" },
 	},
 	about: {
 		heading: { en: "About", "pt-BR": "Sobre" },

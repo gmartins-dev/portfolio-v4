@@ -43,6 +43,9 @@ checks only the site owner can make; each one is a launch blocker until done.
   joins sdd-agentic-flow and payments-api-node as a case study (live app
   linked, code private), and the Débora Blaso websites appear as client work.
   Still to confirm: the facts on each page.
+- **guitar-ai.** Requested for `/projects`, but
+  `github.com/gmartins-dev/guitar-ai` is private or doesn't exist, so it
+  isn't listed. Make it public (or share its URL) to add it.
 - **Visual direction (Phase 5).** One direction was implemented (DESIGN.md);
   the plan asked for two to compare. Decide whether to keep it, and whether to
   add a headshot.

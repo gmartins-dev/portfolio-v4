@@ -120,6 +120,19 @@ for (const file of readdirSync(join(dist, "assets"))) {
 	}
 }
 
+// Redirects to site pages must land on a page, and on an element when they
+// carry an anchor (legacy v3 project URLs point at /projects#<slug>).
+for (const { source, destination } of redirects) {
+	if (!destination.startsWith("/")) continue;
+	const [path, anchor] = destination.split("#");
+	const html = pages.get(path || "/");
+	if (!html) {
+		fail("vercel.json", `${source} redirects to missing page ${path}`);
+	} else if (anchor && !html.includes(` id="${anchor}"`)) {
+		fail("vercel.json", `${source} redirects to missing anchor #${anchor}`);
+	}
+}
+
 // llms.txt links to site pages must exist too.
 const llms = readFileSync(join(dist, "llms.txt"), "utf8");
 for (const [, link] of llms.matchAll(/\]\((https:\/\/gmartins\.dev[^)]*)\)/g)) {

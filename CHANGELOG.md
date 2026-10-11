@@ -5,6 +5,14 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### More projects page
+
+- `/projects` (both locales): ten smaller projects grouped as recent
+  projects and technical challenges (2025) and earlier projects (2022),
+  with kind, year, stack, demo and source links. Linked from `/work`.
+- The 14 v3 project URLs redirect to the matching entry or to the page;
+  `check:dist` verifies redirect targets and anchors.
+
 ### More work: Priorize.me and client websites
 
 - Priorize.me case study (product engineering): problem, approach,
