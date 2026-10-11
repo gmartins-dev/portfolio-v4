@@ -3,6 +3,7 @@ export const pages = [
 	{ path: "/", lang: "en", h1: "From problem definition to production." },
 	{ path: "/work", lang: "en", h1: "Work" },
 	{ path: "/work/sdd-agentic-flow", lang: "en", h1: "sdd-agentic-flow" },
+	{ path: "/work/priorize-me", lang: "en", h1: "Priorize.me" },
 	{
 		path: "/work/payments-api-node",
 		lang: "en",
@@ -20,6 +21,7 @@ export const pages = [
 		lang: "pt-BR",
 		h1: "sdd-agentic-flow",
 	},
+	{ path: "/pt-br/work/priorize-me", lang: "pt-BR", h1: "Priorize.me" },
 	{
 		path: "/pt-br/work/payments-api-node",
 		lang: "pt-BR",

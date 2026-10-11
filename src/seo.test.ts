@@ -139,6 +139,22 @@ describe("head extras", () => {
 		expect(nodes.some((node) => node["@type"] === "Person")).toBe(true);
 	});
 
+	it("describes a private-code product by its live application", () => {
+		const study = caseStudies.find((item) => item.slug === "priorize-me");
+		if (!study) throw new Error("priorize-me case study missing");
+		const [document] = caseStudyStructuredData("en", study);
+		const nodes = (document as { "@graph": Record<string, unknown>[] })[
+			"@graph"
+		];
+		expect(nodes[0]).toMatchObject({
+			"@type": "TechArticle",
+			about: {
+				"@type": "WebApplication",
+				url: "https://priorizeme.vercel.app/",
+			},
+		});
+	});
+
 	it("marks the About page as a ProfilePage about the person", () => {
 		const [document] = aboutStructuredData("pt-BR");
 		const [profilePage] = (document as { "@graph": object[] })["@graph"];

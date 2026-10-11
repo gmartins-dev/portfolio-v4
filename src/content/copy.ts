@@ -27,9 +27,9 @@ export const copy = {
 				"pt-BR": "Trabalhos e estudos de caso | Guilherme Martins",
 			},
 			description: {
-				en: "Case studies and open-source work by Guilherme Martins: developer tooling, backend consistency and community projects.",
+				en: "Case studies and projects by Guilherme Martins: a collaborative SaaS, developer tooling, backend consistency, client websites and community work.",
 				"pt-BR":
-					"Estudos de caso e trabalhos open source de Guilherme Martins: ferramentas para desenvolvedores, consistência no backend e projetos da comunidade.",
+					"Estudos de caso e projetos de Guilherme Martins: um SaaS colaborativo, ferramentas para desenvolvedores, consistência no backend, sites para clientes e projetos da comunidade.",
 			},
 		},
 		about: {
@@ -121,13 +121,13 @@ export const copy = {
 				"pt-BR": "Engenharia de produto em toda a stack",
 			},
 			body: {
-				en: "From requirements and architecture to delivery and production support, for client systems in healthcare and food service.",
+				en: "From requirements and architecture to delivery and production support, in my own SaaS and in client systems for healthcare and food service.",
 				"pt-BR":
-					"Dos requisitos e da arquitetura à entrega e sustentação em produção, em sistemas de clientes nas áreas de saúde e alimentação.",
+					"Dos requisitos e da arquitetura à entrega e sustentação em produção, no meu próprio SaaS e em sistemas de clientes nas áreas de saúde e alimentação.",
 			},
 			evidence: {
-				label: { en: "Experience", "pt-BR": "Experiência" },
-				to: "/about",
+				label: { en: "Priorize.me", "pt-BR": "Priorize.me" },
+				to: "/work/priorize-me",
 			},
 		},
 		{
