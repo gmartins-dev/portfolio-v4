@@ -29,7 +29,8 @@ static HTML at build time, using TanStack Router's own SSR primitives:
   `renderRouterToString`, which also dehydrates router state into the page.
 - `src/entry-client.tsx` hydrates `document` with `RouterClient`.
 - `scripts/prerender.mjs` runs the SSR bundle for every path in
-  `prerenderPaths` and writes `dist/<path>/index.html`. The SSR bundle is
+  `prerenderPaths` and writes `dist/<path>.html` (served at `/<path>` by
+  Vercel `cleanUrls`), plus `404.html` and `sitemap.xml`. The SSR bundle is
   deleted afterwards; only static files deploy.
 - The dev server renders HTML through the same entry (a small middleware in
   `vite.config.ts`), so dev and production markup match.
@@ -59,8 +60,16 @@ Locales: English at `/`, Brazilian Portuguese under `/pt-br`.
 - Every page is static HTML with correct head tags; hosting needs no server.
 - React hydrates whole pages, so client JavaScript size needs active
   attention (track it per route; avoid heavy client-only libraries).
-- The pages include a small inline script with the dehydrated router state.
-  The Content-Security-Policy must allow it (hash or nonce) when headers are
-  configured in M4.
-- New pages must be added to `pagePaths` in `src/router.tsx` so they are both
-  routed and prerendered.
+- The pages include a small inline script with the dehydrated router state,
+  which differs per page. The prerender step adds a per-page CSP `<meta>` that
+  allows each inline script by SHA-256 (`src/csp.ts`); TanStack writes NUL
+  separators into that script, which the HTML parser turns into U+FFFD, so
+  hashes are computed on the parsed text.
+- The client entry is content-hashed; the server learns its name from the
+  Vite manifest and the client from its own module URL, through the router
+  context.
+- One `404.html` answers unknown URLs in both languages, so it is bilingual
+  and ships without client JavaScript (it cannot hydrate against a path it
+  was not rendered for).
+- New pages must be added to the `pages` table in `src/router.tsx` so they
+  are routed, prerendered and listed in the sitemap.
