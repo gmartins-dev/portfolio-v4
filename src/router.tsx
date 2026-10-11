@@ -1,5 +1,5 @@
 import {
-	createRootRoute,
+	createRootRouteWithContext,
 	createRoute,
 	createRouter,
 	HeadContent,
@@ -25,7 +25,13 @@ import { themeBootstrapScript } from "./theme";
 
 // The root route renders the whole HTML document, so the server render
 // (dev middleware and build-time prerender) and client hydration share one tree.
-const rootRoute = createRootRoute({
+/** Per-build values the server and the client both pass in. */
+export type RouterContext = {
+	/** URL of the client entry module: hashed in production, source in dev. */
+	entryScript: string;
+};
+
+const rootRoute = createRootRouteWithContext<RouterContext>()({
 	head: ({ match }) => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -50,11 +56,7 @@ const rootRoute = createRootRoute({
 		],
 		scripts: [
 			{ children: themeBootstrapScript },
-			{
-				type: "module",
-				// Fixed name set in vite.config.ts; the dev server serves the source.
-				src: import.meta.env.DEV ? "/src/entry-client.tsx" : "/entry-client.js",
-			},
+			{ type: "module", src: match.context.entryScript },
 		],
 	}),
 	component: Document,
@@ -158,6 +160,6 @@ export const prerenderPaths = locales.flatMap((locale) =>
 	pages.map((page) => localizedPath(locale, page.path)),
 );
 
-export function createAppRouter() {
-	return createRouter({ routeTree });
+export function createAppRouter(context: RouterContext) {
+	return createRouter({ routeTree, context });
 }

@@ -3,7 +3,7 @@ import {
 	RouterServer,
 	renderRouterToString,
 } from "@tanstack/react-router/ssr/server";
-import { createAppRouter, pagePaths } from "./router";
+import { createAppRouter, pagePaths, type RouterContext } from "./router";
 import { buildSitemap, siteUrl } from "./seo";
 
 export { prerenderPaths } from "./router";
@@ -16,10 +16,13 @@ export const sitemap = buildSitemap(pagePaths);
  * state that entry-client.tsx hydrates from. Used by the dev server
  * middleware and by scripts/prerender.mjs; never deployed.
  */
-export async function render(url: string): Promise<Response> {
+export async function render(
+	url: string,
+	context: RouterContext,
+): Promise<Response> {
 	const handler = createRequestHandler({
 		request: new Request(new URL(url, siteUrl)),
-		createRouter: createAppRouter,
+		createRouter: () => createAppRouter(context),
 	});
 	return handler(({ router, responseHeaders }) =>
 		renderRouterToString({

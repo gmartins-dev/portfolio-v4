@@ -42,7 +42,9 @@ function devServerRender(): Plugin {
 						const { render } = await server.ssrLoadModule(
 							entry("entry-server.tsx"),
 						);
-						const response: Response = await render(url);
+						const response: Response = await render(url, {
+							entryScript: "/src/entry-client.tsx",
+						});
 						// transformIndexHtml injects the Vite client and React Refresh
 						// preamble with indentation; whitespace text nodes in <head>
 						// would break hydration, so collapse whitespace between tags.
@@ -75,11 +77,9 @@ export default defineConfig(({ isSsrBuild }) => ({
 		? { outDir: "dist-ssr", copyPublicDir: false }
 		: {
 				outDir: "dist",
-				rollupOptions: {
-					input: entry("entry-client.tsx"),
-					// Stable name: the root route references /entry-client.js directly.
-					output: { entryFileNames: "[name].js" },
-				},
+				// scripts/prerender.mjs reads the hashed entry name from the manifest.
+				manifest: true,
+				rollupOptions: { input: entry("entry-client.tsx") },
 			},
 	test: {
 		include: ["src/**/*.test.{ts,tsx}"],

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { prerenderPaths, render } from "./entry-server";
 
+const context = { entryScript: "/assets/entry-client-test.js" };
+
 describe("server render", () => {
 	it("prerenders every page in both locales", () => {
 		expect(prerenderPaths).toEqual([
@@ -18,7 +20,7 @@ describe("server render", () => {
 	});
 
 	it("emits a complete localized document for a PT-BR page", async () => {
-		const response = await render("/pt-br/about");
+		const response = await render("/pt-br/about", context);
 		const html = await response.text();
 
 		expect(response.status).toBe(200);
@@ -30,12 +32,15 @@ describe("server render", () => {
 		expect(html).toContain(
 			'<link rel="alternate" hrefLang="en" href="https://gmartins.dev/about"/>',
 		);
+		expect(html).toContain(
+			'<script type="module" src="/assets/entry-client-test.js"></script>',
+		);
 		// Dehydrated router state the client hydrates from.
 		expect(html).toContain("$_TSR");
 	});
 
 	it("returns 404 for unknown paths", async () => {
-		const response = await render("/does-not-exist");
+		const response = await render("/does-not-exist", context);
 		expect(response.status).toBe(404);
 	});
 });
