@@ -27,9 +27,20 @@ export const copy = {
 				"pt-BR": "Trabalhos e estudos de caso | Guilherme Martins",
 			},
 			description: {
-				en: "Case studies and open-source work by Guilherme Martins: developer tooling, backend consistency and community projects.",
+				en: "Case studies and projects by Guilherme Martins: a collaborative SaaS, developer tooling, backend consistency, client websites and community work.",
 				"pt-BR":
-					"Estudos de caso e trabalhos open source de Guilherme Martins: ferramentas para desenvolvedores, consistência no backend e projetos da comunidade.",
+					"Estudos de caso e projetos de Guilherme Martins: um SaaS colaborativo, ferramentas para desenvolvedores, consistência no backend, sites para clientes e projetos da comunidade.",
+			},
+		},
+		projects: {
+			title: {
+				en: "More projects | Guilherme Martins",
+				"pt-BR": "Mais projetos | Guilherme Martins",
+			},
+			description: {
+				en: "Smaller projects, technical challenges and earlier work by Guilherme Martins, with live demos and source code.",
+				"pt-BR":
+					"Projetos menores, desafios técnicos e trabalhos anteriores de Guilherme Martins, com demos e código-fonte.",
 			},
 		},
 		about: {
@@ -109,7 +120,10 @@ export const copy = {
 		},
 		experienceHeading: { en: "Where I have worked", "pt-BR": "Onde trabalhei" },
 		fullHistory: { en: "Full background", "pt-BR": "Trajetória completa" },
-		openSourceHeading: { en: "Community", "pt-BR": "Comunidade" },
+		openSourceHeading: {
+			en: "Client and community work",
+			"pt-BR": "Clientes e comunidade",
+		},
 	},
 	capabilities: [
 		{
@@ -118,13 +132,13 @@ export const copy = {
 				"pt-BR": "Engenharia de produto em toda a stack",
 			},
 			body: {
-				en: "From requirements and architecture to delivery and production support, for client systems in healthcare and food service.",
+				en: "From requirements and architecture to delivery and production support, in my own SaaS and in client systems for healthcare and food service.",
 				"pt-BR":
-					"Dos requisitos e da arquitetura à entrega e sustentação em produção, em sistemas de clientes nas áreas de saúde e alimentação.",
+					"Dos requisitos e da arquitetura à entrega e sustentação em produção, no meu próprio SaaS e em sistemas de clientes nas áreas de saúde e alimentação.",
 			},
 			evidence: {
-				label: { en: "Experience", "pt-BR": "Experiência" },
-				to: "/about",
+				label: { en: "Priorize.me", "pt-BR": "Priorize.me" },
+				to: "/work/priorize-me",
 			},
 		},
 		{
@@ -179,13 +193,13 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Two case studies in depth, plus community work. The About page covers client projects under NDA, without details.",
+			en: "Case studies in depth, plus client websites and community work. The About page covers client projects under NDA, without details.",
 			"pt-BR":
-				"Dois estudos de caso em profundidade, mais trabalhos com a comunidade. Projetos de clientes sob NDA aparecem na página Sobre, sem detalhes.",
+				"Estudos de caso em profundidade, mais sites para clientes e trabalhos com a comunidade. Projetos de clientes sob NDA aparecem na página Sobre, sem detalhes.",
 		},
 		otherHeading: {
-			en: "Community and other work",
-			"pt-BR": "Comunidade e outros trabalhos",
+			en: "Client and community work",
+			"pt-BR": "Clientes e comunidade",
 		},
 		role: { en: "Role", "pt-BR": "Papel" },
 		period: { en: "Period", "pt-BR": "Período" },
@@ -194,6 +208,22 @@ export const copy = {
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
 		back: { en: "All work", "pt-BR": "Todos os trabalhos" },
 		present: { en: "present", "pt-BR": "atual" },
+	},
+	projects: {
+		heading: { en: "More projects", "pt-BR": "Mais projetos" },
+		intro: {
+			en: "Smaller projects, technical challenges and earlier work, kept here for reference. The Work page has my current work in depth.",
+			"pt-BR":
+				"Projetos menores, desafios técnicos e trabalhos anteriores, reunidos aqui como referência. A página Trabalhos mostra meu trabalho atual em profundidade.",
+		},
+		recent: {
+			en: "Recent projects and technical challenges",
+			"pt-BR": "Projetos recentes e desafios técnicos",
+		},
+		earlier: { en: "Earlier projects", "pt-BR": "Projetos anteriores" },
+		demo: { en: "Live demo", "pt-BR": "Demo" },
+		source: { en: "Source code", "pt-BR": "Código-fonte" },
+		link: { en: "More projects", "pt-BR": "Mais projetos" },
 	},
 	about: {
 		heading: { en: "About", "pt-BR": "Sobre" },

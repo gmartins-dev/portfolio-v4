@@ -9,12 +9,16 @@ describe("server render", () => {
 			"/",
 			"/work",
 			"/work/sdd-agentic-flow",
+			"/work/priorize-me",
 			"/work/payments-api-node",
+			"/projects",
 			"/about",
 			"/pt-br",
 			"/pt-br/work",
 			"/pt-br/work/sdd-agentic-flow",
+			"/pt-br/work/priorize-me",
 			"/pt-br/work/payments-api-node",
+			"/pt-br/projects",
 			"/pt-br/about",
 		]);
 	});

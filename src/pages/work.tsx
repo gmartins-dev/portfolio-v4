@@ -1,7 +1,9 @@
+import { Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { CaseStudyTeaser, ShortWorkItem } from "../components/work";
 import { copy, t } from "../content/copy";
 import { caseStudies, otherWork } from "../content/work";
-import type { Locale } from "../i18n";
+import { type Locale, localizedPath } from "../i18n";
 
 export function WorkPage({ locale }: { locale: Locale }) {
 	return (
@@ -36,6 +38,15 @@ export function WorkPage({ locale }: { locale: Locale }) {
 					))}
 				</div>
 			</section>
+			<p className="mt-16">
+				<Link
+					to={localizedPath(locale, "/projects")}
+					className="inline-flex min-h-6 items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
+				>
+					{t(copy.projects.link, locale)}
+					<ArrowRight aria-hidden="true" className="size-4" />
+				</Link>
+			</p>
 		</>
 	);
 }

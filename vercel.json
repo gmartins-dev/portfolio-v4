@@ -37,20 +37,107 @@
 			"destination": "https://gmartins-links.vercel.app/",
 			"permanent": false
 		},
-		{ "source": "/resume", "destination": "/about", "permanent": true },
-		{ "source": "/construction", "destination": "/", "permanent": true }
+		{
+			"source": "/resume",
+			"destination": "/about",
+			"permanent": true
+		},
+		{
+			"source": "/construction",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/sharespot",
+			"destination": "/projects#sharespot",
+			"permanent": true
+		},
+		{
+			"source": "/projects/mobile/fwc",
+			"destination": "/projects#bemyguess",
+			"permanent": true
+		},
+		{
+			"source": "/projects/mobile/bank",
+			"destination": "/projects#online-bank",
+			"permanent": true
+		},
+		{
+			"source": "/projects/mobile/flappybird",
+			"destination": "/projects#flappybird",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/netflix",
+			"destination": "/projects#netflix-clone",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/chat",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/dashboard",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/etickets",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/gallery",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/ihungry",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/linktree",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/pokedex",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/portfolio",
+			"destination": "/projects",
+			"permanent": true
+		},
+		{
+			"source": "/projects/web/superbid",
+			"destination": "/projects",
+			"permanent": true
+		}
 	],
 	"headers": [
 		{
 			"source": "/(.*)",
 			"headers": [
-				{ "key": "X-Content-Type-Options", "value": "nosniff" },
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
+				},
 				{
 					"key": "Referrer-Policy",
 					"value": "strict-origin-when-cross-origin"
 				},
-				{ "key": "X-Frame-Options", "value": "DENY" },
-				{ "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+				{
+					"key": "X-Frame-Options",
+					"value": "DENY"
+				},
+				{
+					"key": "Cross-Origin-Opener-Policy",
+					"value": "same-origin"
+				},
 				{
 					"key": "Strict-Transport-Security",
 					"value": "max-age=63072000; includeSubDomains"

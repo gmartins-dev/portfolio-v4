@@ -87,15 +87,34 @@ export const caseStudySchema = z.object({
 
 export const shortWorkSchema = z.object({
 	title: z.string(),
+	/** What the work is, e.g. "Client website" or "Community project". */
+	kind: localized,
 	summary: localized,
 	href: externalUrl,
 	image: caseStudySchema.shape.image.optional(),
+});
+
+/**
+ * Smaller and earlier projects, listed compactly on /projects. `slug` is the
+ * in-page anchor that legacy v3 URLs redirect to (vercel.json).
+ */
+export const projectSchema = z.object({
+	slug: z.string().regex(/^[a-z0-9-]+$/),
+	title: z.string(),
+	year: z.number().int().min(2020),
+	group: z.enum(["recent", "earlier"]),
+	kind: localized,
+	summary: localized,
+	stack: z.array(z.string()).min(1),
+	source: externalUrl,
+	demo: externalUrl.optional(),
 });
 
 export type Profile = z.infer<typeof profileSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
 export type CaseStudy = z.infer<typeof caseStudySchema>;
 export type ShortWork = z.infer<typeof shortWorkSchema>;
+export type Project = z.infer<typeof projectSchema>;
 
 // Keep the schema's locale keys in lockstep with the app's locale list.
 const schemaLocales = Object.keys(localized.shape);
