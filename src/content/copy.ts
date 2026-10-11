@@ -179,7 +179,7 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Two case studies in depth, plus community work. Client projects under NDA are described on the About page without details.",
+			en: "Two case studies in depth, plus community work. The About page covers client projects under NDA, without details.",
 			"pt-BR":
 				"Dois estudos de caso em profundidade, mais trabalhos com a comunidade. Projetos de clientes sob NDA aparecem na página Sobre, sem detalhes.",
 		},
@@ -201,12 +201,12 @@ export const copy = {
 			en: [
 				"I'm a Software Engineer with strong frontend expertise and full-stack experience, building and evolving production software across different products, domains and teams.",
 				"I work across the whole lifecycle: understanding product and business requirements, designing the technical solution, then implementation, testing, deployment, production support and continued evolution.",
-				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend remains one of my strongest areas, especially complex product interfaces, frontend architecture and design systems.",
+				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend remains one of my strongest areas: complex product interfaces, frontend architecture and design systems.",
 			],
 			"pt-BR": [
 				"Sou Software Engineer com forte experiência em frontend e atuação full-stack, construindo e evoluindo software em produção em diferentes produtos, domínios e times.",
 				"Atuo em todo o ciclo: entender requisitos de produto e de negócio, desenhar a solução técnica e depois implementar, testar, colocar em produção, sustentar e evoluir.",
-				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Frontend continua sendo uma das minhas áreas mais fortes, principalmente interfaces de produto complexas, arquitetura de frontend e design systems.",
+				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Frontend continua sendo uma das minhas áreas mais fortes: interfaces de produto complexas, arquitetura de frontend e design systems.",
 			],
 		},
 		experienceHeading: { en: "Experience", "pt-BR": "Experiência" },
