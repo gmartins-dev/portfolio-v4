@@ -25,6 +25,8 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Runtime dependencies only: dev tools never reach visitors. See SECURITY.md.
+      - run: pnpm audit --prod --audit-level high
       - run: pnpm check
       - run: pnpm build
       - run: pnpm check:dist
