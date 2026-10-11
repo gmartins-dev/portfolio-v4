@@ -55,6 +55,18 @@ update its `reviewed` date; it feeds the visible "Facts checked on" line,
 5. Run every quality gate. The page, its routes, sitemap entry, JSON-LD, and
    `llms.txt` line come from the content entry automatically.
 
+## Add a smaller project
+
+Projects that don't need a case study go on `/projects`.
+
+1. Add an entry to `src/content/projects.ts` in its group (`recent` or
+   `earlier`), newest first. Link a `demo` only if it responds.
+2. Use `kind` to say what the work was. Label hiring-process work
+   "Technical challenge" and don't name the company.
+3. If an old URL pointed to the project, add a redirect in `vercel.json`
+   to `/projects#<slug>`. `pnpm check:dist` fails if the anchor doesn't
+   exist.
+
 ## Add a page
 
 1. Create the component in `src/pages/`. It receives `locale` as a prop.
