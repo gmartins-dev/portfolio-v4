@@ -193,9 +193,9 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Case studies in depth, plus client websites and community work. The About page covers client projects under NDA, without details.",
+			en: "Most of my work as an employee, contractor or consultant is private under confidentiality terms, so this page focuses on personal and public projects.",
 			"pt-BR":
-				"Estudos de caso em profundidade, mais sites para clientes e trabalhos com a comunidade. Projetos de clientes sob NDA aparecem na página Sobre, sem detalhes.",
+				"A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade, então esta página se concentra em projetos pessoais e públicos.",
 		},
 		otherHeading: {
 			en: "Client and community work",
@@ -238,6 +238,11 @@ export const copy = {
 				"Atuo em todo o ciclo: entender requisitos de produto e de negócio, desenhar a solução técnica e depois implementar, testar, colocar em produção, sustentar e evoluir.",
 				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Frontend continua sendo uma das minhas áreas mais fortes: interfaces de produto complexas, arquitetura de frontend e design systems.",
 			],
+		},
+		confidential: {
+			en: "Much of the work below was done for employers and clients under confidentiality terms, so I can't share its details. That's why the Work page focuses on personal and public projects.",
+			"pt-BR":
+				"Boa parte do trabalho abaixo foi feita para empregadores e clientes sob termos de confidencialidade, por isso não posso compartilhar detalhes. É por isso que a página Trabalhos se concentra em projetos pessoais e públicos.",
 		},
 		experienceHeading: { en: "Experience", "pt-BR": "Experiência" },
 		toolsHeading: { en: "Tools I use", "pt-BR": "Ferramentas que uso" },

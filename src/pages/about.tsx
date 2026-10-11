@@ -18,6 +18,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 				))}
 			</div>
 
+			<p className="mt-8 max-w-prose border-l-2 border-brand pl-4 text-muted-foreground">
+				{t(copy.about.confidential, locale)}
+			</p>
+
 			<section aria-labelledby="experience" className="mt-24">
 				<h2 id="experience" className={sectionHeading}>
 					{t(copy.about.experienceHeading, locale)}
