@@ -1,7 +1,7 @@
 import type { Experience, Profile } from "./schema";
 
-// Sources: resume EN/PT-BR (Drive files behind /cv and /cv-br) and the GitHub
-// profile README, checked 2026-10-11. Job titles follow the PT-BR resume,
+// Sources: resume EN/PT-BR (Drive files behind /cv and /cv-br), the LinkedIn
+// experience page and the GitHub profile README, checked 2026-10-11. Job titles follow the PT-BR resume,
 // which keeps the title held at the time rather than today's title.
 // Validated against the schemas at build time (src/content/validate.ts).
 export const profile: Profile = {
@@ -117,6 +117,7 @@ export const experience: Experience[] = [
 	},
 	{
 		company: "Loop",
+		url: "https://www.loop.software",
 		role: "Frontend Developer",
 		location: {
 			en: "Moreton-in-Marsh, UK",
@@ -141,6 +142,31 @@ export const experience: Experience[] = [
 		},
 	},
 	{
+		company: "ChatWith.io",
+		url: "https://chatwith.io",
+		role: "Frontend Developer",
+		location: { en: "Madrid, Spain", "pt-BR": "Madri, Espanha" },
+		start: "2022-10",
+		end: "2023-03",
+		context: {
+			en: "Contract work on a SaaS platform that helps businesses run marketing, sales and customer relationships through WhatsApp.",
+			"pt-BR":
+				"Contrato em uma plataforma SaaS que ajuda empresas a fazer marketing, vendas e relacionamento com clientes pelo WhatsApp.",
+		},
+		highlights: {
+			en: [
+				"Built and maintained customer-facing features of the web application in Vue.js and JavaScript.",
+				"Investigated and fixed frontend issues that affected the platform's users day to day.",
+				"Implemented responsive interfaces from product and design requirements with Sass, Bootstrap and Figma.",
+			],
+			"pt-BR": [
+				"Desenvolvi e mantive funcionalidades da aplicação web usadas pelos clientes, em Vue.js e JavaScript.",
+				"Investiguei e corrigi problemas de frontend que afetavam o dia a dia dos usuários da plataforma.",
+				"Implementei interfaces responsivas a partir de requisitos de produto e design, com Sass, Bootstrap e Figma.",
+			],
+		},
+	},
+	{
 		company: "Freelance",
 		role: "Full-Stack Developer",
 		location: {
@@ -148,7 +174,7 @@ export const experience: Experience[] = [
 			"pt-BR": "Belo Horizonte, Brasil",
 		},
 		start: "2021-09",
-		end: "2023-03",
+		end: "2022-10",
 		context: {
 			en: "Freelance and independent web projects.",
 			"pt-BR": "Projetos web freelance e independentes.",
