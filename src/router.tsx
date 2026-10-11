@@ -3,16 +3,21 @@ import {
 	createRoute,
 	createRouter,
 	HeadContent,
-	Link,
 	Outlet,
 	Scripts,
 	useLocation,
 } from "@tanstack/react-router";
-import { type PageCopy, pages } from "./content/pages";
+import type { ReactNode } from "react";
+import { SiteFooter } from "./components/site-footer";
+import { SiteHeader } from "./components/site-header";
+import { copy, t } from "./content/copy";
+import type { Localized } from "./content/schema";
 import { type Locale, localeFromPath, locales, localizedPath } from "./i18n";
 import stylesheet from "./index.css?url";
+import { AboutPage } from "./pages/about";
+import { HomePage } from "./pages/home";
 import { buildHead } from "./seo";
-import { ThemeToggle, themeBootstrapScript } from "./theme";
+import { themeBootstrapScript } from "./theme";
 
 // The root route renders the whole HTML document, so the server render
 // (dev middleware and build-time prerender) and client hydration share one tree.
@@ -42,89 +47,65 @@ function Document() {
 			<head>
 				<HeadContent />
 			</head>
-			<body>
-				<Outlet />
+			<body className="flex min-h-dvh flex-col">
+				<SiteHeader />
+				<main
+					id="main"
+					className="mx-auto w-full max-w-5xl flex-1 px-4 sm:px-6"
+				>
+					<Outlet />
+				</main>
+				<SiteFooter />
 				<Scripts />
 			</body>
 		</html>
 	);
 }
 
-type PageKey = keyof typeof pages;
-
-/** Locale-neutral path for each page. */
-const pagePaths: Record<PageKey, string> = {
-	home: "/",
-	about: "/about",
+/** One page of the site: a locale-neutral path, its metadata and its component. */
+type Page = {
+	path: string;
+	title: Localized;
+	description: Localized;
+	render: (locale: Locale) => ReactNode;
 };
 
-function Page({
-	locale,
-	page,
-	copy,
-}: {
-	locale: Locale;
-	page: PageKey;
-	copy: PageCopy;
-}) {
-	const other = locales.find((l) => l !== locale) ?? locale;
-	return (
-		<main className="mx-auto max-w-2xl px-4 py-16">
-			<nav aria-label={locale === "en" ? "Main" : "Principal"}>
-				<ul className="flex gap-4 text-sm">
-					{(Object.keys(pagePaths) as PageKey[]).map((key) => (
-						<li key={key}>
-							<Link
-								to={localizedPath(locale, pagePaths[key])}
-								activeOptions={{ exact: true }}
-							>
-								{pages[key][locale].heading}
-							</Link>
-						</li>
-					))}
-					<li>
-						<Link to={localizedPath(other, pagePaths[page])} hrefLang={other}>
-							{other === "en" ? "English" : "Português"}
-						</Link>
-					</li>
-				</ul>
-				<ThemeToggle
-					label="Theme"
-					optionLabels={{ light: "Light", dark: "Dark", system: "System" }}
-				/>
-			</nav>
-			<h1 className="mt-8 text-3xl font-semibold">{copy.heading}</h1>
-			<p className="mt-4">{copy.body}</p>
-		</main>
-	);
-}
+const pages: Page[] = [
+	{
+		path: "/",
+		...copy.meta.home,
+		render: (locale) => <HomePage locale={locale} />,
+	},
+	{
+		path: "/about",
+		...copy.meta.about,
+		render: (locale) => <AboutPage locale={locale} />,
+	},
+];
 
-/** One route per page per locale; PT-BR routes nest under /pt-br. */
-function pageRoutes(locale: Locale, parent: typeof rootRoute) {
-	return (Object.keys(pagePaths) as PageKey[]).map((page) => {
-		const copy = pages[page][locale];
-		return createRoute({
-			getParentRoute: () => parent,
-			path: localizedPath(locale, pagePaths[page]),
+/** One route per page per locale; PT-BR routes live under /pt-br. */
+const pageRoutes = locales.flatMap((locale) =>
+	pages.map((page) =>
+		createRoute({
+			getParentRoute: () => rootRoute,
+			path: localizedPath(locale, page.path),
 			head: () =>
 				buildHead({
 					locale,
-					path: pagePaths[page],
-					title: copy.title,
-					description: copy.description,
+					path: page.path,
+					title: t(page.title, locale),
+					description: t(page.description, locale),
 				}),
-			component: () => <Page locale={locale} page={page} copy={copy} />,
-		});
-	});
-}
-
-const routeTree = rootRoute.addChildren(
-	locales.flatMap((locale) => pageRoutes(locale, rootRoute)),
+			component: () => page.render(locale),
+		}),
+	),
 );
+
+const routeTree = rootRoute.addChildren(pageRoutes);
 
 /** Every URL the prerender step writes to disk. */
 export const prerenderPaths = locales.flatMap((locale) =>
-	Object.values(pagePaths).map((path) => localizedPath(locale, path)),
+	pages.map((page) => localizedPath(locale, page.path)),
 );
 
 export function createAppRouter() {
