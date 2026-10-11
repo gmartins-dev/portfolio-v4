@@ -1,5 +1,6 @@
 import { copy } from "./content/copy";
 import { profile } from "./content/profile";
+import { projects } from "./content/projects";
 import type { CaseStudy } from "./content/schema";
 import { type Locale, locales, localizedPath } from "./i18n";
 
@@ -173,6 +174,36 @@ export function workStructuredData(locale: Locale, studies: CaseStudy[]) {
 			breadcrumbNode(locale, [
 				{ name: copy.nav.home[locale], path: "/" },
 				{ name: copy.nav.work[locale], path: "/work" },
+			]),
+			personNode(),
+			websiteNode(locale),
+		]),
+	];
+}
+
+/** More projects: a collection of source code entries, with a breadcrumb. */
+export function projectsStructuredData(locale: Locale) {
+	return [
+		graph([
+			{
+				"@type": "CollectionPage",
+				url: pageUrl(locale, "/projects"),
+				name: copy.meta.projects.title[locale],
+				inLanguage: locale,
+				isPartOf: { "@id": websiteId },
+				hasPart: projects.map((project) => ({
+					"@type": "SoftwareSourceCode",
+					name: project.title,
+					description: project.summary[locale],
+					codeRepository: project.source,
+					...(project.demo && { url: project.demo }),
+					dateCreated: String(project.year),
+					author: { "@id": personId },
+				})),
+			},
+			breadcrumbNode(locale, [
+				{ name: copy.nav.home[locale], path: "/" },
+				{ name: copy.projects.heading[locale], path: "/projects" },
 			]),
 			personNode(),
 			websiteNode(locale),

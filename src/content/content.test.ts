@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { experience, profile } from "./profile";
+import { projects } from "./projects";
 import { validateContent } from "./validate";
 import { caseStudies, otherWork } from "./work";
 
@@ -18,7 +19,7 @@ function strings(value: unknown, path = "$"): [string, string][] {
 	return [];
 }
 
-const content = { copy, profile, experience, caseStudies, otherWork };
+const content = { copy, profile, experience, caseStudies, otherWork, projects };
 
 describe("content", () => {
 	it("matches the schemas", () => {
@@ -65,6 +66,21 @@ describe("content", () => {
 				expect(existsSync(file), file).toBe(true);
 			}
 			expect(Math.max(...image.widths)).toBe(image.width);
+		}
+	});
+
+	it("gives every project a unique anchor, distinct from case study slugs", () => {
+		const anchors = projects.map((project) => project.slug);
+		expect(new Set(anchors).size).toBe(anchors.length);
+		for (const study of caseStudies) expect(anchors).not.toContain(study.slug);
+	});
+
+	it("lists projects newest first within each group", () => {
+		for (const group of ["recent", "earlier"] as const) {
+			const years = projects
+				.filter((p) => p.group === group)
+				.map((p) => p.year);
+			expect(years).toEqual([...years].sort((a, b) => b - a));
 		}
 	});
 

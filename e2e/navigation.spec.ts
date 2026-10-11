@@ -86,6 +86,9 @@ test("legacy short links redirect", async ({ request }) => {
 		// Vercel cannot redirect to mailto: (it becomes a relative path, as v3
 		// shows), so the short link lands on the contact section instead.
 		["/email", 307, "/#contact"],
+		// v3 project pages land on the matching entry of /projects.
+		["/projects/web/sharespot", 308, "/projects#sharespot"],
+		["/projects/web/pokedex", 308, "/projects"],
 	] as const;
 	for (const [path, status, location] of cases) {
 		const response = await request.get(path, { maxRedirects: 0 });
