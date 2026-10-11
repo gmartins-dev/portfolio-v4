@@ -15,6 +15,7 @@
 | Full e2e (first run: `pnpm exec playwright install chromium`) | `pnpm test:e2e` |
 | Recapture project screenshots (hits live URLs) | `pnpm capture:work-images` |
 | Re-render social cards | `pnpm build:og-images` |
+| Re-render anonymized diagrams | `pnpm render:diagrams` |
 
 ## External References
 | Need | File |
@@ -29,6 +30,7 @@
 ## Key Conventions
 - Every visible string lives in `src/content/` as `{ en, "pt-BR" }`; change both languages together.
 - Never invent facts: profile and experience come from the resumes, case studies from public repositories.
+- Never name confidential employers, clients or internal projects; anonymized work follows `docs/maintenance.md` and must pass the `scripts/denylist.json` check.
 - Update a case study's `reviewed` date when you re-check its facts.
 - No em or en dashes in visible text (enforced by `src/content/content.test.ts`).
 - Token values live only in `src/index.css`; use Tailwind token utilities, never raw colors.

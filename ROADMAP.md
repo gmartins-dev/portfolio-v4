@@ -43,6 +43,9 @@ checks only the site owner can make; each one is a launch blocker until done.
   joins sdd-agentic-flow and payments-api-node as a case study (live app
   linked, code private), and the Débora Blaso websites appear as client work.
   Still to confirm: the facts on each page.
+- **Anonymized case study.** Confirm the company allows the anonymized
+  description of the AI-first online banking platform (and naming Uber)
+  before launch. Keep `scripts/denylist.json` up to date.
 - **guitar-ai.** Requested for `/projects`, but
   `github.com/gmartins-dev/guitar-ai` is private or doesn't exist, so it
   isn't listed. Make it public (or share its URL) to add it.

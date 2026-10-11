@@ -5,6 +5,20 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Confidential work
+
+- The Work page, About and `llms.txt` state that most work as an employee,
+  contractor or consultant is confidential, so the site focuses on
+  personal and public projects.
+- Anonymized case study "AI-first online banking platform" (current
+  professional work): high-level architecture and role, an abstract
+  diagram instead of screenshots, no links. Uber is named as a partner by
+  the owner's decision.
+- Content model: year-only periods, link-less anonymized case studies,
+  images that fit without cropping.
+- Leak guard: hashed denylist checked by the content tests and
+  `check:dist`.
+
 ### More projects page
 
 - `/projects` (both locales): ten smaller projects grouped as recent
