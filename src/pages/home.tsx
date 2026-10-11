@@ -1,9 +1,17 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "../components/ui/button";
+import {
+	CaseStudyTeaser,
+	formatPeriod,
+	ShortWorkItem,
+} from "../components/work";
 import { copy, t } from "../content/copy";
-import { profile } from "../content/profile";
-import type { Locale } from "../i18n";
-import { localizedPath } from "../i18n";
+import { experience, profile } from "../content/profile";
+import { caseStudies, otherWork } from "../content/work";
+import { type Locale, localizedPath } from "../i18n";
+
+const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
@@ -39,6 +47,85 @@ export function HomePage({ locale }: { locale: Locale }) {
 					>
 						{t(copy.nav.resume, locale)}
 					</a>
+				</div>
+			</section>
+
+			<section aria-labelledby="selected-work" className="border-t pt-16">
+				<h2 id="selected-work" className={sectionHeading}>
+					{t(copy.home.workHeading, locale)}
+				</h2>
+				<div className="mt-12 grid gap-20">
+					{caseStudies.map((study, index) => (
+						<CaseStudyTeaser
+							key={study.slug}
+							study={study}
+							locale={locale}
+							reverse={index % 2 === 1}
+						/>
+					))}
+				</div>
+			</section>
+
+			<section aria-labelledby="capabilities" className="mt-28">
+				<h2 id="capabilities" className={sectionHeading}>
+					{t(copy.home.capabilitiesHeading, locale)}
+				</h2>
+				<ul className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
+					{copy.capabilities.map((item) => (
+						<li key={item.title.en} className="border-t pt-6">
+							<h3 className="font-semibold">{t(item.title, locale)}</h3>
+							<p className="mt-2 text-muted-foreground">
+								{t(item.body, locale)}
+							</p>
+							<Link
+								to={localizedPath(locale, item.evidence.to)}
+								className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
+							>
+								{t(item.evidence.label, locale)}
+								<ArrowRight aria-hidden="true" className="size-3.5" />
+							</Link>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section
+				aria-labelledby="experience"
+				className="mt-28 grid gap-10 rounded-lg bg-muted px-6 py-10 md:grid-cols-[1fr_2fr] md:px-10"
+			>
+				<div>
+					<h2 id="experience" className={sectionHeading}>
+						{t(copy.home.experienceHeading, locale)}
+					</h2>
+					<Link
+						to={localizedPath(locale, "/about")}
+						className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
+					>
+						{t(copy.home.fullHistory, locale)}
+						<ArrowRight aria-hidden="true" className="size-3.5" />
+					</Link>
+				</div>
+				<ol className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+					{experience.map((entry) => (
+						<li key={`${entry.company}-${entry.start}`}>
+							<p className="font-medium">{entry.company}</p>
+							<p className="text-sm text-muted-foreground">{entry.role}</p>
+							<p className="mt-1 font-mono text-xs text-muted-foreground">
+								{formatPeriod(entry, locale)}
+							</p>
+						</li>
+					))}
+				</ol>
+			</section>
+
+			<section aria-labelledby="community" className="mt-28">
+				<h2 id="community" className={sectionHeading}>
+					{t(copy.home.openSourceHeading, locale)}
+				</h2>
+				<div className="mt-8 grid gap-10">
+					{otherWork.map((item) => (
+						<ShortWorkItem key={item.href} item={item} locale={locale} />
+					))}
 				</div>
 			</section>
 		</>

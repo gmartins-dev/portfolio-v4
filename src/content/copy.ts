@@ -99,7 +99,6 @@ export const copy = {
 		},
 		primaryCta: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
 		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
-		allWork: { en: "All work", "pt-BR": "Todos os trabalhos" },
 		readCaseStudy: {
 			en: "Read the case study",
 			"pt-BR": "Ler o estudo de caso",
