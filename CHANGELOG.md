@@ -5,6 +5,17 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### More work: Priorize.me and client websites
+
+- Priorize.me case study (product engineering): problem, approach,
+  decisions and trade-offs, validation, beta status. Live app linked; the
+  repository is private and the page says so.
+- Client work for Débora Blaso: deborablaso.com.br and the Psicologia da
+  Moda Clube landing pages, linked to the live sites.
+- Short work entries carry a kind label; the section is now "Client and
+  community work".
+- The resume links `/cv` and `/cv-br` are confirmed as final.
+
 ### Audit and hardening
 
 A full audit, one area at a time, each with its specialist checklist:

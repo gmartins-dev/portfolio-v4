@@ -39,10 +39,10 @@ checks only the site owner can make; each one is a launch blocker until done.
   resumes); v3 used `guilhermemm.dev@gmail.com`. Confirm the address is
   monitored. The `/email` short link now opens the contact section: Vercel
   cannot redirect to `mailto:`, and the v3 link is broken for that reason.
-- **Case studies (Phase 2).** sdd-agentic-flow and payments-api-node are
-  published as case studies; payments-api-node is labelled a technical
-  challenge. Priorize.me is private and not included. Confirm the selection
-  and the facts on each page.
+- **Case studies (Phase 2).** Decided by the owner (2026-10-11): Priorize.me
+  joins sdd-agentic-flow and payments-api-node as a case study (live app
+  linked, code private), and the Débora Blaso websites appear as client work.
+  Still to confirm: the facts on each page.
 - **Visual direction (Phase 5).** One direction was implemented (DESIGN.md);
   the plan asked for two to compare. Decide whether to keep it, and whether to
   add a headshot.
