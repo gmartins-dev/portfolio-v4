@@ -10,8 +10,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const ssrDir = join(root, "dist-ssr");
 
-const { render, prerenderPaths, sitemap, withContentSecurityPolicy } =
-	await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
+const { render, prerenderPaths, sitemap, finalizeHtml } = await import(
+	pathToFileURL(join(ssrDir, "entry-server.js")).href
+);
 
 // The client entry is content-hashed; find its name in Vite's manifest.
 const manifestFile = join(dist, ".vite", "manifest.json");
@@ -32,7 +33,7 @@ for (const url of prerenderPaths) {
 	// /about -> about.html, served at /about by Vercel cleanUrls (vercel.json).
 	const file = join(dist, url === "/" ? "index.html" : `${url}.html`);
 	await mkdir(dirname(file), { recursive: true });
-	await writeFile(file, await withContentSecurityPolicy(await response.text()));
+	await writeFile(file, await finalizeHtml(await response.text()));
 	console.log(`prerendered ${url} -> ${file.slice(root.length + 1)}`);
 }
 
@@ -54,10 +55,7 @@ const notFoundHtml = (await notFound.text())
 if (/type="module"|\$_TSR/.test(notFoundHtml)) {
 	throw new Error("prerender 404 page: client scripts were not removed");
 }
-await writeFile(
-	join(dist, "404.html"),
-	await withContentSecurityPolicy(notFoundHtml),
-);
+await writeFile(join(dist, "404.html"), await finalizeHtml(notFoundHtml));
 console.log("prerendered 404 -> dist/404.html");
 
 await rm(ssrDir, { recursive: true });

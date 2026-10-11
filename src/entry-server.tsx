@@ -7,7 +7,7 @@ import { validateContent } from "./content/validate";
 import { createAppRouter, pagePaths, type RouterContext } from "./router";
 import { buildSitemap, siteUrl } from "./seo";
 
-export { withContentSecurityPolicy } from "./csp";
+export { finalizeHtml } from "./finalize-html";
 export { prerenderPaths } from "./router";
 
 // Fail the build, not the visitor, on invalid content.
