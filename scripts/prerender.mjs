@@ -9,7 +9,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const ssrDir = join(root, "dist-ssr");
 
-const { render, prerenderPaths } = await import(
+const { render, prerenderPaths, sitemap } = await import(
 	pathToFileURL(join(ssrDir, "entry-server.js")).href
 );
 
@@ -23,6 +23,9 @@ for (const url of prerenderPaths) {
 	await writeFile(file, await response.text());
 	console.log(`prerendered ${url} -> ${file.slice(root.length + 1)}`);
 }
+
+await writeFile(join(dist, "sitemap.xml"), sitemap);
+console.log("wrote dist/sitemap.xml");
 
 // Static hosts (Vercel included) serve 404.html, with a 404 status, for any
 // path that has no file.

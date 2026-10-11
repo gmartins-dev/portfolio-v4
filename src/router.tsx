@@ -20,7 +20,7 @@ import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
 import { NotFoundPage } from "./pages/not-found";
 import { WorkPage } from "./pages/work";
-import { buildHead } from "./seo";
+import { buildHead, homeStructuredData } from "./seo";
 import { themeBootstrapScript } from "./theme";
 
 // The root route renders the whole HTML document, so the server render
@@ -43,7 +43,11 @@ const rootRoute = createRootRoute({
 					]
 				: []),
 		],
-		links: [{ rel: "stylesheet", href: stylesheet }],
+		links: [
+			{ rel: "stylesheet", href: stylesheet },
+			{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+		],
 		scripts: [
 			{ children: themeBootstrapScript },
 			{
@@ -84,6 +88,9 @@ type Page = {
 	path: string;
 	title: Localized;
 	description: Localized;
+	/** Social card under public/og/, per locale; defaults to the home card. */
+	ogImage?: (locale: Locale) => { src: string; alt: string };
+	structuredData?: (locale: Locale) => object[];
 	render: (locale: Locale) => ReactNode;
 };
 
@@ -91,6 +98,7 @@ const pages: Page[] = [
 	{
 		path: "/",
 		...copy.meta.home,
+		structuredData: homeStructuredData,
 		render: (locale) => <HomePage locale={locale} />,
 	},
 	{
@@ -106,6 +114,10 @@ const pages: Page[] = [
 				"pt-BR": `${study.title} | ${copy.meta.siteName["pt-BR"]}`,
 			},
 			description: study.summary,
+			ogImage: (locale) => ({
+				src: `/og/work-${study.slug}-${locale}.png`,
+				alt: t(study.summary, locale),
+			}),
 			render: (locale) => <CaseStudyPage study={study} locale={locale} />,
 		}),
 	),
@@ -128,6 +140,8 @@ const pageRoutes = locales.flatMap((locale) =>
 					path: page.path,
 					title: t(page.title, locale),
 					description: t(page.description, locale),
+					image: page.ogImage?.(locale),
+					structuredData: page.structuredData?.(locale),
 				}),
 			component: () => page.render(locale),
 		}),
@@ -135,6 +149,9 @@ const pageRoutes = locales.flatMap((locale) =>
 );
 
 const routeTree = rootRoute.addChildren(pageRoutes);
+
+/** Locale-neutral path of every page, for the sitemap. */
+export const pagePaths = pages.map((page) => page.path);
 
 /** Every URL the prerender step writes to disk. */
 export const prerenderPaths = locales.flatMap((locale) =>

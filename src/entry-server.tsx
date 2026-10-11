@@ -3,10 +3,13 @@ import {
 	RouterServer,
 	renderRouterToString,
 } from "@tanstack/react-router/ssr/server";
-import { createAppRouter } from "./router";
-import { siteUrl } from "./seo";
+import { createAppRouter, pagePaths } from "./router";
+import { buildSitemap, siteUrl } from "./seo";
 
 export { prerenderPaths } from "./router";
+
+/** sitemap.xml contents, written by scripts/prerender.mjs. */
+export const sitemap = buildSitemap(pagePaths);
 
 /**
  * Render one URL to a full HTML document, including the dehydrated router

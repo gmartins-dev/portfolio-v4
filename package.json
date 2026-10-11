@@ -18,7 +18,9 @@
 		"check:biome": "biome ci .",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"check": "pnpm typecheck && pnpm check:biome && pnpm test"
+		"check": "pnpm typecheck && pnpm check:biome && pnpm test",
+		"build:og-images": "node scripts/build-og-images.mjs",
+		"capture:work-images": "node scripts/capture-work-images.mjs"
 	},
 	"dependencies": {
 		"@fontsource-variable/geist": "^5.3.0",
