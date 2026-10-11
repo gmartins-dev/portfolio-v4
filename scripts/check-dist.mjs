@@ -1,10 +1,12 @@
 // Checks the built site in dist/ without a browser: every internal link and
 // asset resolves (to a page, a file or a vercel.json redirect), canonicals
 // point at the page itself, hreflang alternates are reciprocal, social
-// images exist, the sitemap lists exactly the pages, and llms.txt links resolve. Run after
+// images exist, the sitemap lists exactly the pages, llms.txt links resolve,
+// and client JavaScript stays within its size budget. Run after
 // `pnpm build`: `pnpm check:dist`.
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
+import { gzipSync } from "node:zlib";
 
 const siteUrl = "https://gmartins.dev";
 const dist = new URL("../dist/", import.meta.url).pathname;
@@ -104,6 +106,20 @@ for (const page of listed) {
 	if (!pages.has(page)) fail("sitemap.xml", `lists missing page ${page}`);
 }
 
+// Performance budget: compressed JavaScript per page. React DOM and the
+// router are ~95 kB of it; raise the limit only with a reason in the PR.
+const jsBudgetKb = 150;
+for (const file of readdirSync(join(dist, "assets"))) {
+	if (!file.endsWith(".js")) continue;
+	const kb = gzipSync(readFileSync(join(dist, "assets", file))).length / 1024;
+	if (kb > jsBudgetKb) {
+		fail(
+			`assets/${file}`,
+			`${kb.toFixed(1)} kB gzipped, budget ${jsBudgetKb} kB`,
+		);
+	}
+}
+
 // llms.txt links to site pages must exist too.
 const llms = readFileSync(join(dist, "llms.txt"), "utf8");
 for (const [, link] of llms.matchAll(/\]\((https:\/\/gmartins\.dev[^)]*)\)/g)) {
@@ -116,5 +132,5 @@ if (errors.length > 0) {
 	process.exit(1);
 }
 console.log(
-	`dist OK: ${pages.size} pages, links, canonicals, hreflang and sitemap consistent`,
+	`dist OK: ${pages.size} pages, links, canonicals, hreflang, sitemap and JS budget (${jsBudgetKb} kB) consistent`,
 );
