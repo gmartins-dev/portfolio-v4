@@ -18,9 +18,16 @@
 		"check:biome": "biome ci .",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"check": "pnpm typecheck && pnpm check:biome && pnpm test"
+		"check": "pnpm typecheck && pnpm check:biome && pnpm test",
+		"build:og-images": "node scripts/build-og-images.mjs",
+		"capture:work-images": "node scripts/capture-work-images.mjs",
+		"test:e2e": "playwright test",
+		"test:e2e:a11y": "playwright test --grep @a11y",
+		"check:dist": "node scripts/check-dist.mjs"
 	},
 	"dependencies": {
+		"@fontsource-variable/geist": "^5.3.0",
+		"@fontsource-variable/geist-mono": "^5.3.0",
 		"@tanstack/react-router": "^1.166.3",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
@@ -34,7 +41,9 @@
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.13.0",
 		"@biomejs/biome": "^2.4.6",
+		"@playwright/test": "1.63.0",
 		"@tailwindcss/vite": "^4.2.1",
 		"@types/node": "^24.10.1",
 		"@types/react": "^19.2.7",

@@ -1,110 +1,65 @@
 # Roadmap
 
-Planned work for gmartins.dev v4. This is a sequence, not a schedule: each
-milestone starts after the previous one is reviewed. Finished work moves to
-the [changelog](CHANGELOG.md).
+Planned work for gmartins.dev v4. This is a sequence, not a schedule. Finished
+work moves to the [changelog](CHANGELOG.md).
 
 ## Status
 
 | Milestone | Scope | Status |
 | --- | --- | --- |
-| Discovery (Phases 0–5) | Audit, positioning, work selection, information architecture, content, visual direction | Not started |
-| M1 Foundation | Tooling, prerender pipeline, design tokens, page shell, theme, localization | Partly done: tooling and prerender ([#1](https://github.com/gmartins-dev/portfolio-v4/pull/1)) |
-| M2 Core content | Home, About, experience, resume and contact links | Blocked on Discovery |
-| M3 Engineering evidence | Work listing, case study template, two case studies | Blocked on Discovery |
-| M4 Production readiness | SEO, structured data, accessibility, performance, redirects, security headers | Not started |
-| M5 Launch | Preview, cross-browser tests, DNS switch, rollback plan | Not started |
+| Discovery (Phases 0-5) | Audit, positioning, work selection, information architecture, content, visual direction | Drafted from sources; needs owner review (see below) |
+| M1 Foundation | Tooling, prerender, design tokens, shell, theme, localization | Done |
+| M2 Core content | Home, About, experience, resume and contact links | Built with draft copy |
+| M3 Engineering evidence | Work listing, case study template, two case studies | Built with draft case studies |
+| M4 Production readiness | SEO, structured data, accessibility, performance, redirects, security | Done (lab-verified) |
+| M5 Launch | Preview, cross-browser tests, DNS switch, rollback | Not started |
 
-## Discovery (before M2)
+## Before launch: owner review
 
-Content and design decisions that the remaining milestones depend on. None of
-this is code.
+The code is ready for content to be approved. These items are decisions or
+checks only the site owner can make; each one is a launch blocker until done.
 
-- **Phase 0 — Audit.** Check the published LinkedIn (EN/PT-BR), resumes, and
-  GitHub profile. Inventory every v3 route, redirect, and asset. Confirm
-  whether Firebase or the Next.js redirects serve production today. Record a
-  baseline for Lighthouse, axe, and broken links.
-- **Phase 1 — Positioning.** Approve the Software Engineer positioning, hero
-  copy, calls to action, and editorial rules in both languages.
-- **Phase 2 — Work selection.** Pick the two launch case studies (candidates:
-  sdd-agentic-flow, payments-api-node, Priorize.me) and settle what can be
-  disclosed about professional work.
-- **Phase 3 — Information architecture.** Sitemap, user journeys, wireframes.
-- **Phase 4 — Content.** Write and review all EN/PT-BR copy, case studies,
-  and metadata.
-- **Phase 5 — Visual direction.** Compare at least two directions, then
-  choose typography, color tokens, and component states. Document them in
-  `DESIGN.md`.
-
-## M1 — Foundation
-
-Done:
-
-- Scaffold cleanup: `src/` layout, Biome only, unused dependencies removed,
-  Node and pnpm versions pinned.
-- Build-time prerender of every route × locale with per-page head tags
-  ([ADR-001](docs/adr/001-vite-react-with-build-time-prerender.md)).
-- EN at `/`, PT-BR under `/pt-br`, with canonical and hreflang.
-- Unit tests and CI running check and build.
-
-Remaining (needs the Phase 5 visual direction):
-
-- Design tokens and typography in `src/index.css`, replacing the shadcn
-  defaults.
-- Page shell: header, navigation, footer, skip link.
-- Light, Dark, and System theme with a script that applies the theme before
-  first paint.
-- Language switcher in the shell, linking to the same page in the other
-  language.
-- `AGENTS.md` and `DESIGN.md`.
-
-Done when: every page shares the shell, the theme and language controls work
-by keyboard, and the build still prerenders without hydration errors.
-
-## M2 — Core content
-
-- Home: hero, selected work, capabilities, experience summary, contact.
-- About: career history, engineering approach.
-- Resume downloads (EN/PT-BR) and contact links.
-- Content stored in typed modules validated with zod.
-
-Done when: all copy is approved in both languages, contains no placeholders,
-and each factual claim has a source.
-
-## M3 — Engineering evidence
-
-- Work listing and a reusable case study template (context, problem, role,
-  constraints, decisions, trade-offs, outcomes, links, disclosure status).
-- Two approved case studies, with diagrams where useful.
-
-Done when: each case study has its own URL in both languages and exposes no
-unauthorized information.
-
-## M4 — Production readiness
-
-- Generated `sitemap.xml` and `robots.txt`.
-- JSON-LD (`Person`, `WebSite`) with factual data only.
-- Open Graph images per page.
-- `vercel.json` with legacy redirects (`/cv`, `/cv-br`, `/gh`, `/linkedin`,
-  `/email`, `/links`, `/resume`, `/construction`) and security headers. The
-  CSP must allow the inline router-state script (hash or nonce).
-- Playwright smoke tests, axe checks, and a link/hreflang checker over
-  `dist/`.
-- Performance pass: image loading, per-route client JS size.
-- Content-hash the client entry (today it is a fixed `/entry-client.js`) and
-  have the root route read the hashed name from the build manifest, so cached
-  bundles can never hydrate a newer deploy's HTML. Until then the host must
-  serve `/entry-client.js` with revalidation, as Vercel does by default.
-
-Done when: WCAG 2.2 AA checks pass, there are no broken links or indexing
-errors, and the release blockers in the plan are clear.
+- **Copy approval (Phase 1 and 4).** All copy in `src/content/` is a draft
+  written from the resumes, the GitHub profile README and the project
+  repositories. Review both languages, especially the hero, the About intro
+  and the contact line.
+- **Job titles.** The site uses the titles from the PT-BR resume (Frontend
+  Developer at Nisien.ai, Backbase and Loop; Full-Stack Developer at Vochlea).
+  The EN resume says Software Engineer for all of them. Confirm which is
+  accurate and align the resumes and LinkedIn.
+- **ChatWith.io.** The planning notes mention a ChatWith.io role (Frontend
+  Developer) that is not on either resume, so it is not on the site. Add it
+  with dates if it should be.
+- **LinkedIn check (Phase 0).** LinkedIn could not be read without signing
+  in, so experience was not cross-checked against it.
+- **Resume PDFs.** `/cv` and `/cv-br` still redirect to the Google Drive files
+  from v3. Confirm they are the final versions.
+- **Contact address.** The site and the `/email` short link use
+  `contact@gmartins.dev` (from the resumes); v3 used
+  `guilhermemm.dev@gmail.com`. Confirm the address is monitored.
+- **Case studies (Phase 2).** sdd-agentic-flow and payments-api-node are
+  published as case studies; payments-api-node is labelled a technical
+  challenge. Priorize.me is private and not included. Confirm the selection
+  and the facts on each page.
+- **Visual direction (Phase 5).** One direction was implemented (DESIGN.md);
+  the plan asked for two to compare. Decide whether to keep it, and whether to
+  add a headshot.
 
 ## M5 — Launch
 
-- Deploy a Vercel preview and run cross-browser and device smoke tests.
-- Switch DNS, then verify redirects and indexing in Search Console.
-- Document how to roll back to the previous deployment.
+- Create the Vercel project from this repository and deploy a preview.
+- Run the e2e suite against the preview and test on real iOS and Android
+  devices and in Safari and Firefox.
+- Confirm what serves gmartins.dev today (Firebase or Vercel for v3), then
+  switch DNS.
+- Verify redirects, the sitemap and indexing in Google Search Console; submit
+  the sitemap.
+- Rollback: promote the previous deployment in Vercel, or point DNS back to
+  v3 while it still exists.
 - Archive or label the v3 repository.
+- After launch, measure real-user Core Web Vitals (target p75 LCP at or below
+  2.5 s). Lab LCP on simulated slow 4G is 2.6-2.8 s on the home and work
+  pages, so watch it.
 
 ## Deferred
 

@@ -24,3 +24,25 @@ export function localeFromPath(pathname: string): Locale {
 		? "pt-BR"
 		: "en";
 }
+
+/** Strip the locale prefix: "/pt-br/about" -> "/about", "/pt-br" -> "/". */
+export function neutralPath(pathname: string): string {
+	const prefix = prefixes[localeFromPath(pathname)];
+	const rest = pathname.slice(prefix.length);
+	return rest === "" ? "/" : rest;
+}
+
+/** The other locale, for the language switcher (two locales today). */
+export function otherLocale(locale: Locale): Locale {
+	return locale === "en" ? "pt-BR" : "en";
+}
+
+/** "2024-01" -> "Jan 2024" / "jan. de 2024", in UTC so server and client agree. */
+export function formatMonth(yearMonth: string, locale: Locale): string {
+	const [year, month] = yearMonth.split("-").map(Number);
+	return new Intl.DateTimeFormat(locale, {
+		month: "short",
+		year: "numeric",
+		timeZone: "UTC",
+	}).format(new Date(Date.UTC(year, month - 1)));
+}
