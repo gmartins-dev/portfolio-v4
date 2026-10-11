@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { extname, join, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
@@ -14,6 +16,19 @@ const entry = (file: string) =>
 function devServerRender(): Plugin {
 	return {
 		name: "dev-server-render",
+		// appType "custom" disables Vite's HTML handling in `vite preview` too;
+		// map /about to the prerendered dist/about/index.html, as hosts do.
+		configurePreviewServer(server) {
+			const outDir = resolve(server.config.root, server.config.build.outDir);
+			server.middlewares.use((req, _res, next) => {
+				const [pathname, query = ""] = (req.url ?? "/").split("?");
+				const file = join(outDir, pathname, "index.html");
+				if (!extname(pathname) && existsSync(file)) {
+					req.url = `${pathname.replace(/\/?$/, "/")}index.html${query ? `?${query}` : ""}`;
+				}
+				next();
+			});
+		},
 		configureServer(server) {
 			return () => {
 				server.middlewares.use(async (req, res, next) => {
@@ -31,9 +46,12 @@ function devServerRender(): Plugin {
 						// transformIndexHtml injects the Vite client and React Refresh
 						// preamble with indentation; whitespace text nodes in <head>
 						// would break hydration, so collapse whitespace between tags.
+						// Only <head>: in <body> that whitespace is rendered content.
 						const html = (
 							await server.transformIndexHtml(url, await response.text())
-						).replace(/>\s+</g, "><");
+						).replace(/<head>[\s\S]*?<\/head>/, (head) =>
+							head.replace(/>\s+</g, "><"),
+						);
 						res.statusCode = response.status;
 						res.setHeader("Content-Type", "text/html; charset=utf-8");
 						res.end(html);
