@@ -282,7 +282,3 @@ export const otherWork: ShortWork[] = [
 		},
 	},
 ];
-
-export function findCaseStudy(slug: string) {
-	return caseStudies.find((study) => study.slug === slug);
-}

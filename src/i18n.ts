@@ -1,8 +1,6 @@
 export const locales = ["en", "pt-BR"] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = "en";
-
 /** URL prefix per locale. English lives at the root; PT-BR under /pt-br. */
 const prefixes: Record<Locale, string> = {
 	en: "",

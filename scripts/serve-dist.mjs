@@ -38,7 +38,9 @@ async function existing(path) {
 const compressible = new Set([".html", ".js", ".css", ".xml", ".txt", ".svg"]);
 
 // vercel.json header rules, e.g. "/assets/(.*)", as anchored regexes. Every
-// matching rule applies, later rules winning, as on Vercel.
+// matching rule applies, later rules winning, as on Vercel. Vercel sources are
+// path-to-regexp patterns; this only covers the regex-group form used today,
+// so extend it before adding a named parameter such as "/:slug".
 const headerMatchers = headerRules.map((rule) => ({
 	pattern: new RegExp(`^${rule.source}$`),
 	headers: rule.headers,
