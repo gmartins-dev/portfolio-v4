@@ -1,4 +1,5 @@
 import { copy } from "./content/copy";
+import { professionalWork } from "./content/professional-work";
 import { profile } from "./content/profile";
 import { projects } from "./content/projects";
 import type { CaseStudy } from "./content/schema";
@@ -167,9 +168,20 @@ export function workStructuredData(locale: Locale, studies: CaseStudy[]) {
 				name: copy.meta.work.title[locale],
 				inLanguage: locale,
 				isPartOf: { "@id": websiteId },
-				hasPart: studies.map((study) => ({
-					"@id": `${pageUrl(locale, `/work/${study.slug}`)}#article`,
-				})),
+				hasPart: [
+					...studies.map((study) => ({
+						"@id": `${pageUrl(locale, `/work/${study.slug}`)}#article`,
+					})),
+					// Public products he worked on; the company owns each one.
+					...professionalWork.map((work) => ({
+						"@type": "CreativeWork",
+						name: work.product,
+						url: work.url,
+						description: work.summary[locale],
+						creator: { "@type": "Organization", name: work.company },
+						contributor: { "@id": personId },
+					})),
+				],
 			},
 			breadcrumbNode(locale, [
 				{ name: copy.nav.home[locale], path: "/" },

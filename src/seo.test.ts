@@ -10,6 +10,7 @@ import {
 	caseStudyStructuredData,
 	defaultOgImage,
 	homeStructuredData,
+	workStructuredData,
 } from "./seo";
 
 describe("localizedPath", () => {
@@ -185,6 +186,23 @@ describe("head extras", () => {
 			url: "https://gmartins.dev/pt-br/about",
 			mainEntity: { "@id": "https://gmartins.dev/#person" },
 		});
+	});
+
+	it("lists case studies and the company-owned products on /work", () => {
+		const [document] = workStructuredData("en", caseStudies);
+		const [collection] = (document as { "@graph": object[] })["@graph"];
+		const parts = (collection as { hasPart: object[] }).hasPart;
+		expect(parts).toContainEqual({
+			"@id": `https://gmartins.dev/work/${caseStudies[0].slug}#article`,
+		});
+		expect(parts).toContainEqual(
+			expect.objectContaining({
+				"@type": "CreativeWork",
+				url: "https://vochlea.com",
+				creator: { "@type": "Organization", name: "Vochlea" },
+				contributor: { "@id": "https://gmartins.dev/#person" },
+			}),
+		);
 	});
 
 	it("has a rendered social card for every card the site references", () => {

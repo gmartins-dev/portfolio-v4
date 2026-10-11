@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { professionalWork } from "./content/professional-work";
 import { caseStudies } from "./content/work";
 import { buildLlmsTxt } from "./llms-txt";
 
@@ -14,6 +15,13 @@ describe("buildLlmsTxt", () => {
 	it("links every case study", () => {
 		for (const study of caseStudies) {
 			expect(text).toContain(`https://gmartins.dev/work/${study.slug}`);
+		}
+	});
+
+	it("lists every public product he worked on", () => {
+		for (const work of professionalWork) {
+			expect(text).toContain(`(${work.url})`);
+			expect(text).toContain(`https://gmartins.dev/work#${work.slug}`);
 		}
 	});
 

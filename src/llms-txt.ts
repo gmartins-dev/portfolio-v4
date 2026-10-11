@@ -1,4 +1,5 @@
 import { copy } from "./content/copy";
+import { professionalWork } from "./content/professional-work";
 import { experience, profile } from "./content/profile";
 import { caseStudies, otherWork } from "./content/work";
 import { formatMonth, localizedPath } from "./i18n";
@@ -25,12 +26,12 @@ export function buildLlmsTxt() {
 			? `Currently: ${current.role} at ${current.company} (since ${formatMonth(current.start, "en")}).`
 			: "",
 		`The site is in English and Brazilian Portuguese (${url("/", "pt-BR")}).`,
-		"Most of his work as an employee, contractor or consultant is private under confidentiality terms; the site focuses on personal and public projects, plus one anonymized professional case study.",
+		"Most of his work as an employee, contractor or consultant is private under confidentiality terms; the site shows personal and public projects, one anonymized professional case study, and the public products he worked on, described from each company's public site.",
 		"",
 		"## Pages",
 		"",
 		`- [Home](${url("/")}): positioning, selected work, capabilities and experience summary`,
-		`- [Work](${url("/work")}): case studies, client websites and community work`,
+		`- [Work](${url("/work")}): case studies, public products he worked on, client websites and community work`,
 		`- [More projects](${url("/projects")}): smaller projects, technical challenges and earlier work, with demos and source`,
 		`- [About](${url("/about")}): full professional history, tools and resumes`,
 		"",
@@ -40,6 +41,14 @@ export function buildLlmsTxt() {
 			(study) =>
 				`- [${study.title}](${url(`/work/${study.slug}`)}): ${study.summary.en} (${study.kind.en}; facts checked ${study.reviewed})`,
 		),
+		"",
+		"## Products he worked on",
+		"",
+		...professionalWork.map((work) => {
+			const job = experience.find((entry) => entry.company === work.company);
+			const role = job ? `${job.role}, ` : "";
+			return `- [${work.product}](${work.url}) by ${work.company} (${role}${url("/work")}#${work.slug}): ${work.summary.en}`;
+		}),
 		"",
 		"## Experience",
 		"",
