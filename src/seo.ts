@@ -202,13 +202,19 @@ export function caseStudyStructuredData(locale: Locale, study: CaseStudy) {
 				image: absolute(caseStudyOgImage(locale, study).src),
 				author: { "@id": personId },
 				isPartOf: { "@id": websiteId },
-				...(repository && {
-					about: {
-						"@type": "SoftwareSourceCode",
-						name: study.title,
-						codeRepository: repository.href,
-					},
-				}),
+				// What the article is about: the public repository when there is
+				// one, otherwise the live application (private-code products).
+				about: repository
+					? {
+							"@type": "SoftwareSourceCode",
+							name: study.title,
+							codeRepository: repository.href,
+						}
+					: {
+							"@type": "WebApplication",
+							name: study.title,
+							url: study.links[0].href,
+						},
 			},
 			breadcrumbNode(locale, [
 				{ name: copy.nav.home[locale], path: "/" },

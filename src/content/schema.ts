@@ -87,6 +87,8 @@ export const caseStudySchema = z.object({
 
 export const shortWorkSchema = z.object({
 	title: z.string(),
+	/** What the work is, e.g. "Client website" or "Community project". */
+	kind: localized,
 	summary: localized,
 	href: externalUrl,
 	image: caseStudySchema.shape.image.optional(),

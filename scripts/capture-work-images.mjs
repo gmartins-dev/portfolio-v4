@@ -18,6 +18,12 @@ const shots = [
 		selector: "article.markdown-body",
 	},
 	{ name: "links", url: "https://gmartins-dev.github.io/links/" },
+	{ name: "priorize-me", url: "https://priorizeme.vercel.app/" },
+	{ name: "debora-blaso", url: "https://www.deborablaso.com.br/" },
+	{
+		name: "psicologia-da-moda-clube",
+		url: "https://www.psicologiadamoda.club/grupo-estudos",
+	},
 ];
 
 /** Output widths, capped at the capture's own width (838 instead of 1280). */

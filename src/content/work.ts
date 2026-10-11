@@ -127,6 +127,132 @@ const saf: CaseStudy = {
 	reviewed: "2026-10-11",
 };
 
+// Priorize.me: the owner's product. Facts from the public landing page and
+// the private repository's README, PRODUCT_STORY.md and ADRs, checked
+// 2026-10-11. PRODUCT_STORY.md sets the claim limits followed here: no
+// permanent-free promise, no public-code or built-in AI claims.
+const priorize: CaseStudy = {
+	slug: "priorize-me",
+	title: "Priorize.me",
+	kind: { en: "Independent product", "pt-BR": "Produto independente" },
+	summary: {
+		en: "A collaborative prioritization app built on the Eisenhower matrix, with shared boards that update in real time. In public beta.",
+		"pt-BR":
+			"Um app de priorização colaborativa baseado na Matriz de Eisenhower, com boards compartilhados que atualizam em tempo real. Em beta pública.",
+	},
+	role: { en: "Creator and developer", "pt-BR": "Criador e desenvolvedor" },
+	period: { start: "2026-09" },
+	stack: [
+		"React 19",
+		"TypeScript",
+		"TanStack Router",
+		"TanStack Query",
+		"Supabase (Postgres, Auth, Realtime)",
+		"Playwright",
+	],
+	facts: {
+		en: [
+			"Public beta: free, sign-up required",
+			"Interface in Portuguese and English",
+			"Authorization enforced in the database",
+			"36 architecture decision records",
+		],
+		"pt-BR": [
+			"Beta pública: gratuita, com cadastro",
+			"Interface em português e inglês",
+			"Autorização garantida no banco de dados",
+			"36 registros de decisão de arquitetura",
+		],
+	},
+	image: {
+		src: "/images/work/priorize-me",
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 800,
+		alt: {
+			en: "The Priorize.me landing page, in Portuguese: the headline “Stop treating everything as urgent” beside an example board with the four quadrants.",
+			"pt-BR":
+				"A landing page do Priorize.me: o título “Pare de tratar tudo como urgente” ao lado de um board de exemplo com os quatro quadrantes.",
+		},
+	},
+	links: [
+		{
+			label: { en: "Open the app", "pt-BR": "Abrir o app" },
+			href: "https://priorizeme.vercel.app/",
+		},
+	],
+	sections: [
+		{
+			heading: { en: "The problem", "pt-BR": "O problema" },
+			body: {
+				en: [
+					"Teams treat too many requests as urgent, and the real priorities live in people's heads or in scattered lists. Priorize.me makes the decision explicit: you capture a request in a Backlog, judge its urgency and importance, and choose Do, Schedule, Delegate or Eliminate, on a board everyone involved can see.",
+				],
+				"pt-BR": [
+					"Times tratam demandas demais como urgentes, e as prioridades de verdade ficam na cabeça das pessoas ou em listas espalhadas. O Priorize.me torna a decisão explícita: você captura uma demanda no Backlog, avalia urgência e importância e escolhe Fazer, Agendar, Delegar ou Eliminar, num board que todos os envolvidos enxergam.",
+				],
+			},
+		},
+		{
+			heading: { en: "Approach", "pt-BR": "Abordagem" },
+			body: {
+				en: [
+					"Boards are private and shared by invitation or join link, with owner, editor and reader roles. Changes reach everyone on the board in real time, and sign-in uses a link sent by email instead of a password.",
+					"An MCP server lets compatible AI clients list, create and move tasks with the account's own permissions. The interface ships in Portuguese and English.",
+				],
+				"pt-BR": [
+					"Os boards são privados e compartilhados por convite ou link de entrada, com papéis de dono, editor e leitor. As mudanças chegam a todos no board em tempo real, e o login usa um link enviado por e-mail em vez de senha.",
+					"Um servidor MCP permite que clientes de IA compatíveis listem, criem e movam tarefas com as permissões da própria conta. A interface sai em português e inglês.",
+				],
+			},
+		},
+		{
+			heading: {
+				en: "Key decisions and trade-offs",
+				"pt-BR": "Decisões e trade-offs",
+			},
+			body: {
+				en: [
+					"The board is the unit of tenancy and the database is the authority. Row-level security guards the public tables, writes to tasks and members go through database functions that check the caller's role, and hiding a button in the interface never counts as authorization.",
+					"Realtime carries changes but is not state. The database stays the source of truth, each task has a version, and the client applies one rule wherever state converges: the higher version wins. The server computes positions under a per-board lock, so concurrent moves cannot interleave.",
+					"The product stays on Supabase without an abstraction layer, but the dependency is confined to boundaries that CI checks, with an inventory of what replacing each service would cost (low for the database, high for row-level security and auth).",
+					"The MCP server follows the app's domain: a change to data or a function a tool uses must update that tool and its integration test in the same pull request.",
+				],
+				"pt-BR": [
+					"O board é a unidade de tenancy e o banco é a autoridade. Row-level security protege as tabelas públicas, escritas em tarefas e membros passam por funções do banco que conferem o papel de quem chama, e esconder um botão na interface nunca conta como autorização.",
+					"O tempo real transporta mudanças, mas não é estado. O banco continua sendo a fonte de verdade, cada tarefa tem uma versão, e o cliente aplica uma única regra onde o estado converge: a versão maior vence. O servidor calcula as posições sob um lock por board, então movimentos concorrentes não se misturam.",
+					"O produto continua no Supabase sem camada de abstração, mas a dependência fica confinada a fronteiras que o CI verifica, com um inventário do custo de substituir cada serviço (baixo para o banco, alto para row-level security e auth).",
+					"O servidor MCP acompanha o domínio do app: uma mudança em dados ou numa função que uma tool usa precisa atualizar a tool e o teste de integração no mesmo pull request.",
+				],
+			},
+		},
+		{
+			heading: { en: "Validation", "pt-BR": "Validação" },
+			body: {
+				en: [
+					"Each test declares its layer in the file name: unit and component tests in Vitest, database tests in pgTAP with race-condition sensors, integration tests for the MCP server, and Playwright end-to-end suites ranked by severity. The critical journey (sign in, create a board, move a task) gates product pull requests, and the public pages run axe checks.",
+				],
+				"pt-BR": [
+					"Cada teste declara sua camada no nome do arquivo: testes unitários e de componente no Vitest, testes de banco em pgTAP com sensores de concorrência, testes de integração do servidor MCP e suítes end-to-end no Playwright, ordenadas por severidade. A jornada crítica (entrar, criar um board, mover uma tarefa) é gate dos pull requests de produto, e as páginas públicas passam por checagens do axe.",
+				],
+			},
+		},
+		{
+			heading: { en: "Status", "pt-BR": "Situação atual" },
+			body: {
+				en: [
+					"Priorize.me is in public beta: free, with sign-up required and no card. The code repository is private.",
+				],
+				"pt-BR": [
+					"O Priorize.me está em beta pública: gratuito, com cadastro e sem cartão. O repositório do código é privado.",
+				],
+			},
+		},
+	],
+	disclosure: "public",
+	reviewed: "2026-10-11",
+};
+
 const payments: CaseStudy = {
 	slug: "payments-api-node",
 	title: "Idempotent payments API",
@@ -258,11 +384,60 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 	reviewed: "2026-10-11",
 };
 
-export const caseStudies: CaseStudy[] = [saf, payments];
+export const caseStudies: CaseStudy[] = [saf, priorize, payments];
 
 export const otherWork: ShortWork[] = [
+	// deborablaso.com.br and psicologiadamoda.club: built by the owner for the
+	// same client (the club's pages name Débora Blaso as supervisor). Facts
+	// from the live sites and their repositories, checked 2026-10-11.
+	{
+		title: "Débora Blaso",
+		kind: { en: "Client website", "pt-BR": "Site para cliente" },
+		summary: {
+			en: "Professional website for a clinical psychologist and image consultant in Belo Horizonte, built with React, Vite and Tailwind CSS, with PostHog and Vercel analytics.",
+			"pt-BR":
+				"Site profissional de uma psicóloga clínica e consultora de imagem em Belo Horizonte, feito com React, Vite e Tailwind CSS, com analytics do PostHog e da Vercel.",
+		},
+		href: "https://www.deborablaso.com.br/",
+		image: {
+			src: "/images/work/debora-blaso",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The home page of deborablaso.com.br, in Portuguese, with the psychologist's portrait and a call to meet her.",
+				"pt-BR":
+					"A página inicial de deborablaso.com.br, com o retrato da psicóloga e um convite para conhecê-la.",
+			},
+		},
+	},
+	{
+		title: "Psicologia da Moda Clube",
+		kind: {
+			en: "Client product site",
+			"pt-BR": "Site de produto para cliente",
+		},
+		summary: {
+			en: "Landing pages for the same client's study group for psychologists, built with Next.js and focused on technical SEO, answer-engine readiness and mobile conversion.",
+			"pt-BR":
+				"Landing pages do grupo de estudos para psicólogas da mesma cliente, feitas com Next.js e focadas em SEO técnico, mecanismos de resposta e conversão no mobile.",
+		},
+		href: "https://www.psicologiadamoda.club/",
+		image: {
+			src: "/images/work/psicologia-da-moda-clube",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The study group landing page, in Portuguese, with its title and a call to join the group.",
+				"pt-BR":
+					"A landing page do grupo de estudos, com o título e um convite para participar do grupo.",
+			},
+		},
+	},
 	{
 		title: "links",
+		kind: { en: "Community project", "pt-BR": "Projeto da comunidade" },
 		summary: {
 			en: "A community-maintained list of free tools and resources for developers, started in 2022. 406 stars and 15 contributors on GitHub.",
 			"pt-BR":

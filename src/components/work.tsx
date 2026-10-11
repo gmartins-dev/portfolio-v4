@@ -119,7 +119,10 @@ export function ShortWorkItem({
 	return (
 		<article className="grid gap-6 border-t pt-8 md:grid-cols-[2fr_3fr] md:gap-12">
 			<div>
-				<h3 className="text-xl font-semibold tracking-tight">
+				<p className="font-mono text-sm text-muted-foreground">
+					{t(item.kind, locale)}
+				</p>
+				<h3 className="mt-2 text-xl font-semibold tracking-tight">
 					<a href={item.href} className="hover:text-brand" translate="no">
 						{item.title}
 					</a>
