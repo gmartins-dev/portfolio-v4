@@ -5,6 +5,58 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Audit and hardening
+
+A full audit, one area at a time, each with its specialist checklist:
+quality baseline, performance, accessibility, technical SEO, AI search,
+security, React practices, routing, interface guidelines, copy, tests and
+documentation. Every fix that could regress now has a test.
+
+#### Fixed
+
+- `/email` sent visitors to `gmartins.dev/mailto:...` (Vercel cannot redirect
+  to `mailto:`); it now opens the contact section.
+- The payments case study scrolled 282px sideways at 320px (WCAG 1.4.10).
+- Buttons replaced the focus outline with a nearly invisible translucent
+  ring; outline buttons had no visible border.
+- Prerendered HTML contained raw NUL characters (an HTML parse error).
+- The sdd-agentic-flow screenshot captured GitHub's header instead of the
+  README.
+- After client-side navigation, focus fell back to `<body>`; it now moves to
+  the new page's heading.
+- The light `theme-color` was dropped by head deduplication.
+
+#### Added
+
+- Page-specific JSON-LD: ProfilePage, CollectionPage, TechArticle with
+  BreadcrumbList; `og:type=article` and sitemap `lastmod` for case studies.
+- `/llms.txt`, generated from the content model.
+- Font preload, responsive WebP variants (480/720/1280), image caching.
+- 24px minimum link targets, `translate="no"` on names and code,
+  balanced headings.
+- Tests: React Testing Library for the theme, 320px reflow and focus
+  outlines on every page, SEO graph, CSP, NUL escaping, `llms.txt`;
+  a 150 kB gzipped JavaScript budget in `check:dist`.
+- Dependabot, a production dependency audit in CI, COOP header.
+- Docs: ADR-002 to ADR-005, `docs/architecture.md`,
+  `docs/maintenance.md`, `SECURITY.md`; updated README, AGENTS.md,
+  DESIGN.md.
+
+#### Changed
+
+- Dependencies updated (React 19.3, TanStack Router 1.170, Vite 7.3.7,
+  Biome 2.5); the shadcn CLI moved to dev dependencies.
+  `pnpm audit --prod` is clean.
+- Descriptive titles for Work, About and the case studies.
+- Copy reviewed for passive voice and filler in both languages.
+
+#### Verified
+
+- 38 unit and component tests, `check:dist`, 102 e2e tests (desktop and
+  mobile, axe in both themes) pass.
+- Lighthouse 13.5, mobile lab: performance 98-99; accessibility, best
+  practices, SEO and agentic browsing 100; LCP 2.2-2.3 s (was 2.6-2.8 s).
+
 ### M1 to M4: the v4 site, built on #1
 
 All copy is a draft pending the owner

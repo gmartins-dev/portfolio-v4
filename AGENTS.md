@@ -1,44 +1,45 @@
-# gmartins.dev agent instructions
+# Agent Instructions
 
-Personal site of Guilherme Martins. Static, bilingual (EN at `/`, PT-BR under
-`/pt-br`), prerendered with Vite, React and TanStack Router
-([ADR-001](docs/adr/001-vite-react-with-build-time-prerender.md)).
+## Package Manager
+- Use **pnpm** with Node 24 (`.node-version`): `pnpm install --frozen-lockfile`
 
-## Working rules
+## Commands
+| Task | Command |
+|------|---------|
+| Test one file | `pnpm exec vitest run src/path/to/file.test.ts` |
+| Lint and format one file | `pnpm exec biome check --write src/path/to/file.tsx` |
+| Typecheck | `pnpm typecheck` |
+| All static checks | `pnpm check` |
+| Build and check output | `pnpm build && pnpm check:dist` |
+| One e2e spec | `pnpm build && pnpm exec playwright test e2e/navigation.spec.ts` |
+| Full e2e (first run: `pnpm exec playwright install chromium`) | `pnpm test:e2e` |
+| Recapture project screenshots (hits live URLs) | `pnpm capture:work-images` |
+| Re-render social cards | `pnpm build:og-images` |
 
-- Use pnpm and Node 24 (`.node-version`). Install with
-  `pnpm install --frozen-lockfile`.
-- Keep changes scoped; no new runtime dependency without a reason the user
-  can see in the PR.
-- Every visible string lives in `src/content/` with both `en` and `pt-BR`.
-  Never invent facts: profile and experience come from the resumes, case
-  studies from the public repositories. Update the `reviewed` date when you
-  re-check a case study.
-- No em or en dashes in visible text (a content test enforces it).
-- Read [DESIGN.md](DESIGN.md) before UI work; token values live only in
-  `src/index.css`.
-- A new page goes in the `pages` table in `src/router.tsx` (it is then routed,
-  prerendered and listed in the sitemap) and in `e2e/pages.ts`.
+## External References
+| Need | File |
+|------|------|
+| How the build and rendering work | `docs/architecture.md` |
+| How to change content, add pages, update deps | `docs/maintenance.md` |
+| Why things are built this way | `docs/adr/README.md` |
+| UI tokens and rules | `DESIGN.md` |
+| Security controls | `SECURITY.md` |
+| Open work and launch blockers | `ROADMAP.md` |
 
-## Checks
+## Key Conventions
+- Every visible string lives in `src/content/` as `{ en, "pt-BR" }`; change both languages together.
+- Never invent facts: profile and experience come from the resumes, case studies from public repositories.
+- Update a case study's `reviewed` date when you re-check its facts.
+- No em or en dashes in visible text (enforced by `src/content/content.test.ts`).
+- Token values live only in `src/index.css`; use Tailwind token utilities, never raw colors.
+- New page: add it to the `pages` table in `src/router.tsx` and to `e2e/pages.ts`.
+- Inline scripts must exist before `finalizeHtml()` runs, or the page CSP blocks them.
+- Do not use router-internal fields (`_notFound` and similar); use public match data as in `src/not-found.ts`.
+- Do not edit generated output in `dist/`, `public/images/og/`, or `public/images/work/` by hand; rerun the scripts above.
+- Record new architectural decisions as an ADR in `docs/adr/`.
 
-| Change | Command |
-| --- | --- |
-| Any code | `pnpm check` (typecheck, Biome, unit tests) |
-| Routes, head tags, content, build | `pnpm build && pnpm check:dist` |
-| UI, navigation, accessibility | `pnpm build && pnpm test:e2e` (needs `pnpm exec playwright install chromium` once) |
-| Case study screenshots | `pnpm capture:work-images` (hits the live project URLs) |
-| Social cards after copy changes | `pnpm build:og-images` |
-
-## Map
-
-| Path | Purpose |
-| --- | --- |
-| `src/router.tsx` | Document shell, page table, routes per locale |
-| `src/pages/`, `src/components/` | Page and shared components |
-| `src/content/` | Typed bilingual content; `validate.ts` parses it at build time |
-| `src/seo.ts`, `src/csp.ts` | Head tags, JSON-LD, sitemap; per-page CSP hashes |
-| `src/entry-server.tsx`, `src/entry-client.tsx` | Server render and hydration |
-| `scripts/prerender.mjs` | Writes `dist/<path>.html`, `404.html`, `sitemap.xml` |
-| `vercel.json` | Hosting, legacy redirects, security headers |
-| `e2e/` | Playwright smoke, journeys and axe checks |
+## Commit Attribution
+AI commits MUST include:
+```
+Co-Authored-By: (the agent's name and attribution byline)
+```
