@@ -39,7 +39,10 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 | `primary`, `primary-foreground` | Neutral high-contrast buttons |
 
 Use them through Tailwind utilities (`bg-background`, `text-muted-foreground`,
-`text-brand`). Do not write raw color values in components.
+`text-brand`). Do not write raw color values in components. Two places must
+mirror token values by hand and change with them: the `theme-color` meta tags
+in `src/router.tsx` (the `--background` values as hex) and the social card
+colors in `scripts/build-og-images.mjs`.
 
 ## Typography
 
@@ -48,10 +51,17 @@ Use them through Tailwind utilities (`bg-background`, `text-muted-foreground`,
   Fontsource.
 - Headlines use weight and tight tracking, not huge sizes. Body text is
   capped at about 65 characters per line (`max-w-prose`).
+- Headings use `text-wrap: balance` and paragraphs `text-wrap: pretty`
+  (global in `src/index.css`), so lines don't end on a single word.
+- Mark proper names and code with `translate="no"` (site name, project
+  titles, stacks, code blocks) so automatic translation leaves them intact.
 
 ## Shape and layout
 
 - One radius scale: `rounded-lg` for images and buttons. No pills.
+- Buttons and button-styled links use `buttonVariants()` from
+  `src/components/ui/button.tsx` (variants `brand`, `outline`, `default`). It
+  merges classes with tailwind-merge, so a `className` override wins.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
 - Group related items with spacing and a single top border, not cards.
 - Multi-column layouts collapse to one column below `md`.
@@ -65,7 +75,13 @@ that moves on its own. `prefers-reduced-motion` disables transitions globally
 ## Accessibility
 
 - WCAG 2.2 AA in both themes; axe runs in the end-to-end suite.
-- Visible focus ring on every interactive element (`outline-ring`).
+- One focus style everywhere: the global 2px offset outline in `--ring`.
+  Don't replace it with translucent rings; the e2e suite checks every focus
+  stop for an outline.
+- Interactive targets are at least 24px tall (`min-h-6` on standalone links).
+- Layouts reflow at 320px without horizontal scrolling. Grid columns that
+  hold wide content use `minmax(0, 1fr)` (`grid-cols-1`), not the default
+  auto minimum.
 - Skip link to `#main`, one `h1` per page, landmarks for header, nav, main,
-  and footer.
+  and footer. After client-side navigation, focus moves to the new `h1`.
 - Images have descriptive `alt`, explicit `width` and `height`.

@@ -1,16 +1,26 @@
 # gmartins.dev v4
 
-Source for [gmartins.dev](https://gmartins.dev), the personal site of
-Guilherme Martins, Software Engineer: home, selected work with two case
-studies, and about, in English (`/`) and Brazilian Portuguese (`/pt-br`).
+[![CI](https://github.com/gmartins-dev/portfolio-v4/actions/workflows/ci.yml/badge.svg)](https://github.com/gmartins-dev/portfolio-v4/actions/workflows/ci.yml)
 
-## Stack
+Source for [gmartins.dev](https://gmartins.dev), the site of Guilherme
+Martins, Software Engineer: selected work with two case studies, career
+history, and contact, in English (`/`) and Brazilian Portuguese (`/pt-br`).
 
-Vite, React 19, TypeScript, TanStack Router, Tailwind CSS 4 and shadcn/ui
-primitives. Every page is prerendered to static HTML at build time and
-hydrated in the browser; there is no server at runtime. See
-[ADR-001](docs/adr/001-vite-react-with-build-time-prerender.md) for how and
-why, and [DESIGN.md](DESIGN.md) for the visual system.
+## What's notable
+
+- **Static, prerendered React.** Vite, React 19 and TanStack Router render
+  every page to HTML at build time; the browser hydrates it. No runtime
+  server ([ADR-001](docs/adr/001-vite-react-with-build-time-prerender.md)).
+- **Strict CSP on a static host.** Each page allows its inline scripts by
+  SHA-256, with no `unsafe-inline`
+  ([ADR-002](docs/adr/002-per-page-csp-with-script-hashes.md)).
+- **One content source.** Typed bilingual content generates the pages,
+  JSON-LD, sitemap, `llms.txt` and social cards, and fails the build when
+  something is missing ([ADR-004](docs/adr/004-typed-content-modules-validated-at-build.md)).
+- **Quality gates in CI.** Unit and component tests, a built-output checker
+  with a JavaScript budget, Playwright journeys with axe (WCAG 2.2 AA, both
+  themes, desktop and mobile), and a production dependency audit
+  ([ADR-005](docs/adr/005-layered-quality-gates.md)).
 
 ## Develop
 
@@ -19,33 +29,28 @@ Requires Node 24 (`.node-version`) and pnpm (version in `package.json`).
 ```sh
 pnpm install
 pnpm dev          # dev server, server-rendered like production
-pnpm check        # typecheck, Biome, unit tests
-pnpm build        # typecheck, client + SSR builds, prerender into dist/
-pnpm check:dist   # links, canonicals, hreflang and sitemap in dist/
+pnpm check        # typecheck, Biome, unit and component tests
+pnpm build        # prerender into dist/
+pnpm check:dist   # links, canonicals, hreflang, sitemap, JS budget
 pnpm test:e2e     # Playwright + axe against dist/ (run pnpm build first)
 pnpm preview      # serve dist/ locally
 ```
 
-`pnpm fix` applies Biome formatting and safe lint fixes. Agent and contributor
-rules are in [AGENTS.md](AGENTS.md).
+## Documentation
 
-## Content
+| Read this | To |
+| --- | --- |
+| [docs/architecture.md](docs/architecture.md) | Understand the build pipeline and what runs in the browser |
+| [docs/maintenance.md](docs/maintenance.md) | Change copy, add a case study or page, update dependencies, release |
+| [docs/adr/](docs/adr/README.md) | See why each architectural choice was made |
+| [DESIGN.md](DESIGN.md) | Work on the UI: tokens, typography, rules |
+| [SECURITY.md](SECURITY.md) | Review the security controls or report an issue |
+| [ROADMAP.md](ROADMAP.md) | See open work and what blocks the launch |
+| [CHANGELOG.md](CHANGELOG.md) | See what changed |
+| [AGENTS.md](AGENTS.md) | Brief a coding agent working in this repository |
 
-Everything visible is in `src/content/`, typed and validated with zod at
-build time:
+## Status
 
-- `profile.ts`: contact details and experience (source: the resumes)
-- `work.ts`: case studies and short entries (source: the public repositories)
-- `copy.ts`: page and interface copy
-
-Images of projects are real screenshots (`pnpm capture:work-images`); social
-cards are rendered from the content (`pnpm build:og-images`). Both are
-committed so builds need no browser.
-
-## Deploy
-
-Vercel, configured in [`vercel.json`](vercel.json): static output in `dist/`,
-clean URLs, the v3 short links (`/cv`, `/cv-br`, `/gh`, `/linkedin`, `/email`,
-`/links`) and security headers. Each page also carries a
-Content-Security-Policy that allows its inline scripts by hash. Roll back by
-promoting the previous deployment in Vercel.
+Built and tested, not yet live: gmartins.dev still serves the previous
+version. The owner review and launch steps are tracked in
+[ROADMAP.md](ROADMAP.md).

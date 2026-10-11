@@ -69,7 +69,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 							<dt className="text-sm text-muted-foreground">
 								{t(group.group, locale)}
 							</dt>
-							<dd className="mt-2 font-mono text-sm leading-relaxed">
+							<dd
+								className="mt-2 font-mono text-sm leading-relaxed"
+								translate="no"
+							>
 								{group.items.join(", ")}
 							</dd>
 						</div>
@@ -92,7 +95,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 						<a
 							href={profile.resume.en}
 							hrefLang="en"
-							className="text-brand underline-offset-4 hover:underline"
+							className="inline-flex min-h-6 items-center text-brand underline-offset-4 hover:underline"
 						>
 							{t(copy.footer.resumeEn, locale)}
 						</a>
@@ -101,7 +104,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 						<a
 							href={profile.resume["pt-BR"]}
 							hrefLang="pt-BR"
-							className="text-brand underline-offset-4 hover:underline"
+							className="inline-flex min-h-6 items-center text-brand underline-offset-4 hover:underline"
 						>
 							{t(copy.footer.resumePt, locale)}
 						</a>

@@ -76,9 +76,9 @@ export const experience: Experience[] = [
 		start: "2024-10",
 		end: "2025-02",
 		context: {
-			en: "Fintech whose engagement banking platform is used by financial institutions.",
+			en: "Fintech that builds an engagement banking platform for financial institutions.",
 			"pt-BR":
-				"Fintech cuja plataforma de engagement banking é usada por instituições financeiras.",
+				"Fintech que desenvolve uma plataforma de engagement banking para instituições financeiras.",
 		},
 		highlights: {
 			en: [

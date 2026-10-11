@@ -1,10 +1,13 @@
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { caseStudies } from "./content/work";
 import { localeFromPath, localizedPath } from "./i18n";
 import { ogCards } from "./og-cards";
 import {
+	aboutStructuredData,
 	buildHead,
 	buildSitemap,
+	caseStudyStructuredData,
 	defaultOgImage,
 	homeStructuredData,
 } from "./seo";
@@ -58,7 +61,10 @@ describe("buildHead", () => {
 });
 
 describe("buildSitemap", () => {
-	const xml = buildSitemap(["/", "/about"]);
+	const xml = buildSitemap([
+		{ path: "/" },
+		{ path: "/about", lastmod: "2026-10-11" },
+	]);
 
 	it("lists every page once per locale", () => {
 		const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
@@ -68,6 +74,11 @@ describe("buildSitemap", () => {
 			"https://gmartins.dev/about",
 			"https://gmartins.dev/pt-br/about",
 		]);
+	});
+
+	it("adds lastmod only where a real date exists", () => {
+		expect(xml.match(/<lastmod>2026-10-11<\/lastmod>/g)).toHaveLength(2);
+		expect(xml.match(/<lastmod>/g)).toHaveLength(2);
 	});
 
 	it("gives each entry both alternates and x-default", () => {
@@ -92,7 +103,9 @@ describe("head extras", () => {
 	});
 
 	it("describes the person on the home page", () => {
-		const [person, site] = homeStructuredData("pt-BR");
+		const [document] = homeStructuredData("pt-BR");
+		expect(document).toMatchObject({ "@context": "https://schema.org" });
+		const [person, site] = (document as { "@graph": object[] })["@graph"];
 		expect(person).toMatchObject({
 			"@type": "Person",
 			name: "Guilherme Martins",
@@ -100,9 +113,45 @@ describe("head extras", () => {
 		expect(site).toMatchObject({ "@type": "WebSite", inLanguage: "pt-BR" });
 	});
 
+	it("links case studies to the person, the repository and a breadcrumb", () => {
+		const [study] = caseStudies;
+		const [document] = caseStudyStructuredData("en", study);
+		const nodes = (document as { "@graph": Record<string, unknown>[] })[
+			"@graph"
+		];
+		const article = nodes.find((node) => node["@type"] === "TechArticle");
+		expect(article).toMatchObject({
+			headline: study.title,
+			dateModified: study.reviewed,
+			author: { "@id": "https://gmartins.dev/#person" },
+			about: {
+				codeRepository: "https://github.com/gmartins-dev/sdd-agentic-flow",
+			},
+		});
+		const breadcrumb = nodes.find((node) => node["@type"] === "BreadcrumbList");
+		expect(breadcrumb).toMatchObject({
+			itemListElement: [
+				{ position: 1, item: "https://gmartins.dev/" },
+				{ position: 2, item: "https://gmartins.dev/work" },
+				{ position: 3, item: "https://gmartins.dev/work/sdd-agentic-flow" },
+			],
+		});
+		expect(nodes.some((node) => node["@type"] === "Person")).toBe(true);
+	});
+
+	it("marks the About page as a ProfilePage about the person", () => {
+		const [document] = aboutStructuredData("pt-BR");
+		const [profilePage] = (document as { "@graph": object[] })["@graph"];
+		expect(profilePage).toMatchObject({
+			"@type": "ProfilePage",
+			url: "https://gmartins.dev/pt-br/about",
+			mainEntity: { "@id": "https://gmartins.dev/#person" },
+		});
+	});
+
 	it("has a rendered social card for every card the site references", () => {
 		for (const card of ogCards) {
-			expect(existsSync(`public/og/${card.file}`), card.file).toBe(true);
+			expect(existsSync(`public/images/og/${card.file}`), card.file).toBe(true);
 		}
 		for (const locale of ["en", "pt-BR"] as const) {
 			expect(existsSync(`public${defaultOgImage(locale).src}`)).toBe(true);

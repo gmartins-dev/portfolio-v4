@@ -11,7 +11,7 @@ work moves to the [changelog](CHANGELOG.md).
 | M1 Foundation | Tooling, prerender, design tokens, shell, theme, localization | Done |
 | M2 Core content | Home, About, experience, resume and contact links | Built with draft copy |
 | M3 Engineering evidence | Work listing, case study template, two case studies | Built with draft case studies |
-| M4 Production readiness | SEO, structured data, accessibility, performance, redirects, security | Done (lab-verified) |
+| M4 Production readiness | SEO, structured data, accessibility, performance, redirects, security | Done, then audited and hardened (see CHANGELOG) |
 | M5 Launch | Preview, cross-browser tests, DNS switch, rollback | Not started |
 
 ## Before launch: owner review
@@ -63,8 +63,11 @@ fixes it; until then it stays public.
   back to the v3 project while it still exists.
 - Archive or label the v3 repository.
 - After launch, measure real-user Core Web Vitals (target p75 LCP at or below
-  2.5 s). Lab LCP on simulated slow 4G is 2.6-2.8 s on the home and work
-  pages, so watch it.
+  2.5 s). Lab LCP on simulated slow 4G is 2.0-2.5 s after the audit, with
+  home and work right at 2.48 s, so watch them. If field data misses the
+  target, the next levers are dropping tailwind-merge from the client
+  (8.5 kB) and splitting page code by route.
+- Follow the periodic review in `docs/maintenance.md`.
 
 ## Deferred
 

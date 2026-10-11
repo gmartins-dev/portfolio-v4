@@ -4,17 +4,19 @@ import {
 	renderRouterToString,
 } from "@tanstack/react-router/ssr/server";
 import { validateContent } from "./content/validate";
-import { createAppRouter, pagePaths, type RouterContext } from "./router";
+import { createAppRouter, type RouterContext, sitemapPages } from "./router";
 import { buildSitemap, siteUrl } from "./seo";
 
-export { withContentSecurityPolicy } from "./csp";
+export { finalizeHtml, withoutScripts } from "./finalize-html";
+export { buildLlmsTxt } from "./llms-txt";
 export { prerenderPaths } from "./router";
+export { themeBootstrapScript } from "./theme";
 
 // Fail the build, not the visitor, on invalid content.
 validateContent();
 
 /** sitemap.xml contents, written by scripts/prerender.mjs. */
-export const sitemap = buildSitemap(pagePaths);
+export const sitemap = buildSitemap(sitemapPages);
 
 /**
  * Render one URL to a full HTML document, including the dehydrated router

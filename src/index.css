@@ -105,11 +105,26 @@
 	html.dark {
 		color-scheme: dark;
 	}
+	/* Avoid one-word last lines (Web Interface Guidelines, typography). */
+	h1,
+	h2,
+	h3 {
+		text-wrap: balance;
+	}
+	p,
+	li {
+		text-wrap: pretty;
+	}
 	::selection {
 		@apply bg-brand text-brand-foreground;
 	}
 	:focus-visible {
 		@apply outline-2 outline-offset-2 outline-ring;
+	}
+	/* Headings receive programmatic focus after navigation (RouteFocus); they
+	   are not controls, so no outline. */
+	h1[tabindex="-1"]:focus {
+		@apply outline-none;
 	}
 	/* biome-ignore-start lint/complexity/noImportantStyles: reduced motion must win over every component transition. */
 	@media (prefers-reduced-motion: reduce) {

@@ -37,8 +37,8 @@ const saf: CaseStudy = {
 		],
 	},
 	image: {
-		src: "/work/sdd-agentic-flow",
-		widths: [640, 838],
+		src: "/images/work/sdd-agentic-flow",
+		widths: [480, 720, 838],
 		width: 838,
 		height: 629,
 		alt: {
@@ -69,11 +69,11 @@ const saf: CaseStudy = {
 			heading: { en: "The problem", "pt-BR": "O problema" },
 			body: {
 				en: [
-					"Coding agents can start writing code before the request is understood, drift outside the task, and report work as done without executable proof. Review time then goes into reconstructing intent from the diff instead of checking behavior.",
+					"Coding agents can start writing code before the request is understood, drift outside the task, and report work as done without executable proof. Reviewers then have to reconstruct intent from the diff before they can check behavior.",
 					"I wanted a way to delegate work to agents that keeps the intent written down, the scope bounded, and the evidence inspectable, without handing over decisions that should stay with a person.",
 				],
 				"pt-BR": [
-					"Agentes de código podem começar a escrever antes de entender o pedido, sair do escopo da tarefa e declarar o trabalho pronto sem prova executável. O tempo de revisão vai para reconstruir a intenção a partir do diff, em vez de verificar o comportamento.",
+					"Agentes de código podem começar a escrever antes de entender o pedido, sair do escopo da tarefa e declarar o trabalho pronto sem prova executável. Quem revisa precisa reconstruir a intenção a partir do diff antes de conseguir verificar o comportamento.",
 					"Eu queria uma forma de delegar trabalho a agentes mantendo a intenção registrada, o escopo delimitado e as evidências inspecionáveis, sem abrir mão das decisões que devem ficar com uma pessoa.",
 				],
 			},
@@ -152,8 +152,8 @@ const payments: CaseStudy = {
 		],
 	},
 	image: {
-		src: "/work/payments-api-node",
-		widths: [640, 1280],
+		src: "/images/work/payments-api-node",
+		widths: [480, 720, 1280],
 		width: 1280,
 		height: 800,
 		alt: {
@@ -189,11 +189,11 @@ const payments: CaseStudy = {
 			body: {
 				en: [
 					"The database decides who processes a payment. The idempotency key is unique, and the first request to insert a PENDING row owns the work. Every other request with that key reads the stored row instead.",
-					"The final HTTP status code and response body are persisted with the payment, so a retry replays exactly the original answer: 200 for a stored success, 503 for a stored failure, and 202 while the first request is still pending after a short poll (every 100 ms, up to 3 s).",
+					"The API stores the final HTTP status code and response body with the payment, so a retry replays exactly the original answer: 200 for a stored success, 503 for a stored failure, and 202 while the first request is still pending after a short poll (every 100 ms, up to 3 s).",
 				],
 				"pt-BR": [
 					"Quem decide qual requisição processa o pagamento é o banco. A chave de idempotência é única, e a primeira requisição que insere a linha PENDING fica com o trabalho. As demais com a mesma chave leem a linha salva.",
-					"O status HTTP final e o corpo da resposta são persistidos junto com o pagamento, então uma retentativa repete a resposta original exatamente: 200 para sucesso salvo, 503 para falha salva e 202 enquanto a primeira requisição ainda está pendente após um polling curto (a cada 100 ms, por até 3 s).",
+					"A API guarda o status HTTP final e o corpo da resposta junto com o pagamento, então uma retentativa repete exatamente a resposta original: 200 para sucesso salvo, 503 para falha salva e 202 enquanto a primeira requisição ainda está pendente após um polling curto (a cada 100 ms, por até 3 s).",
 				],
 			},
 			code: {
@@ -222,11 +222,11 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 			heading: { en: "Trade-offs", "pt-BR": "Trade-offs" },
 			body: {
 				en: [
-					"No Redis, no distributed lock and no queue. A unique constraint with INSERT ... ON CONFLICT DO NOTHING gives the same guarantee with one fewer system to run.",
+					"No Redis, no distributed lock and no queue. A unique constraint with INSERT … ON CONFLICT DO NOTHING gives the same guarantee with one fewer system to run.",
 					"Short polling instead of a notification mechanism, accepted for the scale of the exercise. A stored failure returns 503 so the replay matches the original response exactly.",
 				],
 				"pt-BR": [
-					"Sem Redis, sem lock distribuído e sem fila. Uma constraint única com INSERT ... ON CONFLICT DO NOTHING dá a mesma garantia com um sistema a menos para operar.",
+					"Sem Redis, sem lock distribuído e sem fila. Uma constraint única com INSERT … ON CONFLICT DO NOTHING dá a mesma garantia com um sistema a menos para operar.",
 					"Polling curto em vez de um mecanismo de notificação, aceito para a escala do exercício. Uma falha salva retorna 503 para que a repetição seja idêntica à resposta original.",
 				],
 			},
@@ -235,10 +235,10 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 			heading: { en: "Validation", "pt-BR": "Validação" },
 			body: {
 				en: [
-					"Integration tests run against a real PostgreSQL instance and check the persisted state. They prove that only one concurrent request wins and cover retries after success, after failure and while a payment is still pending. The API contract is documented with Swagger and a Postman collection.",
+					"Integration tests run against a real PostgreSQL instance and check the persisted state. They prove that only one concurrent request wins and cover retries after success, after failure and while a payment is still pending. Swagger and a Postman collection document the API contract.",
 				],
 				"pt-BR": [
-					"Os testes de integração rodam contra um PostgreSQL real e verificam o estado persistido. Eles provam que só uma requisição concorrente vence e cobrem retentativas após sucesso, após falha e com o pagamento ainda pendente. O contrato da API está documentado com Swagger e uma collection do Postman.",
+					"Os testes de integração rodam contra um PostgreSQL real e verificam o estado persistido. Eles provam que só uma requisição concorrente vence e cobrem retentativas após sucesso, após falha e com o pagamento ainda pendente. Swagger e uma collection do Postman documentam o contrato da API.",
 				],
 			},
 		},
@@ -270,8 +270,8 @@ export const otherWork: ShortWork[] = [
 		},
 		href: "https://github.com/gmartins-dev/links",
 		image: {
-			src: "/work/links",
-			widths: [640, 1280],
+			src: "/images/work/links",
+			widths: [480, 720, 1280],
 			width: 1280,
 			height: 800,
 			alt: {
@@ -282,7 +282,3 @@ export const otherWork: ShortWork[] = [
 		},
 	},
 ];
-
-export function findCaseStudy(slug: string) {
-	return caseStudies.find((study) => study.slug === slug);
-}

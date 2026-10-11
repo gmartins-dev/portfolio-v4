@@ -2,18 +2,19 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { otherLocale } from "../i18n";
+import { isNotFound } from "../not-found";
 import { ThemeToggle } from "../theme";
 import { useLocale } from "../use-locale";
 
 const navLinkClass =
-	"underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline";
+	"inline-flex min-h-6 items-center underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline";
 
 export function SiteHeader() {
 	const { locale, page, href } = useLocale();
 	const other = otherLocale(locale);
 	// On the 404 page there is no equivalent page to switch to; go home instead.
 	const notFound = useRouterState({
-		select: (state) => state.matches.some((match) => match.globalNotFound),
+		select: (state) => isNotFound(state.matches),
 	});
 
 	return (
@@ -25,7 +26,11 @@ export function SiteHeader() {
 				{t(copy.nav.skip, locale)}
 			</a>
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-4 py-4 sm:px-6">
-				<Link to={href("/")} className="font-semibold tracking-tight">
+				<Link
+					to={href("/")}
+					className="font-semibold tracking-tight"
+					translate="no"
+				>
 					{profile.name}
 				</Link>
 				<div className="flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -62,7 +67,7 @@ export function SiteHeader() {
 							hrefLang={other}
 							lang={other}
 							aria-label={t(copy.nav.languageLabel, locale)}
-							className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+							className="inline-flex min-h-6 items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
 						>
 							{t(copy.nav.language, locale)}
 						</Link>

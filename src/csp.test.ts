@@ -11,13 +11,13 @@ const page = [
 	'<script type="module" src="/assets/entry.js"></script>',
 	'<script type="application/ld+json">{"a":1}</script>',
 	"</head><body>",
-	'<script class="$tsr">state("a\u0000b")</script>',
+	'<script class="$tsr">state("a")</script>',
 	"</body></html>",
 ].join("");
 
 describe("inlineScripts", () => {
 	it("returns executable inline scripts only", () => {
-		expect(inlineScripts(page)).toEqual(["theme()", 'state("a�b")']);
+		expect(inlineScripts(page)).toEqual(["theme()", 'state("a")']);
 	});
 });
 
@@ -32,7 +32,7 @@ describe("withContentSecurityPolicy", async () => {
 
 	it("allows each inline script by its browser-side hash", () => {
 		expect(html).toContain(
-			`script-src 'self' ${sha("theme()")} ${sha('state("a�b")')}`,
+			`script-src 'self' ${sha("theme()")} ${sha('state("a")')}`,
 		);
 		expect(html).not.toContain("unsafe-inline");
 	});

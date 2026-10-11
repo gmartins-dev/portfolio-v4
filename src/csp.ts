@@ -28,9 +28,9 @@ export async function withContentSecurityPolicy(html: string) {
 }
 
 /**
- * Text of every executable inline script, as the browser will hash it. The
- * HTML parser turns U+0000 inside script text into U+FFFD, and TanStack
- * Router's dehydrated match ids contain NUL separators, so mirror that.
+ * Text of every executable inline script, as the browser will hash it. Pages
+ * reach this step without NUL characters (src/finalize-html.ts); the HTML
+ * parser would otherwise hash U+FFFD in their place.
  */
 export function inlineScripts(html: string): string[] {
 	const scripts = html.matchAll(/<script(\s[^>]*)?>([\s\S]*?)<\/script>/g);
@@ -43,7 +43,7 @@ export function inlineScripts(html: string): string[] {
 				type === undefined || type === "module" || type === "text/javascript"
 			);
 		})
-		.map(([, , body]) => body.replaceAll("\u0000", "�"));
+		.map(([, , body]) => body);
 }
 
 /** CSP source expression for a script: 'sha256-<base64 digest>'. */

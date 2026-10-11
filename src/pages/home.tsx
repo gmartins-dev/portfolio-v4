@@ -80,7 +80,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							</p>
 							<Link
 								to={localizedPath(locale, item.evidence.to)}
-								className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
+								className="mt-3 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
 							>
 								{t(item.evidence.label, locale)}
 								<ArrowRight aria-hidden="true" className="size-3.5" />
@@ -100,7 +100,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					</h2>
 					<Link
 						to={localizedPath(locale, "/about")}
-						className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
+						className="mt-4 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
 					>
 						{t(copy.home.fullHistory, locale)}
 						<ArrowRight aria-hidden="true" className="size-3.5" />

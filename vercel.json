@@ -50,6 +50,7 @@
 					"value": "strict-origin-when-cross-origin"
 				},
 				{ "key": "X-Frame-Options", "value": "DENY" },
+				{ "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
 				{
 					"key": "Strict-Transport-Security",
 					"value": "max-age=63072000; includeSubDomains"
@@ -61,6 +62,15 @@
 				{
 					"key": "Content-Security-Policy",
 					"value": "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+				}
+			]
+		},
+		{
+			"source": "/images/(.*)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=86400, stale-while-revalidate=604800"
 				}
 			]
 		},

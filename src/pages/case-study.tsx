@@ -21,7 +21,7 @@ export function CaseStudyPage({
 		<article className="pt-12 md:pt-16">
 			<Link
 				to={localizedPath(locale, "/work")}
-				className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
 			>
 				<ArrowLeft aria-hidden="true" className="size-4" />
 				{t(copy.work.back, locale)}
@@ -31,7 +31,10 @@ export function CaseStudyPage({
 				<p className="font-mono text-sm text-muted-foreground">
 					{t(study.kind, locale)}
 				</p>
-				<h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
+				<h1
+					className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl"
+					translate="no"
+				>
 					{study.title}
 				</h1>
 				<p className="mt-6 max-w-prose text-lg text-muted-foreground">
@@ -57,7 +60,9 @@ export function CaseStudyPage({
 						<dt className="text-muted-foreground">
 							{t(copy.work.stack, locale)}
 						</dt>
-						<dd className="mt-1 font-mono">{study.stack.join(", ")}</dd>
+						<dd className="mt-1 font-mono" translate="no">
+							{study.stack.join(", ")}
+						</dd>
 					</div>
 				</dl>
 			</header>
@@ -66,14 +71,16 @@ export function CaseStudyPage({
 				<WorkImage
 					image={study.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 976px, 100vw"
+					sizes="(min-width: 1024px) 976px, calc(100vw - 2rem)"
 					priority
 					className="max-h-[36rem]"
 				/>
 			</figure>
 
-			<div className="mt-16 grid gap-12 md:grid-cols-[1fr_16rem] md:gap-16">
-				<div className="grid gap-12">
+			{/* grid-cols-1 is minmax(0, 1fr): with the default auto minimum the
+			    code block would widen the page instead of scrolling (WCAG 1.4.10). */}
+			<div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-16">
+				<div className="grid grid-cols-1 gap-12">
 					{study.sections.map((section) => (
 						<section key={section.heading.en}>
 							<h2 className="text-2xl font-semibold tracking-tight">
@@ -89,6 +96,7 @@ export function CaseStudyPage({
 									<pre
 										// biome-ignore lint/a11y/noNoninteractiveTabindex: scrollable region must be focusable (WCAG 2.1.1).
 										tabIndex={0}
+										translate="no"
 										className="overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-sm leading-relaxed"
 									>
 										<code>{section.code.source}</code>
@@ -118,7 +126,7 @@ export function CaseStudyPage({
 							<li key={link.href}>
 								<a
 									href={link.href}
-									className="inline-flex items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
+									className="inline-flex min-h-6 items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
 								>
 									{t(link.label, locale)}
 									<ArrowUpRight aria-hidden="true" className="size-3.5" />

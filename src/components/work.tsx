@@ -78,7 +78,7 @@ export function CaseStudyTeaser({
 				<WorkImage
 					image={{ ...study.image, alt: { en: "", "pt-BR": "" } }}
 					locale={locale}
-					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, 100vw"
+					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
 					priority={priority}
 					className="aspect-[4/3]"
 				/>
@@ -91,6 +91,7 @@ export function CaseStudyTeaser({
 					<Link
 						to={href}
 						className="after:absolute after:inset-0 hover:text-brand"
+						translate="no"
 					>
 						{study.title}
 					</Link>
@@ -119,7 +120,7 @@ export function ShortWorkItem({
 		<article className="grid gap-6 border-t pt-8 md:grid-cols-[2fr_3fr] md:gap-12">
 			<div>
 				<h3 className="text-xl font-semibold tracking-tight">
-					<a href={item.href} className="hover:text-brand">
+					<a href={item.href} className="hover:text-brand" translate="no">
 						{item.title}
 					</a>
 				</h3>
@@ -129,7 +130,7 @@ export function ShortWorkItem({
 				<WorkImage
 					image={item.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 590px, (min-width: 768px) 58vw, 100vw"
+					sizes="(min-width: 1024px) 590px, (min-width: 768px) 58vw, calc(100vw - 2rem)"
 					className="aspect-[16/9]"
 				/>
 			)}
