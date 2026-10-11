@@ -54,8 +54,11 @@ documentation. Every fix that could regress now has a test.
 
 - 38 unit and component tests, `check:dist`, 102 e2e tests (desktop and
   mobile, axe in both themes) pass.
-- Lighthouse 13.5, mobile lab: performance 98-99; accessibility, best
-  practices, SEO and agentic browsing 100; LCP 2.2-2.3 s (was 2.6-2.8 s).
+- Lighthouse 13.5, mobile lab, median of 3 runs: performance 97-99;
+  accessibility, best practices, SEO and agentic browsing 100; LCP 2.0-2.5 s
+  (home and work 2.48 s, was 2.6-2.8 s). The asset changes alone reached
+  2.2-2.3 s; the dependency security update added about 10 kB of client
+  JavaScript, which took back part of that gain.
 
 ### M1 to M4: the v4 site, built on #1
 
