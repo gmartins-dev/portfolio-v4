@@ -1,5 +1,5 @@
 // Writes one static HTML document per route and locale into dist/ (about.html
-// for /about), plus 404.html and sitemap.xml, using the SSR bundle built from
+// for /about), plus 404.html, sitemap.xml and llms.txt, using the SSR bundle built from
 // src/entry-server.tsx. Runs after both Vite builds (see the `build` script).
 // The SSR bundle is build-time only and is removed.
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
@@ -10,9 +10,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const ssrDir = join(root, "dist-ssr");
 
-const { render, prerenderPaths, sitemap, finalizeHtml } = await import(
-	pathToFileURL(join(ssrDir, "entry-server.js")).href
-);
+const { render, prerenderPaths, sitemap, finalizeHtml, buildLlmsTxt } =
+	await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
 
 // The client entry is content-hashed; find its name in Vite's manifest.
 const manifestFile = join(dist, ".vite", "manifest.json");
@@ -39,6 +38,8 @@ for (const url of prerenderPaths) {
 
 await writeFile(join(dist, "sitemap.xml"), sitemap);
 console.log("wrote dist/sitemap.xml");
+await writeFile(join(dist, "llms.txt"), buildLlmsTxt());
+console.log("wrote dist/llms.txt");
 
 // Static hosts (Vercel included) serve 404.html, with a 404 status, for any
 // path that has no file.

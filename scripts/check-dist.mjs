@@ -1,7 +1,7 @@
 // Checks the built site in dist/ without a browser: every internal link and
 // asset resolves (to a page, a file or a vercel.json redirect), canonicals
 // point at the page itself, hreflang alternates are reciprocal, social
-// images exist, and the sitemap lists exactly the pages. Run after
+// images exist, the sitemap lists exactly the pages, and llms.txt links resolve. Run after
 // `pnpm build`: `pnpm check:dist`.
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -102,6 +102,13 @@ for (const page of expected) {
 }
 for (const page of listed) {
 	if (!pages.has(page)) fail("sitemap.xml", `lists missing page ${page}`);
+}
+
+// llms.txt links to site pages must exist too.
+const llms = readFileSync(join(dist, "llms.txt"), "utf8");
+for (const [, link] of llms.matchAll(/\]\((https:\/\/gmartins\.dev[^)]*)\)/g)) {
+	const path = link.replace(siteUrl, "") || "/";
+	if (!resolves(path)) fail("llms.txt", `broken link ${link}`);
 }
 
 if (errors.length > 0) {

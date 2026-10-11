@@ -8,6 +8,7 @@ import { createAppRouter, type RouterContext, sitemapPages } from "./router";
 import { buildSitemap, siteUrl } from "./seo";
 
 export { finalizeHtml } from "./finalize-html";
+export { buildLlmsTxt } from "./llms-txt";
 export { prerenderPaths } from "./router";
 
 // Fail the build, not the visitor, on invalid content.
