@@ -9,6 +9,7 @@ import {
 	useLocation,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { RouteFocus } from "./components/route-focus";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
 import { copy, t } from "./content/copy";
@@ -104,6 +105,7 @@ function Document() {
 					<Outlet />
 				</main>
 				<SiteFooter />
+				<RouteFocus />
 				<Scripts />
 			</body>
 		</html>

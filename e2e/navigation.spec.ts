@@ -26,6 +26,16 @@ test("work journey: home to case study and back", async ({ page }) => {
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Work");
 });
 
+test("client-side navigation moves focus to the new page heading", async ({
+	page,
+}) => {
+	await page.goto("/");
+	await page.getByRole("link", { name: "Full background" }).click();
+	await expect(page).toHaveURL(/\/about$/);
+	await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+	expect(await page.evaluate(() => scrollY)).toBe(0);
+});
+
 test("language switch keeps the page and updates head tags", async ({
 	page,
 }) => {
