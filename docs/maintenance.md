@@ -28,7 +28,8 @@ All visible text lives in `src/content/`. Each string is an object with an
 `en` and a `pt-BR` value, and you must update both in the same change.
 
 1. Find the string in `copy.ts` (interface and page copy), `profile.ts`
-   (contact details and experience), or `work.ts` (case studies).
+   (contact details and experience), `work.ts` (case studies), or
+   `professional-work.ts` (products from past jobs).
 2. Edit both languages. Write each one naturally rather than translating word
    by word.
 3. Run `pnpm check`. The content tests reject em and en dashes and a
@@ -36,8 +37,8 @@ All visible text lives in `src/content/`. Each string is an object with an
 4. If you changed a page title or `<h1>`, update `e2e/pages.ts` and any e2e
    test that names it.
 
-Every fact must come from a source you can point to: the resumes, the
-GitHub profile, or a public repository. When you re-check a case study,
+Every fact must come from a source you can point to: the resumes, LinkedIn,
+the GitHub profile, a public repository, or a company's public site. When you re-check a case study,
 update its `reviewed` date; it feeds the visible "Facts checked on" line,
 `dateModified` in JSON-LD, and the sitemap `lastmod`.
 
@@ -86,6 +87,26 @@ Projects that don't need a case study go on `/projects`.
 3. If an old URL pointed to the project, add a redirect in `vercel.json`
    to `/projects#<slug>`. `pnpm check:dist` fails if the anchor doesn't
    exist.
+
+## Add a product from a past job
+
+The "Products I worked on" section of `/work` lists public products built
+as an employee or contractor. Use it only when the product and the
+company's involvement are public.
+
+1. Add the job to `experience` in `src/content/profile.ts` first. The card
+   reads its role, period, and location from there, matched by `company`.
+2. Add an entry to `src/content/professional-work.ts` in experience order.
+   Paraphrase the product summary from the company's public site, take
+   contributions from the resume, LinkedIn, or the owner, and list a stack
+   only when a source confirms it. Leave out internal names, metrics,
+   customers, and anything else under confidentiality terms.
+3. Add the company page to `shots` in `scripts/capture-work-images.mjs`
+   (set `hideCookieBanner` if a consent dialog appears) and run
+   `pnpm capture:work-images <name>`. Skip the image when the site no
+   longer shows the product you worked on.
+4. Run every quality gate. About links the experience entry to the card,
+   and the JSON-LD and `llms.txt` pick the entry up automatically.
 
 ## Add a page
 
