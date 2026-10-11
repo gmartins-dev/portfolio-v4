@@ -32,8 +32,9 @@ checks only the site owner can make; each one is a launch blocker until done.
   with dates if it should be.
 - **LinkedIn check (Phase 0).** LinkedIn could not be read without signing
   in, so experience was not cross-checked against it.
-- **Resume PDFs.** `/cv` and `/cv-br` still redirect to the Google Drive files
-  from v3. Confirm they are the final versions.
+- ~~**Resume PDFs.**~~ Confirmed by the owner (2026-10-11): the site links
+  `/cv` (English) and `/cv-br` (Portuguese), which redirect to the current
+  PDFs. Update the Drive files in place, or the targets in `vercel.json`.
 - **Contact address.** The site uses `contact@gmartins.dev` (from the
   resumes); v3 used `guilhermemm.dev@gmail.com`. Confirm the address is
   monitored. The `/email` short link now opens the contact section: Vercel
