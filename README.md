@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# gmartins.dev v4
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Source for [gmartins.dev](https://gmartins.dev), the personal site of
+Guilherme Martins, Software Engineer. Work in progress: the current pages are
+placeholders proving the build pipeline; real content comes later.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Vite, React 19, TypeScript, TanStack Router, Tailwind CSS 4, shadcn/ui.
+Every route is prerendered to static HTML in English (`/`) and Brazilian
+Portuguese (`/pt-br`). See
+[ADR-001](docs/adr/001-vite-react-with-build-time-prerender.md) for how and why.
 
-## React Compiler
+## Develop
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires Node 24 (`.node-version`) and pnpm (version in `package.json`).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+pnpm install
+pnpm dev        # dev server, server-rendered like production
+pnpm check      # typecheck, Biome, unit tests
+pnpm build      # typecheck, client + SSR builds, prerender into dist/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`pnpm fix` applies Biome formatting and safe lint fixes.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Layout
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Path | Purpose |
+| --- | --- |
+| `src/router.tsx` | Routes, document shell, list of prerendered paths |
+| `src/content/` | Page copy per locale |
+| `src/seo.ts` | Head tags: title, description, canonical, hreflang, Open Graph |
+| `src/i18n.ts` | Locales and localized paths |
+| `src/entry-server.tsx` / `src/entry-client.tsx` | Server render and client hydration |
+| `scripts/prerender.mjs` | Writes `dist/<path>/index.html` for every route |
+| `docs/adr/` | Architecture decisions |
