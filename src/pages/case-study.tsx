@@ -31,7 +31,10 @@ export function CaseStudyPage({
 				<p className="font-mono text-sm text-muted-foreground">
 					{t(study.kind, locale)}
 				</p>
-				<h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
+				<h1
+					className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl"
+					translate="no"
+				>
 					{study.title}
 				</h1>
 				<p className="mt-6 max-w-prose text-lg text-muted-foreground">
@@ -57,7 +60,9 @@ export function CaseStudyPage({
 						<dt className="text-muted-foreground">
 							{t(copy.work.stack, locale)}
 						</dt>
-						<dd className="mt-1 font-mono">{study.stack.join(", ")}</dd>
+						<dd className="mt-1 font-mono" translate="no">
+							{study.stack.join(", ")}
+						</dd>
 					</div>
 				</dl>
 			</header>
@@ -91,6 +96,7 @@ export function CaseStudyPage({
 									<pre
 										// biome-ignore lint/a11y/noNoninteractiveTabindex: scrollable region must be focusable (WCAG 2.1.1).
 										tabIndex={0}
+										translate="no"
 										className="overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-sm leading-relaxed"
 									>
 										<code>{section.code.source}</code>

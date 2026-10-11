@@ -222,11 +222,11 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 			heading: { en: "Trade-offs", "pt-BR": "Trade-offs" },
 			body: {
 				en: [
-					"No Redis, no distributed lock and no queue. A unique constraint with INSERT ... ON CONFLICT DO NOTHING gives the same guarantee with one fewer system to run.",
+					"No Redis, no distributed lock and no queue. A unique constraint with INSERT … ON CONFLICT DO NOTHING gives the same guarantee with one fewer system to run.",
 					"Short polling instead of a notification mechanism, accepted for the scale of the exercise. A stored failure returns 503 so the replay matches the original response exactly.",
 				],
 				"pt-BR": [
-					"Sem Redis, sem lock distribuído e sem fila. Uma constraint única com INSERT ... ON CONFLICT DO NOTHING dá a mesma garantia com um sistema a menos para operar.",
+					"Sem Redis, sem lock distribuído e sem fila. Uma constraint única com INSERT … ON CONFLICT DO NOTHING dá a mesma garantia com um sistema a menos para operar.",
 					"Polling curto em vez de um mecanismo de notificação, aceito para a escala do exercício. Uma falha salva retorna 503 para que a repetição seja idêntica à resposta original.",
 				],
 			},

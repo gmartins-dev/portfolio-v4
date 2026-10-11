@@ -26,7 +26,11 @@ export function SiteHeader() {
 				{t(copy.nav.skip, locale)}
 			</a>
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-4 py-4 sm:px-6">
-				<Link to={href("/")} className="font-semibold tracking-tight">
+				<Link
+					to={href("/")}
+					className="font-semibold tracking-tight"
+					translate="no"
+				>
 					{profile.name}
 				</Link>
 				<div className="flex flex-wrap items-center gap-x-6 gap-y-3">

@@ -69,7 +69,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 							<dt className="text-sm text-muted-foreground">
 								{t(group.group, locale)}
 							</dt>
-							<dd className="mt-2 font-mono text-sm leading-relaxed">
+							<dd
+								className="mt-2 font-mono text-sm leading-relaxed"
+								translate="no"
+							>
 								{group.items.join(", ")}
 							</dd>
 						</div>

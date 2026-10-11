@@ -95,6 +95,19 @@ function Document() {
 		<html lang={localeFromPath(pathname)}>
 			<head>
 				<HeadContent />
+				{/* Browser UI color per scheme, mirroring --background in index.css.
+				    Static JSX: HeadContent keeps one meta per name, so the second
+				    theme-color would replace the first. */}
+				<meta
+					name="theme-color"
+					media="(prefers-color-scheme: light)"
+					content="#f9fafb"
+				/>
+				<meta
+					name="theme-color"
+					media="(prefers-color-scheme: dark)"
+					content="#0d1013"
+				/>
 			</head>
 			<body className="flex min-h-dvh flex-col">
 				<SiteHeader />

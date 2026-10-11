@@ -105,6 +105,16 @@
 	html.dark {
 		color-scheme: dark;
 	}
+	/* Avoid one-word last lines (Web Interface Guidelines, typography). */
+	h1,
+	h2,
+	h3 {
+		text-wrap: balance;
+	}
+	p,
+	li {
+		text-wrap: pretty;
+	}
 	::selection {
 		@apply bg-brand text-brand-foreground;
 	}
