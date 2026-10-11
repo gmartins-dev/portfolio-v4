@@ -16,6 +16,7 @@ import type { Localized } from "./content/schema";
 import { caseStudies } from "./content/work";
 import { type Locale, localeFromPath, locales, localizedPath } from "./i18n";
 import stylesheet from "./index.css?url";
+import { isNotFound } from "./not-found";
 import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
@@ -40,12 +41,13 @@ export type RouterContext = {
 };
 
 const rootRoute = createRootRouteWithContext<RouterContext>()({
-	head: ({ match }) => ({
+	head: ({ matches, match }) => ({
 		meta: [
 			{ charSet: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			// No page route matched: the 404 page sets its own title and stays out of search.
-			...(match.globalNotFound
+			// Only the root matched, so no page route did: the 404 page sets its
+			// own title and stays out of search (see isNotFound).
+			...(isNotFound(matches)
 				? [
 						{
 							title: t(

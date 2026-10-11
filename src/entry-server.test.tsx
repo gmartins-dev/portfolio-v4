@@ -44,5 +44,8 @@ describe("server render", () => {
 	it("returns 404 for unknown paths", async () => {
 		const response = await render("/does-not-exist", context);
 		expect(response.status).toBe(404);
+		const html = await response.text();
+		expect(html).toContain('<meta name="robots" content="noindex"/>');
+		expect(html).toContain("<title>Page not found | Guilherme Martins</title>");
 	});
 });

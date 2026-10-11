@@ -10,8 +10,15 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const ssrDir = join(root, "dist-ssr");
 
-const { render, prerenderPaths, sitemap, finalizeHtml, buildLlmsTxt } =
-	await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
+const {
+	render,
+	prerenderPaths,
+	sitemap,
+	finalizeHtml,
+	buildLlmsTxt,
+	withoutScripts,
+	themeBootstrapScript,
+} = await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
 
 // The client entry is content-hashed; find its name in Vite's manifest.
 const manifestFile = join(dist, ".vite", "manifest.json");
@@ -48,12 +55,12 @@ if (notFound.status !== 404) {
 	throw new Error(`prerender 404 page: status ${notFound.status}`);
 }
 // The same file answers unknown URLs in every language, so it must not
-// hydrate against a path it was not rendered for: drop the client entry and
-// the dehydrated router state. The inline theme script stays.
-const notFoundHtml = (await notFound.text())
-	.replace(/<script type="module"[^>]*><\/script>/, "")
-	.replace(/<script class="\$tsr"[\s\S]*?<\/script>/, "");
-if (/type="module"|\$_TSR/.test(notFoundHtml)) {
+// hydrate against a path it was not rendered for: keep only the inline theme
+// script and drop the client entry and the dehydrated router state.
+const notFoundHtml = withoutScripts(await notFound.text(), [
+	themeBootstrapScript,
+]);
+if (/type="module"|\$_TSR|\$R\b/.test(notFoundHtml)) {
 	throw new Error("prerender 404 page: client scripts were not removed");
 }
 await writeFile(join(dist, "404.html"), await finalizeHtml(notFoundHtml));

@@ -53,7 +53,7 @@ for (const [path, html] of [...pages, ["/404", notFound]]) {
 		...tags(html, "img"),
 	]) {
 		const ref = attr(tag, "href") ?? attr(tag, "src");
-		if (!ref || !ref.startsWith("/") || ref.startsWith("//")) continue;
+		if (!ref?.startsWith("/") || ref.startsWith("//")) continue;
 		if (!resolves(ref)) fail(path, `broken internal reference ${ref}`);
 	}
 

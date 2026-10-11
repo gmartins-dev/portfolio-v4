@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { otherLocale } from "../i18n";
+import { isNotFound } from "../not-found";
 import { ThemeToggle } from "../theme";
 import { useLocale } from "../use-locale";
 
@@ -13,7 +14,7 @@ export function SiteHeader() {
 	const other = otherLocale(locale);
 	// On the 404 page there is no equivalent page to switch to; go home instead.
 	const notFound = useRouterState({
-		select: (state) => state.matches.some((match) => match.globalNotFound),
+		select: (state) => isNotFound(state.matches),
 	});
 
 	return (

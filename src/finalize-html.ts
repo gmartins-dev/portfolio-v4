@@ -18,3 +18,16 @@ export async function finalizeHtml(html: string) {
 	const escaped = html.replaceAll("\u0000", "\\u0000");
 	return withContentSecurityPolicy(escaped);
 }
+
+/**
+ * Remove every <script> except those whose text is listed in `keep`. Used for
+ * the JavaScript-free 404 page: keeping an allowlist (the theme bootstrap)
+ * instead of matching the router's script markup survives router upgrades,
+ * whose dehydration markup has changed between versions.
+ */
+export function withoutScripts(html: string, keep: readonly string[]) {
+	return html.replace(
+		/<script\b[^>]*>([\s\S]*?)<\/script>/g,
+		(tag, body: string) => (keep.includes(body) ? tag : ""),
+	);
+}

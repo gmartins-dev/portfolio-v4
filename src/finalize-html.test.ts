@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { finalizeHtml } from "./finalize-html";
+import { finalizeHtml, withoutScripts } from "./finalize-html";
 
 describe("finalizeHtml", () => {
 	const page =
@@ -18,5 +18,16 @@ describe("finalizeHtml", () => {
 	it("adds the CSP after escaping, so hashes match the final script text", async () => {
 		const html = await finalizeHtml(page);
 		expect(html).toContain('<head><meta http-equiv="Content-Security-Policy"');
+	});
+});
+
+describe("withoutScripts", () => {
+	it("keeps only allowlisted inline scripts", () => {
+		const html =
+			'<head><script>theme()</script><script type="module" src="/e.js"></script></head>' +
+			'<body><script data-tsr-stream-part="">$_TSR=1</script><script class="$tsr">x</script></body>';
+		expect(withoutScripts(html, ["theme()"])).toBe(
+			"<head><script>theme()</script></head><body></body>",
+		);
 	});
 });
