@@ -128,11 +128,31 @@ export const projectSchema = z.object({
 	demo: externalUrl.optional(),
 });
 
+/**
+ * Public products built while employed or contracted. Role, period and
+ * location come from the matching `experience` entry (same `company`).
+ */
+export const professionalWorkSchema = z.object({
+	/** In-page anchor on /work, linked from the About page. */
+	slug: z.string().regex(/^[a-z0-9-]+$/),
+	company: z.string(),
+	product: z.string(),
+	/** The public product page. */
+	url: externalUrl,
+	/** What the product is, paraphrased from the company's public site. */
+	summary: localized,
+	contributions: localizedList,
+	/** Only technologies a source confirms; omitted when none does. */
+	stack: z.array(z.string()).min(1).optional(),
+	image: caseStudySchema.shape.image.optional(),
+});
+
 export type Profile = z.infer<typeof profileSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
 export type CaseStudy = z.infer<typeof caseStudySchema>;
 export type ShortWork = z.infer<typeof shortWorkSchema>;
 export type Project = z.infer<typeof projectSchema>;
+export type ProfessionalWork = z.infer<typeof professionalWorkSchema>;
 
 // Keep the schema's locale keys in lockstep with the app's locale list.
 const schemaLocales = Object.keys(localized.shape);

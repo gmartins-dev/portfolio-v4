@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
+import { professionalWork } from "./professional-work";
 import { experience, profile } from "./profile";
 import { projects } from "./projects";
 import { caseStudyEntrySchema } from "./schema";
@@ -20,7 +21,15 @@ function strings(value: unknown, path = "$"): [string, string][] {
 	return [];
 }
 
-const content = { copy, profile, experience, caseStudies, otherWork, projects };
+const content = {
+	copy,
+	profile,
+	experience,
+	caseStudies,
+	otherWork,
+	projects,
+	professionalWork,
+};
 
 describe("content", () => {
 	it("matches the schemas", () => {
@@ -68,8 +77,8 @@ describe("content", () => {
 	});
 
 	it("has every image variant on disk", () => {
-		const images = [...caseStudies, ...otherWork].flatMap((item) =>
-			item.image ? [item.image] : [],
+		const images = [...caseStudies, ...otherWork, ...professionalWork].flatMap(
+			(item) => (item.image ? [item.image] : []),
 		);
 		for (const image of images) {
 			for (const width of image.widths) {
@@ -107,6 +116,29 @@ describe("content", () => {
 				disclosure: "anonymized",
 			}),
 		).not.toThrow();
+	});
+
+	it("ties every professional work entry to an experience entry", () => {
+		const companies = experience.map((entry) => entry.company);
+		for (const work of professionalWork) {
+			expect(companies).toContain(work.company);
+		}
+	});
+
+	it("lists professional work in experience order", () => {
+		const order = (company: string) =>
+			experience.findIndex((entry) => entry.company === company);
+		const positions = professionalWork.map((work) => order(work.company));
+		expect(positions).toEqual([...positions].sort((a, b) => a - b));
+	});
+
+	it("gives /work anchors unique ids", () => {
+		const ids = [
+			...professionalWork.map((work) => work.slug),
+			"professional-work",
+			"other-work",
+		];
+		expect(new Set(ids).size).toBe(ids.length);
 	});
 
 	it("gives every case study a unique slug", () => {

@@ -1,8 +1,10 @@
+import { professionalWork } from "./professional-work";
 import { experience, profile } from "./profile";
 import { projects } from "./projects";
 import {
 	caseStudyEntrySchema,
 	experienceSchema,
+	professionalWorkSchema,
 	profileSchema,
 	projectSchema,
 	shortWorkSchema,
@@ -20,4 +22,5 @@ export function validateContent() {
 	caseStudyEntrySchema.array().parse(caseStudies);
 	shortWorkSchema.array().parse(otherWork);
 	projectSchema.array().parse(projects);
+	professionalWorkSchema.array().parse(professionalWork);
 }
