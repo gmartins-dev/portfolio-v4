@@ -1,7 +1,7 @@
 import { experience, profile } from "./profile";
 import { projects } from "./projects";
 import {
-	caseStudySchema,
+	caseStudyEntrySchema,
 	experienceSchema,
 	profileSchema,
 	projectSchema,
@@ -17,7 +17,7 @@ import { caseStudies, otherWork } from "./work";
 export function validateContent() {
 	profileSchema.parse(profile);
 	experienceSchema.array().parse(experience);
-	caseStudySchema.array().parse(caseStudies);
+	caseStudyEntrySchema.array().parse(caseStudies);
 	shortWorkSchema.array().parse(otherWork);
 	projectSchema.array().parse(projects);
 }

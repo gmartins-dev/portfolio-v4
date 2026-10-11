@@ -15,6 +15,8 @@ const localizedList = z.object({
 
 // "YYYY-MM"; ranges render through the locale's date formatter.
 const yearMonth = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/);
+// "YYYY" or "YYYY-MM": anonymized work may show only the year.
+const yearOrMonth = z.string().regex(/^\d{4}(-(0[1-9]|1[0-2]))?$/);
 
 const externalUrl = z.url({ protocol: /^https$/ });
 
@@ -64,7 +66,7 @@ export const caseStudySchema = z.object({
 	kind: localized,
 	summary: localized,
 	role: localized,
-	period: z.object({ start: yearMonth, end: yearMonth.optional() }),
+	period: z.object({ start: yearOrMonth, end: yearOrMonth.optional() }),
 	stack: z.array(z.string()).min(1),
 	facts: localizedList,
 	/**
@@ -78,12 +80,26 @@ export const caseStudySchema = z.object({
 		height: z.number().int().positive(),
 		alt: localized,
 	}),
-	links: z.array(z.object({ label: localized, href: externalUrl })).min(1),
+	/** Public links; anonymized work may have none (see the refinement below). */
+	links: z.array(z.object({ label: localized, href: externalUrl })),
 	sections: z.array(section).min(3),
 	disclosure,
 	/** Date the facts on the page were last checked against the source. */
 	reviewed: z.iso.date(),
 });
+
+/** Public case studies must link to something a reader can verify. */
+export const caseStudyEntrySchema = caseStudySchema.superRefine(
+	(study, ctx) => {
+		if (study.disclosure === "public" && study.links.length === 0) {
+			ctx.addIssue({
+				code: "custom",
+				path: ["links"],
+				message: "public case studies need at least one link",
+			});
+		}
+	},
+);
 
 export const shortWorkSchema = z.object({
 	title: z.string(),

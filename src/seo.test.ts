@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { caseStudies } from "./content/work";
-import { localeFromPath, localizedPath } from "./i18n";
+import { formatMonth, localeFromPath, localizedPath } from "./i18n";
 import { ogCards } from "./og-cards";
 import {
 	aboutStructuredData,
@@ -57,6 +57,13 @@ describe("buildHead", () => {
 				href: "https://gmartins.dev/about",
 			},
 		]);
+	});
+});
+
+describe("formatMonth", () => {
+	it("formats a month per locale and shows a lone year as is", () => {
+		expect(formatMonth("2024-01", "en")).toBe("Jan 2024");
+		expect(formatMonth("2026", "pt-BR")).toBe("2026");
 	});
 });
 
@@ -153,6 +160,20 @@ describe("head extras", () => {
 				url: "https://priorizeme.vercel.app/",
 			},
 		});
+	});
+
+	it("gives anonymized work without links no `about`", () => {
+		const [study] = caseStudies;
+		const anonymized = {
+			...study,
+			links: [],
+			disclosure: "anonymized" as const,
+		};
+		const [document] = caseStudyStructuredData("en", anonymized);
+		const nodes = (document as { "@graph": Record<string, unknown>[] })[
+			"@graph"
+		];
+		expect(nodes[0]).not.toHaveProperty("about");
 	});
 
 	it("marks the About page as a ProfilePage about the person", () => {

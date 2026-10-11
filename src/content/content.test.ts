@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { experience, profile } from "./profile";
 import { projects } from "./projects";
+import { caseStudyEntrySchema } from "./schema";
 import { validateContent } from "./validate";
 import { caseStudies, otherWork } from "./work";
 
@@ -82,6 +83,20 @@ describe("content", () => {
 				.map((p) => p.year);
 			expect(years).toEqual([...years].sort((a, b) => b - a));
 		}
+	});
+
+	it("requires links on public case studies but not on anonymized ones", () => {
+		const [study] = caseStudies;
+		expect(() =>
+			caseStudyEntrySchema.parse({ ...study, links: [], disclosure: "public" }),
+		).toThrow(/at least one link/);
+		expect(() =>
+			caseStudyEntrySchema.parse({
+				...study,
+				links: [],
+				disclosure: "anonymized",
+			}),
+		).not.toThrow();
 	});
 
 	it("gives every case study a unique slug", () => {

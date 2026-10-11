@@ -35,9 +35,13 @@ export function otherLocale(locale: Locale): Locale {
 	return locale === "en" ? "pt-BR" : "en";
 }
 
-/** "2024-01" -> "Jan 2024" / "jan. de 2024", in UTC so server and client agree. */
+/**
+ * "2024-01" -> "Jan 2024" / "jan. de 2024", in UTC so server and client agree.
+ * A year alone ("2026") is shown as is.
+ */
 export function formatMonth(yearMonth: string, locale: Locale): string {
 	const [year, month] = yearMonth.split("-").map(Number);
+	if (month === undefined) return String(year);
 	return new Intl.DateTimeFormat(locale, {
 		month: "short",
 		year: "numeric",
