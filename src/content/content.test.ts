@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { experience, profile } from "./profile";
+import { validateContent } from "./validate";
 import { caseStudies, otherWork } from "./work";
 
 /** Every string reachable from a value, with its path for error messages. */
@@ -19,6 +20,10 @@ function strings(value: unknown, path = "$"): [string, string][] {
 const content = { copy, profile, experience, caseStudies, otherWork };
 
 describe("content", () => {
+	it("matches the schemas", () => {
+		expect(validateContent).not.toThrow();
+	});
+
 	it("uses no em or en dashes in visible text (DESIGN.md)", () => {
 		const offenders = strings(content).filter(([, s]) => /[–—]/.test(s));
 		expect(offenders).toEqual([]);

@@ -1,14 +1,10 @@
-import {
-	type Experience,
-	experienceSchema,
-	type Profile,
-	profileSchema,
-} from "./schema";
+import type { Experience, Profile } from "./schema";
 
 // Sources: resume EN/PT-BR (Drive files behind /cv and /cv-br) and the GitHub
 // profile README, checked 2026-10-11. Job titles follow the PT-BR resume,
-// which keeps the title held at the time (see report.md, section 3).
-export const profile: Profile = profileSchema.parse({
+// which keeps the title held at the time rather than today's title.
+// Validated against the schemas at build time (src/content/validate.ts).
+export const profile: Profile = {
 	name: "Guilherme Martins",
 	role: "Software Engineer",
 	location: { en: "Belo Horizonte, Brazil", "pt-BR": "Belo Horizonte, Brasil" },
@@ -18,9 +14,9 @@ export const profile: Profile = profileSchema.parse({
 		linkedin: "https://www.linkedin.com/in/gmartins-dev/",
 	},
 	resume: { en: "/cv", "pt-BR": "/cv-br" },
-});
+};
 
-export const experience: Experience[] = experienceSchema.array().parse([
+export const experience: Experience[] = [
 	{
 		company: "gmartins.dev",
 		role: "Software Engineer",
@@ -166,4 +162,4 @@ export const experience: Experience[] = experienceSchema.array().parse([
 			],
 		},
 	},
-]);
+];

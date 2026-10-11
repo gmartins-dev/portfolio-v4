@@ -1,13 +1,9 @@
-import {
-	type CaseStudy,
-	caseStudySchema,
-	type ShortWork,
-	shortWorkSchema,
-} from "./schema";
+import type { CaseStudy, ShortWork } from "./schema";
 
 // Facts below come from the public repositories, their READMEs and docs, npm,
 // and the GitHub API, checked on the `reviewed` date of each entry. Images are
-// captured by scripts/capture-work-images.mjs.
+// captured by scripts/capture-work-images.mjs. Validated against the
+// schemas at build time (src/content/validate.ts).
 
 const saf: CaseStudy = {
 	slug: "sdd-agentic-flow",
@@ -260,11 +256,9 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 	reviewed: "2026-10-11",
 };
 
-export const caseStudies: CaseStudy[] = caseStudySchema
-	.array()
-	.parse([saf, payments]);
+export const caseStudies: CaseStudy[] = [saf, payments];
 
-export const otherWork: ShortWork[] = shortWorkSchema.array().parse([
+export const otherWork: ShortWork[] = [
 	{
 		title: "links",
 		summary: {
@@ -284,7 +278,7 @@ export const otherWork: ShortWork[] = shortWorkSchema.array().parse([
 			},
 		},
 	},
-]);
+];
 
 export function findCaseStudy(slug: string) {
 	return caseStudies.find((study) => study.slug === slug);
