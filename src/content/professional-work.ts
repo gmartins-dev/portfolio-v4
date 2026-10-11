@@ -29,6 +29,17 @@ export const professionalWork: ProfessionalWork[] = [
 				"Trabalhei com o tech lead na arquitetura de frontend e em decisões de design da aplicação, infraestrutura e segurança.",
 			],
 		},
+		image: {
+			src: "/images/work/nisien-ai",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: 'The Hero Platform page on nisien.ai: "Detect online threats and resolve issues before they escalate".',
+				"pt-BR":
+					'A página da Hero Platform em nisien.ai: "Detect online threats and resolve issues before they escalate".',
+			},
+		},
 	},
 	{
 		slug: "backbase",
@@ -49,6 +60,17 @@ export const professionalWork: ProfessionalWork[] = [
 				"Desenvolvi funcionalidades para clientes finais e soluções de frontend componíveis para onboarding, serviços e crédito, com times multidisciplinares.",
 				"Criei uma prova de conceito de assistente bancário conversacional com IA para um hackathon interno. Ela venceu a competição.",
 			],
+		},
+		image: {
+			src: "/images/work/backbase",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The Backbase digital banking suite page, with mobile banking screens next to the headline.",
+				"pt-BR":
+					"A página da suíte de banco digital da Backbase, com telas de banco no celular ao lado do título.",
+			},
 		},
 	},
 	{
@@ -86,6 +108,17 @@ export const professionalWork: ProfessionalWork[] = [
 			"SCSS",
 			"Jest",
 		],
+		image: {
+			src: "/images/work/vochlea",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: 'The Vochlea home page: "Make the music in your head", above cards for Dubler 2 and DubBox.',
+				"pt-BR":
+					'A página inicial da Vochlea: "Make the music in your head", acima dos cards do Dubler 2 e do DubBox.',
+			},
+		},
 	},
 	{
 		slug: "loop",
@@ -93,9 +126,9 @@ export const professionalWork: ProfessionalWork[] = [
 		product: "Loop",
 		url: "https://www.loop.software/features",
 		summary: {
-			en: "All-in-one software for UK estate agencies: sales pipelines, lettings management and client accounts, used by agencies from small startups to national networks.",
+			en: "All-in-one software for UK estate agencies: sales pipelines, lettings and client accounting, used by agencies from small startups to national networks.",
 			"pt-BR":
-				"Um software completo para imobiliárias do Reino Unido: funil de vendas, gestão de locações e contas de clientes, usado de pequenas imobiliárias a redes nacionais.",
+				"Um software completo para imobiliárias do Reino Unido: funil de vendas, locações e contabilidade de clientes, usado de pequenas imobiliárias a redes nacionais.",
 		},
 		contributions: {
 			en: [
@@ -110,6 +143,17 @@ export const professionalWork: ProfessionalWork[] = [
 			],
 		},
 		stack: ["Angular", "TypeScript", "JavaScript", "Angular Material"],
+		image: {
+			src: "/images/work/loop",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The Loop features page, with a preview of the estate agency dashboard below the headline.",
+				"pt-BR":
+					"A página de funcionalidades da Loop, com uma prévia do painel da imobiliária abaixo do título.",
+			},
+		},
 	},
 	{
 		slug: "chatwith-io",

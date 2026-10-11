@@ -1,8 +1,10 @@
-import { ArrowUpRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { formatPeriod } from "../components/work";
 import { copy, t } from "../content/copy";
+import { professionalWork } from "../content/professional-work";
 import { experience, profile } from "../content/profile";
-import type { Locale } from "../i18n";
+import { type Locale, localizedPath } from "../i18n";
 
 const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 
@@ -27,39 +29,57 @@ export function AboutPage({ locale }: { locale: Locale }) {
 					{t(copy.about.experienceHeading, locale)}
 				</h2>
 				<ol className="mt-10 grid gap-12">
-					{experience.map((entry) => (
-						<li
-							key={`${entry.company}-${entry.start}`}
-							className="grid gap-4 border-t pt-6 md:grid-cols-[14rem_1fr] md:gap-10"
-						>
-							<div className="text-sm text-muted-foreground">
-								<p className="font-mono">{formatPeriod(entry, locale)}</p>
-								<p className="mt-1">{t(entry.location, locale)}</p>
-							</div>
-							<div>
-								<h3 className="text-lg font-semibold">
-									{entry.url ? (
-										<a
-											href={entry.url}
-											className="inline-flex items-center gap-1 underline-offset-4 hover:text-brand hover:underline"
-										>
-											{entry.company}
-											<ArrowUpRight aria-hidden="true" className="size-4" />
-										</a>
-									) : (
-										entry.company
+					{experience.map((entry) => {
+						const work = professionalWork.find(
+							(item) => item.company === entry.company,
+						);
+						return (
+							<li
+								key={`${entry.company}-${entry.start}`}
+								className="grid gap-4 border-t pt-6 md:grid-cols-[14rem_1fr] md:gap-10"
+							>
+								<div className="text-sm text-muted-foreground">
+									<p className="font-mono">{formatPeriod(entry, locale)}</p>
+									<p className="mt-1">{t(entry.location, locale)}</p>
+								</div>
+								<div>
+									<h3 className="text-lg font-semibold">
+										{entry.url ? (
+											<a
+												href={entry.url}
+												className="inline-flex items-center gap-1 underline-offset-4 hover:text-brand hover:underline"
+											>
+												{entry.company}
+												<ArrowUpRight aria-hidden="true" className="size-4" />
+											</a>
+										) : (
+											entry.company
+										)}
+									</h3>
+									<p className="text-muted-foreground">{entry.role}</p>
+									<p className="mt-3 max-w-prose">{t(entry.context, locale)}</p>
+									<ul className="mt-3 max-w-prose list-disc space-y-1.5 pl-5 marker:text-brand">
+										{entry.highlights[locale].map((item) => (
+											<li key={item}>{item}</li>
+										))}
+									</ul>
+									{work && (
+										<p className="mt-3 text-sm">
+											<Link
+												to={localizedPath(locale, "/work")}
+												hash={work.slug}
+												className="inline-flex min-h-6 items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
+											>
+												{t(copy.about.productLink, locale)}
+												<span className="sr-only"> ({entry.company})</span>
+												<ArrowRight aria-hidden="true" className="size-4" />
+											</Link>
+										</p>
 									)}
-								</h3>
-								<p className="text-muted-foreground">{entry.role}</p>
-								<p className="mt-3 max-w-prose">{t(entry.context, locale)}</p>
-								<ul className="mt-3 max-w-prose list-disc space-y-1.5 pl-5 marker:text-brand">
-									{entry.highlights[locale].map((item) => (
-										<li key={item}>{item}</li>
-									))}
-								</ul>
-							</div>
-						</li>
-					))}
+								</div>
+							</li>
+						);
+					})}
 				</ol>
 			</section>
 

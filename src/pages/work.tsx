@@ -1,7 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { CaseStudyTeaser, ShortWorkItem } from "../components/work";
+import {
+	CaseStudyTeaser,
+	ProfessionalWorkItem,
+	ShortWorkItem,
+} from "../components/work";
 import { copy, t } from "../content/copy";
+import { professionalWork } from "../content/professional-work";
 import { caseStudies, otherWork } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
@@ -28,6 +33,22 @@ export function WorkPage({ locale }: { locale: Locale }) {
 					/>
 				))}
 			</div>
+			<section aria-labelledby="professional-work" className="mt-24">
+				<h2
+					id="professional-work"
+					className="text-2xl font-semibold tracking-tight"
+				>
+					{t(copy.work.professionalHeading, locale)}
+				</h2>
+				<p className="mt-4 max-w-prose text-muted-foreground">
+					{t(copy.work.professionalIntro, locale)}
+				</p>
+				<div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2">
+					{professionalWork.map((work) => (
+						<ProfessionalWorkItem key={work.slug} work={work} locale={locale} />
+					))}
+				</div>
+			</section>
 			<section aria-labelledby="other-work" className="mt-24">
 				<h2 id="other-work" className="text-2xl font-semibold tracking-tight">
 					{t(copy.work.otherHeading, locale)}

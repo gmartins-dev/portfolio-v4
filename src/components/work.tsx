@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { copy, t } from "../content/copy";
-import type { CaseStudy, ShortWork } from "../content/schema";
+import { experience } from "../content/profile";
+import type { CaseStudy, ProfessionalWork, ShortWork } from "../content/schema";
 import { formatMonth, type Locale, localizedPath } from "../i18n";
 import { cn } from "../lib/utils";
 
@@ -138,6 +139,68 @@ export function ShortWorkItem({
 					className="aspect-[16/9]"
 				/>
 			)}
+		</article>
+	);
+}
+
+/**
+ * A public product built as an employee or contractor. Role, period and
+ * location come from the matching experience entry. The id is the anchor the
+ * About page links to.
+ */
+export function ProfessionalWorkItem({
+	work,
+	locale,
+}: {
+	work: ProfessionalWork;
+	locale: Locale;
+}) {
+	const job = experience.find((entry) => entry.company === work.company);
+	if (!job) throw new Error(`no experience entry for ${work.company}`);
+	return (
+		<article id={work.slug} className="scroll-mt-8 border-t pt-8">
+			{work.image && (
+				<WorkImage
+					image={work.image}
+					locale={locale}
+					sizes="(min-width: 1024px) 464px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
+					className="mb-6 aspect-[16/10]"
+				/>
+			)}
+			<p className="font-mono text-sm text-muted-foreground">
+				{formatPeriod(job, locale)}, {t(job.location, locale)}
+			</p>
+			<h3 className="mt-2 text-xl font-semibold tracking-tight" translate="no">
+				{work.company}
+			</h3>
+			<p className="text-muted-foreground">{job.role}</p>
+			<p className="mt-3">{t(work.summary, locale)}</p>
+			<h4 className="mt-4 text-sm font-semibold">
+				{t(copy.work.contributions, locale)}
+			</h4>
+			<ul className="mt-2 list-disc space-y-1.5 pl-5 text-muted-foreground marker:text-brand">
+				{work.contributions[locale].map((item) => (
+					<li key={item}>{item}</li>
+				))}
+			</ul>
+			{work.stack && (
+				<p
+					className="mt-4 font-mono text-xs text-muted-foreground"
+					translate="no"
+				>
+					{work.stack.join(", ")}
+				</p>
+			)}
+			<p className="mt-4 text-sm">
+				<a
+					href={work.url}
+					className="inline-flex min-h-6 items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
+				>
+					{t(copy.work.visitProduct, locale)}
+					<span className="sr-only"> ({work.product})</span>
+					<ArrowUpRight aria-hidden="true" className="size-3.5" />
+				</a>
+			</p>
 		</article>
 	);
 }
