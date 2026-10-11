@@ -1,5 +1,5 @@
 // Renders the social preview cards (1200x630 PNG) listed in src/og-cards.ts
-// into public/og/, plus the apple-touch-icon. Run manually after changing a
+// into public/images/og/, plus the apple-touch-icon. Run manually after changing a
 // headline or adding a case study: `pnpm build:og-images`. The PNGs are
 // committed, so builds and CI do not need a browser.
 import { mkdir, readFile } from "node:fs/promises";
@@ -41,7 +41,7 @@ h1 { font-size: 76px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 6
 const escapeHtml = (text) =>
 	text.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
 
-await mkdir("public/og", { recursive: true });
+await mkdir("public/images/og", { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 
@@ -54,8 +54,8 @@ for (const card of ogCards) {
 		</div></body></html>`,
 	);
 	await page.evaluate(() => document.fonts.ready);
-	await page.screenshot({ path: `public/og/${card.file}` });
-	console.log(`rendered public/og/${card.file}`);
+	await page.screenshot({ path: `public/images/og/${card.file}` });
+	console.log(`rendered public/images/og/${card.file}`);
 }
 
 await page.setViewportSize({ width: 180, height: 180 });

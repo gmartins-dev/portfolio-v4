@@ -37,8 +37,8 @@ const saf: CaseStudy = {
 		],
 	},
 	image: {
-		src: "/work/sdd-agentic-flow",
-		widths: [640, 838],
+		src: "/images/work/sdd-agentic-flow",
+		widths: [480, 720, 838],
 		width: 838,
 		height: 629,
 		alt: {
@@ -152,8 +152,8 @@ const payments: CaseStudy = {
 		],
 	},
 	image: {
-		src: "/work/payments-api-node",
-		widths: [640, 1280],
+		src: "/images/work/payments-api-node",
+		widths: [480, 720, 1280],
 		width: 1280,
 		height: 800,
 		alt: {
@@ -270,8 +270,8 @@ export const otherWork: ShortWork[] = [
 		},
 		href: "https://github.com/gmartins-dev/links",
 		image: {
-			src: "/work/links",
-			widths: [640, 1280],
+			src: "/images/work/links",
+			widths: [480, 720, 1280],
 			width: 1280,
 			height: 800,
 			alt: {

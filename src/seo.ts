@@ -20,7 +20,7 @@ const absolute = (path: string) => `${siteUrl}${path}`;
 
 /** Default social card per locale (scripts/build-og-images.mjs). */
 export const defaultOgImage = (locale: Locale) => ({
-	src: `/og/home-${locale}.png`,
+	src: `/images/og/home-${locale}.png`,
 	alt: copy.meta.home.description[locale],
 });
 

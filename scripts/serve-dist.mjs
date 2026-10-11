@@ -1,7 +1,7 @@
 // Static server for dist/ that behaves like Vercel with cleanUrls: /about
 // serves about.html, unknown paths get 404.html with a 404 status,
-// vercel.json redirects answer with their status, and text responses are
-// compressed as a CDN would. Used by the end-to-end
+// vercel.json redirects answer with their status, its header rules apply,
+// and text responses are compressed as a CDN would. Used by the end-to-end
 // tests: `node scripts/serve-dist.mjs [port]`.
 import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
@@ -10,7 +10,7 @@ import { gzipSync } from "node:zlib";
 
 const root = new URL("../dist/", import.meta.url).pathname;
 const port = Number(process.argv[2] ?? 4173);
-const { redirects } = JSON.parse(
+const { redirects, headers: headerRules } = JSON.parse(
 	await readFile(new URL("../vercel.json", import.meta.url), "utf8"),
 );
 
@@ -37,10 +37,29 @@ async function existing(path) {
 
 const compressible = new Set([".html", ".js", ".css", ".xml", ".txt", ".svg"]);
 
+// vercel.json header rules, e.g. "/assets/(.*)", as anchored regexes. Every
+// matching rule applies, later rules winning, as on Vercel.
+const headerMatchers = headerRules.map((rule) => ({
+	pattern: new RegExp(`^${rule.source}$`),
+	headers: rule.headers,
+}));
+
+function configuredHeaders(pathname) {
+	const result = {};
+	for (const { pattern, headers } of headerMatchers) {
+		if (!pattern.test(pathname)) continue;
+		for (const { key, value } of headers) result[key.toLowerCase()] = value;
+	}
+	return result;
+}
+
 async function send(req, res, status, file) {
 	const type = extname(file);
 	let body = await readFile(file);
-	const headers = { "content-type": types[type] ?? "application/octet-stream" };
+	const headers = {
+		...configuredHeaders(new URL(req.url, "http://x").pathname),
+		"content-type": types[type] ?? "application/octet-stream",
+	};
 	if (
 		compressible.has(type) &&
 		/\bgzip\b/.test(req.headers["accept-encoding"] ?? "")

@@ -78,7 +78,7 @@ export function CaseStudyTeaser({
 				<WorkImage
 					image={{ ...study.image, alt: { en: "", "pt-BR": "" } }}
 					locale={locale}
-					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, 100vw"
+					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
 					priority={priority}
 					className="aspect-[4/3]"
 				/>
@@ -129,7 +129,7 @@ export function ShortWorkItem({
 				<WorkImage
 					image={item.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 590px, (min-width: 768px) 58vw, 100vw"
+					sizes="(min-width: 1024px) 590px, (min-width: 768px) 58vw, calc(100vw - 2rem)"
 					className="aspect-[16/9]"
 				/>
 			)}

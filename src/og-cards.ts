@@ -4,7 +4,7 @@ import { caseStudies } from "./content/work";
 import { locales } from "./i18n";
 
 /**
- * Social preview cards rendered to public/og/*.png by
+ * Social preview cards rendered to public/images/og/*.png by
  * scripts/build-og-images.mjs. File names must match what src/router.tsx and
  * src/seo.ts reference.
  */

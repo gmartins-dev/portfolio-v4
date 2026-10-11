@@ -66,7 +66,7 @@ export function CaseStudyPage({
 				<WorkImage
 					image={study.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 976px, 100vw"
+					sizes="(min-width: 1024px) 976px, calc(100vw - 2rem)"
 					priority
 					className="max-h-[36rem]"
 				/>

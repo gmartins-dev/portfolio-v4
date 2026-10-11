@@ -102,7 +102,7 @@ describe("head extras", () => {
 
 	it("has a rendered social card for every card the site references", () => {
 		for (const card of ogCards) {
-			expect(existsSync(`public/og/${card.file}`), card.file).toBe(true);
+			expect(existsSync(`public/images/og/${card.file}`), card.file).toBe(true);
 		}
 		for (const locale of ["en", "pt-BR"] as const) {
 			expect(existsSync(`public${defaultOgImage(locale).src}`)).toBe(true);

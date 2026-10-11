@@ -1,3 +1,4 @@
+import geistLatin from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
 import {
 	createRootRouteWithContext,
 	createRoute,
@@ -51,6 +52,16 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 		],
 		links: [
 			{ rel: "stylesheet", href: stylesheet },
+			// The body font is otherwise discovered only after the stylesheet
+			// downloads (Lighthouse network dependency tree). Latin subset only;
+			// Geist Mono is small metadata text and is left to load normally.
+			{
+				rel: "preload",
+				href: geistLatin,
+				as: "font",
+				type: "font/woff2",
+				crossOrigin: "anonymous",
+			},
 			{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
 			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 		],
@@ -95,7 +106,7 @@ type Page = {
 	path: string;
 	title: Localized;
 	description: Localized;
-	/** Social card under public/og/, per locale; defaults to the home card. */
+	/** Social card under public/images/og/, per locale; defaults to the home card. */
 	ogImage?: (locale: Locale) => { src: string; alt: string };
 	structuredData?: (locale: Locale) => object[];
 	render: (locale: Locale) => ReactNode;
@@ -122,7 +133,7 @@ const pages: Page[] = [
 			},
 			description: study.summary,
 			ogImage: (locale) => ({
-				src: `/og/work-${study.slug}-${locale}.png`,
+				src: `/images/og/work-${study.slug}-${locale}.png`,
 				alt: t(study.summary, locale),
 			}),
 			render: (locale) => <CaseStudyPage study={study} locale={locale} />,
