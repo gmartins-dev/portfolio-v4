@@ -21,7 +21,14 @@ import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
 import { NotFoundPage } from "./pages/not-found";
 import { WorkPage } from "./pages/work";
-import { buildHead, homeStructuredData } from "./seo";
+import {
+	aboutStructuredData,
+	buildHead,
+	caseStudyOgImage,
+	caseStudyStructuredData,
+	homeStructuredData,
+	workStructuredData,
+} from "./seo";
 import { themeBootstrapScript } from "./theme";
 
 // The root route renders the whole HTML document, so the server render
@@ -109,6 +116,8 @@ type Page = {
 	/** Social card under public/images/og/, per locale; defaults to the home card. */
 	ogImage?: (locale: Locale) => { src: string; alt: string };
 	structuredData?: (locale: Locale) => object[];
+	/** Date the content was last checked: og:type=article and sitemap lastmod. */
+	modified?: string;
 	render: (locale: Locale) => ReactNode;
 };
 
@@ -122,26 +131,27 @@ const pages: Page[] = [
 	{
 		path: "/work",
 		...copy.meta.work,
+		structuredData: (locale) => workStructuredData(locale, caseStudies),
 		render: (locale) => <WorkPage locale={locale} />,
 	},
 	...caseStudies.map(
 		(study): Page => ({
 			path: `/work/${study.slug}`,
 			title: {
-				en: `${study.title} | ${copy.meta.siteName.en}`,
-				"pt-BR": `${study.title} | ${copy.meta.siteName["pt-BR"]}`,
+				en: `${study.title} case study | ${copy.meta.siteName.en}`,
+				"pt-BR": `Estudo de caso: ${study.title} | ${copy.meta.siteName["pt-BR"]}`,
 			},
 			description: study.summary,
-			ogImage: (locale) => ({
-				src: `/images/og/work-${study.slug}-${locale}.png`,
-				alt: t(study.summary, locale),
-			}),
+			ogImage: (locale) => caseStudyOgImage(locale, study),
+			structuredData: (locale) => caseStudyStructuredData(locale, study),
+			modified: study.reviewed,
 			render: (locale) => <CaseStudyPage study={study} locale={locale} />,
 		}),
 	),
 	{
 		path: "/about",
 		...copy.meta.about,
+		structuredData: aboutStructuredData,
 		render: (locale) => <AboutPage locale={locale} />,
 	},
 ];
@@ -160,6 +170,7 @@ const pageRoutes = locales.flatMap((locale) =>
 					description: t(page.description, locale),
 					image: page.ogImage?.(locale),
 					structuredData: page.structuredData?.(locale),
+					article: page.modified ? { modified: page.modified } : undefined,
 				}),
 			component: () => page.render(locale),
 		}),
@@ -168,8 +179,11 @@ const pageRoutes = locales.flatMap((locale) =>
 
 const routeTree = rootRoute.addChildren(pageRoutes);
 
-/** Locale-neutral path of every page, for the sitemap. */
-export const pagePaths = pages.map((page) => page.path);
+/** Locale-neutral path and last-checked date of every page, for the sitemap. */
+export const sitemapPages = pages.map((page) => ({
+	path: page.path,
+	lastmod: page.modified,
+}));
 
 /** Every URL the prerender step writes to disk. */
 export const prerenderPaths = locales.flatMap((locale) =>

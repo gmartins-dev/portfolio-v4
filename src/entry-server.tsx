@@ -4,7 +4,7 @@ import {
 	renderRouterToString,
 } from "@tanstack/react-router/ssr/server";
 import { validateContent } from "./content/validate";
-import { createAppRouter, pagePaths, type RouterContext } from "./router";
+import { createAppRouter, type RouterContext, sitemapPages } from "./router";
 import { buildSitemap, siteUrl } from "./seo";
 
 export { finalizeHtml } from "./finalize-html";
@@ -14,7 +14,7 @@ export { prerenderPaths } from "./router";
 validateContent();
 
 /** sitemap.xml contents, written by scripts/prerender.mjs. */
-export const sitemap = buildSitemap(pagePaths);
+export const sitemap = buildSitemap(sitemapPages);
 
 /**
  * Render one URL to a full HTML document, including the dehydrated router

@@ -23,8 +23,8 @@ export const copy = {
 		},
 		work: {
 			title: {
-				en: "Work | Guilherme Martins",
-				"pt-BR": "Trabalhos | Guilherme Martins",
+				en: "Work and case studies | Guilherme Martins",
+				"pt-BR": "Trabalhos e estudos de caso | Guilherme Martins",
 			},
 			description: {
 				en: "Case studies and open-source work by Guilherme Martins: developer tooling, backend consistency and community projects.",
@@ -34,8 +34,8 @@ export const copy = {
 		},
 		about: {
 			title: {
-				en: "About | Guilherme Martins",
-				"pt-BR": "Sobre | Guilherme Martins",
+				en: "About Guilherme Martins | Software Engineer",
+				"pt-BR": "Sobre Guilherme Martins | Software Engineer",
 			},
 			description: {
 				en: "Professional background of Guilherme Martins: experience in fintech, cybersecurity, SaaS, healthcare and creative software.",

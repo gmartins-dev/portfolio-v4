@@ -19,7 +19,9 @@ test("work journey: home to case study and back", async ({ page }) => {
 	await expect(page).toHaveURL(/\/work$/);
 	await page.getByRole("link", { name: "Idempotent payments API" }).click();
 	await expect(page).toHaveURL(/\/work\/payments-api-node$/);
-	await expect(page).toHaveTitle("Idempotent payments API | Guilherme Martins");
+	await expect(page).toHaveTitle(
+		"Idempotent payments API case study | Guilherme Martins",
+	);
 	await page.getByRole("link", { name: "All work" }).click();
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Work");
 });

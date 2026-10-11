@@ -25,7 +25,9 @@ describe("server render", () => {
 
 		expect(response.status).toBe(200);
 		expect(html).toMatch(/^<!DOCTYPE html><html lang="pt-BR">/);
-		expect(html).toContain("<title>Sobre | Guilherme Martins</title>");
+		expect(html).toContain(
+			"<title>Sobre Guilherme Martins | Software Engineer</title>",
+		);
 		expect(html).toContain(
 			'<link rel="canonical" href="https://gmartins.dev/pt-br/about"/>',
 		);
