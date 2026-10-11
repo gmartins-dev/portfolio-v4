@@ -17,14 +17,14 @@ function devServerRender(): Plugin {
 	return {
 		name: "dev-server-render",
 		// appType "custom" disables Vite's HTML handling in `vite preview` too;
-		// map /about to the prerendered dist/about/index.html, as hosts do.
+		// map /about to the prerendered dist/about.html, as Vercel cleanUrls does.
 		configurePreviewServer(server) {
 			const outDir = resolve(server.config.root, server.config.build.outDir);
 			server.middlewares.use((req, _res, next) => {
 				const [pathname, query = ""] = (req.url ?? "/").split("?");
-				const file = join(outDir, pathname, "index.html");
-				if (!extname(pathname) && existsSync(file)) {
-					req.url = `${pathname.replace(/\/?$/, "/")}index.html${query ? `?${query}` : ""}`;
+				const page = pathname === "/" ? "/index" : pathname.replace(/\/$/, "");
+				if (!extname(pathname) && existsSync(join(outDir, `${page}.html`))) {
+					req.url = `${page}.html${query ? `?${query}` : ""}`;
 				}
 				next();
 			});
