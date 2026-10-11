@@ -1,0 +1,28 @@
+import {
+	createRequestHandler,
+	RouterServer,
+	renderRouterToString,
+} from "@tanstack/react-router/ssr/server";
+import { createAppRouter } from "./router";
+import { siteUrl } from "./seo";
+
+export { prerenderPaths } from "./router";
+
+/**
+ * Render one URL to a full HTML document, including the dehydrated router
+ * state that entry-client.tsx hydrates from. Used by the dev server
+ * middleware and by scripts/prerender.mjs; never deployed.
+ */
+export async function render(url: string): Promise<Response> {
+	const handler = createRequestHandler({
+		request: new Request(new URL(url, siteUrl)),
+		createRouter: createAppRouter,
+	});
+	return handler(({ router, responseHeaders }) =>
+		renderRouterToString({
+			router,
+			responseHeaders,
+			children: <RouterServer router={router} />,
+		}),
+	);
+}
