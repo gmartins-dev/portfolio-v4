@@ -34,9 +34,10 @@ checks only the site owner can make; each one is a launch blocker until done.
   in, so experience was not cross-checked against it.
 - **Resume PDFs.** `/cv` and `/cv-br` still redirect to the Google Drive files
   from v3. Confirm they are the final versions.
-- **Contact address.** The site and the `/email` short link use
-  `contact@gmartins.dev` (from the resumes); v3 used
-  `guilhermemm.dev@gmail.com`. Confirm the address is monitored.
+- **Contact address.** The site uses `contact@gmartins.dev` (from the
+  resumes); v3 used `guilhermemm.dev@gmail.com`. Confirm the address is
+  monitored. The `/email` short link now opens the contact section: Vercel
+  cannot redirect to `mailto:`, and the v3 link is broken for that reason.
 - **Case studies (Phase 2).** sdd-agentic-flow and payments-api-node are
   published as case studies; payments-api-node is labelled a technical
   challenge. Priorize.me is private and not included. Confirm the selection
@@ -47,15 +48,19 @@ checks only the site owner can make; each one is a launch blocker until done.
 
 ## M5 — Launch
 
+Checked 2026-10-11: gmartins.dev serves v3 from Vercel (not Firebase), and
+v3's `/resume` publicly shows a third-party career history (Dallas,
+paramedic, firefighter). v4 redirects `/resume` to `/about`, so launching v4
+fixes it; until then it stays public.
+
 - Create the Vercel project from this repository and deploy a preview.
 - Run the e2e suite against the preview and test on real iOS and Android
   devices and in Safari and Firefox.
-- Confirm what serves gmartins.dev today (Firebase or Vercel for v3), then
-  switch DNS.
+- Move the gmartins.dev domain from the v3 Vercel project to the v4 one.
 - Verify redirects, the sitemap and indexing in Google Search Console; submit
   the sitemap.
-- Rollback: promote the previous deployment in Vercel, or point DNS back to
-  v3 while it still exists.
+- Rollback: promote the previous v4 deployment in Vercel, or move the domain
+  back to the v3 project while it still exists.
 - Archive or label the v3 repository.
 - After launch, measure real-user Core Web Vitals (target p75 LCP at or below
   2.5 s). Lab LCP on simulated slow 4G is 2.6-2.8 s on the home and work
