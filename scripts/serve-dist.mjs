@@ -21,6 +21,7 @@ const types = {
 	".woff2": "font/woff2",
 	".jpg": "image/jpeg",
 	".png": "image/png",
+	".webp": "image/webp",
 	".svg": "image/svg+xml",
 	".xml": "application/xml",
 	".txt": "text/plain",
@@ -52,7 +53,13 @@ async function send(req, res, status, file) {
 }
 
 createServer(async (req, res) => {
-	const pathname = decodeURIComponent(new URL(req.url, "http://x").pathname);
+	let pathname;
+	try {
+		pathname = decodeURIComponent(new URL(req.url, "http://x").pathname);
+	} catch {
+		res.writeHead(400);
+		return res.end();
+	}
 	const redirect = redirects.find((r) => r.source === pathname);
 	if (redirect) {
 		res.writeHead(redirect.permanent ? 308 : 307, {
@@ -62,7 +69,8 @@ createServer(async (req, res) => {
 	}
 	// normalize() plus the prefix check keeps requests inside dist/.
 	const base = normalize(join(root, pathname));
-	if (!base.startsWith(root.replace(/\/$/, ""))) {
+	// Compare with the trailing slash so siblings like dist-ssr/ are rejected.
+	if (!`${base}/`.startsWith(root)) {
 		res.writeHead(400);
 		return res.end();
 	}
