@@ -1,0 +1,11 @@
+{
+	"$comment": "SHA-256 of lowercase words or two-word phrases that must never appear on the site (confidential employers, clients and internal names). Stored as hashes so this public repository does not contain them. Add one with: node -e \"console.log(require('node:crypto').createHash('sha256').update('term').digest('hex'))\"",
+	"sha256": [
+		"04545a9bd116be1e3524e15c96524a91de92b2d7638707faada035e5815a0af5",
+		"1f6337ed4078d77416f3dbcbc3a31f7335d4f8e04a8fc1365666f8f709aa3ae6",
+		"603e38eede1dd3a3f53a161f228becd464117967facdeb32111c473d04deb639",
+		"98dae67eb397dba6b30d578ca6e849f1f00e139cb11f6b2a318c7df5a74c8c53",
+		"cc7a1590bb5e199f3457977c0b8ab4772adf57407d962d88a9eb899f6e485d90",
+		"ec3d9e70502a8527ba1f02d1ca10b1da05f059558b577e46657bd5f535d51ca6"
+	]
+}

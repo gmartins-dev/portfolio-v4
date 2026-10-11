@@ -27,6 +27,16 @@ describe("content", () => {
 		expect(validateContent).not.toThrow();
 	});
 
+	it("never names confidential employers, clients or internal projects", async () => {
+		// @ts-expect-error: plain ESM helper shared with scripts/check-dist.mjs
+		const { findDenied } = await import("../../scripts/denylist.mjs");
+		// Report paths only, never the matched term.
+		const leaks = strings(content)
+			.filter(([, text]) => findDenied(text).length > 0)
+			.map(([path]) => path);
+		expect(leaks).toEqual([]);
+	});
+
 	it("uses no em or en dashes in visible text (DESIGN.md)", () => {
 		const offenders = strings(content).filter(([, s]) => /[–—]/.test(s));
 		expect(offenders).toEqual([]);
