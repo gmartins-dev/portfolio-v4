@@ -13,7 +13,7 @@ export function SiteFooter() {
 	return (
 		<footer className="mt-24 border-t">
 			<div className="mx-auto grid max-w-5xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-[3fr_2fr]">
-				<section aria-labelledby="contact-heading">
+				<section id="contact" aria-labelledby="contact-heading">
 					<h2
 						id="contact-heading"
 						className="text-2xl font-semibold tracking-tight"
