@@ -4,7 +4,7 @@
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
-/* Theme is a class on <html>, set before first paint (see src/theme.ts). */
+/* Theme is a class on <html>, set before first paint (see src/theme.tsx). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*

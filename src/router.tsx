@@ -12,6 +12,7 @@ import { type PageCopy, pages } from "./content/pages";
 import { type Locale, localeFromPath, locales, localizedPath } from "./i18n";
 import stylesheet from "./index.css?url";
 import { buildHead } from "./seo";
+import { ThemeToggle, themeBootstrapScript } from "./theme";
 
 // The root route renders the whole HTML document, so the server render
 // (dev middleware and build-time prerender) and client hydration share one tree.
@@ -23,6 +24,7 @@ const rootRoute = createRootRoute({
 		],
 		links: [{ rel: "stylesheet", href: stylesheet }],
 		scripts: [
+			{ children: themeBootstrapScript },
 			{
 				type: "module",
 				// Fixed name set in vite.config.ts; the dev server serves the source.
@@ -86,6 +88,10 @@ function Page({
 						</Link>
 					</li>
 				</ul>
+				<ThemeToggle
+					label="Theme"
+					optionLabels={{ light: "Light", dark: "Dark", system: "System" }}
+				/>
 			</nav>
 			<h1 className="mt-8 text-3xl font-semibold">{copy.heading}</h1>
 			<p className="mt-4">{copy.body}</p>
