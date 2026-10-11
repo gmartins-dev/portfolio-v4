@@ -66,14 +66,18 @@ export function SiteHeader() {
 						>
 							{t(copy.nav.language, locale)}
 						</Link>
-						<ThemeToggle
-							label={t(copy.theme.label, locale)}
-							optionLabels={{
-								light: t(copy.theme.light, locale),
-								dark: t(copy.theme.dark, locale),
-								system: t(copy.theme.system, locale),
-							}}
-						/>
+						{/* 404.html ships without client JavaScript, so a toggle there
+						    could not work; the inline theme script still applies the choice. */}
+						{!notFound && (
+							<ThemeToggle
+								label={t(copy.theme.label, locale)}
+								optionLabels={{
+									light: t(copy.theme.light, locale),
+									dark: t(copy.theme.dark, locale),
+									system: t(copy.theme.system, locale),
+								}}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
