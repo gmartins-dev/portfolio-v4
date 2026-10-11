@@ -18,6 +18,7 @@ import stylesheet from "./index.css?url";
 import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
+import { NotFoundPage } from "./pages/not-found";
 import { WorkPage } from "./pages/work";
 import { buildHead } from "./seo";
 import { themeBootstrapScript } from "./theme";
@@ -25,10 +26,22 @@ import { themeBootstrapScript } from "./theme";
 // The root route renders the whole HTML document, so the server render
 // (dev middleware and build-time prerender) and client hydration share one tree.
 const rootRoute = createRootRoute({
-	head: () => ({
+	head: ({ match }) => ({
 		meta: [
 			{ charSet: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
+			// No page route matched: the 404 page sets its own title and stays out of search.
+			...(match.globalNotFound
+				? [
+						{
+							title: t(
+								copy.meta.notFound.title,
+								localeFromPath(match.pathname),
+							),
+						},
+						{ name: "robots", content: "noindex" },
+					]
+				: []),
 		],
 		links: [{ rel: "stylesheet", href: stylesheet }],
 		scripts: [
@@ -41,6 +54,7 @@ const rootRoute = createRootRoute({
 		],
 	}),
 	component: Document,
+	notFoundComponent: NotFoundPage,
 });
 
 function Document() {

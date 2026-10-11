@@ -24,4 +24,22 @@ for (const url of prerenderPaths) {
 	console.log(`prerendered ${url} -> ${file.slice(root.length + 1)}`);
 }
 
+// Static hosts (Vercel included) serve 404.html, with a 404 status, for any
+// path that has no file.
+const notFound = await render("/404");
+if (notFound.status !== 404) {
+	throw new Error(`prerender 404 page: status ${notFound.status}`);
+}
+// The same file answers unknown URLs in every language, so it must not
+// hydrate against a path it was not rendered for: drop the client entry and
+// the dehydrated router state. The inline theme script stays.
+const notFoundHtml = (await notFound.text())
+	.replace(/<script type="module"[^>]*><\/script>/, "")
+	.replace(/<script class="\$tsr"[\s\S]*?<\/script>/, "");
+if (/type="module"|\$_TSR/.test(notFoundHtml)) {
+	throw new Error("prerender 404 page: client scripts were not removed");
+}
+await writeFile(join(dist, "404.html"), notFoundHtml);
+console.log("prerendered 404 -> dist/404.html");
+
 await rm(ssrDir, { recursive: true });

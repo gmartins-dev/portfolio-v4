@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { otherLocale } from "../i18n";
@@ -11,6 +11,10 @@ const navLinkClass =
 export function SiteHeader() {
 	const { locale, page, href } = useLocale();
 	const other = otherLocale(locale);
+	// On the 404 page there is no equivalent page to switch to; go home instead.
+	const notFound = useRouterState({
+		select: (state) => state.matches.some((match) => match.globalNotFound),
+	});
 
 	return (
 		<header className="border-b">
@@ -54,7 +58,7 @@ export function SiteHeader() {
 					</nav>
 					<div className="flex items-center gap-3">
 						<Link
-							to={href(page, other)}
+							to={href(notFound ? "/" : page, other)}
 							hrefLang={other}
 							lang={other}
 							aria-label={t(copy.nav.languageLabel, locale)}
