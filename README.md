@@ -3,8 +3,9 @@
 [![CI](https://github.com/gmartins-dev/portfolio-v4/actions/workflows/ci.yml/badge.svg)](https://github.com/gmartins-dev/portfolio-v4/actions/workflows/ci.yml)
 
 Source for [gmartins.dev](https://gmartins.dev), the site of Guilherme
-Martins, Software Engineer: selected work with two case studies, career
-history, and contact, in English (`/`) and Brazilian Portuguese (`/pt-br`).
+Martins, Software Engineer: case studies, the public products he worked on,
+more projects, career history, and contact, in English (`/`) and Brazilian
+Portuguese (`/pt-br`).
 
 ## What's notable
 

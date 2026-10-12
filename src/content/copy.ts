@@ -255,9 +255,9 @@ export const copy = {
 			],
 		},
 		confidential: {
-			en: "Much of the work below was done for employers and clients under confidentiality terms, so I can't share its details. That's why the Work page focuses on personal and public projects.",
+			en: "Much of the work below was done for employers and clients under confidentiality terms, so I can't share its details. The Work page shows what is public: personal and public projects, and the products I worked on.",
 			"pt-BR":
-				"Boa parte do trabalho abaixo foi feita para empregadores e clientes sob termos de confidencialidade, por isso não posso compartilhar detalhes. É por isso que a página Trabalhos se concentra em projetos pessoais e públicos.",
+				"Boa parte do trabalho abaixo foi feita para empregadores e clientes sob termos de confidencialidade, por isso não posso compartilhar detalhes. A página Trabalhos mostra o que é público: projetos pessoais e públicos, e os produtos em que trabalhei.",
 		},
 		experienceHeading: { en: "Experience", "pt-BR": "Experiência" },
 		productLink: { en: "See the product", "pt-BR": "Ver o produto" },
