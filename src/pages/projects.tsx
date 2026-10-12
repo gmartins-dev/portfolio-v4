@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import { MetaLine } from "../components/work";
 import { copy, t } from "../content/copy";
 import { projects } from "../content/projects";
 import type { Project } from "../content/schema";
@@ -17,9 +18,7 @@ function ProjectItem({
 }) {
 	return (
 		<article id={project.slug} className="scroll-mt-8 border-t pt-6">
-			<p className="font-mono text-sm text-muted-foreground">
-				{t(project.kind, locale)}, {project.year}
-			</p>
+			<MetaLine parts={[t(project.kind, locale), String(project.year)]} />
 			<h3 className="mt-1 text-lg font-semibold" translate="no">
 				{project.title}
 			</h3>
@@ -60,7 +59,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 
 	return (
 		<>
-			<header className="pt-16 md:pt-24">
+			<header className="pt-12 md:pt-24">
 				<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 					{t(copy.projects.heading, locale)}
 				</h1>
@@ -72,7 +71,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 				<section
 					key={group.id}
 					aria-labelledby={`projects-${group.id}`}
-					className="mt-16"
+					className="mt-12 md:mt-16"
 				>
 					<h2
 						id={`projects-${group.id}`}

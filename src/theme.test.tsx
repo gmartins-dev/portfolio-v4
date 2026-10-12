@@ -89,6 +89,24 @@ describe("themeBootstrapScript", () => {
 	// Runs the exact inline script the pages ship in <head>.
 	const runBootstrap = () => new Function(themeBootstrapScript)();
 
+	it("compact button on narrow phones steps through light, dark and system", async () => {
+		const user = userEvent.setup();
+		render(<ThemeToggle label="Color theme" optionLabels={labels} />);
+		const compact = () =>
+			screen.getByRole("button", { name: /^Color theme: / });
+
+		expect(compact().getAttribute("aria-label")).toBe("Color theme: System");
+		await user.click(compact());
+		expect(compact().getAttribute("aria-label")).toBe("Color theme: Light");
+		expect(localStorage.getItem("theme")).toBe("light");
+		await user.click(compact());
+		expect(compact().getAttribute("aria-label")).toBe("Color theme: Dark");
+		expect(isDark()).toBe(true);
+		await user.click(compact());
+		expect(compact().getAttribute("aria-label")).toBe("Color theme: System");
+		expect(localStorage.getItem("theme")).toBeNull();
+	});
+
 	it("applies a stored dark choice before React loads", () => {
 		localStorage.setItem("theme", "dark");
 		runBootstrap();

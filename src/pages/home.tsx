@@ -16,11 +16,8 @@ const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<section className="pt-16 pb-20 md:pt-24">
-				<p className="text-sm font-medium text-muted-foreground">
-					{t(copy.home.eyebrow, locale)}
-				</p>
-				<h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
+			<section className="pt-12 pb-16 md:pt-24 md:pb-20">
+				<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 					{t(copy.home.headline, locale)}
 				</h1>
 				<p className="mt-6 max-w-xl text-lg text-muted-foreground">
@@ -50,11 +47,14 @@ export function HomePage({ locale }: { locale: Locale }) {
 				</div>
 			</section>
 
-			<section aria-labelledby="selected-work" className="border-t pt-16">
+			<section
+				aria-labelledby="selected-work"
+				className="border-t pt-12 md:pt-16"
+			>
 				<h2 id="selected-work" className={sectionHeading}>
 					{t(copy.home.workHeading, locale)}
 				</h2>
-				<div className="mt-12 grid gap-20">
+				<div className="mt-10 grid gap-14 md:mt-12 md:gap-20">
 					{caseStudies.map((study, index) => (
 						<CaseStudyTeaser
 							key={study.slug}
@@ -67,7 +67,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 				</div>
 			</section>
 
-			<section aria-labelledby="capabilities" className="mt-28">
+			<section aria-labelledby="capabilities" className="mt-20 md:mt-28">
 				<h2 id="capabilities" className={sectionHeading}>
 					{t(copy.home.capabilitiesHeading, locale)}
 				</h2>
@@ -80,6 +80,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							</p>
 							<Link
 								to={localizedPath(locale, item.evidence.to)}
+								hash={"hash" in item.evidence ? item.evidence.hash : undefined}
 								className="mt-3 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
 							>
 								{t(item.evidence.label, locale)}
@@ -92,7 +93,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
 			<section
 				aria-labelledby="experience"
-				className="mt-28 grid gap-10 rounded-lg bg-muted px-6 py-10 md:grid-cols-[1fr_2fr] md:px-10"
+				className="mt-20 grid gap-8 rounded-lg bg-muted px-5 py-8 md:mt-28 md:grid-cols-[1fr_2fr] md:gap-10 md:px-10 md:py-10"
 			>
 				<div>
 					<h2 id="experience" className={sectionHeading}>
@@ -119,7 +120,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 				</ol>
 			</section>
 
-			<section aria-labelledby="community" className="mt-28">
+			<section aria-labelledby="community" className="mt-20 md:mt-28">
 				<h2 id="community" className={sectionHeading}>
 					{t(copy.home.openSourceHeading, locale)}
 				</h2>

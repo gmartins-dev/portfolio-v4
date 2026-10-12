@@ -1,0 +1,40 @@
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#fdf1e9', 'primaryTextColor': '#1e293b',
+  'primaryBorderColor': '#c2541f', 'lineColor': '#94a3b8',
+  'secondaryColor': '#ecfdf5', 'tertiaryColor': '#f1f5f9',
+  'background': '#ffffff', 'mainBkg': '#f8fafc',
+  'nodeBorder': '#cbd5e1', 'clusterBkg': '#f8fafc',
+  'clusterBorder': '#e2e8f0', 'titleColor': '#1e293b',
+  'edgeLabelBackground': '#ffffff', 'textColor': '#334155'
+}}}%%
+%% The "How it works" flowchart from the sdd-agentic-flow README
+%% (github.com/gmartins-dev/sdd-agentic-flow): same skills and edges, wrapped
+%% into rows named after the README's canonical path (Plan, Prompt,
+%% Implement, Check, PR, Review, Fix, Validate) so it fits a 16:10 frame.
+flowchart TB
+  subgraph plan [Plan]
+    direction LR
+    route[saf-route] --> brainstorm[saf-brainstorm]
+    brainstorm -->|converged| specs[saf-create-spec]
+    route --> specs
+    specs -.->|on demand| explain[saf-explain]
+  end
+  subgraph build [Prompt, implement, check]
+    direction LR
+    prompts[saf-create-prompts] --> implement[saf-implement]
+    prompts -->|dependent tasks| implementmulti[saf-implement-multi]
+    implementmulti -->|delegates per task| implement
+    implement --> check[saf-check-task]
+  end
+  subgraph ship [PR, review, fix, validate]
+    direction LR
+    pr[saf-create-pr] --> review[saf-review-pr]
+    review -->|findings accepted| fix[saf-fix-pr]
+    fix --> review
+    review -->|ready| validate[saf-validate]
+  end
+  %% Rows link to rows: Mermaid drops a subgraph's direction when its nodes
+  %% link outside it. In the README, saf-create-spec leads to
+  %% saf-create-prompts and saf-check-task to saf-create-pr.
+  plan --> build
+  build --> ship

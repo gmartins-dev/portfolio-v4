@@ -18,8 +18,14 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 
 - **Content first.** Hierarchy comes from size, weight, and spacing before
   color.
-- **One accent.** `--brand` (burnt orange) marks links, focus, and the
-  primary call to action. Nothing else gets a color.
+- **One accent.** `--brand` (burnt orange) marks links to the next step
+  inside the site, focus, list markers, and the primary call to action.
+  Nothing else gets a color.
+- **Links say where they go.** Links within the site use `text-brand` with a
+  right arrow (`ArrowRight`). Links that leave the site (products, source,
+  resume PDFs, client sites) use the foreground color, turn brand on hover,
+  and end with `ArrowUpRight`. Name the file type when a link opens a file
+  ("Resume in English (PDF)").
 - **Both themes are designed.** Light and dark use the same token names; check
   every change in both.
 - **Readable without effects.** No information depends on hover, animation, or
@@ -51,6 +57,11 @@ colors in `scripts/build-og-images.mjs`.
   Fontsource.
 - Headlines use weight and tight tracking, not huge sizes. Body text is
   capped at about 65 characters per line (`max-w-prose`).
+- No eyebrow labels above headings; the heading carries its own weight. Put
+  context in the sentence that follows it.
+- Metadata lines (kind, period, location) use `MetaLine` from
+  `src/components/work.tsx`: parts separated by a middle dot, each part kept
+  on one line so a date range never wraps.
 - Headings use `text-wrap: balance` and paragraphs `text-wrap: pretty`
   (global in `src/index.css`), so lines don't end on a single word.
 - Mark proper names and code with `translate="no"` (site name, project
@@ -64,7 +75,33 @@ colors in `scripts/build-og-images.mjs`.
   merges classes with tailwind-merge, so a `className` override wins.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
 - Group related items with spacing and a single top border, not cards.
-- Multi-column layouts collapse to one column below `md`.
+- No colored side borders on callouts or list items. A note that needs to
+  stand apart uses `bg-muted` with `rounded-lg`; lists use brand markers
+  (`list-disc marker:text-brand`).
+- Screenshots are captured at 1440x900 and shown in 16:10 frames
+  (`aspect-[16/10]`, `object-top`), so teasers crop only the bottom.
+- Diagrams (`fit: "contain"`) are drawn on white from Mermaid sources in
+  `scripts/diagrams/`: the anonymized case study, and sdd-agentic-flow's
+  README workflow, which reads better than a README screenshot. `WorkImage`
+  inverts them in dark mode and blends the background into the card, so
+  check a new diagram in both themes. Shape it close to 16:10 (rows of
+  `direction LR` subgraphs) so it stays legible in a teaser.
+- Multi-column layouts collapse to one column below `md`. When a sidebar
+  holds the quick facts (case study facts and links), put it first in the
+  DOM and move it right with `md:order-last`, so phones see it before the
+  prose.
+
+## Phones
+
+- The header is two rows below `sm`: the name, then nav with the language
+  and theme controls. DOM order matches visual order at every width. The
+  language link shows "PT"/"EN" (its accessible name stays the full
+  sentence), and below the `xs` breakpoint (25rem, `src/index.css`) the
+  theme control is one button that steps through Light, Dark and System.
+  e2e checks the two rows at 320, 360 and 390px in both languages.
+- Vertical rhythm steps down below `md`: page tops `pt-12` (`pt-8` on case
+  studies), sections `mt-20` instead of `mt-24`/`mt-28`, and teaser lists
+  `gap-14` instead of `gap-20`.
 
 ## Motion
 

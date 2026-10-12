@@ -2,9 +2,25 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { professionalWork } from "../content/professional-work";
-import { ProfessionalWorkItem } from "./work";
+import { MetaLine, ProfessionalWorkItem } from "./work";
 
 afterEach(cleanup);
+
+describe("MetaLine", () => {
+	it("keeps each part on one line and reads the separator as a comma", () => {
+		const { container } = render(
+			<MetaLine parts={["Open source", "Aug 2026 - present"]} />,
+		);
+		const period = screen.getByText("Aug 2026 - present");
+		expect(period.className).toContain("whitespace-nowrap");
+		// The dot is hidden from assistive tech; the comma is visually hidden.
+		expect(container.querySelector("[aria-hidden]")?.textContent).toBe(" · ");
+		for (const hidden of container.querySelectorAll("[aria-hidden]")) {
+			hidden.remove();
+		}
+		expect(container.textContent).toBe("Open source, Aug 2026 - present");
+	});
+});
 
 describe("ProfessionalWorkItem", () => {
 	it("shows the role and period from experience and links to the product", () => {
@@ -18,9 +34,8 @@ describe("ProfessionalWorkItem", () => {
 			screen.getByRole("heading", { level: 3, name: "Vochlea" }),
 		).toBeTruthy();
 		expect(within(article).getByText("Software Engineer")).toBeTruthy();
-		expect(
-			within(article).getByText("Jan 2024 - Aug 2024, London, UK"),
-		).toBeTruthy();
+		expect(within(article).getByText("Jan 2024 - Aug 2024")).toBeTruthy();
+		expect(within(article).getByText("London, UK")).toBeTruthy();
 		const link = screen.getByRole("link", {
 			name: /^Visit the product ?\(Vochlea\)$/,
 		});
