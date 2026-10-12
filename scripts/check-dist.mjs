@@ -7,6 +7,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { gzipSync } from "node:zlib";
+import { findDenied } from "./denylist.mjs";
 
 const siteUrl = "https://gmartins.dev";
 const dist = new URL("../dist/", import.meta.url).pathname;
@@ -138,6 +139,13 @@ const llms = readFileSync(join(dist, "llms.txt"), "utf8");
 for (const [, link] of llms.matchAll(/\]\((https:\/\/gmartins\.dev[^)]*)\)/g)) {
 	const path = link.replace(siteUrl, "") || "/";
 	if (!resolves(path)) fail("llms.txt", `broken link ${link}`);
+}
+
+// Confidential names must never ship (scripts/denylist.json). Report only
+// the file, never the matched term, so CI logs don't leak it either.
+for (const [path, html] of [...pages, ["/404", notFound], ["llms.txt", llms]]) {
+	if (findDenied(html).length > 0)
+		fail(path, "contains a denied term (scripts/denylist.json)");
 }
 
 if (errors.length > 0) {

@@ -235,17 +235,22 @@ export function caseStudyStructuredData(locale: Locale, study: CaseStudy) {
 				isPartOf: { "@id": websiteId },
 				// What the article is about: the public repository when there is
 				// one, otherwise the live application (private-code products).
-				about: repository
+				// Anonymized work has neither, so it has no `about`.
+				...(repository
 					? {
-							"@type": "SoftwareSourceCode",
-							name: study.title,
-							codeRepository: repository.href,
+							about: {
+								"@type": "SoftwareSourceCode",
+								name: study.title,
+								codeRepository: repository.href,
+							},
 						}
-					: {
-							"@type": "WebApplication",
-							name: study.title,
-							url: study.links[0].href,
-						},
+					: study.links[0] && {
+							about: {
+								"@type": "WebApplication",
+								name: study.title,
+								url: study.links[0].href,
+							},
+						}),
 			},
 			breadcrumbNode(locale, [
 				{ name: copy.nav.home[locale], path: "/" },

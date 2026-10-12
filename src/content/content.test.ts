@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { experience, profile } from "./profile";
 import { projects } from "./projects";
+import { caseStudyEntrySchema } from "./schema";
 import { validateContent } from "./validate";
 import { caseStudies, otherWork } from "./work";
 
@@ -24,6 +25,16 @@ const content = { copy, profile, experience, caseStudies, otherWork, projects };
 describe("content", () => {
 	it("matches the schemas", () => {
 		expect(validateContent).not.toThrow();
+	});
+
+	it("never names confidential employers, clients or internal projects", async () => {
+		// @ts-expect-error: plain ESM helper shared with scripts/check-dist.mjs
+		const { findDenied } = await import("../../scripts/denylist.mjs");
+		// Report paths only, never the matched term.
+		const leaks = strings(content)
+			.filter(([, text]) => findDenied(text).length > 0)
+			.map(([path]) => path);
+		expect(leaks).toEqual([]);
 	});
 
 	it("uses no em or en dashes in visible text (DESIGN.md)", () => {
@@ -82,6 +93,20 @@ describe("content", () => {
 				.map((p) => p.year);
 			expect(years).toEqual([...years].sort((a, b) => b - a));
 		}
+	});
+
+	it("requires links on public case studies but not on anonymized ones", () => {
+		const [study] = caseStudies;
+		expect(() =>
+			caseStudyEntrySchema.parse({ ...study, links: [], disclosure: "public" }),
+		).toThrow(/at least one link/);
+		expect(() =>
+			caseStudyEntrySchema.parse({
+				...study,
+				links: [],
+				disclosure: "anonymized",
+			}),
+		).not.toThrow();
 	});
 
 	it("gives every case study a unique slug", () => {

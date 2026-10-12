@@ -127,6 +127,136 @@ const saf: CaseStudy = {
 	reviewed: "2026-10-11",
 };
 
+// Anonymized professional work, described at the owner's request at the
+// level of detail he approved (2026-10-11): high-level architecture only.
+// Never add the company, people, internal names, endpoints, metrics, code or
+// screenshots; the image is an abstract diagram (scripts/diagrams/). Uber is
+// named by the owner's decision.
+const aiFirstBanking: CaseStudy = {
+	slug: "ai-first-online-banking",
+	title: "AI-first online banking platform",
+	kind: {
+		en: "Professional work, anonymized",
+		"pt-BR": "Trabalho profissional, anonimizado",
+	},
+	summary: {
+		en: "A credit and banking platform designed AI-first: conversational AI handles first contact and onboarding, and a modular core owns credit, anti-fraud and formalization.",
+		"pt-BR":
+			"Uma plataforma de crédito e banking pensada com IA desde o início: IA conversacional cuida do primeiro contato e do onboarding, e um core modular cuida de crédito, antifraude e formalização.",
+	},
+	role: {
+		en: "Software Engineer: core platform, partner landing page, AI integrations",
+		"pt-BR":
+			"Software Engineer: core da plataforma, landing page de parceiro, integrações com IA",
+	},
+	period: { start: "2026" },
+	stack: [
+		"TypeScript",
+		"NestJS",
+		"Kafka",
+		"MySQL",
+		"OpenTelemetry",
+		"Python AI services",
+		"Next.js",
+	],
+	facts: {
+		en: [
+			"Modular monolith with hexagonal architecture",
+			"Credit, anti-fraud and onboarding domains",
+			"Conversational AI with guardrails",
+			"Distribution through partners such as Uber",
+		],
+		"pt-BR": [
+			"Monólito modular com arquitetura hexagonal",
+			"Domínios de crédito, antifraude e onboarding",
+			"IA conversacional com guardrails",
+			"Distribuição por parceiros como a Uber",
+		],
+	},
+	image: {
+		src: "/images/work/ai-first-online-banking",
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 1316,
+		fit: "contain",
+		alt: {
+			en: "Architecture diagram: WhatsApp and partner landing pages feed a CRM and an external conversational AI, which hands off to an internal AI with guardrails, which calls the core platform's credit, anti-fraud and formalization modules. The CRM also sends events to the core.",
+			"pt-BR":
+				"Diagrama de arquitetura: WhatsApp e landing pages de parceiros alimentam um CRM e uma IA conversacional externa, que passa para uma IA interna com guardrails, que chama os módulos de crédito, antifraude e formalização do core. O CRM também envia eventos ao core.",
+		},
+	},
+	links: [],
+	sections: [
+		{
+			heading: { en: "Context", "pt-BR": "Contexto" },
+			body: {
+				en: [
+					"The product offers credit and banking services to customers who arrive through partner platforms such as Uber and through CRM and WhatsApp conversations. It was designed AI-first: conversational AI does the first contact and the onboarding work, while financial decisions stay in a core platform with explicit rules.",
+				],
+				"pt-BR": [
+					"O produto oferece serviços de crédito e banking a clientes que chegam por plataformas parceiras como a Uber e por conversas no CRM e no WhatsApp. Ele foi pensado com IA desde o início: a IA conversacional faz o primeiro contato e o onboarding, enquanto as decisões financeiras ficam num core com regras explícitas.",
+				],
+			},
+		},
+		{
+			heading: {
+				en: "How the pieces connect",
+				"pt-BR": "Como as partes se conectam",
+			},
+			body: {
+				en: [
+					"An external conversational layer on the CRM and WhatsApp handles first contact. It hands the customer to an internal AI that completes onboarding, and the internal AI calls the core platform, which owns credit analysis and simulation, anti-fraud, formalization and digital signature, and the integrations around them.",
+				],
+				"pt-BR": [
+					"Uma camada conversacional externa no CRM e no WhatsApp cuida do primeiro contato. Ela passa o cliente para uma IA interna que conclui o onboarding, e a IA interna chama o core da plataforma, responsável por análise e simulação de crédito, antifraude, formalização e assinatura digital, além das integrações em volta disso.",
+				],
+			},
+		},
+		{
+			heading: {
+				en: "Key decisions and trade-offs",
+				"pt-BR": "Decisões e trade-offs",
+			},
+			body: {
+				en: [
+					"The core is a modular monolith with hexagonal architecture rather than microservices: each domain module keeps its business rules free of framework code, and use cases depend on ports, not on the database or the message broker. That keeps one deployable unit while the boundaries stay enforceable.",
+					"AI is an accelerator, not the decider. Guardrails redact sensitive data before any model or conversation history sees it, can block a step, and log only safe technical metadata.",
+					"CRM events reach the core through event-driven ingestion that can be replayed, and observability and feature flags were part of the platform from the start.",
+				],
+				"pt-BR": [
+					"O core é um monólito modular com arquitetura hexagonal, em vez de microsserviços: cada módulo de domínio mantém as regras de negócio livres de código de framework, e os casos de uso dependem de portas, não do banco ou do broker de mensagens. Assim existe uma única unidade de deploy, com fronteiras que continuam verificáveis.",
+					"A IA acelera, mas não decide. Guardrails removem dados sensíveis antes que qualquer modelo ou histórico de conversa os veja, podem bloquear uma etapa e registram apenas metadados técnicos seguros.",
+					"Os eventos do CRM chegam ao core por uma ingestão orientada a eventos que pode ser reprocessada, e observabilidade e feature flags fizeram parte da plataforma desde o início.",
+				],
+			},
+		},
+		{
+			heading: { en: "My role", "pt-BR": "Meu papel" },
+			body: {
+				en: [
+					"I work on the core platform and built the partner landing page: mobile-first and mostly static, with SEO and Core Web Vitals treated as product scope, plus an alternative build for the CRM's marketing pages. I integrate the core with the internal and external AI layers, which colleagues build.",
+				],
+				"pt-BR": [
+					"Trabalho no core da plataforma e construí a landing page do parceiro: mobile-first e quase toda estática, com SEO e Core Web Vitals tratados como escopo do produto, mais um build alternativo para as páginas de marketing do CRM. Integro o core às camadas de IA interna e externa, que colegas constroem.",
+				],
+			},
+		},
+		{
+			heading: { en: "What stays private", "pt-BR": "O que fica privado" },
+			body: {
+				en: [
+					"The company, its clients and data, internal names, metrics, code and screenshots stay private under confidentiality terms. The diagram above is a simplified illustration, not the production topology.",
+				],
+				"pt-BR": [
+					"A empresa, seus clientes e dados, nomes internos, métricas, código e screenshots ficam privados por termos de confidencialidade. O diagrama acima é uma ilustração simplificada, não a topologia de produção.",
+				],
+			},
+		},
+	],
+	disclosure: "anonymized",
+	reviewed: "2026-10-11",
+};
+
 // Priorize.me: the owner's product. Facts from the public landing page and
 // the private repository's README, PRODUCT_STORY.md and ADRs, checked
 // 2026-10-11. PRODUCT_STORY.md sets the claim limits followed here: no
@@ -384,7 +514,12 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 	reviewed: "2026-10-11",
 };
 
-export const caseStudies: CaseStudy[] = [saf, priorize, payments];
+export const caseStudies: CaseStudy[] = [
+	aiFirstBanking,
+	saf,
+	priorize,
+	payments,
+];
 
 export const otherWork: ShortWork[] = [
 	// deborablaso.com.br and psicologiadamoda.club: built by the owner for the

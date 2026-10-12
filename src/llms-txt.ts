@@ -25,6 +25,7 @@ export function buildLlmsTxt() {
 			? `Currently: ${current.role} at ${current.company} (since ${formatMonth(current.start, "en")}).`
 			: "",
 		`The site is in English and Brazilian Portuguese (${url("/", "pt-BR")}).`,
+		"Most of his work as an employee, contractor or consultant is private under confidentiality terms; the site focuses on personal and public projects, plus one anonymized professional case study.",
 		"",
 		"## Pages",
 		"",

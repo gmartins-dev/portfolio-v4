@@ -55,6 +55,26 @@ update its `reviewed` date; it feeds the visible "Facts checked on" line,
 5. Run every quality gate. The page, its routes, sitemap entry, JSON-LD, and
    `llms.txt` line come from the content entry automatically.
 
+## Add an anonymized case study
+
+Most professional work is confidential, so only describe it with the
+owner's approval and at the level of detail he sets.
+
+1. Add the entry to `caseStudies` in `src/content/work.ts` with
+   `disclosure: "anonymized"`. Leave `links` empty, and use a year
+   (`"2026"`) instead of a month if the dates are sensitive.
+2. Leave out the company, clients, people, internal names, endpoints,
+   metrics, code, and screenshots. Describe the architecture and your role
+   in general terms.
+3. Instead of a screenshot, draw an abstract diagram in
+   `scripts/diagrams/<slug>.mmd`, run `pnpm render:diagrams`, and set
+   `fit: "contain"` on the image so it isn't cropped.
+4. Add every sensitive name (company, group, internal project, email
+   domain) to `scripts/denylist.json` as a SHA-256 hash. The command is in
+   the file's `$comment`. Never commit the names themselves.
+5. Run every quality gate. The content test and `check:dist` fail if a
+   denied term reaches the content or the built site.
+
 ## Add a smaller project
 
 Projects that don't need a case study go on `/projects`.

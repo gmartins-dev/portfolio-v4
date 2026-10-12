@@ -8,6 +8,7 @@ describe("server render", () => {
 		expect(prerenderPaths).toEqual([
 			"/",
 			"/work",
+			"/work/ai-first-online-banking",
 			"/work/sdd-agentic-flow",
 			"/work/priorize-me",
 			"/work/payments-api-node",
@@ -15,6 +16,7 @@ describe("server render", () => {
 			"/about",
 			"/pt-br",
 			"/pt-br/work",
+			"/pt-br/work/ai-first-online-banking",
 			"/pt-br/work/sdd-agentic-flow",
 			"/pt-br/work/priorize-me",
 			"/pt-br/work/payments-api-node",
