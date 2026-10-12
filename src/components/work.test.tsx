@@ -17,7 +17,7 @@ describe("ProfessionalWorkItem", () => {
 		expect(
 			screen.getByRole("heading", { level: 3, name: "Vochlea" }),
 		).toBeTruthy();
-		expect(within(article).getByText("Full-Stack Developer")).toBeTruthy();
+		expect(within(article).getByText("Software Engineer")).toBeTruthy();
 		expect(
 			within(article).getByText("Jan 2024 - Aug 2024, London, UK"),
 		).toBeTruthy();

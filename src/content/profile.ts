@@ -1,8 +1,10 @@
 import type { Experience, Profile } from "./schema";
 
 // Sources: resume EN/PT-BR (Drive files behind /cv and /cv-br), the LinkedIn
-// experience page and the GitHub profile README, checked 2026-10-11. Job titles follow the PT-BR resume,
-// which keeps the title held at the time rather than today's title.
+// experience page and the GitHub profile README, checked 2026-10-11. Job
+// titles follow LinkedIn, the owner's most recent source: Software Engineer
+// for the UK roles, Frontend Developer for the ChatWith.io contract. The
+// PT-BR resume still lists older titles; align it when it is next updated.
 // Validated against the schemas at build time (src/content/validate.ts).
 export const profile: Profile = {
 	name: "Guilherme Martins",
@@ -46,7 +48,7 @@ export const experience: Experience[] = [
 	{
 		company: "Nisien.ai",
 		url: "https://nisien.ai",
-		role: "Frontend Developer",
+		role: "Software Engineer",
 		location: { en: "Cardiff, UK", "pt-BR": "Cardiff, Reino Unido" },
 		start: "2025-03",
 		end: "2025-06",
@@ -71,7 +73,7 @@ export const experience: Experience[] = [
 	{
 		company: "Backbase",
 		url: "https://www.backbase.com",
-		role: "Frontend Developer",
+		role: "Software Engineer",
 		location: { en: "Cardiff, UK", "pt-BR": "Cardiff, Reino Unido" },
 		start: "2024-10",
 		end: "2025-02",
@@ -94,7 +96,7 @@ export const experience: Experience[] = [
 	{
 		company: "Vochlea",
 		url: "https://vochlea.com",
-		role: "Full-Stack Developer",
+		role: "Software Engineer",
 		location: { en: "London, UK", "pt-BR": "Londres, Reino Unido" },
 		start: "2024-01",
 		end: "2024-08",
@@ -118,7 +120,7 @@ export const experience: Experience[] = [
 	{
 		company: "Loop",
 		url: "https://www.loop.software",
-		role: "Frontend Developer",
+		role: "Software Engineer",
 		location: {
 			en: "Moreton-in-Marsh, UK",
 			"pt-BR": "Moreton-in-Marsh, Reino Unido",
