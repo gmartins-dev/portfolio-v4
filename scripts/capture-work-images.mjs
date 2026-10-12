@@ -26,8 +26,7 @@ const shots = [
 		name: "psicologia-da-moda-clube",
 		url: "https://www.psicologiadamoda.club/grupo-estudos",
 	},
-	// Company sites for /work's professional work section. ChatWith.io has no
-	// shot: its site no longer shows the product described there.
+	// Company sites for /work's professional work section.
 	{
 		name: "nisien-ai",
 		url: "https://nisien.ai/our-solution/hero/",
@@ -44,6 +43,13 @@ const shots = [
 		url: "https://www.loop.software/features",
 		hideCookieBanner: true,
 		// Analytics keep the network busy; wait for load plus a moment.
+		waitUntil: "load",
+	},
+	{
+		// The live site now shows a different product; capture the Internet
+		// Archive copy from the contract period ("if_" drops the archive bar).
+		name: "chatwith-io",
+		url: "https://web.archive.org/web/20230202155443if_/https://chatwith.io/",
 		waitUntil: "load",
 	},
 ];

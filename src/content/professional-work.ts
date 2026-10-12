@@ -2,7 +2,8 @@ import type { ProfessionalWork } from "./schema";
 
 // Public products the owner worked on as an employee or contractor, newest
 // first. Product summaries paraphrase each company's public site (checked
-// 2026-10-11); contributions come from the resume, the LinkedIn experience
+// 2026-10-11; ChatWith.io from its February 2023 Internet Archive copy,
+// because the live site now shows a different product); contributions come from the resume, the LinkedIn experience
 // page and the owner's notes. Internal details stay private. Role, period and
 // location are read from `experience` in profile.ts. Validated at build time
 // (src/content/validate.ts).
@@ -61,6 +62,9 @@ export const professionalWork: ProfessionalWork[] = [
 				"Criei uma prova de conceito de assistente bancário conversacional com IA para um hackathon interno. Ela venceu a competição.",
 			],
 		},
+		// Backbase's own frontend job posts name Angular and TypeScript as the
+		// stack of its web SDK.
+		stack: ["Angular", "TypeScript"],
 		image: {
 			src: "/images/work/backbase",
 			widths: [480, 720, 1280],
@@ -159,11 +163,12 @@ export const professionalWork: ProfessionalWork[] = [
 		slug: "chatwith-io",
 		company: "ChatWith.io",
 		product: "ChatWith.io",
-		url: "https://chatwith.io",
+		// The live site shows a different product now; link the archived copy.
+		url: "https://web.archive.org/web/20230202155443/https://chatwith.io/",
 		summary: {
-			en: "A SaaS platform that gives businesses tools to run marketing, sales and customer relationships through WhatsApp.",
+			en: "A SaaS platform for customer service and sales over WhatsApp: chat links and widgets, campaigns, polls, bookings, payments and a shared inbox.",
 			"pt-BR":
-				"Uma plataforma SaaS que dá às empresas ferramentas para fazer marketing, vendas e relacionamento com clientes pelo WhatsApp.",
+				"Uma plataforma SaaS de atendimento e vendas pelo WhatsApp: links e widgets de conversa, campanhas, enquetes, agendamentos, pagamentos e uma caixa de entrada compartilhada.",
 		},
 		contributions: {
 			en: [
@@ -178,5 +183,16 @@ export const professionalWork: ProfessionalWork[] = [
 			],
 		},
 		stack: ["Vue.js", "JavaScript", "Sass", "Bootstrap"],
+		image: {
+			src: "/images/work/chatwith-io",
+			widths: [480, 720, 1280],
+			width: 1280,
+			height: 800,
+			alt: {
+				en: "The ChatWith.io home page in February 2023, from the Internet Archive: a form to create a WhatsApp chat link, under a menu of widgets, campaigns, polls, payments, bookings and inbox.",
+				"pt-BR":
+					"A página inicial do ChatWith.io em fevereiro de 2023, pelo Internet Archive: um formulário para criar um link de conversa no WhatsApp, abaixo de um menu com widgets, campanhas, enquetes, pagamentos, agendamentos e caixa de entrada.",
+			},
+		},
 	},
 ];

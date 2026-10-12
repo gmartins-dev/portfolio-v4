@@ -11,7 +11,10 @@ is in the [roadmap](ROADMAP.md).
   Vochlea, Loop and ChatWith.io, each with the role and period from
   experience, a product summary from the company's public site,
   contributions from the resume, LinkedIn and the owner's notes, the stack
-  and a screenshot (none for ChatWith.io, whose site has changed).
+  and a screenshot. ChatWith.io's live site now shows a different product,
+  so its card uses and links the February 2023 Internet Archive copy.
+- Job titles follow LinkedIn: Software Engineer at Nisien.ai, Backbase,
+  Vochlea and Loop.
 - About links each of those experience entries to its card, and focus
   moves to the card after the navigation.
 - Experience adds ChatWith.io (Frontend Developer, October 2022 to March
