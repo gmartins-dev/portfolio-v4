@@ -73,6 +73,8 @@ export const copy = {
 		resume: { en: "Resume", "pt-BR": "Currículo" },
 		skip: { en: "Skip to content", "pt-BR": "Pular para o conteúdo" },
 		language: { en: "Português", "pt-BR": "English" },
+		// Shown on phones; the accessible name stays languageLabel.
+		languageShort: { en: "PT", "pt-BR": "EN" },
 		languageLabel: { en: "Ler em português", "pt-BR": "Read in English" },
 	},
 	theme: {

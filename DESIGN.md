@@ -80,10 +80,28 @@ colors in `scripts/build-og-images.mjs`.
   (`list-disc marker:text-brand`).
 - Screenshots are captured at 1440x900 and shown in 16:10 frames
   (`aspect-[16/10]`, `object-top`), so teasers crop only the bottom.
-- Diagrams (`fit: "contain"`) are drawn black on white. `WorkImage` inverts
-  them in dark mode and blends the background into the card, so check a new
-  diagram in both themes.
-- Multi-column layouts collapse to one column below `md`.
+- Diagrams (`fit: "contain"`) are drawn on white from Mermaid sources in
+  `scripts/diagrams/`: the anonymized case study, and sdd-agentic-flow's
+  README workflow, which reads better than a README screenshot. `WorkImage`
+  inverts them in dark mode and blends the background into the card, so
+  check a new diagram in both themes. Shape it close to 16:10 (rows of
+  `direction LR` subgraphs) so it stays legible in a teaser.
+- Multi-column layouts collapse to one column below `md`. When a sidebar
+  holds the quick facts (case study facts and links), put it first in the
+  DOM and move it right with `md:order-last`, so phones see it before the
+  prose.
+
+## Phones
+
+- The header is two rows below `sm`: the name, then nav with the language
+  and theme controls. DOM order matches visual order at every width. The
+  language link shows "PT"/"EN" (its accessible name stays the full
+  sentence), and below the `xs` breakpoint (25rem, `src/index.css`) the
+  theme control is one button that steps through Light, Dark and System.
+  e2e checks the two rows at 320, 360 and 390px in both languages.
+- Vertical rhythm steps down below `md`: page tops `pt-12` (`pt-8` on case
+  studies), sections `mt-20` instead of `mt-24`/`mt-28`, and teaser lists
+  `gap-14` instead of `gap-20`.
 
 ## Motion
 

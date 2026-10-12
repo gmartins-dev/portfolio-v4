@@ -18,7 +18,7 @@ export function CaseStudyPage({
 	}).format(new Date(`${study.reviewed}T00:00:00Z`));
 
 	return (
-		<article className="pt-12 md:pt-16">
+		<article className="pt-8 md:pt-16">
 			<Link
 				to={localizedPath(locale, "/work")}
 				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
@@ -41,7 +41,7 @@ export function CaseStudyPage({
 					{t(study.summary, locale)}
 				</p>
 
-				<dl className="mt-10 grid gap-6 border-t pt-6 text-sm sm:grid-cols-3">
+				<dl className="mt-10 grid grid-cols-2 gap-6 border-t pt-6 text-sm sm:grid-cols-3">
 					<div>
 						<dt className="text-muted-foreground">
 							{t(copy.work.role, locale)}
@@ -56,7 +56,7 @@ export function CaseStudyPage({
 							{formatPeriod(study.period, locale)}
 						</dd>
 					</div>
-					<div>
+					<div className="col-span-2 sm:col-span-1">
 						<dt className="text-muted-foreground">
 							{t(copy.work.stack, locale)}
 						</dt>
@@ -91,7 +91,37 @@ export function CaseStudyPage({
 
 			{/* grid-cols-1 is minmax(0, 1fr): with the default auto minimum the
 			    code block would widen the page instead of scrolling (WCAG 1.4.10). */}
-			<div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-16">
+			<div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-16">
+				{/* First in the DOM so phones get the facts and links before the
+				    prose; from md up it sits in the right column. */}
+				<aside className="border-b pb-10 md:sticky md:top-8 md:order-last md:self-start md:border-0 md:pb-0">
+					<ul className="grid list-disc gap-2 pl-5 text-sm marker:text-brand">
+						{study.facts[locale].map((fact) => (
+							<li key={fact}>{fact}</li>
+						))}
+					</ul>
+					{study.links.length > 0 && (
+						<>
+							<h2 className="mt-8 text-sm font-medium text-muted-foreground">
+								{t(copy.work.links, locale)}
+							</h2>
+							<ul className="mt-2 grid gap-2 text-sm">
+								{study.links.map((link) => (
+									<li key={link.href}>
+										<a
+											href={link.href}
+											className="inline-flex min-h-6 items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
+										>
+											{t(link.label, locale)}
+											<ArrowUpRight aria-hidden="true" className="size-3.5" />
+										</a>
+									</li>
+								))}
+							</ul>
+						</>
+					)}
+				</aside>
+
 				<div className="grid grid-cols-1 gap-12">
 					{study.sections.map((section) => (
 						<section key={section.heading.en}>
@@ -121,34 +151,6 @@ export function CaseStudyPage({
 						</section>
 					))}
 				</div>
-
-				<aside className="md:sticky md:top-8 md:self-start">
-					<ul className="grid list-disc gap-2 pl-5 text-sm marker:text-brand">
-						{study.facts[locale].map((fact) => (
-							<li key={fact}>{fact}</li>
-						))}
-					</ul>
-					{study.links.length > 0 && (
-						<>
-							<h2 className="mt-8 text-sm font-medium text-muted-foreground">
-								{t(copy.work.links, locale)}
-							</h2>
-							<ul className="mt-2 grid gap-2 text-sm">
-								{study.links.map((link) => (
-									<li key={link.href}>
-										<a
-											href={link.href}
-											className="inline-flex min-h-6 items-center gap-1 font-medium underline-offset-4 hover:text-brand hover:underline"
-										>
-											{t(link.label, locale)}
-											<ArrowUpRight aria-hidden="true" className="size-3.5" />
-										</a>
-									</li>
-								))}
-							</ul>
-						</>
-					)}
-				</aside>
 			</div>
 
 			<p className="mt-16 text-sm text-muted-foreground">

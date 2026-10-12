@@ -38,13 +38,14 @@ const saf: CaseStudy = {
 	},
 	image: {
 		src: "/images/work/sdd-agentic-flow",
-		widths: [480, 720, 838],
-		width: 838,
-		height: 629,
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 700,
+		fit: "contain",
 		alt: {
-			en: "The sdd-agentic-flow README on GitHub: logo, tagline and project summary.",
+			en: "The sdd-agentic-flow workflow from its README. Plan: saf-route leads to saf-create-spec, directly or through saf-brainstorm, with saf-explain on demand. Then saf-create-prompts feeds saf-implement, directly or through saf-implement-multi for dependent tasks, followed by saf-check-task. Last, saf-create-pr goes to saf-review-pr, which loops with saf-fix-pr until it is ready for saf-validate.",
 			"pt-BR":
-				"O README do sdd-agentic-flow no GitHub: logo, slogan e resumo do projeto.",
+				"O fluxo do sdd-agentic-flow, tirado do README. Planejamento: saf-route leva a saf-create-spec, direto ou passando por saf-brainstorm, com saf-explain sob demanda. Depois saf-create-prompts alimenta saf-implement, direto ou via saf-implement-multi para tarefas dependentes, seguido de saf-check-task. Por fim, saf-create-pr vai para saf-review-pr, que alterna com saf-fix-pr até estar pronto para saf-validate.",
 		},
 	},
 	links: [

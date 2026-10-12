@@ -109,3 +109,37 @@ test("an About company link opens its product on the Work page", async ({
 	await expect(target).toBeFocused();
 	await expect(target).toBeInViewport();
 });
+
+test.describe("phone header", () => {
+	for (const width of [320, 360, 390]) {
+		for (const path of ["/", "/pt-br"]) {
+			test(`${path} at ${width}px fits on two rows`, async ({ page }) => {
+				await page.setViewportSize({ width, height: 800 });
+				await page.goto(path);
+				const top = async (selector: string) =>
+					(await page.getByRole("banner").locator(selector).boundingBox())?.y;
+				// Row 1 is the name; nav, language and theme share row 2.
+				const navTop = await top("nav");
+				expect(navTop).toBeGreaterThan((await top("a[translate=no]")) ?? 0);
+				expect(await top("a[hreflang]")).toBeCloseTo(navTop ?? 0, -1);
+				const header = await page.getByRole("banner").boundingBox();
+				expect(header?.height).toBeLessThan(110);
+			});
+		}
+	}
+
+	test("narrow phones get a single theme button that cycles", async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 360, height: 800 });
+		await page.goto("/");
+		await expect(page.getByRole("group", { name: "Color theme" })).toBeHidden();
+		const button = page.getByRole("button", { name: "Color theme: System" });
+		await button.click();
+		await page.getByRole("button", { name: "Color theme: Light" }).click();
+		await expect(
+			page.getByRole("button", { name: "Color theme: Dark" }),
+		).toBeVisible();
+		await expect(page.locator("html")).toHaveClass(/dark/);
+	});
+});

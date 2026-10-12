@@ -59,7 +59,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 
 	return (
 		<>
-			<header className="pt-16 md:pt-24">
+			<header className="pt-12 md:pt-24">
 				<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 					{t(copy.projects.heading, locale)}
 				</h1>
@@ -71,7 +71,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 				<section
 					key={group.id}
 					aria-labelledby={`projects-${group.id}`}
-					className="mt-16"
+					className="mt-12 md:mt-16"
 				>
 					<h2
 						id={`projects-${group.id}`}

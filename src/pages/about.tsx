@@ -12,7 +12,7 @@ const externalLinkClass =
 
 export function AboutPage({ locale }: { locale: Locale }) {
 	return (
-		<article className="pt-16 md:pt-24">
+		<article className="pt-12 md:pt-24">
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(copy.about.heading, locale)}
 			</h1>
@@ -26,7 +26,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 				{t(copy.about.confidential, locale)}
 			</p>
 
-			<section aria-labelledby="experience" className="mt-24">
+			<section aria-labelledby="experience" className="mt-20 md:mt-24">
 				<h2 id="experience" className={sectionHeading}>
 					{t(copy.about.experienceHeading, locale)}
 				</h2>
@@ -85,7 +85,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 				</ol>
 			</section>
 
-			<section aria-labelledby="tools" className="mt-24">
+			<section aria-labelledby="tools" className="mt-20 md:mt-24">
 				<h2 id="tools" className={sectionHeading}>
 					{t(copy.about.toolsHeading, locale)}
 				</h2>
@@ -108,7 +108,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
 			<section
 				aria-labelledby="resume"
-				className="mt-24 rounded-lg bg-muted px-6 py-8 md:px-10"
+				className="mt-20 rounded-lg bg-muted px-5 py-8 md:mt-24 md:px-10"
 			>
 				<h2 id="resume" className="text-xl font-semibold tracking-tight">
 					{t(copy.about.resumeHeading, locale)}

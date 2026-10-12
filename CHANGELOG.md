@@ -28,6 +28,21 @@ is in the [roadmap](ROADMAP.md).
 - DESIGN.md documents the link, metadata, image frame, diagram and callout
   rules.
 
+### Phones
+
+- The header takes two rows instead of three (89px instead of 143px at every
+  phone width): the language link shows "PT"/"EN", and under 400px the
+  three theme buttons become one button that steps through the choices.
+  Keyboard order still matches visual order. e2e covers 320, 360 and 390px
+  in both languages.
+- Case studies show their facts and links before the prose on phones, and
+  role and period share a row.
+- Vertical spacing steps down below `md`, removing long empty stretches
+  between sections.
+- The sdd-agentic-flow image is now its README workflow diagram, rendered
+  from `scripts/diagrams/sdd-agentic-flow.mmd`, instead of a screenshot of
+  README text. `pnpm render:diagrams` accepts diagram names.
+
 ### Products I worked on
 
 - `/work` has a "Products I worked on" section: Nisien.ai, Backbase,

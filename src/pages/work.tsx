@@ -13,7 +13,7 @@ import { type Locale, localizedPath } from "../i18n";
 export function WorkPage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<header className="pt-16 md:pt-24">
+			<header className="pt-12 md:pt-24">
 				<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 					{t(copy.work.heading, locale)}
 				</h1>
@@ -21,7 +21,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 					{t(copy.work.intro, locale)}
 				</p>
 			</header>
-			<div className="mt-16 grid gap-20">
+			<div className="mt-12 grid gap-14 md:mt-16 md:gap-20">
 				{caseStudies.map((study, index) => (
 					<CaseStudyTeaser
 						key={study.slug}
@@ -33,7 +33,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 					/>
 				))}
 			</div>
-			<section aria-labelledby="professional-work" className="mt-24">
+			<section aria-labelledby="professional-work" className="mt-20 md:mt-24">
 				<h2
 					id="professional-work"
 					className="text-2xl font-semibold tracking-tight"
@@ -49,7 +49,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 					))}
 				</div>
 			</section>
-			<section aria-labelledby="other-work" className="mt-24">
+			<section aria-labelledby="other-work" className="mt-20 md:mt-24">
 				<h2 id="other-work" className="text-2xl font-semibold tracking-tight">
 					{t(copy.work.otherHeading, locale)}
 				</h2>
