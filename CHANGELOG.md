@@ -5,6 +5,25 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Products I worked on
+
+- `/work` has a "Products I worked on" section: Nisien.ai, Backbase,
+  Vochlea, Loop and ChatWith.io, each with the role and period from
+  experience, a product summary from the company's public site,
+  contributions from the resume, LinkedIn and the owner's notes, the stack
+  and a screenshot. ChatWith.io's live site now shows a different product,
+  so its card uses and links the February 2023 Internet Archive copy.
+- Job titles follow LinkedIn: Software Engineer at Nisien.ai, Backbase,
+  Vochlea and Loop.
+- About links each of those experience entries to its card, and focus
+  moves to the card after the navigation.
+- Experience adds ChatWith.io (Frontend Developer, October 2022 to March
+  2023); the freelance period now ends in October 2022.
+- The `/work` JSON-LD lists the products as `CreativeWork` by each company;
+  `llms.txt` lists them too.
+- `pnpm capture:work-images` takes shot names, hides cookie banners and can
+  wait for `load` on pages that never go network-idle.
+
 ### Confidential work
 
 - The Work page, About and `llms.txt` state that most work as an employee,

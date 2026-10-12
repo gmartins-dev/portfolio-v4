@@ -23,15 +23,21 @@ checks only the site owner can make; each one is a launch blocker until done.
   written from the resumes, the GitHub profile README and the project
   repositories. Review both languages, especially the hero, the About intro
   and the contact line.
-- **Job titles.** The site uses the titles from the PT-BR resume (Frontend
-  Developer at Nisien.ai, Backbase and Loop; Full-Stack Developer at Vochlea).
-  The EN resume says Software Engineer for all of them. Confirm which is
-  accurate and align the resumes and LinkedIn.
-- **ChatWith.io.** The planning notes mention a ChatWith.io role (Frontend
-  Developer) that is not on either resume, so it is not on the site. Add it
-  with dates if it should be.
-- **LinkedIn check (Phase 0).** LinkedIn could not be read without signing
-  in, so experience was not cross-checked against it.
+- ~~**Job titles.**~~ Decided (2026-10-11): the site follows LinkedIn,
+  Software Engineer at Nisien.ai, Backbase, Vochlea and Loop, and Frontend
+  Developer at ChatWith.io. Update the PT-BR resume, which still has the
+  older titles.
+- ~~**ChatWith.io.**~~ Added (2026-10-11) from the LinkedIn experience page
+  the owner shared: Frontend Developer, October 2022 to March 2023. The
+  freelance entry now ends in October 2022, as on LinkedIn.
+- ~~**LinkedIn check (Phase 0).**~~ Done (2026-10-11) with the transcript
+  the owner shared. Titles still differ; see "Job titles".
+- **Products I worked on.** The `/work` section names Nisien.ai, Backbase,
+  Vochlea, Loop and ChatWith.io, with screenshots of their public sites
+  (ChatWith.io from its February 2023 Internet Archive copy). The Backbase
+  stack (Angular, TypeScript) comes from Backbase's frontend job posts;
+  confirm it, and add the Nisien.ai stack, which no public source names.
+  Recapture with `pnpm capture:work-images <name>` when the sites change.
 - ~~**Resume PDFs.**~~ Confirmed by the owner (2026-10-11): the site links
   `/cv` (English) and `/cv-br` (Portuguese), which redirect to the current
   PDFs. Update the Drive files in place, or the targets in `vercel.json`.

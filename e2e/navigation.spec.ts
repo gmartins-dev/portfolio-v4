@@ -96,3 +96,16 @@ test("legacy short links redirect", async ({ request }) => {
 		expect(response.headers().location).toBe(location);
 	}
 });
+
+test("an About company link opens its product on the Work page", async ({
+	page,
+}) => {
+	await page.goto("/about");
+	await page
+		.getByRole("link", { name: /See the product ?\(Nisien\.ai\)/ })
+		.click();
+	await expect(page).toHaveURL(/\/work#nisien-ai$/);
+	const target = page.locator("#nisien-ai");
+	await expect(target).toBeFocused();
+	await expect(target).toBeInViewport();
+});

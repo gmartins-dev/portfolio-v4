@@ -13,7 +13,7 @@
 | Build and check output | `pnpm build && pnpm check:dist` |
 | One e2e spec | `pnpm build && pnpm exec playwright test e2e/navigation.spec.ts` |
 | Full e2e (first run: `pnpm exec playwright install chromium`) | `pnpm test:e2e` |
-| Recapture project screenshots (hits live URLs) | `pnpm capture:work-images` |
+| Recapture screenshots (hits live URLs; optional shot names) | `pnpm capture:work-images [name ...]` |
 | Re-render social cards | `pnpm build:og-images` |
 | Re-render anonymized diagrams | `pnpm render:diagrams` |
 
@@ -29,7 +29,7 @@
 
 ## Key Conventions
 - Every visible string lives in `src/content/` as `{ en, "pt-BR" }`; change both languages together.
-- Never invent facts: profile and experience come from the resumes, case studies from public repositories.
+- Never invent facts: profile and experience come from the resumes and LinkedIn, case studies from public repositories, product summaries from company sites.
 - Never name confidential employers, clients or internal projects; anonymized work follows `docs/maintenance.md` and must pass the `scripts/denylist.json` check.
 - Update a case study's `reviewed` date when you re-check its facts.
 - No em or en dashes in visible text (enforced by `src/content/content.test.ts`).

@@ -2,7 +2,9 @@
 // images, and writes responsive WebP variants (public/images/work/<name>-<width>.webp)
 // using the browser's own encoder. Run manually when a project changes
 // visibly: `pnpm capture:work-images`. Keep `widths` in sync with the image
-// entries in src/content/work.ts (the content tests check the files exist).
+// entries in src/content/work.ts and src/content/professional-work.ts (the
+// content tests check the files exist). Pass shot names to capture only those:
+// `pnpm capture:work-images loop vochlea`.
 import { writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 
@@ -24,7 +26,42 @@ const shots = [
 		name: "psicologia-da-moda-clube",
 		url: "https://www.psicologiadamoda.club/grupo-estudos",
 	},
+	// Company sites for /work's professional work section.
+	{
+		name: "nisien-ai",
+		url: "https://nisien.ai/our-solution/hero/",
+		hideCookieBanner: true,
+	},
+	{
+		name: "backbase",
+		url: "https://www.backbase.com/digital-banking",
+		hideCookieBanner: true,
+	},
+	{ name: "vochlea", url: "https://vochlea.com" },
+	{
+		name: "loop",
+		url: "https://www.loop.software/features",
+		hideCookieBanner: true,
+		// Analytics keep the network busy; wait for load plus a moment.
+		waitUntil: "load",
+	},
+	{
+		// The live site now shows a different product; capture the Internet
+		// Archive copy from the contract period ("if_" drops the archive bar).
+		name: "chatwith-io",
+		url: "https://web.archive.org/web/20230202155443if_/https://chatwith.io/",
+		waitUntil: "load",
+	},
 ];
+
+const only = process.argv.slice(2);
+const selected = only.length
+	? shots.filter((shot) => only.includes(shot.name))
+	: shots;
+const unknown = only.filter(
+	(name) => !shots.some((shot) => shot.name === name),
+);
+if (unknown.length) throw new Error(`unknown shots: ${unknown.join(", ")}`);
 
 /** Output widths, capped at the capture's own width (838 instead of 1280). */
 const widths = [480, 720, 1280];
@@ -33,8 +70,30 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const encoder = await browser.newPage();
 
-for (const { name, url, selector } of shots) {
-	await page.goto(url, { waitUntil: "networkidle" });
+for (const {
+	name,
+	url,
+	selector,
+	hideCookieBanner,
+	waitUntil = "networkidle",
+} of selected) {
+	await page.goto(url, { waitUntil });
+	await page.waitForTimeout(1500);
+	if (hideCookieBanner) {
+		// Consent dialogs and their dimming overlays are fixed-position layers;
+		// remove the ones about cookies and any empty full-screen overlay.
+		await page.evaluate(() => {
+			for (const element of document.querySelectorAll("body *")) {
+				if (getComputedStyle(element).position !== "fixed") continue;
+				const box = element.getBoundingClientRect();
+				const overlay =
+					box.width >= window.innerWidth &&
+					box.height >= window.innerHeight &&
+					!element.textContent.trim();
+				if (overlay || /cookie/i.test(element.textContent)) element.remove();
+			}
+		});
+	}
 	if (selector) {
 		// Sticky bars (GitHub's README tabs) would otherwise cover the element.
 		await page.evaluate(() => {

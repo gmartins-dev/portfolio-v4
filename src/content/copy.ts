@@ -27,9 +27,9 @@ export const copy = {
 				"pt-BR": "Trabalhos e estudos de caso | Guilherme Martins",
 			},
 			description: {
-				en: "Case studies and projects by Guilherme Martins: a collaborative SaaS, developer tooling, backend consistency, client websites and community work.",
+				en: "Case studies and projects by Guilherme Martins: a collaborative SaaS, developer tooling, backend consistency, products built at Backbase, Nisien.ai and Vochlea, and client work.",
 				"pt-BR":
-					"Estudos de caso e projetos de Guilherme Martins: um SaaS colaborativo, ferramentas para desenvolvedores, consistência no backend, sites para clientes e projetos da comunidade.",
+					"Estudos de caso e projetos de Guilherme Martins: um SaaS colaborativo, ferramentas para devs, consistência no backend, produtos construídos na Backbase, Nisien.ai e Vochlea, e trabalhos para clientes.",
 			},
 		},
 		projects: {
@@ -193,10 +193,21 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Most of my work as an employee, contractor or consultant is private under confidentiality terms, so this page focuses on personal and public projects, plus one anonymized professional case study.",
+			en: "Most of my work as an employee, contractor or consultant is private under confidentiality terms. This page shows personal and public projects, one anonymized professional case study, and the public products I worked on.",
 			"pt-BR":
-				"A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade, então esta página se concentra em projetos pessoais e públicos, mais um estudo de caso profissional anonimizado.",
+				"A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade. Esta página mostra projetos pessoais e públicos, um estudo de caso profissional anonimizado e os produtos públicos em que trabalhei.",
 		},
+		professionalHeading: {
+			en: "Products I worked on",
+			"pt-BR": "Produtos em que trabalhei",
+		},
+		professionalIntro: {
+			en: "Public products I helped build as an employee or contractor. The descriptions and screenshots come from each company's public site; the internal details of the work stay private.",
+			"pt-BR":
+				"Produtos públicos que ajudei a construir como empregado ou contractor. As descrições e imagens vêm do site público de cada empresa; os detalhes internos do trabalho continuam privados.",
+		},
+		contributions: { en: "What I did", "pt-BR": "O que eu fiz" },
+		visitProduct: { en: "Visit the product", "pt-BR": "Ver o produto" },
 		otherHeading: {
 			en: "Client and community work",
 			"pt-BR": "Clientes e comunidade",
@@ -249,6 +260,7 @@ export const copy = {
 				"Boa parte do trabalho abaixo foi feita para empregadores e clientes sob termos de confidencialidade, por isso não posso compartilhar detalhes. É por isso que a página Trabalhos se concentra em projetos pessoais e públicos.",
 		},
 		experienceHeading: { en: "Experience", "pt-BR": "Experiência" },
+		productLink: { en: "See the product", "pt-BR": "Ver o produto" },
 		toolsHeading: { en: "Tools I use", "pt-BR": "Ferramentas que uso" },
 		resumeHeading: { en: "Resume", "pt-BR": "Currículo" },
 		resumeBody: {
