@@ -123,11 +123,9 @@ export function CaseStudyPage({
 				</div>
 
 				<aside className="md:sticky md:top-8 md:self-start">
-					<ul className="grid gap-2 text-sm">
+					<ul className="grid list-disc gap-2 pl-5 text-sm marker:text-brand">
 						{study.facts[locale].map((fact) => (
-							<li key={fact} className="border-l-2 border-brand pl-3">
-								{fact}
-							</li>
+							<li key={fact}>{fact}</li>
 						))}
 					</ul>
 					{study.links.length > 0 && (

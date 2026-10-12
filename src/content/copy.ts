@@ -91,24 +91,26 @@ export const copy = {
 		email: { en: "Email me", "pt-BR": "Enviar email" },
 	},
 	footer: {
-		resumeEn: { en: "Resume (English)", "pt-BR": "Currículo (inglês)" },
-		resumePt: { en: "Resume (Portuguese)", "pt-BR": "Currículo (português)" },
+		resumeEn: {
+			en: "Resume in English (PDF)",
+			"pt-BR": "Currículo em inglês (PDF)",
+		},
+		resumePt: {
+			en: "Resume in Portuguese (PDF)",
+			"pt-BR": "Currículo em português (PDF)",
+		},
 	},
 	home: {
-		eyebrow: {
-			en: "Guilherme Martins, Software Engineer",
-			"pt-BR": "Guilherme Martins, Software Engineer",
-		},
 		headline: {
 			en: "From problem definition to production.",
 			"pt-BR": "Da definição do problema ao software em produção.",
 		},
 		intro: {
-			en: "Full-stack engineer with deep frontend experience, building and evolving products with teams in Brazil and the UK.",
+			en: "I'm Guilherme Martins, a full-stack engineer with deep frontend experience, building and evolving products with teams in Brazil and the UK.",
 			"pt-BR":
-				"Engenheiro full-stack com forte experiência em frontend, construindo e evoluindo produtos com times no Brasil e no Reino Unido.",
+				"Sou Guilherme Martins, engenheiro full-stack com forte experiência em frontend, construindo e evoluindo produtos com times no Brasil e no Reino Unido.",
 		},
-		primaryCta: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
+		primaryCta: { en: "See all work", "pt-BR": "Ver todos os trabalhos" },
 		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
 		readCaseStudy: {
 			en: "Read the case study",
@@ -153,7 +155,8 @@ export const copy = {
 			},
 			evidence: {
 				label: { en: "Nisien.ai", "pt-BR": "Nisien.ai" },
-				to: "/about",
+				to: "/work",
+				hash: "nisien-ai",
 			},
 		},
 		{
@@ -193,9 +196,9 @@ export const copy = {
 	work: {
 		heading: { en: "Work", "pt-BR": "Trabalhos" },
 		intro: {
-			en: "Most of my work as an employee, contractor or consultant is private under confidentiality terms. This page shows personal and public projects, one anonymized professional case study, and the public products I worked on.",
+			en: "Case studies of personal and public projects, the public products I worked on, and client and community work. Most of my work as an employee, contractor or consultant is private under confidentiality terms, so the one professional case study is anonymized.",
 			"pt-BR":
-				"A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade. Esta página mostra projetos pessoais e públicos, um estudo de caso profissional anonimizado e os produtos públicos em que trabalhei.",
+				"Estudos de caso de projetos pessoais e públicos, os produtos públicos em que trabalhei e trabalhos para clientes e comunidade. A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade, por isso o único estudo de caso profissional é anonimizado.",
 		},
 		professionalHeading: {
 			en: "Products I worked on",

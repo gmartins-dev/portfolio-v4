@@ -5,6 +5,29 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Frontend audit
+
+- Case study teasers use a 16:10 frame that matches the screenshots, so the
+  Priorize.me teaser no longer cuts its headline mid-word.
+- The anonymized architecture diagram follows the dark theme instead of
+  showing a white slab.
+- Metadata lines use a middle dot between parts and keep date ranges whole,
+  so "- present" no longer wraps onto its own line on phones.
+- The home hero drops the eyebrow label and introduces Guilherme in the
+  intro sentence; its primary button reads "See all work", since it opens
+  `/work` rather than the "Selected work" section below it.
+- The Nisien.ai capability links to its product entry on `/work` instead of
+  the About page.
+- The Work intro leads with what the page holds, then explains
+  confidentiality.
+- Resume links name the file type ("Resume in English (PDF)"), and links
+  that leave the site follow one style: foreground color with an up-right
+  arrow, including client and community project titles.
+- The About confidentiality note and case study facts drop the colored side
+  border for a muted note and brand list markers.
+- DESIGN.md documents the link, metadata, image frame, diagram and callout
+  rules.
+
 ### Products I worked on
 
 - `/work` has a "Products I worked on" section: Nisien.ai, Backbase,

@@ -15,7 +15,7 @@ test("skip link moves focus to the main content", async ({
 
 test("work journey: home to case study and back", async ({ page }) => {
 	await page.goto("/");
-	await page.getByRole("link", { name: "Selected work" }).click();
+	await page.getByRole("link", { name: "See all work" }).click();
 	await expect(page).toHaveURL(/\/work$/);
 	await page.getByRole("link", { name: "Idempotent payments API" }).click();
 	await expect(page).toHaveURL(/\/work\/payments-api-node$/);

@@ -17,10 +17,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
 			<section className="pt-16 pb-20 md:pt-24">
-				<p className="text-sm font-medium text-muted-foreground">
-					{t(copy.home.eyebrow, locale)}
-				</p>
-				<h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
+				<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 					{t(copy.home.headline, locale)}
 				</h1>
 				<p className="mt-6 max-w-xl text-lg text-muted-foreground">
@@ -80,6 +77,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							</p>
 							<Link
 								to={localizedPath(locale, item.evidence.to)}
+								hash={"hash" in item.evidence ? item.evidence.hash : undefined}
 								className="mt-3 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
 							>
 								{t(item.evidence.label, locale)}
