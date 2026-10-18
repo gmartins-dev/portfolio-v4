@@ -5,6 +5,15 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Tested quality gate
+
+- `scripts/check-dist.mjs` takes an optional directory, and
+  `scripts/check-dist.test.ts` runs it against a small generated `dist/`:
+  it passes when consistent and fails on a broken link, a non-reciprocal
+  hreflang, a sitemap gap and a script over the JavaScript budget.
+- An `hreflang` alternate without `href` is now reported instead of
+  crashing the check.
+
 ### Headers and real-user performance
 
 - Pages send `Cross-Origin-Resource-Policy: same-origin` (social cards stay

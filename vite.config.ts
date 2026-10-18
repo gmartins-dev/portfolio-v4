@@ -82,6 +82,6 @@ export default defineConfig(({ isSsrBuild }) => ({
 				rollupOptions: { input: entry("entry-client.tsx") },
 			},
 	test: {
-		include: ["src/**/*.test.{ts,tsx}"],
+		include: ["src/**/*.test.{ts,tsx}", "scripts/**/*.test.ts"],
 	},
 }));
