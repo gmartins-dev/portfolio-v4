@@ -7,6 +7,9 @@ is in the [roadmap](ROADMAP.md).
 
 ### Dependencies
 
+- Vite 8 (Rolldown) with `@vitejs/plugin-react` 6, and TypeScript 7. No
+  code change was needed; client JavaScript drops from 131.7 kB to
+  129.3 kB gzip, and `pnpm typecheck` takes about 1 s.
 - `lucide-react` 1.x (from 0.577). It adds about 1.1 kB gzip to the client
   (its new icon context); the icons and their markup are unchanged.
 - Dependabot groups major updates into their own weekly PR, next to the
