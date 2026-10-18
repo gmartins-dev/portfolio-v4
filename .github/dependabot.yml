@@ -7,10 +7,20 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Types must match the Node runtime (.node-version, engines: 24.x);
+      # newer majors describe APIs that Node 24 does not have.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       dependencies:
         patterns: ["*"]
         update-types: [minor, patch]
+      # Majors get their own PR so they never block the routine group and
+      # never pile up unseen. Split it by package if one major fails CI.
+      major:
+        patterns: ["*"]
+        update-types: [major]
   - package-ecosystem: github-actions
     directory: /
     schedule:
