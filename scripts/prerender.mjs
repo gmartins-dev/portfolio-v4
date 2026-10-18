@@ -1,5 +1,5 @@
 // Writes one static HTML document per route and locale into dist/ (about.html
-// for /about), plus 404.html, sitemap.xml and llms.txt, using the SSR bundle built from
+// for /about), plus 404.html, sitemap.xml, llms.txt and llms-full.txt, using the SSR bundle built from
 // src/entry-server.tsx. Runs after both Vite builds (see the `build` script).
 // The SSR bundle is build-time only and is removed.
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
@@ -16,6 +16,7 @@ const {
 	sitemap,
 	finalizeHtml,
 	buildLlmsTxt,
+	buildLlmsFullTxt,
 	withoutScripts,
 	themeBootstrapScript,
 } = await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
@@ -47,6 +48,8 @@ await writeFile(join(dist, "sitemap.xml"), sitemap);
 console.log("wrote dist/sitemap.xml");
 await writeFile(join(dist, "llms.txt"), buildLlmsTxt());
 console.log("wrote dist/llms.txt");
+await writeFile(join(dist, "llms-full.txt"), buildLlmsFullTxt());
+console.log("wrote dist/llms-full.txt");
 
 // Static hosts (Vercel included) serve 404.html, with a 404 status, for any
 // path that has no file.

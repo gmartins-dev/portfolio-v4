@@ -1,11 +1,17 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
-/* Theme is a class on <html>, set before first paint (see src/theme.tsx). */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Theme is a class on <html>, set before first paint (see src/theme.tsx).
+   Print always uses the light theme: printers drop backgrounds, so dark-mode
+   text would be light on white paper. */
+@custom-variant dark {
+	@media not print {
+		&:where(.dark, .dark *) {
+			@slot;
+		}
+	}
+}
 
 /*
  * Design tokens. This file is the only place token values live; DESIGN.md
@@ -38,28 +44,30 @@
 	--ring: var(--brand);
 }
 
-.dark {
-	--background: oklch(0.17 0.008 255);
-	--foreground: oklch(0.94 0.004 250);
-	--card: oklch(0.205 0.009 255);
-	--card-foreground: var(--foreground);
-	--popover: var(--card);
-	--popover-foreground: var(--foreground);
-	--primary: oklch(0.94 0.004 250);
-	--primary-foreground: oklch(0.17 0.008 255);
-	--secondary: oklch(0.24 0.009 255);
-	--secondary-foreground: var(--foreground);
-	--muted: oklch(0.22 0.009 255);
-	--muted-foreground: oklch(0.72 0.01 255);
-	--accent: oklch(0.24 0.009 255);
-	--accent-foreground: var(--foreground);
-	--destructive: oklch(0.7 0.17 27);
-	--border: oklch(0.3 0.009 255);
-	--input: var(--border);
+@media not print {
+	.dark {
+		--background: oklch(0.17 0.008 255);
+		--foreground: oklch(0.94 0.004 250);
+		--card: oklch(0.205 0.009 255);
+		--card-foreground: var(--foreground);
+		--popover: var(--card);
+		--popover-foreground: var(--foreground);
+		--primary: oklch(0.94 0.004 250);
+		--primary-foreground: oklch(0.17 0.008 255);
+		--secondary: oklch(0.24 0.009 255);
+		--secondary-foreground: var(--foreground);
+		--muted: oklch(0.22 0.009 255);
+		--muted-foreground: oklch(0.72 0.01 255);
+		--accent: oklch(0.24 0.009 255);
+		--accent-foreground: var(--foreground);
+		--destructive: oklch(0.7 0.17 27);
+		--border: oklch(0.3 0.009 255);
+		--input: var(--border);
 
-	--brand: oklch(0.76 0.13 55);
-	--brand-foreground: oklch(0.17 0.008 255);
-	--ring: var(--brand);
+		--brand: oklch(0.76 0.13 55);
+		--brand-foreground: oklch(0.17 0.008 255);
+		--ring: var(--brand);
+	}
 }
 
 /* Narrow phones (under 400px) get a compact header; see site-header.tsx. */
@@ -107,8 +115,22 @@
 		color-scheme: light;
 		text-rendering: optimizeLegibility;
 	}
-	html.dark {
-		color-scheme: dark;
+	@media not print {
+		html.dark {
+			color-scheme: dark;
+		}
+	}
+	/* On paper a link cannot be followed, so show where external ones go. */
+	@media print {
+		main a[href^="http"] {
+			display: inline;
+		}
+		main a[href^="http"]::after {
+			content: " (" attr(href) ")";
+			font-size: 0.875em;
+			font-weight: normal;
+			overflow-wrap: anywhere;
+		}
 	}
 	/* Avoid one-word last lines (Web Interface Guidelines, typography). */
 	h1,

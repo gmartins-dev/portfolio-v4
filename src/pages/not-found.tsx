@@ -29,8 +29,7 @@ export function NotFoundPage() {
 						href={localizedPath(locale, "/")}
 						className={buttonVariants({
 							variant: locale === "en" ? "brand" : "outline",
-							size: "lg",
-							className: "mt-8 px-4",
+							className: "mt-8",
 						})}
 					>
 						{copy.notFound.home[locale]}

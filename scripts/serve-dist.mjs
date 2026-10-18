@@ -81,6 +81,15 @@ createServer(async (req, res) => {
 		res.writeHead(400);
 		return res.end();
 	}
+	// Vercel serves the Speed Insights script itself once it is enabled for
+	// the project; an empty stand-in keeps the page's request from failing.
+	if (pathname === "/_vercel/speed-insights/script.js") {
+		res.writeHead(200, {
+			...configuredHeaders(pathname),
+			"content-type": types[".js"],
+		});
+		return res.end();
+	}
 	const redirect = redirects.find((r) => r.source === pathname);
 	if (redirect) {
 		res.writeHead(redirect.permanent ? 308 : 307, {

@@ -3,14 +3,17 @@
 // point at the page itself, hreflang alternates are reciprocal, social
 // images exist, the sitemap lists exactly the pages, llms.txt links resolve,
 // and client JavaScript stays within its size budget. Run after
-// `pnpm build`: `pnpm check:dist`.
+// `pnpm build`: `pnpm check:dist`. An optional argument checks another
+// directory (scripts/check-dist.test.ts uses fixtures).
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { findDenied } from "./denylist.mjs";
 
 const siteUrl = "https://gmartins.dev";
-const dist = new URL("../dist/", import.meta.url).pathname;
+const dist = process.argv[2]
+	? `${resolve(process.argv[2])}/`
+	: new URL("../dist/", import.meta.url).pathname;
 const { redirects } = JSON.parse(
 	readFileSync(new URL("../vercel.json", import.meta.url), "utf8"),
 );
@@ -77,7 +80,12 @@ for (const [path, html] of [...pages, ["/404", notFound]]) {
 	const alternates = links.filter((t) => attr(t, "rel") === "alternate");
 	if (alternates.length < 3) fail(path, "missing hreflang alternates");
 	for (const alternate of alternates) {
-		const target = attr(alternate, "href").replace(siteUrl, "") || "/";
+		const href = attr(alternate, "href");
+		if (!href) {
+			fail(path, `hreflang ${attr(alternate, "hrefLang")} has no href`);
+			continue;
+		}
+		const target = href.replace(siteUrl, "") || "/";
 		const targetHtml = pages.get(target);
 		if (!targetHtml) {
 			fail(
@@ -134,16 +142,27 @@ for (const { source, destination } of redirects) {
 	}
 }
 
-// llms.txt links to site pages must exist too.
+// llms.txt links to site pages must exist too, and so must the site URLs
+// in llms-full.txt (plain URLs, not Markdown links).
 const llms = readFileSync(join(dist, "llms.txt"), "utf8");
 for (const [, link] of llms.matchAll(/\]\((https:\/\/gmartins\.dev[^)]*)\)/g)) {
 	const path = link.replace(siteUrl, "") || "/";
 	if (!resolves(path)) fail("llms.txt", `broken link ${link}`);
 }
+const llmsFull = readFileSync(join(dist, "llms-full.txt"), "utf8");
+for (const [link] of llmsFull.matchAll(/https:\/\/gmartins\.dev[^\s;)]*/g)) {
+	const path = link.replace(siteUrl, "") || "/";
+	if (!resolves(path)) fail("llms-full.txt", `broken link ${link}`);
+}
 
 // Confidential names must never ship (scripts/denylist.json). Report only
 // the file, never the matched term, so CI logs don't leak it either.
-for (const [path, html] of [...pages, ["/404", notFound], ["llms.txt", llms]]) {
+for (const [path, html] of [
+	...pages,
+	["/404", notFound],
+	["llms.txt", llms],
+	["llms-full.txt", llmsFull],
+]) {
 	if (findDenied(html).length > 0)
 		fail(path, "contains a denied term (scripts/denylist.json)");
 }

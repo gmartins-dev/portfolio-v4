@@ -5,6 +5,70 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Copy and positioning
+
+- The home intro, the home meta description and the first two About
+  paragraphs replace generic phrases ("building and evolving products",
+  "across different products, domains and teams") with the domains and the
+  work they stand for. No fact changed; both languages move together.
+- Portuguese copy says "prestador de serviço" instead of "contractor".
+- `.agents/product-marketing.md` records audience, voice, proof points and
+  words to avoid, from existing sources only, for future copy work.
+
+### Case study navigation and content for AI assistants
+
+- Each case study ends with the other case studies (kind, period, title and
+  summary), so a reader can continue without going back to the list.
+- `/llms-full.txt` carries the full English text of every case study and
+  product entry, generated from the same content; `/llms.txt` links to it,
+  and `check:dist` checks its links and the denylist.
+- The Person in JSON-LD adds a description in the page's language and
+  `knowsLanguage` (English and Brazilian Portuguese). `worksFor` is left
+  out: the current role is independent work.
+
+### Tested quality gate
+
+- `scripts/check-dist.mjs` takes an optional directory, and
+  `scripts/check-dist.test.ts` runs it against a small generated `dist/`:
+  it passes when consistent and fails on a broken link, a non-reciprocal
+  hreflang, a sitemap gap and a script over the JavaScript budget.
+- An `hreflang` alternate without `href` is now reported instead of
+  crashing the check.
+
+### Headers and real-user performance
+
+- Pages send `Cross-Origin-Resource-Policy: same-origin` (social cards stay
+  `cross-origin` so other sites can show them), and `Permissions-Policy`
+  also turns off payment, USB, serial, HID, MIDI and Topics.
+  `e2e/security.spec.ts` checks the header values.
+- Vercel Speed Insights collects real-user Core Web Vitals (ADR-006). It
+  loads from this origin after the `load` event, in production only, within
+  the existing CSP. It needs to be enabled on the Vercel project.
+
+### Smaller client and no dependency advisories
+
+- Client JavaScript drops from 139.5 kB to 129.7 kB gzip: button styles no
+  longer need tailwind-merge, because each variant sets its own border color
+  and size. The unused `Button` component and variants go with it.
+- CSS drops from 7.3 kB to 6.1 kB gzip by removing `tw-animate-css` and the
+  shadcn accordion keyframes and variants, which no page used. Lab LCP of
+  `/work` goes from 2.7 s to 2.48 s (Lighthouse mobile).
+- `tailwind-merge`, `class-variance-authority`, `radix-ui`, `tw-animate-css`
+  and the `shadcn` CLI are no longer dependencies, so `pnpm audit` is clean,
+  including the accepted `braces` advisory.
+
+### Accessibility and print
+
+- The phone language link ("PT"/"EN") has an accessible name that contains
+  its visible text ("Ler em português (PT)"), so voice control users can
+  say what they see (WCAG 2.5.3). e2e now runs axe's
+  `label-content-name-mismatch` rule, which the WCAG tags leave out.
+- The selected theme button keeps a border in forced colors mode, where
+  its background disappears.
+- Pages print readably from either theme: print uses the light tokens,
+  drops navigation and other controls, wraps code blocks and shows the URL
+  of external links. e2e covers both themes.
+
 ### Frontend audit
 
 - Case study teasers use a 16:10 frame that matches the screenshots, so the

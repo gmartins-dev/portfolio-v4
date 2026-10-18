@@ -8,7 +8,7 @@ import { createAppRouter, type RouterContext, sitemapPages } from "./router";
 import { buildSitemap, siteUrl } from "./seo";
 
 export { finalizeHtml, withoutScripts } from "./finalize-html";
-export { buildLlmsTxt } from "./llms-txt";
+export { buildLlmsFullTxt, buildLlmsTxt } from "./llms-txt";
 export { prerenderPaths } from "./router";
 export { themeBootstrapScript } from "./theme";
 

@@ -143,3 +143,24 @@ test.describe("phone header", () => {
 		await expect(page.locator("html")).toHaveClass(/dark/);
 	});
 });
+
+test("a case study offers the other case studies at its end", async ({
+	page,
+}) => {
+	await page.goto("/work/payments-api-node");
+	const others = page.getByRole("navigation", { name: "Other case studies" });
+	await expect(others.getByRole("link")).toHaveCount(3);
+	await expect(
+		others.getByRole("link", { name: "Idempotent payments API" }),
+	).toHaveCount(0);
+	await others.getByRole("link", { name: "Priorize.me" }).click();
+	await expect(page).toHaveURL(/\/work\/priorize-me$/);
+	await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+
+	await page.goto("/pt-br/work/priorize-me");
+	await expect(
+		page
+			.getByRole("navigation", { name: "Outros estudos de caso" })
+			.getByRole("link"),
+	).toHaveCount(3);
+});

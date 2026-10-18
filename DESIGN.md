@@ -71,8 +71,9 @@ colors in `scripts/build-og-images.mjs`.
 
 - One radius scale: `rounded-lg` for images and buttons. No pills.
 - Buttons and button-styled links use `buttonVariants()` from
-  `src/components/ui/button.tsx` (variants `brand`, `outline`, `default`). It
-  merges classes with tailwind-merge, so a `className` override wins.
+  `src/components/ui/button.tsx` (variants `brand` and `outline`, one size).
+  Classes are joined, not merged, so `className` is for layout only (margins,
+  `print:hidden`); change padding or colors in the variant itself.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
 - Group related items with spacing and a single top border, not cards.
 - No colored side borders on callouts or list items. A note that needs to
@@ -122,3 +123,17 @@ that moves on its own. `prefers-reduced-motion` disables transitions globally
 - Skip link to `#main`, one `h1` per page, landmarks for header, nav, main,
   and footer. After client-side navigation, focus moves to the new `h1`.
 - Images have descriptive `alt`, explicit `width` and `height`.
+- When a control shows short text (the "PT"/"EN" language link on phones),
+  its accessible name must contain that text, so voice control works
+  (WCAG 2.5.3). e2e runs axe's `label-content-name-mismatch` rule for this.
+- State that relies on a background (the selected theme button) also needs
+  a `forced-colors:` border, because forced colors mode removes backgrounds.
+
+## Print
+
+Recruiters save case studies as PDF, so pages print readably. Print always
+uses the light tokens (the `.dark` block and the `dark:` variant sit inside
+`@media not print` in `src/index.css`). Controls that do nothing on paper
+take `print:hidden` (navigation, theme, the back link, the email button;
+the address stays), code blocks wrap, and external links in `main` print
+their URL. e2e checks a case study printed from both themes.

@@ -35,7 +35,7 @@ export function SiteHeader() {
 				>
 					{profile.name}
 				</Link>
-				<div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:w-auto sm:gap-x-6">
+				<div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:w-auto sm:gap-x-6 print:hidden">
 					<nav aria-label={t(copy.nav.label, locale)}>
 						<ul className="flex items-center gap-4 text-sm sm:gap-5">
 							<li>

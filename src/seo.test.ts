@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { copy } from "./content/copy";
 import { caseStudies } from "./content/work";
 import { formatMonth, localeFromPath, localizedPath } from "./i18n";
 import { ogCards } from "./og-cards";
@@ -117,6 +118,9 @@ describe("head extras", () => {
 		expect(person).toMatchObject({
 			"@type": "Person",
 			name: "Guilherme Martins",
+			// The page's own language, and the languages the site is written in.
+			description: copy.meta.home.description["pt-BR"],
+			knowsLanguage: ["en", "pt-BR"],
 		});
 		expect(site).toMatchObject({ "@type": "WebSite", inLanguage: "pt-BR" });
 	});

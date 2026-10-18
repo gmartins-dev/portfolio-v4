@@ -70,3 +70,76 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 		}
 	});
 });
+
+// axe keeps this rule out of the WCAG tags (it is experimental), so run it on
+// its own: visible text must be part of the accessible name (2.5.3), which
+// matters for voice control. Mobile runs it on the short "PT"/"EN" link text.
+test("visible link and button text is part of the accessible name (2.5.3) @a11y", async ({
+	page,
+}) => {
+	for (const path of ["/", "/pt-br/work/priorize-me"]) {
+		await page.goto(path);
+		const results = await new AxeBuilder({ page })
+			.withRules(["label-content-name-mismatch"])
+			.analyze();
+		expect(
+			results.violations.flatMap((v) => v.nodes.map((n) => n.html)),
+		).toEqual([]);
+	}
+});
+
+test.describe("forced colors @a11y", () => {
+	test.use({ forcedColors: "active", viewport: { width: 1024, height: 800 } });
+
+	test("the selected theme stays visible without background colors", async ({
+		page,
+	}) => {
+		await page.goto("/");
+		const outline = (pressed: boolean) =>
+			page
+				.locator(`fieldset button[aria-pressed="${pressed}"]`)
+				.first()
+				.evaluate((element) => {
+					const style = getComputedStyle(element);
+					return `${style.outlineWidth} ${style.borderTopWidth}`;
+				});
+		expect(await outline(true)).not.toBe(await outline(false));
+	});
+});
+
+test.describe("print @a11y", () => {
+	test.use({ viewport: { width: 1024, height: 800 } });
+
+	for (const colorScheme of ["light", "dark"] as const) {
+		test(`a case study prints readable from ${colorScheme} mode`, async ({
+			page,
+		}) => {
+			await page.emulateMedia({ colorScheme });
+			await page.goto("/work/payments-api-node");
+			await page.emulateMedia({ media: "print", colorScheme });
+
+			// Print drops backgrounds, so text must be dark on the white page.
+			const bodyColor = await page.evaluate(
+				() => getComputedStyle(document.body).color,
+			);
+			const [r, g, b] = bodyColor.match(/[\d.]+/g)?.map(Number) ?? [];
+			expect(r + g + b).toBeLessThan(3 * 128);
+
+			// Controls that do nothing on paper are left out.
+			await expect(page.getByRole("navigation", { name: "Main" })).toBeHidden();
+			await expect(
+				page.getByRole("group", { name: "Color theme" }),
+			).toBeHidden();
+			await expect(page.getByRole("link", { name: "All work" })).toBeHidden();
+			await expect(page.getByRole("link", { name: "Email me" })).toBeHidden();
+			await expect(page.getByText("contact@gmartins.dev")).toBeVisible();
+
+			// Code wraps instead of being cut at the page edge.
+			const clipped = await page
+				.locator("pre")
+				.first()
+				.evaluate((element) => element.scrollWidth - element.clientWidth);
+			expect(clipped).toBe(0);
+		});
+	}
+});

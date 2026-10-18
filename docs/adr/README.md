@@ -10,6 +10,7 @@ decision, add a new ADR that supersedes the old one and link both ways.
 | [003](003-static-bilingual-404.md) | Static bilingual 404 page without client JavaScript | Accepted |
 | [004](004-typed-content-modules-validated-at-build.md) | Typed content modules validated at build time, no CMS | Accepted |
 | [005](005-layered-quality-gates.md) | Layered quality gates in CI | Accepted |
+| [006](006-real-user-web-vitals-with-vercel-speed-insights.md) | Real-user Core Web Vitals with Vercel Speed Insights | Accepted |
 
 New ADR: copy the shape of an existing one (MADR: context, drivers, options,
 outcome, consequences, links), number it sequentially, add it here.

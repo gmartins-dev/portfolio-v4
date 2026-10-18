@@ -34,7 +34,7 @@ flowchart LR
 
     subgraph output [dist/]
         pages[page.html per route x locale]
-        extras[404.html, sitemap.xml,<br/>llms.txt]
+        extras[404.html, sitemap.xml,<br/>llms.txt, llms-full.txt]
     end
 
     browser([Browser on Vercel])
@@ -59,7 +59,9 @@ flowchart LR
    state become `\u0000`, and a Content-Security-Policy `<meta>` with the hash
    of every inline script goes first in `<head>`.
 5. The script also writes `404.html` (bilingual, without client JavaScript),
-   `sitemap.xml`, and `llms.txt`, all from the same content.
+   `sitemap.xml`, `llms.txt` (a short map for AI assistants) and
+   `llms-full.txt` (the full English text of the case studies and products),
+   all from the same content.
 
 ## Rendering model
 
@@ -71,7 +73,7 @@ page is a child route, registered once per locale from the `pages` table.
 | --- | --- |
 | Routes and the document shell | `src/router.tsx` |
 | Page components | `src/pages/` |
-| Shared UI (header, footer, work teasers, shadcn button) | `src/components/` |
+| Shared UI (header, footer, work teasers, button styles) | `src/components/` |
 | Content and copy, both languages | `src/content/` |
 | Head tags, JSON-LD, sitemap | `src/seo.ts` |
 | Locales and localized paths (`/` and `/pt-br`) | `src/i18n.ts`, `src/use-locale.ts` |
@@ -90,7 +92,10 @@ match.
 2. The page is readable at this point; the client entry loads with low fetch
    priority so it doesn't compete with the largest image.
 3. `RouterClient` hydrates `document` from the dehydrated router state.
-4. Later navigations happen on the client. TanStack Router resets the scroll
+4. After the `load` event, production builds add the Vercel Speed Insights
+   script from `/_vercel/speed-insights/` for real-user Core Web Vitals
+   ([ADR-006](adr/006-real-user-web-vitals-with-vercel-speed-insights.md)).
+5. Later navigations happen on the client. TanStack Router resets the scroll
    position, `HeadContent` updates the head tags, and `RouteFocus` moves focus
    to the new page's `<h1>`.
 
