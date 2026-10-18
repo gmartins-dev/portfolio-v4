@@ -5,6 +5,13 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Dependencies
+
+- `lucide-react` 1.x (from 0.577). It adds about 1.1 kB gzip to the client
+  (its new icon context); the icons and their markup are unchanged.
+- Dependabot groups major updates into their own weekly PR, next to the
+  minor and patch group.
+
 ### Copy and positioning
 
 - The home intro, the home meta description and the first two About

@@ -11,6 +11,11 @@ updates:
       dependencies:
         patterns: ["*"]
         update-types: [minor, patch]
+      # Majors get their own PR so they never block the routine group and
+      # never pile up unseen. Split it by package if one major fails CI.
+      major:
+        patterns: ["*"]
+        update-types: [major]
   - package-ecosystem: github-actions
     directory: /
     schedule:
