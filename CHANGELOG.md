@@ -10,7 +10,8 @@ is in the [roadmap](ROADMAP.md).
 - `lucide-react` 1.x (from 0.577). It adds about 1.1 kB gzip to the client
   (its new icon context); the icons and their markup are unchanged.
 - Dependabot groups major updates into their own weekly PR, next to the
-  minor and patch group.
+  minor and patch group, and skips `@types/node` majors, which must match
+  the Node 24 runtime.
 
 ### Copy and positioning
 
