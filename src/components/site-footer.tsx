@@ -28,7 +28,8 @@ export function SiteFooter() {
 						className={buttonVariants({
 							variant: "brand",
 							size: "lg",
-							className: "mt-6 px-4",
+							// The address below is what paper needs.
+							className: "mt-6 px-4 print:hidden",
 						})}
 					>
 						{t(copy.contact.email, locale)}

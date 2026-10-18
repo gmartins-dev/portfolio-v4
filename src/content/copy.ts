@@ -73,9 +73,13 @@ export const copy = {
 		resume: { en: "Resume", "pt-BR": "Currículo" },
 		skip: { en: "Skip to content", "pt-BR": "Pular para o conteúdo" },
 		language: { en: "Português", "pt-BR": "English" },
-		// Shown on phones; the accessible name stays languageLabel.
+		// Shown on phones. The accessible name (languageLabel) contains both
+		// visible texts, so voice control users can say either (WCAG 2.5.3).
 		languageShort: { en: "PT", "pt-BR": "EN" },
-		languageLabel: { en: "Ler em português", "pt-BR": "Read in English" },
+		languageLabel: {
+			en: "Ler em português (PT)",
+			"pt-BR": "Read in English (EN)",
+		},
 	},
 	theme: {
 		label: { en: "Color theme", "pt-BR": "Tema de cores" },

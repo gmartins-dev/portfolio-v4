@@ -21,7 +21,7 @@ export function CaseStudyPage({
 		<article className="pt-8 md:pt-16">
 			<Link
 				to={localizedPath(locale, "/work")}
-				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground print:hidden"
 			>
 				<ArrowLeft aria-hidden="true" className="size-4" />
 				{t(copy.work.back, locale)}
@@ -139,7 +139,7 @@ export function CaseStudyPage({
 										// biome-ignore lint/a11y/noNoninteractiveTabindex: scrollable region must be focusable (WCAG 2.1.1).
 										tabIndex={0}
 										translate="no"
-										className="overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-sm leading-relaxed"
+										className="overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-sm leading-relaxed print:overflow-visible print:whitespace-pre-wrap"
 									>
 										<code>{section.code.source}</code>
 									</pre>

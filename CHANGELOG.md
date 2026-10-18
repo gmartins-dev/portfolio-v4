@@ -5,6 +5,18 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Accessibility and print
+
+- The phone language link ("PT"/"EN") has an accessible name that contains
+  its visible text ("Ler em português (PT)"), so voice control users can
+  say what they see (WCAG 2.5.3). e2e now runs axe's
+  `label-content-name-mismatch` rule, which the WCAG tags leave out.
+- The selected theme button keeps a border in forced colors mode, where
+  its background disappears.
+- Pages print readably from either theme: print uses the light tokens,
+  drops navigation and other controls, wraps code blocks and shows the URL
+  of external links. e2e covers both themes.
+
 ### Frontend audit
 
 - Case study teasers use a 16:10 frame that matches the screenshots, so the

@@ -118,7 +118,10 @@ export function ThemeToggle({
 						onClick={() => setPreference(value)}
 						className={cn(
 							"grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
-							current === value && "bg-muted text-foreground",
+							// Forced colors drop the background; a border keeps the
+							// selected option visible.
+							current === value &&
+								"bg-muted text-foreground forced-colors:border-2",
 						)}
 					>
 						<Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
