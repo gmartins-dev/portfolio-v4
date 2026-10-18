@@ -5,6 +5,16 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Headers and real-user performance
+
+- Pages send `Cross-Origin-Resource-Policy: same-origin` (social cards stay
+  `cross-origin` so other sites can show them), and `Permissions-Policy`
+  also turns off payment, USB, serial, HID, MIDI and Topics.
+  `e2e/security.spec.ts` checks the header values.
+- Vercel Speed Insights collects real-user Core Web Vitals (ADR-006). It
+  loads from this origin after the `load` event, in production only, within
+  the existing CSP. It needs to be enabled on the Vercel project.
+
 ### Smaller client and no dependency advisories
 
 - Client JavaScript drops from 139.5 kB to 129.7 kB gzip: button styles no

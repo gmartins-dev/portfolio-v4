@@ -90,7 +90,10 @@ match.
 2. The page is readable at this point; the client entry loads with low fetch
    priority so it doesn't compete with the largest image.
 3. `RouterClient` hydrates `document` from the dehydrated router state.
-4. Later navigations happen on the client. TanStack Router resets the scroll
+4. After the `load` event, production builds add the Vercel Speed Insights
+   script from `/_vercel/speed-insights/` for real-user Core Web Vitals
+   ([ADR-006](adr/006-real-user-web-vitals-with-vercel-speed-insights.md)).
+5. Later navigations happen on the client. TanStack Router resets the scroll
    position, `HeadContent` updates the head tags, and `RouteFocus` moves focus
    to the new page's `<h1>`.
 
