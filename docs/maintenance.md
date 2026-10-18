@@ -68,7 +68,8 @@ owner's approval and at the level of detail he sets.
    metrics, code, and screenshots. Describe the architecture and your role
    in general terms.
 3. Instead of a screenshot, draw an abstract diagram in
-   `scripts/diagrams/<slug>.mmd`, run `pnpm render:diagrams`, and set
+   `scripts/diagrams/<slug>.mmd`, run `pnpm render:diagrams <slug>` (no name
+   re-renders every diagram), and set
    `fit: "contain"` on the image so it isn't cropped.
 4. Add every sensitive name (company, group, internal project, email
    domain) to `scripts/denylist.json` as a SHA-256 hash. The command is in

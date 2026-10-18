@@ -7,10 +7,12 @@ import { experience, profile } from "../content/profile";
 import { type Locale, localizedPath } from "../i18n";
 
 const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
+const externalLinkClass =
+	"inline-flex min-h-6 items-center gap-1 underline-offset-4 hover:text-brand hover:underline";
 
 export function AboutPage({ locale }: { locale: Locale }) {
 	return (
-		<article className="pt-16 md:pt-24">
+		<article className="pt-12 md:pt-24">
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(copy.about.heading, locale)}
 			</h1>
@@ -20,11 +22,11 @@ export function AboutPage({ locale }: { locale: Locale }) {
 				))}
 			</div>
 
-			<p className="mt-8 max-w-prose border-l-2 border-brand pl-4 text-muted-foreground">
+			<p className="mt-8 max-w-prose rounded-lg bg-muted px-5 py-4 text-muted-foreground">
 				{t(copy.about.confidential, locale)}
 			</p>
 
-			<section aria-labelledby="experience" className="mt-24">
+			<section aria-labelledby="experience" className="mt-20 md:mt-24">
 				<h2 id="experience" className={sectionHeading}>
 					{t(copy.about.experienceHeading, locale)}
 				</h2>
@@ -83,7 +85,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 				</ol>
 			</section>
 
-			<section aria-labelledby="tools" className="mt-24">
+			<section aria-labelledby="tools" className="mt-20 md:mt-24">
 				<h2 id="tools" className={sectionHeading}>
 					{t(copy.about.toolsHeading, locale)}
 				</h2>
@@ -106,7 +108,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
 			<section
 				aria-labelledby="resume"
-				className="mt-24 rounded-lg bg-muted px-6 py-8 md:px-10"
+				className="mt-20 rounded-lg bg-muted px-5 py-8 md:mt-24 md:px-10"
 			>
 				<h2 id="resume" className="text-xl font-semibold tracking-tight">
 					{t(copy.about.resumeHeading, locale)}
@@ -119,18 +121,20 @@ export function AboutPage({ locale }: { locale: Locale }) {
 						<a
 							href={profile.resume.en}
 							hrefLang="en"
-							className="inline-flex min-h-6 items-center text-brand underline-offset-4 hover:underline"
+							className={externalLinkClass}
 						>
 							{t(copy.footer.resumeEn, locale)}
+							<ArrowUpRight aria-hidden="true" className="size-3.5" />
 						</a>
 					</li>
 					<li>
 						<a
 							href={profile.resume["pt-BR"]}
 							hrefLang="pt-BR"
-							className="inline-flex min-h-6 items-center text-brand underline-offset-4 hover:underline"
+							className={externalLinkClass}
 						>
 							{t(copy.footer.resumePt, locale)}
+							<ArrowUpRight aria-hidden="true" className="size-3.5" />
 						</a>
 					</li>
 				</ul>

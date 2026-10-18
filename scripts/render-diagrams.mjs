@@ -2,13 +2,20 @@
 // public/images/work/<name>-<width>.webp, for case studies that cannot show
 // screenshots (anonymized work). Uses the official Mermaid build in
 // Chromium, so parsing errors fail loudly. Run manually after editing a
-// diagram: `pnpm render:diagrams` (loads Mermaid from jsDelivr).
+// diagram: `pnpm render:diagrams` (loads Mermaid from jsDelivr). Pass names
+// to render only those: `pnpm render:diagrams sdd-agentic-flow`.
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 
 const widths = [480, 720, 1280];
 const dir = new URL("./diagrams/", import.meta.url);
-const files = (await readdir(dir)).filter((file) => file.endsWith(".mmd"));
+const all = (await readdir(dir)).filter((file) => file.endsWith(".mmd"));
+const only = process.argv.slice(2);
+const unknown = only.filter((name) => !all.includes(`${name}.mmd`));
+if (unknown.length) throw new Error(`unknown diagrams: ${unknown.join(", ")}`);
+const files = only.length
+	? all.filter((file) => only.includes(file.replace(/\.mmd$/, "")))
+	: all;
 
 const browser = await chromium.launch();
 // 2x device pixels: the capture is downscaled to each width, never upscaled.

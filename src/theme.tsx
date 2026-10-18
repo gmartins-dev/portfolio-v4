@@ -65,7 +65,11 @@ function subscribe(listener: () => void) {
 
 /** Server and first client render report "system"; the real value follows after hydration. */
 export function useThemePreference() {
-	return useSyncExternalStore(subscribe, readPreference, () => "system");
+	return useSyncExternalStore(
+		subscribe,
+		readPreference,
+		(): ThemePreference => "system",
+	);
 }
 
 const options = [
@@ -74,6 +78,12 @@ const options = [
 	{ value: "system", Icon: Monitor },
 ] as const;
 
+/**
+ * Three pressed-state buttons from the `xs` breakpoint up. Narrower phones
+ * get one button that steps through the same choices, so the header fits on
+ * two rows; CSS picks which one shows, and the hidden one is out of the
+ * accessibility tree.
+ */
 export function ThemeToggle({
 	label,
 	optionLabels,
@@ -82,25 +92,40 @@ export function ThemeToggle({
 	optionLabels: Record<ThemePreference, string>;
 }) {
 	const current = useThemePreference();
+	const index = options.findIndex((option) => option.value === current);
+	const { Icon } = options[index];
+	const next = options[(index + 1) % options.length].value;
+	const compactLabel = `${label}: ${optionLabels[current]}`;
 	return (
-		<fieldset className="flex items-center gap-0.5 rounded-lg border p-0.5">
-			<legend className="sr-only">{label}</legend>
-			{options.map(({ value, Icon }) => (
-				<button
-					key={value}
-					type="button"
-					aria-pressed={current === value}
-					title={optionLabels[value]}
-					onClick={() => setPreference(value)}
-					className={cn(
-						"grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
-						current === value && "bg-muted text-foreground",
-					)}
-				>
-					<Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
-					<span className="sr-only">{optionLabels[value]}</span>
-				</button>
-			))}
-		</fieldset>
+		<>
+			<button
+				type="button"
+				aria-label={compactLabel}
+				title={compactLabel}
+				onClick={() => setPreference(next)}
+				className="grid size-8 place-items-center rounded-lg border text-muted-foreground transition-colors hover:text-foreground xs:hidden"
+			>
+				<Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
+			</button>
+			<fieldset className="hidden items-center gap-0.5 rounded-lg border p-0.5 xs:flex">
+				<legend className="sr-only">{label}</legend>
+				{options.map(({ value, Icon }) => (
+					<button
+						key={value}
+						type="button"
+						aria-pressed={current === value}
+						title={optionLabels[value]}
+						onClick={() => setPreference(value)}
+						className={cn(
+							"grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
+							current === value && "bg-muted text-foreground",
+						)}
+					>
+						<Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
+						<span className="sr-only">{optionLabels[value]}</span>
+					</button>
+				))}
+			</fieldset>
+		</>
 	);
 }

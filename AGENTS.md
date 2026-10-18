@@ -15,7 +15,7 @@
 | Full e2e (first run: `pnpm exec playwright install chromium`) | `pnpm test:e2e` |
 | Recapture screenshots (hits live URLs; optional shot names) | `pnpm capture:work-images [name ...]` |
 | Re-render social cards | `pnpm build:og-images` |
-| Re-render anonymized diagrams | `pnpm render:diagrams` |
+| Re-render diagrams (optional names) | `pnpm render:diagrams [name ...]` |
 
 ## External References
 | Need | File |

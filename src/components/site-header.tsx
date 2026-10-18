@@ -25,7 +25,9 @@ export function SiteHeader() {
 			>
 				{t(copy.nav.skip, locale)}
 			</a>
-			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-4 py-4 sm:px-6">
+			{/* Phones: the name, then nav and controls on one row. DOM order
+			    matches visual order at every width. */}
+			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
 				<Link
 					to={href("/")}
 					className="font-semibold tracking-tight"
@@ -33,9 +35,9 @@ export function SiteHeader() {
 				>
 					{profile.name}
 				</Link>
-				<div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+				<div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:w-auto sm:gap-x-6">
 					<nav aria-label={t(copy.nav.label, locale)}>
-						<ul className="flex items-center gap-5 text-sm">
+						<ul className="flex items-center gap-4 text-sm sm:gap-5">
 							<li>
 								<Link
 									to={href("/work")}
@@ -67,9 +69,14 @@ export function SiteHeader() {
 							hrefLang={other}
 							lang={other}
 							aria-label={t(copy.nav.languageLabel, locale)}
-							className="inline-flex min-h-6 items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+							className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
 						>
-							{t(copy.nav.language, locale)}
+							<span className="sm:hidden">
+								{t(copy.nav.languageShort, locale)}
+							</span>
+							<span className="hidden sm:inline">
+								{t(copy.nav.language, locale)}
+							</span>
 						</Link>
 						{/* 404.html ships without client JavaScript, so a toggle there
 						    could not work; the inline theme script still applies the choice. */}

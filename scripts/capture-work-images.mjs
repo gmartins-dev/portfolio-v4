@@ -13,12 +13,8 @@ const shots = [
 		name: "payments-api-node",
 		url: "https://payments-api-node-frontend.vercel.app",
 	},
-	{
-		name: "sdd-agentic-flow",
-		url: "https://github.com/gmartins-dev/sdd-agentic-flow#readme",
-		// The rendered README; the repository file list loads lazily.
-		selector: "article.markdown-body",
-	},
+	// sdd-agentic-flow shows its README workflow diagram instead
+	// (scripts/diagrams/sdd-agentic-flow.mmd, `pnpm render:diagrams`).
 	{ name: "links", url: "https://gmartins-dev.github.io/links/" },
 	{ name: "priorize-me", url: "https://priorizeme.vercel.app/" },
 	{ name: "debora-blaso", url: "https://www.deborablaso.com.br/" },
@@ -63,7 +59,7 @@ const unknown = only.filter(
 );
 if (unknown.length) throw new Error(`unknown shots: ${unknown.join(", ")}`);
 
-/** Output widths, capped at the capture's own width (838 instead of 1280). */
+/** Output widths, capped at the capture's own width when a clip is narrower. */
 const widths = [480, 720, 1280];
 
 const browser = await chromium.launch();

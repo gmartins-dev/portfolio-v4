@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { Fragment } from "react";
 import { copy, t } from "../content/copy";
 import { experience } from "../content/profile";
 import type { CaseStudy, ProfessionalWork, ShortWork } from "../content/schema";
@@ -19,6 +20,35 @@ export function formatPeriod(
 	return `${start} - ${end}`;
 }
 
+/**
+ * A mono metadata line ("Open source · Aug 2026 - present"). Each part stays
+ * on one line, so a date range never wraps and leaves "- present" looking
+ * like a list item; screen readers hear a comma instead of the dot.
+ */
+export function MetaLine({
+	parts,
+	className,
+}: {
+	parts: string[];
+	className?: string;
+}) {
+	return (
+		<p className={cn("font-mono text-sm text-muted-foreground", className)}>
+			{parts.map((part, index) => (
+				<Fragment key={part}>
+					{index > 0 && (
+						<>
+							<span aria-hidden="true"> · </span>
+							<span className="sr-only">, </span>
+						</>
+					)}
+					<span className="whitespace-nowrap">{part}</span>
+				</Fragment>
+			))}
+		</p>
+	);
+}
+
 export function WorkImage({
 	image,
 	locale,
@@ -35,7 +65,7 @@ export function WorkImage({
 	className?: string;
 }) {
 	const variant = (width: number) => `${image.src}-${width}.webp`;
-	return (
+	const img = (imageClassName: string) => (
 		<img
 			src={variant(Math.max(...image.widths))}
 			srcSet={image.widths.map((w) => `${variant(w)} ${w}w`).join(", ")}
@@ -46,12 +76,27 @@ export function WorkImage({
 			loading={priority ? "eager" : "lazy"}
 			fetchPriority={priority ? "high" : "auto"}
 			decoding="async"
-			className={cn(
-				"h-auto w-full rounded-lg border bg-card object-top",
-				image.fit === "contain" ? "object-contain p-4" : "object-cover",
-				className,
-			)}
+			className={imageClassName}
 		/>
+	);
+	if (image.fit !== "contain") {
+		return img(
+			cn(
+				"h-auto w-full rounded-lg border bg-card object-cover object-top",
+				className,
+			),
+		);
+	}
+	// Diagrams are drawn black on white. In dark mode, invert them and let
+	// "lighten" drop the (now black) background into the card, so the diagram
+	// reads as part of the page instead of a white slab.
+	return (
+		<div className={cn("overflow-hidden rounded-lg border bg-card", className)}>
+			{/* h-full fills an aspect-ratio frame; max-h-[inherit] honors a max-h cap. */}
+			{img(
+				"h-full max-h-[inherit] w-full object-contain p-4 dark:mix-blend-lighten dark:hue-rotate-180 dark:invert-[.94]",
+			)}
+		</div>
 	);
 }
 
@@ -82,13 +127,13 @@ export function CaseStudyTeaser({
 					locale={locale}
 					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
 					priority={priority}
-					className="aspect-[4/3]"
+					className="aspect-[16/10]"
 				/>
 			</div>
 			<div>
-				<p className="font-mono text-sm text-muted-foreground">
-					{t(study.kind, locale)}, {formatPeriod(study.period, locale)}
-				</p>
+				<MetaLine
+					parts={[t(study.kind, locale), formatPeriod(study.period, locale)]}
+				/>
 				<Heading className="mt-2 text-2xl font-semibold tracking-tight">
 					<Link
 						to={href}
@@ -125,8 +170,13 @@ export function ShortWorkItem({
 					{t(item.kind, locale)}
 				</p>
 				<h3 className="mt-2 text-xl font-semibold tracking-tight">
-					<a href={item.href} className="hover:text-brand" translate="no">
+					<a
+						href={item.href}
+						className="inline-flex items-center gap-1.5 hover:text-brand"
+						translate="no"
+					>
 						{item.title}
+						<ArrowUpRight aria-hidden="true" className="size-4" />
 					</a>
 				</h3>
 				<p className="mt-3 text-muted-foreground">{t(item.summary, locale)}</p>
@@ -167,9 +217,7 @@ export function ProfessionalWorkItem({
 					className="mb-6 aspect-[16/10]"
 				/>
 			)}
-			<p className="font-mono text-sm text-muted-foreground">
-				{formatPeriod(job, locale)}, {t(job.location, locale)}
-			</p>
+			<MetaLine parts={[formatPeriod(job, locale), t(job.location, locale)]} />
 			<h3 className="mt-2 text-xl font-semibold tracking-tight" translate="no">
 				{work.company}
 			</h3>

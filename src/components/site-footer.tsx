@@ -11,8 +11,8 @@ export function SiteFooter() {
 	const { locale } = useLocale();
 
 	return (
-		<footer className="mt-24 border-t">
-			<div className="mx-auto grid max-w-5xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-[3fr_2fr]">
+		<footer className="mt-20 border-t md:mt-24">
+			<div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[3fr_2fr] md:py-16">
 				<section id="contact" aria-labelledby="contact-heading">
 					<h2
 						id="contact-heading"
