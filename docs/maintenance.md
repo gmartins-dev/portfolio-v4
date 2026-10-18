@@ -14,7 +14,7 @@ them pass. Run the same commands locally before you push:
 | --- | --- |
 | `pnpm check` | TypeScript, Biome, and unit and component tests (content rules, SEO helpers, CSP, theme) |
 | `pnpm build` | Typecheck, client and SSR builds, prerender; fails on invalid content |
-| `pnpm check:dist` | Internal links, canonicals, hreflang, sitemap, `llms.txt` links, and the 150 kB gzipped JavaScript budget |
+| `pnpm check:dist` | Internal links, canonicals, hreflang, sitemap, `llms.txt` and `llms-full.txt` links, and the 150 kB gzipped JavaScript budget |
 | `pnpm test:e2e` | Playwright on desktop and mobile: hydration and CSP errors, journeys, focus, 320px reflow, axe WCAG 2.2 AA in both themes |
 | `pnpm audit --prod --audit-level high` | Known vulnerabilities in runtime dependencies |
 
@@ -53,8 +53,10 @@ update its `reviewed` date; it feeds the visible "Facts checked on" line,
    `image.widths`, `width`, and `height` from the script's output.
 3. Run `pnpm build:og-images` to render its social cards.
 4. Add both locale paths to `e2e/pages.ts`.
-5. Run every quality gate. The page, its routes, sitemap entry, JSON-LD, and
-   `llms.txt` line come from the content entry automatically.
+5. Update the count in the "other case studies" test in
+   `e2e/navigation.spec.ts`, then run every quality gate. The page, its
+   routes, sitemap entry, JSON-LD, `llms.txt` line, `llms-full.txt` text and
+   "Other case studies" links come from the content entry automatically.
 
 ## Add an anonymized case study
 

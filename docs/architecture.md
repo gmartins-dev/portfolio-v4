@@ -34,7 +34,7 @@ flowchart LR
 
     subgraph output [dist/]
         pages[page.html per route x locale]
-        extras[404.html, sitemap.xml,<br/>llms.txt]
+        extras[404.html, sitemap.xml,<br/>llms.txt, llms-full.txt]
     end
 
     browser([Browser on Vercel])
@@ -59,7 +59,9 @@ flowchart LR
    state become `\u0000`, and a Content-Security-Policy `<meta>` with the hash
    of every inline script goes first in `<head>`.
 5. The script also writes `404.html` (bilingual, without client JavaScript),
-   `sitemap.xml`, and `llms.txt`, all from the same content.
+   `sitemap.xml`, `llms.txt` (a short map for AI assistants) and
+   `llms-full.txt` (the full English text of the case studies and products),
+   all from the same content.
 
 ## Rendering model
 

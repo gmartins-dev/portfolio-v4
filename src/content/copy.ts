@@ -227,6 +227,10 @@ export const copy = {
 		links: { en: "Links", "pt-BR": "Links" },
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
 		back: { en: "All work", "pt-BR": "Todos os trabalhos" },
+		otherStudies: {
+			en: "Other case studies",
+			"pt-BR": "Outros estudos de caso",
+		},
 		present: { en: "present", "pt-BR": "atual" },
 		fullImage: {
 			en: "Open the full-size diagram",

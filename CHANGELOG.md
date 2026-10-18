@@ -5,6 +5,17 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Case study navigation and content for AI assistants
+
+- Each case study ends with the other case studies (kind, period, title and
+  summary), so a reader can continue without going back to the list.
+- `/llms-full.txt` carries the full English text of every case study and
+  product entry, generated from the same content; `/llms.txt` links to it,
+  and `check:dist` checks its links and the denylist.
+- The Person in JSON-LD adds a description in the page's language and
+  `knowsLanguage` (English and Brazilian Portuguese). `worksFor` is left
+  out: the current role is independent work.
+
 ### Tested quality gate
 
 - `scripts/check-dist.mjs` takes an optional directory, and

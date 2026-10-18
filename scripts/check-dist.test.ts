@@ -61,6 +61,7 @@ beforeEach(() => {
 		urls.map((url) => `<url><loc>${site}${url}</loc></url>`).join("\n"),
 	);
 	write("llms.txt", `- [About](${site}/about)\n`);
+	write("llms-full.txt", `- URL: ${site}/about\n`);
 	write("assets/entry.js", "console.log(1)");
 });
 

@@ -1,3 +1,4 @@
+import { formatPeriod } from "./components/work";
 import { copy } from "./content/copy";
 import { professionalWork } from "./content/professional-work";
 import { experience, profile } from "./content/profile";
@@ -7,6 +8,9 @@ import { siteUrl } from "./seo";
 
 const url = (path: string, locale: "en" | "pt-BR" = "en") =>
 	`${siteUrl}${localizedPath(locale, path)}`;
+
+const confidentiality =
+	"Most of his work as an employee, contractor or consultant is private under confidentiality terms; the site shows personal and public projects, one anonymized professional case study, and the public products he worked on, described from each company's public site.";
 
 /**
  * /llms.txt (https://llmstxt.org): a plain-text map of the site for AI
@@ -26,7 +30,7 @@ export function buildLlmsTxt() {
 			? `Currently: ${current.role} at ${current.company} (since ${formatMonth(current.start, "en")}).`
 			: "",
 		`The site is in English and Brazilian Portuguese (${url("/", "pt-BR")}).`,
-		"Most of his work as an employee, contractor or consultant is private under confidentiality terms; the site shows personal and public projects, one anonymized professional case study, and the public products he worked on, described from each company's public site.",
+		confidentiality,
 		"",
 		"## Pages",
 		"",
@@ -62,6 +66,7 @@ export function buildLlmsTxt() {
 		...otherWork.map(
 			(item) => `- [${item.title}](${item.href}): ${item.summary.en}`,
 		),
+		`- [Full text](${siteUrl}/llms-full.txt): every case study and product entry in full, as Markdown`,
 		`- [GitHub](${profile.links.github})`,
 		`- [LinkedIn](${profile.links.linkedin})`,
 		`- [Resume (English)](${siteUrl}${profile.resume.en})`,
@@ -71,4 +76,85 @@ export function buildLlmsTxt() {
 	]
 		.filter((line, index, lines) => !(line === "" && lines[index - 1] === ""))
 		.join("\n");
+}
+
+/** Drop blank-line runs left by optional parts. */
+const tidy = (lines: string[]) =>
+	lines
+		.filter((line, index, all) => !(line === "" && all[index - 1] === ""))
+		.join("\n");
+
+/**
+ * /llms-full.txt: the English text of every case study and public product
+ * entry, so an assistant can read and cite the work without rendering the
+ * pages. Same content model as the pages; linked from /llms.txt.
+ */
+export function buildLlmsFullTxt() {
+	return tidy([
+		`# ${profile.name}: work in full`,
+		"",
+		`> ${copy.meta.home.description.en} This file holds the full English text of the case studies and product entries on ${siteUrl}; ${siteUrl}/llms.txt is the short map. Case study text is in his own words (first person).`,
+		"",
+		confidentiality,
+		"",
+		"# Case studies",
+		"",
+		...caseStudies.flatMap((study) => [
+			`## ${study.title}`,
+			"",
+			`- URL: ${url(`/work/${study.slug}`)}`,
+			`- Kind: ${study.kind.en}`,
+			`- Role: ${study.role.en}`,
+			`- Period: ${formatPeriod(study.period, "en")}`,
+			`- Stack: ${study.stack.join(", ")}`,
+			`- Facts checked: ${study.reviewed}`,
+			...study.links.map((link) => `- ${link.label.en}: ${link.href}`),
+			"",
+			study.summary.en,
+			"",
+			...study.facts.en.map((fact) => `- ${fact}`),
+			"",
+			...study.sections.flatMap((section) => [
+				`### ${section.heading.en}`,
+				"",
+				...section.body.en.flatMap((paragraph) => [paragraph, ""]),
+				...(section.code
+					? [
+							`\`\`\`${section.code.language}`,
+							section.code.source,
+							"```",
+							"",
+							section.code.caption.en,
+							"",
+						]
+					: []),
+			]),
+		]),
+		"# Products he worked on",
+		"",
+		"Public products he helped build as an employee or contractor. Each summary paraphrases the company's public site; internal details stay private.",
+		"",
+		...professionalWork.flatMap((work) => {
+			const job = experience.find((entry) => entry.company === work.company);
+			return [
+				`## ${work.product} (${work.company})`,
+				"",
+				`- Product: ${work.url}`,
+				...(job
+					? [
+							`- Role: ${job.role}, ${formatPeriod(job, "en")}`,
+							`- On the site: ${url("/work")}#${work.slug}`,
+						]
+					: []),
+				...(work.stack ? [`- Stack: ${work.stack.join(", ")}`] : []),
+				"",
+				work.summary.en,
+				"",
+				"What he did:",
+				"",
+				...work.contributions.en.map((item) => `- ${item}`),
+				"",
+			];
+		}),
+	]);
 }

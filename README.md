@@ -16,7 +16,7 @@ Portuguese (`/pt-br`).
   SHA-256, with no `unsafe-inline`
   ([ADR-002](docs/adr/002-per-page-csp-with-script-hashes.md)).
 - **One content source.** Typed bilingual content generates the pages,
-  JSON-LD, sitemap, `llms.txt` and social cards, and fails the build when
+  JSON-LD, sitemap, `llms.txt`, `llms-full.txt` and social cards, and fails the build when
   something is missing ([ADR-004](docs/adr/004-typed-content-modules-validated-at-build.md)).
 - **Quality gates in CI.** Unit and component tests, a built-output checker
   with a JavaScript budget, Playwright journeys with axe (WCAG 2.2 AA, both

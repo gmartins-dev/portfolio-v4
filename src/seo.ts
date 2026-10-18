@@ -90,12 +90,15 @@ const graph = (nodes: object[]) => ({
 });
 
 /** The site owner, from the content model. Included in every page's graph. */
-function personNode() {
+function personNode(locale: Locale) {
 	return {
 		"@type": "Person",
 		"@id": personId,
 		name: profile.name,
+		description: copy.meta.home.description[locale],
 		jobTitle: profile.role,
+		// The site is written in both; he works with teams in both languages.
+		knowsLanguage: [...locales],
 		url: siteUrl,
 		email: `mailto:${profile.email}`,
 		address: {
@@ -136,7 +139,7 @@ function breadcrumbNode(
 
 /** Home: the person and the site. */
 export function homeStructuredData(locale: Locale) {
-	return [graph([personNode(), websiteNode(locale)])];
+	return [graph([personNode(locale), websiteNode(locale)])];
 }
 
 /** About: a ProfilePage whose main entity is the person. */
@@ -152,7 +155,7 @@ export function aboutStructuredData(locale: Locale) {
 				isPartOf: { "@id": websiteId },
 				mainEntity: { "@id": personId },
 			},
-			personNode(),
+			personNode(locale),
 			websiteNode(locale),
 		]),
 	];
@@ -187,7 +190,7 @@ export function workStructuredData(locale: Locale, studies: CaseStudy[]) {
 				{ name: copy.nav.home[locale], path: "/" },
 				{ name: copy.nav.work[locale], path: "/work" },
 			]),
-			personNode(),
+			personNode(locale),
 			websiteNode(locale),
 		]),
 	];
@@ -217,7 +220,7 @@ export function projectsStructuredData(locale: Locale) {
 				{ name: copy.nav.home[locale], path: "/" },
 				{ name: copy.projects.heading[locale], path: "/projects" },
 			]),
-			personNode(),
+			personNode(locale),
 			websiteNode(locale),
 		]),
 	];
@@ -269,7 +272,7 @@ export function caseStudyStructuredData(locale: Locale, study: CaseStudy) {
 				{ name: copy.nav.work[locale], path: "/work" },
 				{ name: study.title, path },
 			]),
-			personNode(),
+			personNode(locale),
 			websiteNode(locale),
 		]),
 	];

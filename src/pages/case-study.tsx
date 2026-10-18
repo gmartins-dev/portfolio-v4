@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { formatPeriod, WorkImage } from "../components/work";
+import { formatPeriod, MetaLine, WorkImage } from "../components/work";
 import { copy, t } from "../content/copy";
 import type { CaseStudy } from "../content/schema";
+import { caseStudies } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
 export function CaseStudyPage({
@@ -156,6 +157,44 @@ export function CaseStudyPage({
 			<p className="mt-16 text-sm text-muted-foreground">
 				{t(copy.work.reviewed, locale)} {reviewed}.
 			</p>
+
+			{/* A reader who finished one case study can pick the next without
+			    going back to the list. All the others, in the site's order. */}
+			<nav
+				aria-labelledby="other-studies"
+				className="mt-16 border-t pt-10 print:hidden"
+			>
+				<h2
+					id="other-studies"
+					className="text-2xl font-semibold tracking-tight"
+				>
+					{t(copy.work.otherStudies, locale)}
+				</h2>
+				<ul className="mt-8 grid gap-8 md:grid-cols-3">
+					{caseStudies
+						.filter((other) => other.slug !== study.slug)
+						.map((other) => (
+							<li key={other.slug}>
+								<MetaLine
+									parts={[
+										t(other.kind, locale),
+										formatPeriod(other.period, locale),
+									]}
+								/>
+								<Link
+									to={localizedPath(locale, `/work/${other.slug}`)}
+									className="mt-2 inline-flex min-h-6 items-center text-lg font-semibold tracking-tight hover:text-brand"
+									translate="no"
+								>
+									{other.title}
+								</Link>
+								<p className="mt-2 text-sm text-muted-foreground">
+									{t(other.summary, locale)}
+								</p>
+							</li>
+						))}
+				</ul>
+			</nav>
 		</article>
 	);
 }

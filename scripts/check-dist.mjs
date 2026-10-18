@@ -142,16 +142,27 @@ for (const { source, destination } of redirects) {
 	}
 }
 
-// llms.txt links to site pages must exist too.
+// llms.txt links to site pages must exist too, and so must the site URLs
+// in llms-full.txt (plain URLs, not Markdown links).
 const llms = readFileSync(join(dist, "llms.txt"), "utf8");
 for (const [, link] of llms.matchAll(/\]\((https:\/\/gmartins\.dev[^)]*)\)/g)) {
 	const path = link.replace(siteUrl, "") || "/";
 	if (!resolves(path)) fail("llms.txt", `broken link ${link}`);
 }
+const llmsFull = readFileSync(join(dist, "llms-full.txt"), "utf8");
+for (const [link] of llmsFull.matchAll(/https:\/\/gmartins\.dev[^\s;)]*/g)) {
+	const path = link.replace(siteUrl, "") || "/";
+	if (!resolves(path)) fail("llms-full.txt", `broken link ${link}`);
+}
 
 // Confidential names must never ship (scripts/denylist.json). Report only
 // the file, never the matched term, so CI logs don't leak it either.
-for (const [path, html] of [...pages, ["/404", notFound], ["llms.txt", llms]]) {
+for (const [path, html] of [
+	...pages,
+	["/404", notFound],
+	["llms.txt", llms],
+	["llms-full.txt", llmsFull],
+]) {
 	if (findDenied(html).length > 0)
 		fail(path, "contains a denied term (scripts/denylist.json)");
 }
