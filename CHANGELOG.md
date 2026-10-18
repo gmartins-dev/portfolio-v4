@@ -5,6 +5,16 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Copy and positioning
+
+- The home intro, the home meta description and the first two About
+  paragraphs replace generic phrases ("building and evolving products",
+  "across different products, domains and teams") with the domains and the
+  work they stand for. No fact changed; both languages move together.
+- Portuguese copy says "prestador de serviço" instead of "contractor".
+- `.agents/product-marketing.md` records audience, voice, proof points and
+  words to avoid, from existing sources only, for future copy work.
+
 ### Case study navigation and content for AI assistants
 
 - Each case study ends with the other case studies (kind, period, title and

@@ -16,9 +16,9 @@ export const copy = {
 				"pt-BR": "Guilherme Martins | Software Engineer",
 			},
 			description: {
-				en: "Software Engineer with strong frontend expertise and full-stack experience, building products with teams in Brazil and the UK.",
+				en: "Software Engineer in Belo Horizonte with deep frontend and full-stack experience in fintech, AI cybersecurity and healthcare, for teams in Brazil and the UK.",
 				"pt-BR":
-					"Software Engineer com forte experiência em frontend e atuação full-stack, construindo produtos com times no Brasil e no Reino Unido.",
+					"Software Engineer em Belo Horizonte, com experiência em frontend e full-stack em fintech, cibersegurança com IA e saúde, para times no Brasil e no Reino Unido.",
 			},
 		},
 		work: {
@@ -112,9 +112,9 @@ export const copy = {
 			"pt-BR": "Da definição do problema ao software em produção.",
 		},
 		intro: {
-			en: "I'm Guilherme Martins, a full-stack engineer with deep frontend experience, building and evolving products with teams in Brazil and the UK.",
+			en: "I'm Guilherme Martins, a full-stack engineer with deep frontend experience. I have built products with teams in Brazil and the UK, from AI cybersecurity to fintech and healthcare.",
 			"pt-BR":
-				"Sou Guilherme Martins, engenheiro full-stack com forte experiência em frontend, construindo e evoluindo produtos com times no Brasil e no Reino Unido.",
+				"Sou Guilherme Martins, engenheiro full-stack com forte experiência em frontend. Construí produtos com times no Brasil e no Reino Unido, de cibersegurança com IA a fintech e saúde.",
 		},
 		primaryCta: { en: "See all work", "pt-BR": "Ver todos os trabalhos" },
 		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
@@ -204,7 +204,7 @@ export const copy = {
 		intro: {
 			en: "Case studies of personal and public projects, the public products I worked on, and client and community work. Most of my work as an employee, contractor or consultant is private under confidentiality terms, so the one professional case study is anonymized.",
 			"pt-BR":
-				"Estudos de caso de projetos pessoais e públicos, os produtos públicos em que trabalhei e trabalhos para clientes e comunidade. A maior parte do meu trabalho como empregado, contractor ou consultor é privada por termos de confidencialidade, por isso o único estudo de caso profissional é anonimizado.",
+				"Estudos de caso de projetos pessoais e públicos, os produtos públicos em que trabalhei e trabalhos para clientes e comunidade. A maior parte do meu trabalho como funcionário, prestador de serviço ou consultor é privada por termos de confidencialidade, por isso o único estudo de caso profissional é anonimizado.",
 		},
 		professionalHeading: {
 			en: "Products I worked on",
@@ -213,7 +213,7 @@ export const copy = {
 		professionalIntro: {
 			en: "Public products I helped build as an employee or contractor. The descriptions and screenshots come from each company's public site; the internal details of the work stay private.",
 			"pt-BR":
-				"Produtos públicos que ajudei a construir como empregado ou contractor. As descrições e imagens vêm do site público de cada empresa; os detalhes internos do trabalho continuam privados.",
+				"Produtos públicos que ajudei a construir como funcionário ou prestador de serviço. As descrições e imagens vêm do site público de cada empresa; os detalhes internos do trabalho continuam privados.",
 		},
 		contributions: { en: "What I did", "pt-BR": "O que eu fiz" },
 		visitProduct: { en: "Visit the product", "pt-BR": "Ver o produto" },
@@ -257,13 +257,13 @@ export const copy = {
 		heading: { en: "About", "pt-BR": "Sobre" },
 		intro: {
 			en: [
-				"I'm a Software Engineer with strong frontend expertise and full-stack experience, building and evolving production software across different products, domains and teams.",
-				"I work across the whole lifecycle: understanding product and business requirements, designing the technical solution, then implementation, testing, deployment, production support and continued evolution.",
+				"I'm a Software Engineer with deep frontend experience and full-stack range. I build software that runs in production, and I keep working on it after launch.",
+				"I take work from the product requirement to production. I clarify what the business needs, design the technical solution, implement and test it, then deploy and support it.",
 				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend remains one of my strongest areas: complex product interfaces, frontend architecture and design systems.",
 			],
 			"pt-BR": [
-				"Sou Software Engineer com forte experiência em frontend e atuação full-stack, construindo e evoluindo software em produção em diferentes produtos, domínios e times.",
-				"Atuo em todo o ciclo: entender requisitos de produto e de negócio, desenhar a solução técnica e depois implementar, testar, colocar em produção, sustentar e evoluir.",
+				"Sou Software Engineer com forte experiência em frontend e atuação full-stack. Construo software que roda em produção e continuo trabalhando nele depois do lançamento.",
+				"Levo o trabalho do requisito de produto até a produção. Entendo o que o negócio precisa, desenho a solução técnica, implemento e testo, coloco no ar e dou suporte.",
 				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Frontend continua sendo uma das minhas áreas mais fortes: interfaces de produto complexas, arquitetura de frontend e design systems.",
 			],
 		},
