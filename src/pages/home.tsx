@@ -28,8 +28,6 @@ export function HomePage({ locale }: { locale: Locale }) {
 						to={localizedPath(locale, "/work")}
 						className={buttonVariants({
 							variant: "brand",
-							size: "lg",
-							className: "px-4",
 						})}
 					>
 						{t(copy.home.primaryCta, locale)}
@@ -37,9 +35,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					<a
 						href={profile.resume[locale]}
 						className={buttonVariants({
-							size: "lg",
 							variant: "outline",
-							className: "px-4",
 						})}
 					>
 						{t(copy.nav.resume, locale)}

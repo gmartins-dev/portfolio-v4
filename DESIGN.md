@@ -71,8 +71,9 @@ colors in `scripts/build-og-images.mjs`.
 
 - One radius scale: `rounded-lg` for images and buttons. No pills.
 - Buttons and button-styled links use `buttonVariants()` from
-  `src/components/ui/button.tsx` (variants `brand`, `outline`, `default`). It
-  merges classes with tailwind-merge, so a `className` override wins.
+  `src/components/ui/button.tsx` (variants `brand` and `outline`, one size).
+  Classes are joined, not merged, so `className` is for layout only (margins,
+  `print:hidden`); change padding or colors in the variant itself.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
 - Group related items with spacing and a single top border, not cards.
 - No colored side borders on callouts or list items. A note that needs to

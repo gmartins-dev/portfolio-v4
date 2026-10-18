@@ -30,8 +30,7 @@ with both CSP layers, and they fail on any CSP violation in the console.
 
 ## Known findings
 
-| Advisory | Package | Path | Status |
-| --- | --- | --- | --- |
-| GHSA-vfj7-8cjw-p6xm (ReDoS) | `braces` | `shadcn` CLI (dev only) > `fast-glob` > `micromatch` | Accepted: no patched version published; the CLI runs only locally on glob patterns we write, never in the build or the browser. Review by 2027-01-11 or when Dependabot offers a fix. |
-
-`pnpm audit --prod` reports no known vulnerabilities (checked 2026-10-11).
+None. `pnpm audit` (production and development dependencies) reports no
+known vulnerabilities (checked 2026-10-17). The earlier `braces` advisory
+came from the `shadcn` CLI, which is no longer a dependency; run
+`pnpm dlx shadcn` when adding a component.

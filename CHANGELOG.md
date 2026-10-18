@@ -5,6 +5,18 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Smaller client and no dependency advisories
+
+- Client JavaScript drops from 139.5 kB to 129.7 kB gzip: button styles no
+  longer need tailwind-merge, because each variant sets its own border color
+  and size. The unused `Button` component and variants go with it.
+- CSS drops from 7.3 kB to 6.1 kB gzip by removing `tw-animate-css` and the
+  shadcn accordion keyframes and variants, which no page used. Lab LCP of
+  `/work` goes from 2.7 s to 2.48 s (Lighthouse mobile).
+- `tailwind-merge`, `class-variance-authority`, `radix-ui`, `tw-animate-css`
+  and the `shadcn` CLI are no longer dependencies, so `pnpm audit` is clean,
+  including the accepted `braces` advisory.
+
 ### Accessibility and print
 
 - The phone language link ("PT"/"EN") has an accessible name that contains

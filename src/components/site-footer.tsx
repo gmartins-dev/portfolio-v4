@@ -27,9 +27,8 @@ export function SiteFooter() {
 						href={`mailto:${profile.email}`}
 						className={buttonVariants({
 							variant: "brand",
-							size: "lg",
 							// The address below is what paper needs.
-							className: "mt-6 px-4 print:hidden",
+							className: "mt-6 print:hidden",
 						})}
 					>
 						{t(copy.contact.email, locale)}

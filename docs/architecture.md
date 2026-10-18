@@ -71,7 +71,7 @@ page is a child route, registered once per locale from the `pages` table.
 | --- | --- |
 | Routes and the document shell | `src/router.tsx` |
 | Page components | `src/pages/` |
-| Shared UI (header, footer, work teasers, shadcn button) | `src/components/` |
+| Shared UI (header, footer, work teasers, button styles) | `src/components/` |
 | Content and copy, both languages | `src/content/` |
 | Head tags, JSON-LD, sitemap | `src/seo.ts` |
 | Locales and localized paths (`/` and `/pt-br`) | `src/i18n.ts`, `src/use-locale.ts` |

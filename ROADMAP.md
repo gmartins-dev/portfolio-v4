@@ -76,10 +76,9 @@ fixes it; until then it stays public.
   back to the v3 project while it still exists.
 - Archive or label the v3 repository.
 - After launch, measure real-user Core Web Vitals (target p75 LCP at or below
-  2.5 s). Lab LCP on simulated slow 4G is 2.0-2.5 s after the audit, with
+  2.5 s). Lab LCP on simulated slow 4G is 2.0-2.5 s (2026-10-17), with
   home and work right at 2.48 s, so watch them. If field data misses the
-  target, the next levers are dropping tailwind-merge from the client
-  (8.5 kB) and splitting page code by route.
+  target, the next levers are AVIF images and splitting page code by route.
 - Follow the periodic review in `docs/maintenance.md`.
 
 ## Deferred
