@@ -59,7 +59,7 @@ if (notFound.status !== 404) {
 // The same file answers unknown URLs in every language, so it must not
 // hydrate against a path it was not rendered for: drop every script (the
 // client entry and the dehydrated router state).
-const notFoundHtml = withoutScripts(await notFound.text(), []);
+const notFoundHtml = withoutScripts(await notFound.text());
 if (/type="module"|\$_TSR|\$R\b/.test(notFoundHtml)) {
 	throw new Error("prerender 404 page: client scripts were not removed");
 }

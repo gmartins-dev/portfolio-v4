@@ -22,12 +22,10 @@ describe("finalizeHtml", () => {
 });
 
 describe("withoutScripts", () => {
-	it("keeps only allowlisted inline scripts", () => {
+	it("removes every inline and external script", () => {
 		const html =
-			'<head><script>theme()</script><script type="module" src="/e.js"></script></head>' +
+			'<head><script>x()</script><script type="module" src="/e.js"></script></head>' +
 			'<body><script data-tsr-stream-part="">$_TSR=1</script><script class="$tsr">x</script></body>';
-		expect(withoutScripts(html, ["theme()"])).toBe(
-			"<head><script>theme()</script></head><body></body>",
-		);
+		expect(withoutScripts(html)).toBe("<head></head><body></body>");
 	});
 });

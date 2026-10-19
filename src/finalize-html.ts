@@ -20,14 +20,10 @@ export async function finalizeHtml(html: string) {
 }
 
 /**
- * Remove every <script> except those whose text is listed in `keep`. Used for
- * the JavaScript-free 404 page: keeping an allowlist (empty for the 404)
- * instead of matching the router's script markup survives router upgrades,
+ * Remove every <script>. Used for the JavaScript-free 404 page: matching all
+ * script tags instead of the router's own markup survives router upgrades,
  * whose dehydration markup has changed between versions.
  */
-export function withoutScripts(html: string, keep: readonly string[]) {
-	return html.replace(
-		/<script\b[^>]*>([\s\S]*?)<\/script>/g,
-		(tag, body: string) => (keep.includes(body) ? tag : ""),
-	);
+export function withoutScripts(html: string) {
+	return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
 }
