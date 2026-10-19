@@ -1,9 +1,10 @@
 /**
  * Per-page Content-Security-Policy, added as a <meta> tag at prerender time.
  *
- * Each page has inline scripts whose content differs per page (the
- * dehydrated router state), so they are allowed by hash rather than with 'unsafe-inline'. Directives a meta tag
- * cannot carry (frame-ancestors) are sent as headers by vercel.json.
+ * Each page has an inline script whose content differs per page (the
+ * dehydrated router state), so it is allowed by hash rather than with
+ * 'unsafe-inline'. Directives a meta tag cannot carry (frame-ancestors) are
+ * sent as headers by vercel.json.
  *
  * Server-only: used by scripts/prerender.mjs through entry-server.tsx.
  */

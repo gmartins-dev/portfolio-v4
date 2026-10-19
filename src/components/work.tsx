@@ -87,9 +87,10 @@ export function WorkImage({
 			),
 		);
 	}
-	// Diagrams are drawn black on white. In dark mode, invert them and let
-	// "lighten" drop the (now black) background into the card, so the diagram
-	// reads as part of the page instead of a white slab.
+	// Diagrams are drawn black on white. Invert them and let "lighten" drop the
+	// (now black) background into the card, so the diagram reads as part of the
+	// page instead of a white slab. Print uses light tokens, so it keeps the
+	// original drawing.
 	return (
 		<div className={cn("overflow-hidden rounded-lg border bg-card", className)}>
 			{/* h-full fills an aspect-ratio frame; max-h-[inherit] honors a max-h cap. */}

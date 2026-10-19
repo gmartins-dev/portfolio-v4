@@ -92,10 +92,15 @@ test.describe("print @a11y", () => {
 		await page.emulateMedia({ media: "print" });
 
 		// Print drops backgrounds, so text must be dark on the white page.
-		const bodyColor = await page.evaluate(
-			() => getComputedStyle(document.body).color,
-		);
-		const [r, g, b] = bodyColor.match(/[\d.]+/g)?.map(Number) ?? [];
+		// Computed colors can serialize as oklch(), so convert to sRGB through a
+		// canvas before comparing channels.
+		const [r, g, b] = await page.evaluate(() => {
+			const context = document.createElement("canvas").getContext("2d");
+			if (!context) throw new Error("no 2d canvas context");
+			context.fillStyle = getComputedStyle(document.body).color;
+			context.fillRect(0, 0, 1, 1);
+			return [...context.getImageData(0, 0, 1, 1).data];
+		});
 		expect(r + g + b).toBeLessThan(3 * 128);
 
 		// Controls that do nothing on paper are left out.

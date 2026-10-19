@@ -11,9 +11,9 @@ is in the [roadmap](ROADMAP.md).
   pre-paint script and the `dark:` variants are removed. Print still uses
   light tokens. See [ADR-008](docs/adr/008-dark-only.md).
 - Palette changed to Polar Navy: deep navy surfaces with a glacial cyan
-  accent (`#08121C`, `#101F2D`, `#EAF4FC`, `#9DB2C5`, `#79D7F5` in dark). The
-  light theme is derived from the same hues, with a darker cyan accent for
-  contrast. Favicon, social cards and diagrams were regenerated.
+  accent (`#08121C`, `#101F2D`, `#EAF4FC`, `#9DB2C5`, `#79D7F5`). The light
+  tokens, derived from the same hues with a darker cyan accent, now apply to
+  print only. Favicon, social cards and diagrams were regenerated.
 
 ### Dependencies
 
