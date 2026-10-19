@@ -12,10 +12,10 @@ them pass. Run the same commands locally before you push:
 
 | Command | What it checks |
 | --- | --- |
-| `pnpm check` | TypeScript, Biome, and unit and component tests (content rules, SEO helpers, CSP, theme) |
+| `pnpm check` | TypeScript, Biome, and unit and component tests (content rules, SEO helpers, CSP) |
 | `pnpm build` | Typecheck, client and SSR builds, prerender; fails on invalid content |
 | `pnpm check:dist` | Internal links, canonicals, hreflang, sitemap, `llms.txt` and `llms-full.txt` links, and the 150 kB gzipped JavaScript budget |
-| `pnpm test:e2e` | Playwright on desktop and mobile: hydration and CSP errors, journeys, focus, 320px reflow, axe WCAG 2.2 AA in both themes |
+| `pnpm test:e2e` | Playwright on desktop and mobile: hydration and CSP errors, journeys, focus, 320px reflow, axe WCAG 2.2 AA |
 | `pnpm audit --prod --audit-level high` | Known vulnerabilities in runtime dependencies |
 
 Run `pnpm exec playwright install chromium` once before your first
@@ -124,8 +124,8 @@ company's involvement are public.
 
 Read the [design guide](../DESIGN.md) before you change the UI. Token values
 live only in `src/index.css`; components use them through Tailwind utilities
-such as `bg-background` and `text-brand`. Check every change in light and
-dark themes, at 320px wide, and with the keyboard. The e2e suite checks
+such as `bg-background` and `text-brand`. Check every change at
+320px wide, and with the keyboard. The e2e suite checks
 contrast, focus outlines, and reflow, but it doesn't judge whether a layout
 looks right.
 
@@ -153,8 +153,7 @@ acceptance: supersede one with a new record instead.
 Before you point the domain at a new version or merge a large change:
 
 1. Confirm all quality gates pass in CI.
-2. Open the Vercel preview on a phone and a desktop, in both languages and
-   both themes.
+2. Open the Vercel preview on a phone and a desktop, in both languages.
 3. Check that `/cv`, `/cv-br`, and `/email` still go where you expect.
 4. After the deploy, check Search Console for crawl errors, and compare
    real-user Core Web Vitals with the previous month.

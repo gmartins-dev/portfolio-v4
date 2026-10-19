@@ -26,8 +26,8 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
   resume PDFs, client sites) use the foreground color, turn brand on hover,
   and end with `ArrowUpRight`. Name the file type when a link opens a file
   ("Resume in English (PDF)").
-- **Both themes are designed.** Light and dark use the same token names; check
-  every change in both.
+- **Dark only.** The site has one theme, Polar Navy, and no theme control. Print
+  is the one exception (see Print).
 - **Readable without effects.** No information depends on hover, animation, or
   color alone.
 - **Plain copy.** No em dashes in visible text; one label per intent (for
@@ -46,8 +46,8 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 
 Use them through Tailwind utilities (`bg-background`, `text-muted-foreground`,
 `text-brand`). Do not write raw color values in components. These places
-mirror token values by hand and change with them: the `theme-color` meta tags
-in `src/router.tsx` (the `--background` values as hex), `public/favicon.svg`,
+mirror token values by hand and change with them: the `theme-color` meta tag
+in `src/router.tsx` (the `--background` value as hex), `public/favicon.svg`,
 and the social card colors in `scripts/build-og-images.mjs`. The Mermaid theme
 variables in `scripts/diagrams/` (and the copy in `docs/architecture.md`) use
 the light brand cyan.
@@ -86,8 +86,8 @@ the light brand cyan.
 - Diagrams (`fit: "contain"`) are drawn on white from Mermaid sources in
   `scripts/diagrams/`: the anonymized case study, and sdd-agentic-flow's
   README workflow, which reads better than a README screenshot. `WorkImage`
-  inverts them in dark mode and blends the background into the card, so
-  check a new diagram in both themes. Shape it close to 16:10 (rows of
+  inverts them and blends the background into the card, so check a new
+  diagram on the dark page. Shape it close to 16:10 (rows of
   `direction LR` subgraphs) so it stays legible in a teaser.
 - Multi-column layouts collapse to one column below `md`. When a sidebar
   holds the quick facts (case study facts and links), put it first in the
@@ -97,10 +97,9 @@ the light brand cyan.
 ## Phones
 
 - The header is two rows below `sm`: the name, then nav with the language
-  and theme controls. DOM order matches visual order at every width. The
+  link. DOM order matches visual order at every width. The
   language link shows "PT"/"EN" (its accessible name stays the full
-  sentence), and below the `xs` breakpoint (25rem, `src/index.css`) the
-  theme control is one button that steps through Light, Dark and System.
+  sentence).
   e2e checks the two rows at 320, 360 and 390px in both languages.
 - Vertical rhythm steps down below `md`: page tops `pt-12` (`pt-8` on case
   studies), sections `mt-20` instead of `mt-24`/`mt-28`, and teaser lists
@@ -114,7 +113,7 @@ that moves on its own. `prefers-reduced-motion` disables transitions globally
 
 ## Accessibility
 
-- WCAG 2.2 AA in both themes; axe runs in the end-to-end suite.
+- WCAG 2.2 AA on the dark theme; axe runs in the end-to-end suite.
 - One focus style everywhere: the global 2px offset outline in `--ring`.
   Don't replace it with translucent rings; the e2e suite checks every focus
   stop for an outline.
@@ -128,14 +127,14 @@ that moves on its own. `prefers-reduced-motion` disables transitions globally
 - When a control shows short text (the "PT"/"EN" language link on phones),
   its accessible name must contain that text, so voice control works
   (WCAG 2.5.3). e2e runs axe's `label-content-name-mismatch` rule for this.
-- State that relies on a background (the selected theme button) also needs
-  a `forced-colors:` border, because forced colors mode removes backgrounds.
+- State that relies on a background also needs a `forced-colors:` border,
+  because forced colors mode removes backgrounds.
 
 ## Print
 
-Recruiters save case studies as PDF, so pages print readably. Print always
-uses the light tokens (the `.dark` block and the `dark:` variant sit inside
-`@media not print` in `src/index.css`). Controls that do nothing on paper
-take `print:hidden` (navigation, theme, the back link, the email button;
-the address stays), code blocks wrap, and external links in `main` print
-their URL. e2e checks a case study printed from both themes.
+Recruiters save case studies as PDF, so pages print readably. Print uses
+light tokens (the `@media print` block in `src/index.css`) because printers
+drop backgrounds, and `WorkImage` drops its dark filters. Controls that do
+nothing on paper take `print:hidden` (navigation, the back link, the email
+button; the address stays), code blocks wrap, and external links in `main`
+print their URL. e2e checks a printed case study.

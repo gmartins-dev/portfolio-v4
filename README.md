@@ -19,8 +19,8 @@ Portuguese (`/pt-br`).
   JSON-LD, sitemap, `llms.txt`, `llms-full.txt` and social cards, and fails the build when
   something is missing ([ADR-004](docs/adr/004-typed-content-modules-validated-at-build.md)).
 - **Quality gates in CI.** Unit and component tests, a built-output checker
-  with a JavaScript budget, Playwright journeys with axe (WCAG 2.2 AA, both
-  themes, desktop and mobile), and a production dependency audit
+  with a JavaScript budget, Playwright journeys with axe (WCAG 2.2 AA,
+  desktop and mobile), and a production dependency audit
   ([ADR-005](docs/adr/005-layered-quality-gates.md)).
 
 ## Develop

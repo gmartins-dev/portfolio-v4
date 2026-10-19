@@ -9,7 +9,7 @@ const variants = {
 	// The site accent (DESIGN.md): the one primary action per view.
 	brand: "border-transparent bg-brand text-brand-foreground hover:bg-brand/90",
 	outline:
-		"border-foreground/25 bg-background hover:bg-muted hover:text-foreground dark:border-foreground/30 dark:bg-input/30 dark:hover:bg-input/50",
+		"border-foreground/30 bg-input/30 hover:bg-input/50 hover:text-foreground",
 } as const;
 
 /**

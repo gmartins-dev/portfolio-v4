@@ -77,7 +77,6 @@ page is a child route, registered once per locale from the `pages` table.
 | Content and copy, both languages | `src/content/` |
 | Head tags, JSON-LD, sitemap | `src/seo.ts` |
 | Locales and localized paths (`/` and `/pt-br`) | `src/i18n.ts`, `src/use-locale.ts` |
-| Theme preference and the pre-paint script | `src/theme.tsx` |
 | Server render and hydration | `src/entry-server.tsx`, `src/entry-client.tsx` |
 | CSP, NUL escaping, script stripping | `src/csp.ts`, `src/finalize-html.ts` |
 
@@ -87,15 +86,13 @@ match.
 
 ## In the browser
 
-1. The inline theme script in `<head>` applies the stored theme (or the system
-   one) before the first paint.
-2. The page is readable at this point; the client entry loads with low fetch
+1. The page is readable before any script runs; the client entry loads with low fetch
    priority so it doesn't compete with the largest image.
-3. `RouterClient` hydrates `document` from the dehydrated router state.
-4. After the `load` event, production builds add the Vercel Speed Insights
+2. `RouterClient` hydrates `document` from the dehydrated router state.
+3. After the `load` event, production builds add the Vercel Speed Insights
    script from `/_vercel/speed-insights/` for real-user Core Web Vitals
    ([ADR-006](adr/006-real-user-web-vitals-with-vercel-speed-insights.md)).
-5. Later navigations happen on the client. TanStack Router resets the scroll
+4. Later navigations happen on the client. TanStack Router resets the scroll
    position, `HeadContent` updates the head tags, and `RouteFocus` moves focus
    to the new page's `<h1>`.
 
