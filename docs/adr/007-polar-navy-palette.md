@@ -27,7 +27,7 @@ Light, Dark and System switcher.
 Chosen option: **2**. Dark uses the palette as given: background `#08121C`,
 surface `#101F2D`, text `#EAF4FC`, muted `#9DB2C5`, accent `#79D7F5`. Light
 is derived (not supplied by the owner): cool near-white surfaces, navy text
-and a darker cyan accent (`#0B6E8F`, 5.4:1 on the page background). Border,
+and a darker cyan accent (about `#0B6E8F`, 5.4:1 on the page background). Border,
 muted surface and destructive colors in both themes are also derived.
 
 ### Consequences
