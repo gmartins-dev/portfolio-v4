@@ -25,7 +25,7 @@ const mono = await font(
 	"@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2",
 );
 
-// Dark theme values from src/index.css (approximated in sRGB for the PNG).
+// Theme values from src/index.css (approximated in sRGB for the PNG).
 const style = `
 @font-face { font-family: Geist; src: url(data:font/woff2;base64,${sans}) format("woff2"); font-weight: 100 900; }
 @font-face { font-family: GeistMono; src: url(data:font/woff2;base64,${mono}) format("woff2"); font-weight: 100 900; }

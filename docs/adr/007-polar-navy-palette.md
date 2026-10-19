@@ -1,7 +1,7 @@
 # ADR-007: Polar Navy palette with a derived light theme
 
 - **Date**: 2026-10-18
-- **Status**: Accepted
+- **Status**: Superseded by [ADR-008](008-dark-only.md)
 - **Tags**: design, accessibility
 
 ## Context and Problem Statement

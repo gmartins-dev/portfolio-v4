@@ -81,12 +81,6 @@ export const copy = {
 			"pt-BR": "Read in English (EN)",
 		},
 	},
-	theme: {
-		label: { en: "Color theme", "pt-BR": "Tema de cores" },
-		light: { en: "Light", "pt-BR": "Claro" },
-		dark: { en: "Dark", "pt-BR": "Escuro" },
-		system: { en: "System", "pt-BR": "Sistema" },
-	},
 	contact: {
 		heading: { en: "Let's talk", "pt-BR": "Vamos conversar" },
 		body: {

@@ -7,7 +7,7 @@ const sha = (s: string) =>
 
 const page = [
 	"<!DOCTYPE html><html><head>",
-	"<script>theme()</script>",
+	"<script>init()</script>",
 	'<script type="module" src="/assets/entry.js"></script>',
 	'<script type="application/ld+json">{"a":1}</script>',
 	"</head><body>",
@@ -17,7 +17,7 @@ const page = [
 
 describe("inlineScripts", () => {
 	it("returns executable inline scripts only", () => {
-		expect(inlineScripts(page)).toEqual(["theme()", 'state("a")']);
+		expect(inlineScripts(page)).toEqual(["init()", 'state("a")']);
 	});
 });
 
@@ -32,7 +32,7 @@ describe("withContentSecurityPolicy", async () => {
 
 	it("allows each inline script by its browser-side hash", () => {
 		expect(html).toContain(
-			`script-src 'self' ${sha("theme()")} ${sha('state("a")')}`,
+			`script-src 'self' ${sha("init()")} ${sha('state("a")')}`,
 		);
 		expect(html).not.toContain("unsafe-inline");
 	});

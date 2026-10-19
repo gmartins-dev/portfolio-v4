@@ -2,17 +2,6 @@
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
-/* Theme is a class on <html>, set before first paint (see src/theme.tsx).
-   Print always uses the light theme: printers drop backgrounds, so dark-mode
-   text would be light on white paper. */
-@custom-variant dark {
-	@media not print {
-		&:where(.dark, .dark *) {
-			@slot;
-		}
-	}
-}
-
 /*
  * Design tokens. This file is the only place token values live; DESIGN.md
  * explains how to use them. Names follow shadcn/ui so its primitives work
@@ -21,58 +10,48 @@
 :root {
 	--radius: 0.5rem;
 
-	--background: oklch(0.977 0.006 240);
-	--foreground: oklch(0.178 0.026 249);
-	--card: oklch(1 0 0);
+	--background: oklch(0.178 0.026 249);
+	--foreground: oklch(0.962 0.015 242);
+	--card: oklch(0.233 0.034 248);
 	--card-foreground: var(--foreground);
 	--popover: var(--card);
 	--popover-foreground: var(--foreground);
-	--primary: oklch(0.178 0.026 249);
-	--primary-foreground: oklch(0.977 0.006 240);
-	--secondary: oklch(0.949 0.011 244);
+	--primary: oklch(0.962 0.015 242);
+	--primary-foreground: oklch(0.178 0.026 249);
+	--secondary: oklch(0.282 0.043 250);
 	--secondary-foreground: var(--foreground);
-	--muted: oklch(0.949 0.011 244);
-	--muted-foreground: oklch(0.443 0.045 247);
-	--accent: oklch(0.949 0.011 244);
+	--muted: oklch(0.282 0.043 250);
+	--muted-foreground: oklch(0.754 0.036 246);
+	--accent: oklch(0.282 0.043 250);
 	--accent-foreground: var(--foreground);
-	--destructive: oklch(0.501 0.178 29);
-	--border: oklch(0.895 0.018 245);
+	--destructive: oklch(0.759 0.144 26);
+	--border: oklch(0.31 0.045 249);
 	--input: var(--border);
 
-	--brand: oklch(0.503 0.096 228);
-	--brand-foreground: oklch(0.977 0.006 240);
+	--brand: oklch(0.832 0.099 221);
+	--brand-foreground: oklch(0.178 0.026 249);
 	--ring: var(--brand);
 }
 
-@media not print {
-	.dark {
-		--background: oklch(0.178 0.026 249);
-		--foreground: oklch(0.962 0.015 242);
-		--card: oklch(0.233 0.034 248);
-		--card-foreground: var(--foreground);
-		--popover: var(--card);
-		--popover-foreground: var(--foreground);
-		--primary: oklch(0.962 0.015 242);
-		--primary-foreground: oklch(0.178 0.026 249);
-		--secondary: oklch(0.282 0.043 250);
-		--secondary-foreground: var(--foreground);
-		--muted: oklch(0.282 0.043 250);
-		--muted-foreground: oklch(0.754 0.036 246);
-		--accent: oklch(0.282 0.043 250);
-		--accent-foreground: var(--foreground);
-		--destructive: oklch(0.759 0.144 26);
-		--border: oklch(0.31 0.045 249);
-		--input: var(--border);
+/* Printers drop backgrounds, so paper gets the light tokens: dark text on white. */
+@media print {
+	:root {
+		--background: oklch(0.977 0.006 240);
+		--foreground: oklch(0.178 0.026 249);
+		--card: oklch(1 0 0);
+		--primary: oklch(0.178 0.026 249);
+		--primary-foreground: oklch(0.977 0.006 240);
+		--secondary: oklch(0.949 0.011 244);
+		--muted: oklch(0.949 0.011 244);
+		--muted-foreground: oklch(0.443 0.045 247);
+		--accent: oklch(0.949 0.011 244);
+		--destructive: oklch(0.501 0.178 29);
+		--border: oklch(0.895 0.018 245);
 
-		--brand: oklch(0.832 0.099 221);
-		--brand-foreground: oklch(0.178 0.026 249);
-		--ring: var(--brand);
+		--brand: oklch(0.503 0.096 228);
+		--brand-foreground: oklch(0.977 0.006 240);
+		color-scheme: light;
 	}
-}
-
-/* Narrow phones (under 400px) get a compact header; see site-header.tsx. */
-@theme {
-	--breakpoint-xs: 25rem;
 }
 
 @theme inline {
@@ -112,13 +91,8 @@
 	}
 	html {
 		@apply bg-background font-sans text-foreground antialiased;
-		color-scheme: light;
+		color-scheme: dark;
 		text-rendering: optimizeLegibility;
-	}
-	@media not print {
-		html.dark {
-			color-scheme: dark;
-		}
 	}
 	/* On paper a link cannot be followed, so show where external ones go. */
 	@media print {
