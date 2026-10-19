@@ -5,6 +5,13 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Design
+
+- Palette changed to Polar Navy: deep navy surfaces with a glacial cyan
+  accent (`#08121C`, `#101F2D`, `#EAF4FC`, `#9DB2C5`, `#79D7F5` in dark). The
+  light theme is derived from the same hues, with a darker cyan accent for
+  contrast. Favicon, social cards and diagrams were regenerated.
+
 ### Dependencies
 
 - Vite 8 (Rolldown) with `@vitejs/plugin-react` 6, and TypeScript 7. No

@@ -103,12 +103,12 @@ function Document() {
 				<meta
 					name="theme-color"
 					media="(prefers-color-scheme: light)"
-					content="#f9fafb"
+					content="#f4f8fb"
 				/>
 				<meta
 					name="theme-color"
 					media="(prefers-color-scheme: dark)"
-					content="#0d1013"
+					content="#08121c"
 				/>
 			</head>
 			<body className="flex min-h-dvh flex-col">

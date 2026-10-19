@@ -30,12 +30,12 @@ const style = `
 @font-face { font-family: Geist; src: url(data:font/woff2;base64,${sans}) format("woff2"); font-weight: 100 900; }
 @font-face { font-family: GeistMono; src: url(data:font/woff2;base64,${mono}) format("woff2"); font-weight: 100 900; }
 * { margin: 0; box-sizing: border-box; }
-body { width: 1200px; height: 630px; background: #0f1115; color: #eceef1; font-family: Geist; }
-.card { height: 100%; padding: 80px 88px; display: flex; flex-direction: column; justify-content: space-between; border-left: 16px solid #f0975a; }
-.kicker { font-family: GeistMono; font-size: 28px; color: #a7adb7; }
+body { width: 1200px; height: 630px; background: #08121c; color: #eaf4fc; font-family: Geist; }
+.card { height: 100%; padding: 80px 88px; display: flex; flex-direction: column; justify-content: space-between; border-left: 16px solid #79d7f5; }
+.kicker { font-family: GeistMono; font-size: 28px; color: #9db2c5; }
 h1 { font-size: 76px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 600; max-width: 960px; }
-.url { font-family: GeistMono; font-size: 28px; color: #f0975a; }
-.icon { width: 180px; height: 180px; background: #0f1115; color: #f0975a; display: grid; place-items: center; font-size: 104px; font-weight: 700; letter-spacing: -0.04em; }
+.url { font-family: GeistMono; font-size: 28px; color: #79d7f5; }
+.icon { width: 180px; height: 180px; background: #08121c; color: #79d7f5; display: grid; place-items: center; font-size: 104px; font-weight: 700; letter-spacing: -0.04em; }
 `;
 
 const escapeHtml = (text) =>
