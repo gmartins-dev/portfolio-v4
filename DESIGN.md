@@ -18,7 +18,7 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 
 - **Content first.** Hierarchy comes from size, weight, and spacing before
   color.
-- **One accent.** `--brand` (burnt orange) marks links to the next step
+- **One accent.** `--brand` (glacial cyan) marks links to the next step
   inside the site, focus, list markers, and the primary call to action.
   Nothing else gets a color.
 - **Links say where they go.** Links within the site use `text-brand` with a
@@ -45,10 +45,12 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 | `primary`, `primary-foreground` | Neutral high-contrast buttons |
 
 Use them through Tailwind utilities (`bg-background`, `text-muted-foreground`,
-`text-brand`). Do not write raw color values in components. Two places must
+`text-brand`). Do not write raw color values in components. These places
 mirror token values by hand and change with them: the `theme-color` meta tags
-in `src/router.tsx` (the `--background` values as hex) and the social card
-colors in `scripts/build-og-images.mjs`.
+in `src/router.tsx` (the `--background` values as hex), `public/favicon.svg`,
+and the social card colors in `scripts/build-og-images.mjs`. The Mermaid theme
+variables in `scripts/diagrams/` (and the copy in `docs/architecture.md`) use
+the light brand cyan.
 
 ## Typography
 
