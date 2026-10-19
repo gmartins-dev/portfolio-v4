@@ -3,7 +3,6 @@ import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { otherLocale } from "../i18n";
 import { isNotFound } from "../not-found";
-import { ThemeToggle } from "../theme";
 import { useLocale } from "../use-locale";
 
 const navLinkClass =
@@ -78,18 +77,6 @@ export function SiteHeader() {
 								{t(copy.nav.language, locale)}
 							</span>
 						</Link>
-						{/* 404.html ships without client JavaScript, so a toggle there
-						    could not work; the inline theme script still applies the choice. */}
-						{!notFound && (
-							<ThemeToggle
-								label={t(copy.theme.label, locale)}
-								optionLabels={{
-									light: t(copy.theme.light, locale),
-									dark: t(copy.theme.dark, locale),
-									system: t(copy.theme.system, locale),
-								}}
-							/>
-						)}
 					</div>
 				</div>
 			</div>

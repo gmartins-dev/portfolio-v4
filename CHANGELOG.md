@@ -7,6 +7,9 @@ is in the [roadmap](ROADMAP.md).
 
 ### Design
 
+- Dark theme only: the light theme, the Light/Dark/System switcher, its
+  pre-paint script and the `dark:` variants are removed. Print still uses
+  light tokens. See [ADR-008](docs/adr/008-dark-only.md).
 - Palette changed to Polar Navy: deep navy surfaces with a glacial cyan
   accent (`#08121C`, `#101F2D`, `#EAF4FC`, `#9DB2C5`, `#79D7F5` in dark). The
   light theme is derived from the same hues, with a darker cyan accent for

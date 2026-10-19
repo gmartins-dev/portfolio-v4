@@ -2,27 +2,23 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { pages } from "./pages";
 
-// WCAG 2.2 AA, checked in both themes (DESIGN.md).
+// WCAG 2.2 AA, checked on the dark theme (DESIGN.md).
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
-for (const colorScheme of ["light", "dark"] as const) {
-	test.describe(`accessibility in ${colorScheme} mode @a11y`, () => {
-		test.use({ colorScheme });
-
-		for (const { path } of [...pages, { path: "/does-not-exist" }]) {
-			test(path, async ({ page }) => {
-				await page.goto(path);
-				const results = await new AxeBuilder({ page }).withTags(tags).analyze();
-				expect(
-					results.violations.map((v) => ({
-						id: v.id,
-						nodes: v.nodes.map((n) => n.target.join(" ")),
-					})),
-				).toEqual([]);
-			});
-		}
-	});
-}
+test.describe("accessibility @a11y", () => {
+	for (const { path } of [...pages, { path: "/does-not-exist" }]) {
+		test(path, async ({ page }) => {
+			await page.goto(path);
+			const results = await new AxeBuilder({ page }).withTags(tags).analyze();
+			expect(
+				results.violations.map((v) => ({
+					id: v.id,
+					nodes: v.nodes.map((n) => n.target.join(" ")),
+				})),
+			).toEqual([]);
+		});
+	}
+});
 
 // Checks axe cannot make: layout at 400% zoom and keyboard focus visibility.
 test.describe("manual WCAG checks, automated @a11y", () => {
@@ -88,58 +84,31 @@ test("visible link and button text is part of the accessible name (2.5.3) @a11y"
 	}
 });
 
-test.describe("forced colors @a11y", () => {
-	test.use({ forcedColors: "active", viewport: { width: 1024, height: 800 } });
-
-	test("the selected theme stays visible without background colors", async ({
-		page,
-	}) => {
-		await page.goto("/");
-		const outline = (pressed: boolean) =>
-			page
-				.locator(`fieldset button[aria-pressed="${pressed}"]`)
-				.first()
-				.evaluate((element) => {
-					const style = getComputedStyle(element);
-					return `${style.outlineWidth} ${style.borderTopWidth}`;
-				});
-		expect(await outline(true)).not.toBe(await outline(false));
-	});
-});
-
 test.describe("print @a11y", () => {
 	test.use({ viewport: { width: 1024, height: 800 } });
 
-	for (const colorScheme of ["light", "dark"] as const) {
-		test(`a case study prints readable from ${colorScheme} mode`, async ({
-			page,
-		}) => {
-			await page.emulateMedia({ colorScheme });
-			await page.goto("/work/payments-api-node");
-			await page.emulateMedia({ media: "print", colorScheme });
+	test("a case study prints readable", async ({ page }) => {
+		await page.goto("/work/payments-api-node");
+		await page.emulateMedia({ media: "print" });
 
-			// Print drops backgrounds, so text must be dark on the white page.
-			const bodyColor = await page.evaluate(
-				() => getComputedStyle(document.body).color,
-			);
-			const [r, g, b] = bodyColor.match(/[\d.]+/g)?.map(Number) ?? [];
-			expect(r + g + b).toBeLessThan(3 * 128);
+		// Print drops backgrounds, so text must be dark on the white page.
+		const bodyColor = await page.evaluate(
+			() => getComputedStyle(document.body).color,
+		);
+		const [r, g, b] = bodyColor.match(/[\d.]+/g)?.map(Number) ?? [];
+		expect(r + g + b).toBeLessThan(3 * 128);
 
-			// Controls that do nothing on paper are left out.
-			await expect(page.getByRole("navigation", { name: "Main" })).toBeHidden();
-			await expect(
-				page.getByRole("group", { name: "Color theme" }),
-			).toBeHidden();
-			await expect(page.getByRole("link", { name: "All work" })).toBeHidden();
-			await expect(page.getByRole("link", { name: "Email me" })).toBeHidden();
-			await expect(page.getByText("contact@gmartins.dev")).toBeVisible();
+		// Controls that do nothing on paper are left out.
+		await expect(page.getByRole("navigation", { name: "Main" })).toBeHidden();
+		await expect(page.getByRole("link", { name: "All work" })).toBeHidden();
+		await expect(page.getByRole("link", { name: "Email me" })).toBeHidden();
+		await expect(page.getByText("contact@gmartins.dev")).toBeVisible();
 
-			// Code wraps instead of being cut at the page edge.
-			const clipped = await page
-				.locator("pre")
-				.first()
-				.evaluate((element) => element.scrollWidth - element.clientWidth);
-			expect(clipped).toBe(0);
-		});
-	}
+		// Code wraps instead of being cut at the page edge.
+		const clipped = await page
+			.locator("pre")
+			.first()
+			.evaluate((element) => element.scrollWidth - element.clientWidth);
+		expect(clipped).toBe(0);
+	});
 });

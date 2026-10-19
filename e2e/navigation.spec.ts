@@ -52,32 +52,6 @@ test("language switch keeps the page and updates head tags", async ({
 	await expect(page).toHaveURL(/\/work\/sdd-agentic-flow$/);
 });
 
-test("theme choice applies before paint and persists", async ({ page }) => {
-	await page.emulateMedia({ colorScheme: "light" });
-	await page.goto("/about");
-	const html = page.locator("html");
-	await expect(html).not.toHaveClass(/dark/);
-
-	await page.getByRole("button", { name: "Dark" }).click();
-	await expect(html).toHaveClass(/dark/);
-	await expect(page.getByRole("button", { name: "Dark" })).toHaveAttribute(
-		"aria-pressed",
-		"true",
-	);
-
-	await page.reload();
-	await expect(html).toHaveClass(/dark/);
-
-	await page.getByRole("button", { name: "System" }).click();
-	await expect(html).not.toHaveClass(/dark/);
-});
-
-test("system theme follows the OS preference", async ({ page }) => {
-	await page.emulateMedia({ colorScheme: "dark" });
-	await page.goto("/");
-	await expect(page.locator("html")).toHaveClass(/dark/);
-});
-
 test("legacy short links redirect", async ({ request }) => {
 	const cases = [
 		["/resume", 308, "/about"],
@@ -118,7 +92,7 @@ test.describe("phone header", () => {
 				await page.goto(path);
 				const top = async (selector: string) =>
 					(await page.getByRole("banner").locator(selector).boundingBox())?.y;
-				// Row 1 is the name; nav, language and theme share row 2.
+				// Row 1 is the name; nav and language share row 2.
 				const navTop = await top("nav");
 				expect(navTop).toBeGreaterThan((await top("a[translate=no]")) ?? 0);
 				expect(await top("a[hreflang]")).toBeCloseTo(navTop ?? 0, -1);
@@ -127,21 +101,6 @@ test.describe("phone header", () => {
 			});
 		}
 	}
-
-	test("narrow phones get a single theme button that cycles", async ({
-		page,
-	}) => {
-		await page.setViewportSize({ width: 360, height: 800 });
-		await page.goto("/");
-		await expect(page.getByRole("group", { name: "Color theme" })).toBeHidden();
-		const button = page.getByRole("button", { name: "Color theme: System" });
-		await button.click();
-		await page.getByRole("button", { name: "Color theme: Light" }).click();
-		await expect(
-			page.getByRole("button", { name: "Color theme: Dark" }),
-		).toBeVisible();
-		await expect(page.locator("html")).toHaveClass(/dark/);
-	});
 });
 
 test("a case study offers the other case studies at its end", async ({

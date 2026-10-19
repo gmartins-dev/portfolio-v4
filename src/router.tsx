@@ -33,7 +33,6 @@ import {
 	projectsStructuredData,
 	workStructuredData,
 } from "./seo";
-import { themeBootstrapScript } from "./theme";
 
 // The root route renders the whole HTML document, so the server render
 // (dev middleware and build-time prerender) and client hydration share one tree.
@@ -78,7 +77,6 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 		],
 		scripts: [
-			{ children: themeBootstrapScript },
 			// The page is fully prerendered; hydration can wait behind the LCP image.
 			{
 				type: "module",
@@ -97,19 +95,9 @@ function Document() {
 		<html lang={localeFromPath(pathname)}>
 			<head>
 				<HeadContent />
-				{/* Browser UI color per scheme, mirroring --background in index.css.
-				    Static JSX: HeadContent keeps one meta per name, so the second
-				    theme-color would replace the first. */}
-				<meta
-					name="theme-color"
-					media="(prefers-color-scheme: light)"
-					content="#f4f8fb"
-				/>
-				<meta
-					name="theme-color"
-					media="(prefers-color-scheme: dark)"
-					content="#08121c"
-				/>
+				{/* Browser UI color, mirroring --background in index.css. */}
+				<meta name="theme-color" content="#08121c" />
+				<meta name="color-scheme" content="dark" />
 			</head>
 			<body className="flex min-h-dvh flex-col">
 				<SiteHeader />

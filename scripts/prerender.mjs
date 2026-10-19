@@ -18,7 +18,6 @@ const {
 	buildLlmsTxt,
 	buildLlmsFullTxt,
 	withoutScripts,
-	themeBootstrapScript,
 } = await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
 
 // The client entry is content-hashed; find its name in Vite's manifest.
@@ -58,11 +57,9 @@ if (notFound.status !== 404) {
 	throw new Error(`prerender 404 page: status ${notFound.status}`);
 }
 // The same file answers unknown URLs in every language, so it must not
-// hydrate against a path it was not rendered for: keep only the inline theme
-// script and drop the client entry and the dehydrated router state.
-const notFoundHtml = withoutScripts(await notFound.text(), [
-	themeBootstrapScript,
-]);
+// hydrate against a path it was not rendered for: drop every script (the
+// client entry and the dehydrated router state).
+const notFoundHtml = withoutScripts(await notFound.text(), []);
 if (/type="module"|\$_TSR|\$R\b/.test(notFoundHtml)) {
 	throw new Error("prerender 404 page: client scripts were not removed");
 }
