@@ -4,6 +4,7 @@ import { buttonVariants } from "../components/ui/button";
 import {
 	CaseStudyTeaser,
 	formatPeriod,
+	MetaLine,
 	ShortWorkItem,
 } from "../components/work";
 import { copy, t } from "../content/copy";
@@ -24,23 +25,28 @@ export function HomePage({ locale }: { locale: Locale }) {
 					{t(copy.home.intro, locale)}
 				</p>
 				<div className="mt-8 flex flex-wrap gap-3">
-					<Link
-						to={localizedPath(locale, "/work")}
+					<a
+						href={`mailto:${profile.email}`}
 						className={buttonVariants({
 							variant: "brand",
 						})}
 					>
-						{t(copy.home.primaryCta, locale)}
-					</Link>
-					<a
-						href={profile.resume[locale]}
+						{t(copy.contact.email, locale)}
+					</a>
+					<Link
+						to={localizedPath(locale, "/work")}
 						className={buttonVariants({
 							variant: "outline",
 						})}
 					>
-						{t(copy.nav.resume, locale)}
-					</a>
+						{t(copy.home.workCta, locale)}
+					</Link>
 				</div>
+				<MetaLine
+					className="mt-6"
+					nowrap={false}
+					parts={[...copy.home.availability[locale]]}
+				/>
 			</section>
 
 			<section
@@ -51,7 +57,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					{t(copy.home.workHeading, locale)}
 				</h2>
 				<div className="mt-10 grid gap-14 md:mt-12 md:gap-20">
-					{caseStudies.map((study, index) => (
+					{caseStudies.slice(0, 3).map((study, index) => (
 						<CaseStudyTeaser
 							key={study.slug}
 							study={study}
@@ -76,7 +82,6 @@ export function HomePage({ locale }: { locale: Locale }) {
 							</p>
 							<Link
 								to={localizedPath(locale, item.evidence.to)}
-								hash={"hash" in item.evidence ? item.evidence.hash : undefined}
 								className="mt-3 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
 							>
 								{t(item.evidence.label, locale)}

@@ -1,4 +1,4 @@
-import type { Experience, Profile } from "./schema";
+import type { Education, Experience, Profile } from "./schema";
 
 // Sources: resume EN/PT-BR (Drive files behind /cv and /cv-br), the LinkedIn
 // experience page and the GitHub profile README, checked 2026-10-11. Job
@@ -19,6 +19,36 @@ export const profile: Profile = {
 };
 
 export const experience: Experience[] = [
+	// The current role, at a company that stays confidential (owner's
+	// approval, 2026-10-25): no name, a year instead of a month, and only
+	// what the anonymized case study already says. See docs/maintenance.md.
+	{
+		company: "AI-first fintech",
+		role: "Senior Software Engineer",
+		location: {
+			en: "Belo Horizonte, Brazil",
+			"pt-BR": "Belo Horizonte, Brasil",
+		},
+		start: "2026",
+		context: {
+			en: "Credit and banking platform designed AI-first. The company is confidential; the case study describes the work in general terms.",
+			"pt-BR":
+				"Plataforma de crédito e banking pensada com IA desde o início. A empresa é confidencial; o estudo de caso descreve o trabalho em termos gerais.",
+		},
+		highlights: {
+			en: [
+				"Work on the core platform: a modular monolith with hexagonal architecture and replayable event ingestion.",
+				"Integrate the core with the conversational AI layers, behind guardrails that keep sensitive data away from models.",
+				"Built the partner landing page, with SEO and Core Web Vitals treated as product scope.",
+			],
+			"pt-BR": [
+				"Trabalho no core da plataforma: um monólito modular com arquitetura hexagonal e ingestão de eventos reprocessável.",
+				"Integro o core às camadas de IA conversacional, com guardrails que mantêm dados sensíveis longe dos modelos.",
+				"Construí a landing page do parceiro, com SEO e Core Web Vitals tratados como escopo do produto.",
+			],
+		},
+		caseStudy: "ai-first-online-banking",
+	},
 	{
 		company: "gmartins.dev",
 		role: "Software Engineer",
@@ -189,5 +219,19 @@ export const experience: Experience[] = [
 				"Entreguei aplicações web de ponta a ponta: planejamento, design, implementação, deploy e comunicação com clientes.",
 			],
 		},
+	},
+];
+
+// Source: the owner (2026-10-25), matching the LinkedIn education entry.
+export const education: Education[] = [
+	{
+		institution: "PUC Minas",
+		program: {
+			en: "Postgraduate specialization in Distributed Software Architecture",
+			"pt-BR": "Especialização em Arquitetura de Software Distribuído",
+		},
+		start: "2026-09",
+		end: "2028-03",
+		status: "in-progress",
 	},
 ];

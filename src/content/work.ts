@@ -153,9 +153,9 @@ const aiFirstBanking: CaseStudy = {
 			"Uma plataforma de crédito e banking pensada com IA desde o início: IA conversacional cuida do primeiro contato e do onboarding, e um core modular cuida de crédito, antifraude e formalização.",
 	},
 	role: {
-		en: "Software Engineer: core platform, partner landing page, AI integrations",
+		en: "Senior Software Engineer: core platform, partner landing page, AI integrations",
 		"pt-BR":
-			"Software Engineer: core da plataforma, landing page de parceiro, integrações com IA",
+			"Senior Software Engineer: core da plataforma, landing page de parceiro, integrações com IA",
 	},
 	period: { start: "2026" },
 	stack: [

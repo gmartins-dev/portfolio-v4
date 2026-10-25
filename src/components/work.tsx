@@ -28,9 +28,12 @@ export function formatPeriod(
 export function MetaLine({
 	parts,
 	className,
+	nowrap = true,
 }: {
 	parts: string[];
 	className?: string;
+	/** Keep each part on one line; turn off for long parts (phrases). */
+	nowrap?: boolean;
 }) {
 	return (
 		<p className={cn("font-mono text-sm text-muted-foreground", className)}>
@@ -42,7 +45,7 @@ export function MetaLine({
 							<span className="sr-only">, </span>
 						</>
 					)}
-					<span className="whitespace-nowrap">{part}</span>
+					<span className={cn(nowrap && "whitespace-nowrap")}>{part}</span>
 				</Fragment>
 			))}
 		</p>

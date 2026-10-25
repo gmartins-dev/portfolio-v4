@@ -39,10 +39,25 @@ export const experienceSchema = z.object({
 	/** Title held at the time; kept identical in both languages on purpose. */
 	role: z.string(),
 	location: localized,
-	start: yearMonth,
+	/** A year alone for confidential work, as in anonymized case studies. */
+	start: yearOrMonth,
 	end: yearMonth.optional(),
 	context: localized,
 	highlights: localizedList,
+	/** Slug of the case study that covers this role, linked from About. */
+	caseStudy: z
+		.string()
+		.regex(/^[a-z0-9-]+$/)
+		.optional(),
+});
+
+/** Formal education. In-progress courses are always shown as such. */
+export const educationSchema = z.object({
+	institution: z.string(),
+	program: localized,
+	start: yearMonth,
+	end: yearMonth,
+	status: z.enum(["in-progress", "completed"]),
 });
 
 /**
@@ -157,6 +172,7 @@ export const professionalWorkSchema = z.object({
 
 export type Profile = z.infer<typeof profileSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
+export type Education = z.infer<typeof educationSchema>;
 export type CaseStudy = z.infer<typeof caseStudySchema>;
 export type ShortWork = z.infer<typeof shortWorkSchema>;
 export type Project = z.infer<typeof projectSchema>;

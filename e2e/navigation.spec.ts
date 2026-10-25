@@ -16,7 +16,7 @@ test("skip link moves focus to the main content", async ({
 
 test("work journey: home to case study and back", async ({ page }) => {
 	await page.goto("/");
-	await page.getByRole("link", { name: "See all work" }).click();
+	await page.getByRole("link", { name: "See the work" }).click();
 	await expect(page).toHaveURL(/\/work$/);
 	await page.getByRole("link", { name: "Idempotent payments API" }).click();
 	await expect(page).toHaveURL(/\/work\/payments-api-node$/);
@@ -41,7 +41,7 @@ test("language switch keeps the page and updates head tags", async ({
 	page,
 }) => {
 	await page.goto("/work/sdd-agentic-flow");
-	await page.getByRole("link", { name: "Ler em português" }).click();
+	await page.getByRole("link", { name: "Português (PT)" }).click();
 	await expect(page).toHaveURL(/\/pt-br\/work\/sdd-agentic-flow$/);
 	await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
 	await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
@@ -49,7 +49,7 @@ test("language switch keeps the page and updates head tags", async ({
 		"https://gmartins.dev/pt-br/work/sdd-agentic-flow",
 	);
 	await expect(page.locator("title")).toHaveCount(1);
-	await page.getByRole("link", { name: "Read in English" }).click();
+	await page.getByRole("link", { name: "English (EN)" }).click();
 	await expect(page).toHaveURL(/\/work\/sdd-agentic-flow$/);
 });
 

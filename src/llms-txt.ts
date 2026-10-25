@@ -27,7 +27,7 @@ export function buildLlmsTxt() {
 		"",
 		`${profile.name} is a ${profile.role} based in ${profile.location.en}.`,
 		current
-			? `Currently: ${current.role} at ${current.company} (since ${formatMonth(current.start, "en")}).`
+			? `Currently: ${current.role}, ${current.company} (since ${formatMonth(current.start, "en")}).`
 			: "",
 		`The site is in English and Brazilian Portuguese (${url("/", "pt-BR")}).`,
 		confidentiality,
