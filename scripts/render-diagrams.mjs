@@ -26,8 +26,11 @@ const page = await browser.newPage({
 await page.setContent(
 	'<html><body style="margin:0;background:#fff"><div id="out" style="display:inline-block;padding:32px;background:#fff"></div></body></html>',
 );
+// Pinned to an exact version so regenerated diagrams only change when this
+// line does. No SRI hash: page.addScriptTag cannot set `integrity`, and the
+// diagrams are reviewed in the diff of the committed images anyway.
 await page.addScriptTag({
-	url: "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js",
+	url: "https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js",
 });
 
 for (const file of files) {
