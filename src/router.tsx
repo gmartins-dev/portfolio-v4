@@ -30,6 +30,7 @@ import {
 	caseStudyOgImage,
 	caseStudyStructuredData,
 	homeStructuredData,
+	pageOgImage,
 	projectsStructuredData,
 	workStructuredData,
 } from "./seo";
@@ -139,6 +140,7 @@ const pages: Page[] = [
 	{
 		path: "/work",
 		...copy.meta.work,
+		ogImage: pageOgImage("work"),
 		structuredData: (locale) => workStructuredData(locale, caseStudies),
 		render: (locale) => <WorkPage locale={locale} />,
 	},
@@ -159,12 +161,14 @@ const pages: Page[] = [
 	{
 		path: "/projects",
 		...copy.meta.projects,
+		ogImage: pageOgImage("projects"),
 		structuredData: projectsStructuredData,
 		render: (locale) => <ProjectsPage locale={locale} />,
 	},
 	{
 		path: "/about",
 		...copy.meta.about,
+		ogImage: pageOgImage("about"),
 		structuredData: aboutStructuredData,
 		render: (locale) => <AboutPage locale={locale} />,
 	},

@@ -29,6 +29,15 @@ export const defaultOgImage = (locale: Locale) => ({
 	alt: copy.meta.home.description[locale],
 });
 
+/** Social card for the work, projects and about pages (scripts/build-og-images.mjs). */
+export const pageOgImage =
+	(key: "work" | "projects" | "about") => (locale: Locale) => ({
+		src: `/images/og/page-${key}-${locale}.png`,
+		alt: copy.meta[key].description[locale],
+	});
+
+const ogLocales: Record<Locale, string> = { en: "en_US", "pt-BR": "pt_BR" };
+
 /**
  * Head tags for one page in TanStack Router's `head()` shape: title,
  * description, Open Graph and Twitter cards, a self-referencing canonical,
@@ -58,7 +67,13 @@ export function buildHead({
 			{ property: "og:title", content: title },
 			{ property: "og:description", content: description },
 			{ property: "og:url", content: url(locale) },
-			{ property: "og:locale", content: locale.replace("-", "_") },
+			{ property: "og:locale", content: ogLocales[locale] },
+			...locales
+				.filter((l) => l !== locale)
+				.map((l) => ({
+					property: "og:locale:alternate",
+					content: ogLocales[l],
+				})),
 			{ property: "og:image", content: absolute(image.src) },
 			{ property: "og:image:width", content: "1200" },
 			{ property: "og:image:height", content: "630" },
@@ -100,13 +115,16 @@ function personNode(locale: Locale) {
 		// The site is written in both; he works with teams in both languages.
 		knowsLanguage: [...locales],
 		url: siteUrl,
-		email: `mailto:${profile.email}`,
+		email: profile.email,
 		address: {
 			"@type": "PostalAddress",
 			addressLocality: "Belo Horizonte",
 			addressCountry: "BR",
 		},
-		knowsAbout: copy.capabilities.map((capability) => capability.title.en),
+		knowsAbout: [
+			...copy.capabilities.map((capability) => capability.title.en),
+			...copy.tools.flatMap((group) => group.items),
+		],
 		sameAs: [profile.links.github, profile.links.linkedin],
 	};
 }
@@ -241,6 +259,7 @@ export function caseStudyStructuredData(locale: Locale, study: CaseStudy) {
 				"@type": "TechArticle",
 				"@id": `${pageUrl(locale, path)}#article`,
 				url: pageUrl(locale, path),
+				mainEntityOfPage: pageUrl(locale, path),
 				headline: study.title,
 				description: study.summary[locale],
 				inLanguage: locale,

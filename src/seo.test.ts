@@ -11,6 +11,7 @@ import {
 	caseStudyStructuredData,
 	defaultOgImage,
 	homeStructuredData,
+	pageOgImage,
 	workStructuredData,
 } from "./seo";
 
@@ -215,6 +216,11 @@ describe("head extras", () => {
 		}
 		for (const locale of ["en", "pt-BR"] as const) {
 			expect(existsSync(`public${defaultOgImage(locale).src}`)).toBe(true);
+			for (const key of ["work", "projects", "about"] as const) {
+				const image = pageOgImage(key)(locale);
+				expect(existsSync(`public${image.src}`), image.src).toBe(true);
+				expect(image.alt).toBe(copy.meta[key].description[locale]);
+			}
 		}
 	});
 });
