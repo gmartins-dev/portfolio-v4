@@ -50,6 +50,7 @@ pnpm preview      # serve dist/ locally
 | [docs/architecture.md](docs/architecture.md) | Understand the build pipeline and what runs in the browser |
 | [docs/maintenance.md](docs/maintenance.md) | Change copy, add a case study or page, update dependencies, release |
 | [docs/adr/](docs/adr/README.md) | See why each architectural choice was made |
+| [docs/positioning.md](docs/positioning.md) | Write copy: the professional positioning the site follows |
 | [DESIGN.md](DESIGN.md) | Work on the UI: tokens, typography, rules |
 | [SECURITY.md](SECURITY.md) | Review the security controls or report an issue |
 | [ROADMAP.md](ROADMAP.md) | See open work and what blocks the launch |

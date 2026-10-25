@@ -4,8 +4,8 @@
 **Last updated:** 2026-10-25
 
 This is the positioning reference for writing copy on gmartins.dev. It condenses the
-owner's positioning document (2026-10-25, revision 2), which is kept outside
-the repository. Every fact here already appears in `src/content/`, which
+owner's positioning document (2026-10-25, revision 2), whose public summary
+is [docs/positioning.md](../docs/positioning.md). Every fact here already appears in `src/content/`, which
 traces to the resumes, LinkedIn and the public repositories, or comes from the
 owner. Lines marked **Owner to fill** have no source yet: ask, never invent.
 

@@ -7,7 +7,7 @@ export const t = (value: Localized, locale: Locale) => value[locale];
 // Page and interface copy. Factual statements trace back to the resumes and
 // the GitHub profile README (see profile.ts). Positioning follows the owner's
 // positioning document (2026-10-25, revision 2), summarized in
-// .agents/product-marketing.md.
+// docs/positioning.md.
 export const copy = {
 	meta: {
 		siteName: { en: "Guilherme Martins", "pt-BR": "Guilherme Martins" },

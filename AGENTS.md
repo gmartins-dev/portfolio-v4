@@ -24,6 +24,7 @@
 | How the build and rendering work | `docs/architecture.md` |
 | How to change content, add pages, update deps | `docs/maintenance.md` |
 | Why things are built this way | `docs/adr/README.md` |
+| Professional positioning for any copy | `docs/positioning.md` |
 | UI tokens and rules | `DESIGN.md` |
 | Security controls | `SECURITY.md` |
 | Open work and launch blockers | `ROADMAP.md` |
