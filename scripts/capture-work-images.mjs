@@ -59,7 +59,7 @@ const unknown = only.filter(
 );
 if (unknown.length) throw new Error(`unknown shots: ${unknown.join(", ")}`);
 
-/** Output widths, capped at the capture's own width when a clip is narrower. */
+/** Output widths, capped at the capture's own width. */
 const widths = [480, 720, 1280];
 
 const browser = await chromium.launch();
@@ -69,7 +69,6 @@ const encoder = await browser.newPage();
 for (const {
 	name,
 	url,
-	selector,
 	hideCookieBanner,
 	waitUntil = "networkidle",
 } of selected) {
@@ -90,53 +89,14 @@ for (const {
 			}
 		});
 	}
-	if (selector) {
-		// Sticky bars (GitHub's README tabs) would otherwise cover the element.
-		await page.evaluate(() => {
-			for (const element of document.querySelectorAll("body *")) {
-				const { position } = getComputedStyle(element);
-				if (position === "sticky" || position === "fixed") {
-					element.style.position = "static";
-				}
-			}
-		});
-	}
-	let clip;
-	if (selector) {
-		// Page coordinates (viewport box plus scroll): #readme scrolls on load,
-		// and a full-page clip is measured from the top of the document.
-		clip = await page.evaluate((selector) => {
-			const element = document.querySelector(selector);
-			if (!element) return null;
-			const box = element.getBoundingClientRect();
-			return {
-				x: box.x + window.scrollX,
-				y: box.y + window.scrollY,
-				width: box.width,
-				height: box.height,
-			};
-		}, selector);
-		if (!clip) throw new Error(`${selector} not found on ${url}`);
-	}
-	const png = await page.screenshot({
-		type: "png",
-		fullPage: Boolean(clip),
-		clip,
-	});
+	const png = await page.screenshot({ type: "png" });
 
 	const variants = await encoder.evaluate(
-		async ({ data, widths, crop }) => {
+		async ({ data, widths }) => {
 			const image = new Image();
 			image.src = `data:image/png;base64,${data}`;
 			await image.decode();
-			// Element captures are cropped from the top to 4:3, the ratio the
-			// teasers display; anything taller would be cropped there anyway.
-			const sourceHeight = crop
-				? Math.min(
-						image.naturalHeight,
-						Math.round((image.naturalWidth * 3) / 4),
-					)
-				: image.naturalHeight;
+			const sourceHeight = image.naturalHeight;
 			const out = [];
 			const targets = [
 				...new Set(widths.map((w) => Math.min(w, image.naturalWidth))),
@@ -166,7 +126,7 @@ for (const {
 			}
 			return { out, width: image.naturalWidth, height: sourceHeight };
 		},
-		{ data: png.toString("base64"), widths, crop: Boolean(selector) },
+		{ data: png.toString("base64"), widths },
 	);
 
 	for (const variant of variants.out) {
