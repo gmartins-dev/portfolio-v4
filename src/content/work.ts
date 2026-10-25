@@ -48,6 +48,13 @@ const saf: CaseStudy = {
 				"O fluxo do sdd-agentic-flow, tirado do README. Planejamento: saf-route leva a saf-create-spec, direto ou passando por saf-brainstorm, com saf-explain sob demanda. Depois saf-create-prompts alimenta saf-implement, direto ou via saf-implement-multi para tarefas dependentes, seguido de saf-check-task. Por fim, saf-create-pr vai para saf-review-pr, que alterna com saf-fix-pr até estar pronto para saf-validate.",
 		},
 	},
+	teaserImage: {
+		src: "/images/work/sdd-agentic-flow-teaser",
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 743,
+		fit: "contain",
+	},
 	links: [
 		{
 			label: { en: "Source on GitHub", "pt-BR": "Código no GitHub" },
@@ -185,6 +192,13 @@ const aiFirstBanking: CaseStudy = {
 			"pt-BR":
 				"Diagrama de arquitetura: WhatsApp e landing pages de parceiros alimentam um CRM e uma IA conversacional externa, que passa para uma IA interna com guardrails, que chama os módulos de crédito, antifraude e formalização do core. O CRM também envia eventos ao core.",
 		},
+	},
+	teaserImage: {
+		src: "/images/work/ai-first-online-banking-teaser",
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 727,
+		fit: "contain",
 	},
 	links: [],
 	sections: [

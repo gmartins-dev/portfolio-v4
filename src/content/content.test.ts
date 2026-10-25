@@ -78,7 +78,12 @@ describe("content", () => {
 
 	it("has every image variant on disk", () => {
 		const images = [...caseStudies, ...otherWork, ...professionalWork].flatMap(
-			(item) => (item.image ? [item.image] : []),
+			(item) => [
+				...(item.image ? [item.image] : []),
+				...("teaserImage" in item && item.teaserImage
+					? [item.teaserImage]
+					: []),
+			],
 		);
 		for (const image of images) {
 			for (const width of image.widths) {

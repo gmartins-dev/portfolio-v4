@@ -124,7 +124,11 @@ export function CaseStudyTeaser({
 		<article className="group relative grid items-center gap-6 md:grid-cols-2 md:gap-12">
 			<div className={cn(reverse && "md:order-last")}>
 				<WorkImage
-					image={{ ...study.image, alt: { en: "", "pt-BR": "" } }}
+					image={{
+						...study.image,
+						...study.teaserImage,
+						alt: { en: "", "pt-BR": "" },
+					}}
 					locale={locale}
 					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
 					priority={priority}

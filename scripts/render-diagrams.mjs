@@ -36,22 +36,27 @@ await page.addScriptTag({
 for (const file of files) {
 	const name = file.replace(/\.mmd$/, "");
 	const source = await readFile(new URL(file, dir), "utf8");
-	const error = await page.evaluate(async (code) => {
-		try {
-			mermaid.initialize({ startOnLoad: false });
-			const { svg } = await mermaid.render("diagram", code);
-			const out = document.getElementById("out");
-			out.innerHTML = svg;
-			// Mermaid sizes the SVG to its container; pin a readable width.
-			const element = out.querySelector("svg");
-			element.style.maxWidth = "none";
-			element.style.width = "1100px";
-			element.style.height = "auto";
-			return null;
-		} catch (problem) {
-			return String(problem);
-		}
-	}, source);
+	const error = await page.evaluate(
+		async ({ code, width }) => {
+			try {
+				mermaid.initialize({ startOnLoad: false });
+				const { svg } = await mermaid.render("diagram", code);
+				const out = document.getElementById("out");
+				out.innerHTML = svg;
+				// Mermaid sizes the SVG to its container; pin a readable width.
+				// Teasers show at ~480 css px, so they get a narrower canvas and
+				// read at a larger relative text size.
+				const element = out.querySelector("svg");
+				element.style.maxWidth = "none";
+				element.style.width = width;
+				element.style.height = "auto";
+				return null;
+			} catch (problem) {
+				return String(problem);
+			}
+		},
+		{ code: source, width: name.endsWith("-teaser") ? "760px" : "1100px" },
+	);
 	if (error) throw new Error(`${file}: ${error}`);
 
 	const png = await page.locator("#out").screenshot({ type: "png" });

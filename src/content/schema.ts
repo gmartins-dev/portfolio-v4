@@ -60,6 +60,20 @@ const section = z.object({
 		.optional(),
 });
 
+/**
+ * Responsive WebP variants at public<src>-<width>.webp
+ * (scripts/capture-work-images.mjs); width and height are the largest.
+ */
+const imageSchema = z.object({
+	src: z.string().regex(/^\/[\w/-]+$/),
+	widths: z.array(z.number().int().positive()).min(1),
+	width: z.number().int().positive(),
+	height: z.number().int().positive(),
+	alt: localized,
+	/** "contain" shows the whole image (diagrams); default crops to fill. */
+	fit: z.enum(["cover", "contain"]).optional(),
+});
+
 export const caseStudySchema = z.object({
 	slug: z.string().regex(/^[a-z0-9-]+$/),
 	title: z.string(),
@@ -69,19 +83,13 @@ export const caseStudySchema = z.object({
 	period: z.object({ start: yearOrMonth, end: yearOrMonth.optional() }),
 	stack: z.array(z.string()).min(1),
 	facts: localizedList,
+	image: imageSchema,
 	/**
-	 * Responsive WebP variants at public<src>-<width>.webp
-	 * (scripts/capture-work-images.mjs); width and height are the largest.
+	 * A simpler image for teasers (home and /work), when the main one is a
+	 * diagram too detailed to read at teaser size. Teasers hide it from
+	 * assistive tech, so it has no alt text.
 	 */
-	image: z.object({
-		src: z.string().regex(/^\/[\w/-]+$/),
-		widths: z.array(z.number().int().positive()).min(1),
-		width: z.number().int().positive(),
-		height: z.number().int().positive(),
-		alt: localized,
-		/** "contain" shows the whole image (diagrams); default crops to fill. */
-		fit: z.enum(["cover", "contain"]).optional(),
-	}),
+	teaserImage: imageSchema.omit({ alt: true }).optional(),
 	/** Public links; anonymized work may have none (see the refinement below). */
 	links: z.array(z.object({ label: localized, href: externalUrl })),
 	sections: z.array(section).min(3),
