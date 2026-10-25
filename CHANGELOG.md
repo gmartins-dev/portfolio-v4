@@ -5,6 +5,35 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Positioning review (2026-10-25)
+
+- Copy follows the owner's positioning: Software Engineer as the identity,
+  software architecture as the main depth and agentic engineering as the
+  way of working. New home meta and intro, an Email me primary CTA, a
+  one-line availability note, a Contact link in the header, and
+  capabilities reordered (product, architecture, agentic engineering,
+  agentic systems in products). The home shows three case studies.
+- New How I work page (`/how-i-work`): the development process with coding
+  agents, from spec to human review and ADRs, with links to the evidence.
+- About: new intro, the current role as an anonymized experience entry
+  (authorized by the owner) linked to its case study, and an Education
+  section (PUC Minas, in progress).
+- Case study teasers use simpler diagrams that stay legible at teaser size.
+  Case study diagrams declare their real rendered width, so phones fetch a
+  smaller file.
+- SEO: social cards for Work, More projects, About and How I work,
+  `og:locale` as `en_US`/`pt_BR` with alternates, a richer Person node and
+  `mainEntityOfPage` on case studies. `llms.txt` lists the new page and
+  the education entry.
+- Accessibility: the skip link moves focus to `main`, footer URLs print, and
+  the language link's name starts with its visible text. New e2e checks
+  cover heading order and focus outlines on more pages.
+- Fixes: the locale prefix is matched case-insensitively, the CSP meta
+  insertion uses a replacer function, and the scripts resolve paths with
+  `fileURLToPath`. Mermaid is pinned to 11.17.2, and undici was updated
+  (dev only) so the full `pnpm audit` is clean.
+- Client JavaScript: 126.7 kB to 130.0 kB gzip, from the new page and copy.
+
 ### Design
 
 - Dark theme only: the light theme, the Light/Dark/System switcher, its
