@@ -29,7 +29,6 @@ export const defaultOgImage = (locale: Locale) => ({
 	alt: copy.meta.home.description[locale],
 });
 
-/** Social card for the work, projects and about pages (scripts/build-og-images.mjs). */
 /** Page key in copy.meta -> social card file stem under public/images/og/. */
 export const pageOgFiles = {
 	work: "work",

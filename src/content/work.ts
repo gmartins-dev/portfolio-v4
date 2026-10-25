@@ -269,7 +269,7 @@ const aiFirstBanking: CaseStudy = {
 		},
 	],
 	disclosure: "anonymized",
-	reviewed: "2026-10-11",
+	reviewed: "2026-10-25",
 };
 
 // Priorize.me: the owner's product. Facts from the public landing page and

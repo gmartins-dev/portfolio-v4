@@ -74,3 +74,24 @@ describe("language switch", () => {
 		expect(hrefOf(header, /hrefLang="pt-BR"/)).toBe("/pt-br");
 	});
 });
+
+describe("about page", () => {
+	it.each([
+		["/about", "Education", "/work/ai-first-online-banking"],
+		["/pt-br/about", "Formação", "/pt-br/work/ai-first-online-banking"],
+	])(
+		"%s lists education and links the current role's case study",
+		async (path, heading, caseStudy) => {
+			const markup = await html(path);
+			expect(markup).toContain(`>${heading}</h2>`);
+			expect(hrefOf(markup, new RegExp(`href="${caseStudy}"`))).toBe(caseStudy);
+		},
+	);
+});
+
+describe("home case study teasers", () => {
+	it("use the teaser diagram when a case study has one", async () => {
+		const markup = await html("/");
+		expect(markup).toContain("/images/work/ai-first-online-banking-teaser-");
+	});
+});

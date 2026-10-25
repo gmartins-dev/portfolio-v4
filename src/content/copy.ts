@@ -123,6 +123,8 @@ export const copy = {
 		},
 		workCta: { en: "See the work", "pt-BR": "Ver trabalhos" },
 		// What a recruiter or client screens for first, as one metadata line.
+		// Source: the owner (2026-10-25): remote work from Belo Horizonte,
+		// engineering roles and consulting, English and Portuguese.
 		availability: {
 			en: [
 				"Open to engineering roles and consulting",
@@ -380,9 +382,9 @@ export const copy = {
 					"pt-BR": "Plano e tarefas delimitadas",
 				},
 				body: {
-					en: "The spec becomes a plan and small tasks, each with its own acceptance check, so an agent only holds the context one task needs.",
+					en: "The spec becomes a plan and small tasks, and each task is checked when it is done, so an agent only holds the context one task needs.",
 					"pt-BR":
-						"A spec vira um plano e tarefas pequenas, cada uma com seu próprio critério de aceite, para que um agente só carregue o contexto de que uma tarefa precisa.",
+						"A spec vira um plano e tarefas pequenas, e cada tarefa é verificada ao terminar, para que um agente só carregue o contexto de que uma tarefa precisa.",
 				},
 			},
 			{
@@ -410,9 +412,9 @@ export const copy = {
 			{
 				title: { en: "Human review", "pt-BR": "Revisão humana" },
 				body: {
-					en: "I review every change and merge only what I can explain. Review findings go back to the agent as new tasks.",
+					en: "I review every change and merge only what I can explain. Accepted findings go back to the agent to fix, and the change is reviewed again.",
 					"pt-BR":
-						"Reviso toda mudança e só faço merge do que consigo explicar. Os achados da revisão voltam para o agente como novas tarefas.",
+						"Reviso toda mudança e só faço merge do que consigo explicar. Os achados aceitos voltam para o agente corrigir, e a mudança é revisada de novo.",
 				},
 			},
 			{

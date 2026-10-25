@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { professionalWork } from "./professional-work";
-import { experience, profile } from "./profile";
+import { education, experience, profile } from "./profile";
 import { projects } from "./projects";
 import { caseStudyEntrySchema } from "./schema";
 import { validateContent } from "./validate";
@@ -25,6 +25,7 @@ const content = {
 	copy,
 	profile,
 	experience,
+	education,
 	caseStudies,
 	otherWork,
 	projects,

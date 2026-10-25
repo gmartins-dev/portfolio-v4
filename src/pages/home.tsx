@@ -12,6 +12,9 @@ import { experience, profile } from "../content/profile";
 import { caseStudies, otherWork } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
+// The home shows the first case studies; /work lists them all.
+const featuredCaseStudies = 3;
+
 const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 
 export function HomePage({ locale }: { locale: Locale }) {
@@ -57,7 +60,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					{t(copy.home.workHeading, locale)}
 				</h2>
 				<div className="mt-10 grid gap-14 md:mt-12 md:gap-20">
-					{caseStudies.slice(0, 3).map((study, index) => (
+					{caseStudies.slice(0, featuredCaseStudies).map((study, index) => (
 						<CaseStudyTeaser
 							key={study.slug}
 							study={study}

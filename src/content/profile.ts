@@ -38,12 +38,12 @@ export const experience: Experience[] = [
 		highlights: {
 			en: [
 				"Work on the core platform: a modular monolith with hexagonal architecture and replayable event ingestion.",
-				"Integrate the core with the conversational AI layers, behind guardrails that keep sensitive data away from models.",
+				"Integrate the core with the conversational AI layers, built by colleagues, behind guardrails that keep sensitive data away from models.",
 				"Built the partner landing page, with SEO and Core Web Vitals treated as product scope.",
 			],
 			"pt-BR": [
 				"Trabalho no core da plataforma: um monólito modular com arquitetura hexagonal e ingestão de eventos reprocessável.",
-				"Integro o core às camadas de IA conversacional, com guardrails que mantêm dados sensíveis longe dos modelos.",
+				"Integro o core às camadas de IA conversacional, construídas por colegas, com guardrails que mantêm dados sensíveis longe dos modelos.",
 				"Construí a landing page do parceiro, com SEO e Core Web Vitals tratados como escopo do produto.",
 			],
 		},

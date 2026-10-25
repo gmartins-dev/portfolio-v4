@@ -103,7 +103,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 				</h2>
 				<ul className="mt-8 grid gap-6">
 					{education.map((entry) => (
-						<li key={entry.program.en} className="border-t pt-6">
+						<li
+							key={`${entry.institution}-${entry.start}`}
+							className="border-t pt-6"
+						>
 							<h3 className="text-lg font-semibold">
 								{t(entry.program, locale)}
 							</h3>

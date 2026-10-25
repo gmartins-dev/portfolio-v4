@@ -42,9 +42,7 @@ export function HowIWorkPage({ locale }: { locale: Locale }) {
 				<ul className="mt-8 grid gap-8 md:grid-cols-3">
 					{page.evidence.map((item) => (
 						<li key={item.title.en} className="border-t pt-6">
-							<h3 className="font-semibold">
-								{t(item.title, locale)}
-							</h3>
+							<h3 className="font-semibold">{t(item.title, locale)}</h3>
 							<p className="mt-2 text-muted-foreground">
 								{t(item.body, locale)}
 							</p>
