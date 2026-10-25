@@ -6,9 +6,10 @@
 import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
+import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
 
-const root = new URL("../dist/", import.meta.url).pathname;
+const root = fileURLToPath(new URL("../dist/", import.meta.url));
 const port = Number(process.argv[2] ?? 4173);
 const { redirects, headers: headerRules } = JSON.parse(
 	await readFile(new URL("../vercel.json", import.meta.url), "utf8"),

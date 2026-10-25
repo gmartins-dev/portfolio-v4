@@ -7,13 +7,14 @@
 // directory (scripts/check-dist.test.ts uses fixtures).
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
 import { findDenied } from "./denylist.mjs";
 
 const siteUrl = "https://gmartins.dev";
 const dist = process.argv[2]
 	? `${resolve(process.argv[2])}/`
-	: new URL("../dist/", import.meta.url).pathname;
+	: fileURLToPath(new URL("../dist/", import.meta.url));
 const { redirects } = JSON.parse(
 	readFileSync(new URL("../vercel.json", import.meta.url), "utf8"),
 );
