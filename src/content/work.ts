@@ -529,10 +529,13 @@ return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
 	reviewed: "2026-10-11",
 };
 
+// Order follows docs/positioning.md (owner's decision, 2026-10-25): the
+// professional AI-first platform first, then product, way of working and
+// backend correctness. The home shows the first three.
 export const caseStudies: CaseStudy[] = [
 	aiFirstBanking,
-	saf,
 	priorize,
+	saf,
 	payments,
 ];
 

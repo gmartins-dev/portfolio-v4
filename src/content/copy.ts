@@ -202,8 +202,8 @@ export const copy = {
 		},
 		{
 			title: {
-				en: "Agentic systems in products",
-				"pt-BR": "Sistemas agênticos em produtos",
+				en: "AI-powered product features",
+				"pt-BR": "Funcionalidades de IA em produtos",
 			},
 			body: {
 				en: "LLM integrations with guardrails in an AI-first credit platform: AI speeds up the flow, people and rules make the decisions.",
@@ -277,13 +277,13 @@ export const copy = {
 		heading: { en: "About", "pt-BR": "Sobre" },
 		intro: {
 			en: [
-				"I'm a software engineer focused on product engineering and software architecture. I build full-stack products that hold up in production, and I use AI across the whole development cycle, with specs, tests and human review, to ship faster without lowering the bar.",
+				"I'm a software engineer focused on product engineering and software architecture. I build full-stack products that hold up in production, and I use coding agents across the development cycle in a spec-driven process with tests, quality gates and human review.",
 				"Architecture is where I am going deepest. On an AI-first credit platform I work on a modular, hexagonal core with replayable event ingestion, and I record decisions as ADRs. I am also studying for a postgraduate specialization in distributed software architecture.",
 				"I work agentically: coding agents take part in every step, from spec to review, inside a spec-driven process I open-sourced as sdd-agentic-flow. AI multiplies the work and judgment stays with people, so nothing ships that I have not reviewed and can explain.",
 				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend architecture and design systems remain among my strongest areas. I want to keep growing as an individual contributor, deeper into architecture and technical direction.",
 			],
 			"pt-BR": [
-				"Sou engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção e uso IA em todo o ciclo de desenvolvimento, com specs, testes e revisão humana, para entregar mais rápido sem baixar a qualidade.",
+				"Sou engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção e uso coding agents ao longo do ciclo de desenvolvimento, num processo spec-driven com testes, quality gates e revisão humana.",
 				"Arquitetura é onde estou me aprofundando. Numa plataforma de crédito AI-first, trabalho num core modular e hexagonal com ingestão de eventos reprocessável e registro as decisões em ADRs. Também estou cursando uma especialização em arquitetura de software distribuído.",
 				"Trabalho de forma agêntica: agentes de código participam de cada etapa, da spec ao review, dentro de um processo spec-driven que publiquei como open source, o sdd-agentic-flow. A IA multiplica o trabalho e o julgamento continua com as pessoas, então nada vai para produção sem que eu tenha revisado e saiba explicar.",
 				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Arquitetura de frontend e design systems continuam entre minhas áreas mais fortes. Quero continuar crescendo como contribuidor individual, mais fundo em arquitetura e direção técnica.",
@@ -362,9 +362,9 @@ export const copy = {
 	howIWork: {
 		heading: { en: "How I work", "pt-BR": "Como trabalho" },
 		intro: {
-			en: "I use coding agents in every step of the development cycle, inside a process that keeps the work specified, bounded and verified. The agents bring the speed; the process and human review keep the quality.",
+			en: "I use coding agents in every step of the development cycle, inside a process that keeps the work specified, bounded, tested and reviewed. Judgment and accountability for what ships stay with me.",
 			"pt-BR":
-				"Uso agentes de código em todas as etapas do ciclo de desenvolvimento, dentro de um processo que mantém o trabalho especificado, delimitado e verificado. Os agentes trazem a velocidade; o processo e a revisão humana mantêm a qualidade.",
+				"Uso agentes de código em todas as etapas do ciclo de desenvolvimento, dentro de um processo que mantém o trabalho especificado, delimitado, testado e revisado. O julgamento e a responsabilidade pelo que vai para produção continuam comigo.",
 		},
 		stepsHeading: { en: "The process", "pt-BR": "O processo" },
 		steps: [
@@ -431,9 +431,9 @@ export const copy = {
 			{
 				title: { en: "This site", "pt-BR": "Este site" },
 				body: {
-					en: "Built this way. Its public repository has the agent instructions, the architecture decision records and the CI gates every change passes.",
+					en: "Its public repository shows the agent instructions, the architecture decision records, the tests and the CI gates every change passes.",
 					"pt-BR":
-						"Construído desse jeito. O repositório público tem as instruções para agentes, os architecture decision records e os gates de CI pelos quais toda mudança passa.",
+						"O repositório público mostra as instruções para agentes, os architecture decision records, os testes e os gates de CI pelos quais toda mudança passa.",
 				},
 				href: "https://github.com/gmartins-dev/portfolio-v4",
 				label: { en: "Repository on GitHub", "pt-BR": "Repositório no GitHub" },

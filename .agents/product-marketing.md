@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v2
+**Document version:** v3
 **Last updated:** 2026-10-25
 
 This is the positioning reference for writing copy on gmartins.dev. It condenses the
@@ -12,8 +12,9 @@ owner. Lines marked **Owner to fill** have no source yet: ask, never invent.
 ## Product Overview
 **One-liner:** Guilherme Martins, a Software Engineer focused on product
 engineering and software architecture. He builds full-stack products that
-hold up in production and uses AI across the whole development cycle, with
-specs, tests and human review, to ship faster without lowering the bar.
+hold up in production and uses coding agents across the development cycle in
+a spec-driven process with tests, quality gates and human review. He also
+integrates AI capabilities into products.
 **What it does:** A bilingual (EN, PT-BR) site where a reader can
 identify his profile in one scan, examine evidence (case studies, How I work,
 public products, projects) and reach him by email or resume.
@@ -68,9 +69,10 @@ software, with teams in Brazil, the UK and Spain.
   as ADRs.
 - **Agentic engineering.** Spec-driven development with coding agents and
   human review, open-sourced as sdd-agentic-flow and shown on How I work.
-- **Agentic systems in products.** LLM integrations with guardrails on an
+- **AI-powered product features.** LLM integrations with guardrails on an
   AI-first credit platform. He integrates the core with the AI layers;
-  colleagues build those layers.
+  colleagues build those layers. Say "agentic system" only where
+  agent-like behavior is evidenced, and only for his part.
 - **Product engineering end to end,** with frontend architecture and design
   systems as a strength.
 - **Honest about confidentiality.** The anonymized professional case study
@@ -94,7 +96,8 @@ roles.
   architecture, ADRs;
 - agentic engineering, spec-driven development, coding agents, quality gates,
   human review, guardrails;
-- "ship faster without lowering the bar";
+- specified, tested, reviewable AI-assisted delivery (no speed or quality
+  gains without measured evidence);
 - real dates and stacks.
 
 **Words to avoid:**
@@ -131,7 +134,7 @@ work page does not cite commit counts, by the owner's decision.
 | End-to-end product engineering | Priorize.me case study |
 | Software architecture | AI-first case study, payments API case study, ADRs |
 | Agentic engineering | sdd-agentic-flow, How I work, this repository |
-| Agentic systems in products | AI-first case study |
+| AI-powered product features | AI-first case study |
 | Frontend architecture and design systems | Nisien.ai product entry |
 **Testimonials:** **Owner to fill**. Ask former managers for LinkedIn
 recommendations and quote them only with permission.
@@ -146,5 +149,6 @@ after launch (ADR-006).
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v3 (2026-10-25): Follows the owner's review of docs/positioning.md. Drops the unmeasured speed promise, separates agentic engineering from AI-powered product features, and adds the Brazilian market version (docs/positioning.pt-br.md).
 - v2 (2026-10-25): Rewritten from the owner's positioning document (rev. 2). Software Engineer identity, architecture and agentic engineering as pillars, seniority and Staff rules, education in progress, How I work, contact priorities.
 - v1 (2026-10-18): Initial context, drafted from `src/content/`, the project plan and the 2026-10-12 discovery during the 2026-10-17 audit.

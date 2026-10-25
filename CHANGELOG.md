@@ -12,7 +12,11 @@ is in the [roadmap](ROADMAP.md).
   way of working. New home meta and intro, an Email me primary CTA, a
   one-line availability note, a Contact link in the header, and
   capabilities reordered (product, architecture, agentic engineering,
-  agentic systems in products). The home shows three case studies.
+  AI-powered product features). Case studies run the AI-first platform,
+  Priorize.me, sdd-agentic-flow, payments API; the home shows the first three.
+- Positioning brief in `docs/positioning.md`, with a Brazilian market
+  version in `docs/positioning.pt-br.md`. Copy makes no speed claims and
+  keeps agentic engineering apart from AI features in products.
 - New How I work page (`/how-i-work`): the development process with coding
   agents, from spec to human review and ADRs, with links to the evidence.
 - About: new intro, the current role as an anonymized experience entry

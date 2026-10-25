@@ -1,128 +1,172 @@
 # Professional positioning
 
-This document describes how this site presents Guilherme Martins. It is the
-public summary of the owner's positioning document (2026-10-25, revision 2),
-which stays private. Copy in `src/content/`, structured data, `llms.txt`,
-social cards and the README follow it. The copywriting context for agents
-is in [`.agents/product-marketing.md`](../.agents/product-marketing.md).
+This document guides how the site presents Guilherme Martins. It is the
+public positioning brief for the copy in `src/content/`, structured data,
+`llms.txt`, social cards and the README. The longer owner positioning
+document (2026-10-25, revision 2) stays private. Copywriting context for
+agents is in [`.agents/product-marketing.md`](../.agents/product-marketing.md).
+A Brazilian market version is in [positioning.pt-br.md](positioning.pt-br.md).
 
 ## Thesis
 
-> A full-stack Software Engineer who does product engineering, designs
-> architectures that hold up in production, and works agentically: AI across
-> the whole development cycle, with specs, verification and human judgment,
-> to ship faster without lowering the bar. Individual contributor track.
+> A full-stack Software Engineer focused on product engineering and software
+> architecture. He builds and evolves products from problem definition to
+> production, uses coding agents across the development lifecycle through
+> spec-driven workflows, tests, quality gates and human review, and
+> integrates AI capabilities into products where they fit. Human judgment and
+> accountability stay central.
 
-| Layer | What it is | Where it shows |
+| Layer | What it means | Where it shows |
 | --- | --- | --- |
-| Profession (identity) | Software Engineer | Site title, intro, bios, social cards |
-| Seniority (level) | Senior, as a level and not an identity | The current role in the experience list only |
-| Way of working on product | Product engineering, full-stack, from problem to production | Hero, case studies |
-| Technical depth | Software architecture: distributed systems, event-driven design, APIs, observability, decisions recorded as ADRs | Capabilities, case studies, education |
-| Way of working with AI | Agentic engineering: spec-driven development with coding agents and verification | Capabilities, How I work, sdd-agentic-flow |
-| What he builds with AI | Agentic systems in products: LLM integration, guardrails, people in the loop | The AI-first case study |
+| Profession | Software Engineer | Site title, intro, bios, social cards |
+| Seniority | Senior is the current level, not the identity | The current role in the experience list, and hiring contexts where level matters. Not in site titles or descriptions. Historical titles stay as held |
+| Product engineering | Full-stack work from problem definition through production and ongoing improvement | Hero, intro, case studies |
+| Software architecture | Practical decisions about boundaries, consistency, integrations, operations and trade-offs | Capabilities, case studies, education |
+| Agentic engineering | Developing software with coding agents in a spec-driven, tested, reviewable workflow | Capabilities, How I work, sdd-agentic-flow |
+| AI in products | Integrating AI-powered capabilities into products, with guardrails and human oversight | The AI-first case study and verified professional contributions |
 
-Frontend architecture and design systems remain a strength. They serve as
-proof, not as the label.
+Frontend architecture and design systems remain strong technical areas. They
+show depth alongside backend and systems work; frontend is not the primary
+label.
 
-The reading order for a visitor is **product** (what he delivers), then
-**architecture** (why it holds up), then **AI** (how he works). Each layer
-supports the others: architecture makes the AI speed credible, and AI used
-with a process shows engineering maturity.
+The reading order for a visitor is **product, then architecture, then AI**.
+Product engineering shows what he delivers. Architecture shows how he reasons
+about boundaries, reliability and trade-offs. Agentic engineering explains how
+he works with coding agents, and AI product work shows where he has
+integrated AI into real software. These are complementary dimensions of one
+profile, not competing identities.
 
-The guiding line: **AI multiplies the engineer; judgment stays with people.**
+Guiding principle: **AI extends an engineer's leverage; judgment,
+verification and accountability stay human.**
 
-### What he is not
+### Positioning boundaries (guidance for writers, not site copy)
 
-| Not | Why |
+| Boundary | Guidance |
 | --- | --- |
-| AI Engineer or ML Engineer | He does not train models, build data pipelines or specialize in LLMOps |
-| A "vibe coder" | The difference is the opposite: specs, bounded scope, tests and human review |
-| A people manager | Individual contributor track: technical leadership, no direct reports |
-| A "Software Architect" by title | He designs systems and also builds and runs them; architecture is the depth, not the job title |
+| AI/ML specialization | Not an AI Engineer or ML Engineer whose main work is model training, data pipelines or ML infrastructure. The focus is software engineering, agentic development workflows and AI integration in products |
+| Coding without oversight | Differentiate through explicit specs, bounded scope, tests, quality gates, human review and ownership. Explain the method positively; do not build the message around attacking "vibe coding" or other people's workflows |
+| People management | The growth path is hands-on individual-contributor engineering with technical leadership. State the IC preference only when career direction comes up; do not define the identity by rejecting management |
+| Architect as a job title | Architecture is a technical focus, not the current title. Keep the identity hands-on and show architecture through decisions and shipped systems |
+| "Agentic" in products | Use "agentic system" only for work that shows agent-like behavior, such as multi-step orchestration or tool use, and only for his part of it. An LLM integration, a conversational interface or guardrails alone are "AI-powered features" or "AI integration" |
 
 ## Evidence
 
-Every public claim points to one of these.
+Every public claim maps to a concrete example. Demonstrated work stays
+separate from current study.
 
 | Pillar | Evidence | What can be said |
 | --- | --- | --- |
-| Product engineering end to end | Priorize.me (creator, SaaS in public beta, real time); independent client work in healthcare and food service; freelance work from 2021 to 2022 | "I take products from the problem to production and keep improving them after launch" |
-| Software architecture | AI-first credit platform (anonymized): a modular monolith with hexagonal architecture, replayable event-driven ingestion, observability and feature flags from the start; payments-api-node (idempotency under concurrency); the Nisien.ai design system and frontend architecture; the ADRs in this repository; a postgraduate specialization in Distributed Software Architecture (PUC Minas, 2026 to 2028, in progress) | "I design systems around boundaries, consistency and operations, and I record the decisions" |
-| Agentic engineering | sdd-agentic-flow (creator, open source): a harness that keeps coding-agent work spec-first, bounded and verifiable, with a human making the final call; works with Codex, Cursor, Claude Code and GitHub Copilot. This repository, built the same way | "I use agents across the whole cycle, from spec to review, with a process I open-sourced" |
-| Agentic systems in products | AI-first credit platform: the core integrated with conversational AI layers, guardrails that redact sensitive data and can block a step, AI that speeds up the flow but does not decide; the main application of the Nisien.ai AI product from its first version; an AI assistant proof of concept that won the Backbase internal hackathon | "I integrate AI flows into products, with guardrails and people in the loop" |
-| International context | Teams in the UK (Nisien.ai, Backbase, Vochlea, Loop) and Spain (ChatWith.io) | "I have worked with teams in Brazil, the UK and Spain" |
+| Product engineering end to end | Priorize.me (creator; public beta; collaborative, real-time boards); independent client work in healthcare and food service; freelance projects from 2021 to 2022 | "I take product problems through implementation and production, then keep improving the software." |
+| Software architecture and reliability | The anonymized AI-first credit platform, where his work is the core (a modular monolith with hexagonal architecture and replayable event ingestion) and its integration with the AI layers; payments-api-node (idempotency under concurrent requests); the Nisien.ai frontend architecture and design system; the ADRs and quality gates of this repository | "I make and document architectural trade-offs around boundaries, consistency, integrations and production concerns." Say which decisions were his and where the evidence is public |
+| Agentic engineering | sdd-agentic-flow (creator, open source): a harness for spec-first, bounded, verifiable coding-agent work with human review, documented for Codex, Cursor, Claude Code and GitHub Copilot | "I use coding agents across the development lifecycle, inside a spec-driven process I published as open source." |
+| AI-powered features in products | Anonymized credit platform: the core integrated with conversational AI layers, with guardrails for sensitive data and workflow steps; Nisien.ai: the main customer-facing application of an AI cybersecurity product, from its first version; Backbase: an AI assistant proof of concept that won the internal hackathon | "I have integrated AI capabilities into products, with controls and human oversight." Never imply he built the models or the AI layers that colleagues owned |
+| Formal study in architecture | PUC Minas, Postgraduate Specialization in Distributed Software Architecture, September 2026 to March 2028, in progress | "I am deepening my formal study of distributed software architecture." It signals current learning, not mastery of every subject in the syllabus |
+| International context | Teams in the UK (Nisien.ai, Backbase, Vochlea, Loop) and Spain (ChatWith.io) | "I have worked with teams in Brazil, the UK and Spain." |
 
 ### Honest limits
 
-- **AI-first platform:** colleagues build the AI layers. His part is the core
-  and the integration, so the copy says "integrate", never "built the AI".
-- **Education:** the specialization is in progress and is always shown that
-  way. The copy names what he already applies, never the syllabus.
-- **Speed claims:** "faster with quality" needs proof. Until there are
-  numbers, the site shows the process (specs, gates, tests, review) instead
-  of promising speed.
-- **Confidential work:** it stays anonymized, following
-  [maintenance.md](maintenance.md) and `scripts/denylist.json`.
+- **AI-first platform:** colleagues built the AI layers; his contribution is
+  the core and its integration. Use "integrated" or another accurate verb,
+  never "built the AI".
+- **Education:** the specialization is in progress. Show the official course
+  name and status. Subject areas may appear as study areas, never as
+  professional expertise based on the syllabus alone.
+- **Speed and quality:** do not claim that AI makes delivery faster or
+  improves quality until there are defensible measurements. Describe the
+  process that keeps AI-assisted work specified, tested, reviewable and
+  verifiable.
+- **This repository as proof:** the public repository shows agent
+  instructions (`AGENTS.md`), ADRs, tests, CI gates and commits co-authored
+  with coding agents. Describe what it shows; do not claim that every stage of
+  every change followed the full process.
+- **Confidential work:** keep employers, clients and projects anonymous where
+  required, and publish only details within the approved scope of the
+  anonymized case study. Check content against [maintenance.md](maintenance.md)
+  and `scripts/denylist.json`. Anonymization covers distinctive technical
+  details that could identify the client, not only names.
+- **Architecture claims:** describe concrete decisions and trade-offs. A
+  course, a single project or exposure to a technology does not support
+  claims such as "microservices expert" or "cloud architect".
 
 ## Base sentences
 
-The same base sentence goes everywhere; only the length changes.
+Use the same core message everywhere and vary only length and emphasis.
 
-- **EN:** Software Engineer focused on product engineering and software
-  architecture. I build full-stack products that hold up in production, and I
-  use AI across the whole development cycle, with specs, tests and human
-  review, to ship faster without lowering the bar.
-- **PT-BR:** Software Engineer com foco em engenharia de produto e
-  arquitetura de software. Construo produtos full-stack que se sustentam em
-  produção e uso IA em todo o ciclo de desenvolvimento, com specs, testes e
-  revisão humana, para entregar mais rápido sem baixar a qualidade.
+- **Long, EN:** Software Engineer focused on full-stack product engineering
+  and software architecture. I build and evolve products from problem
+  definition to production, and use coding agents across the development
+  lifecycle in spec-driven workflows with tests, quality gates and human
+  review. I also integrate AI capabilities into products.
+- **Short, EN** (bios, meta descriptions): Software Engineer focused on
+  product engineering and software architecture, working with coding agents
+  in a spec-driven, reviewed process.
+
+The Brazilian Portuguese sentences, adapted to that market, are in
+[positioning.pt-br.md](positioning.pt-br.md).
 
 ## Vocabulary
 
-| Use | Avoid | Why |
+| Prefer | Avoid or qualify | Why |
 | --- | --- | --- |
-| Software Engineer | "AI Engineer", "ML Engineer", "Software Architect" as a title | The first two point to data and ML work. "Architect" as a title suggests someone who no longer builds |
-| software architecture, distributed systems, event-driven, modular monolith, hexagonal architecture, ADRs, observability | "microservices expert", "cloud architect" | Say what was applied, not a syllabus |
-| agentic engineering, spec-driven development, coding agents, quality gates, human review | "vibe coding", "the AI writes my code" | Agentic engineering implies review and responsibility |
-| agentic systems in products, LLM integration, guardrails, tool calling, MCP | "built the company's AI" | Precision about what was his |
-| product engineering, ownership, outcomes | "Fullstack Developer" as a title | "Developer" reads as a junior or mid-level title |
-| technical decisions, trade-offs, technical leadership | "people manager", "team management" | Individual contributor track |
-| "ship faster without lowering the bar" | "10x", "100% written by AI", speed alone | Unproven numbers; speed without quality is what hiring teams fear |
-
-In Portuguese copy, the technical terms stay in English (agentic
-engineering, spec-driven, coding agents), as the market uses them.
+| Software Engineer | "AI Engineer" or "ML Engineer" as the identity | They signal a different specialization |
+| Senior Software Engineer where level matters | "Senior" in every title, page title or bio | Seniority is the current level; the profession stays the identity |
+| Software architecture, trade-offs, distributed systems, event-driven workflows, APIs, observability, ADRs | "Microservices expert", "cloud architect", broad expertise without matching evidence | Describe decisions and systems actually worked on |
+| Agentic engineering, spec-driven development (SDD), coding agents, bounded tasks, tests, quality gates, human review | "Vibe coding" as a foil; "the AI writes my code" | Explain the method positively, with accountability and verification |
+| AI-powered product features, LLM integration, guardrails, human in the loop | "Agentic system" for every LLM integration; "built the company's AI" | Use "agentic" only where agent-like behavior is evidenced, and describe personal contributions accurately |
+| Product engineering, ownership, outcomes, end-to-end delivery | "Fullstack Developer" as the main identity | Keep one professional label; "Developer" is fine as a search keyword |
+| Hands-on growth, architecture, technical decisions, technical leadership | Negative statements about people management in public copy | Describe the direction of growth, not what he avoids |
+| Specified, tested, reviewable AI-assisted delivery | "10x", "100% written by AI", unmeasured speed or quality claims | Unsupported metrics, or claims that suggest no human judgment |
 
 ## Rules for public text
 
-- Every claim points to the evidence above.
+- Every factual claim points to the evidence above or to another verified
+  source.
 - No confidential employers, clients or projects by name. The AI-first case
-  study is anonymized, and the owner authorized it on 2026-10-25.
-- "Software Engineer" is the identity. "Senior" appears only on the current
-  role. Past roles show the title held at the time.
-- The site never presents Staff as a role he is looking for.
-- Education in progress is always marked as in progress.
-- Speed always comes with quality, and no gain is promised without a number.
-- Every visible string exists in English and Brazilian Portuguese, without
-  em or en dashes (enforced by `src/content/content.test.ts`).
+  study is anonymized and was authorized for public use on 2026-10-25; each
+  detail stays within that approval.
+- "Software Engineer" is the identity. "Senior" appears where it expresses
+  the current level, never forced into titles or bios. Historical titles
+  reflect the roles held.
+- Staff Engineer is a possible future direction, never a role he is seeking
+  now.
+- The PUC Minas specialization is marked in progress wherever it appears.
+- No speed or quality gains without measured evidence; show the process
+  instead.
+- Agentic engineering (how coding agents build software) stays distinct from
+  AI-powered product features (AI inside the software being built).
+- Every visible site string exists in English and Brazilian Portuguese,
+  without em or en dashes, as enforced by `src/content/content.test.ts`.
 
 ## How it maps to the site
 
-| Element | Where |
-| --- | --- |
-| Title, meta description, intro, availability line | `copy.meta`, `copy.home` in `src/content/copy.ts` |
-| Capabilities: product, architecture, agentic engineering, agentic systems | `copy.capabilities` |
-| Case study order: AI-first platform, sdd-agentic-flow, Priorize.me, payments API | `caseStudies` in `src/content/work.ts` |
-| Current role (anonymized) and education | `experience` and `education` in `src/content/profile.ts` |
-| The process | The How I work page, `copy.howIWork` |
-| Contact line | `copy.contact`: "For engineering roles in product teams, consulting or open-source collaboration..." |
+| Element | Where | Guidance |
+| --- | --- | --- |
+| Title, metadata, intro, social cards | `copy.meta` and `copy.home` in `src/content/copy.ts` | Software Engineer as the identity; product engineering, architecture and agentic engineering in plain language |
+| Availability line | `copy.home.availability` | Engineering roles and consulting, remote from Belo Horizonte, languages. No level, no Staff |
+| Capabilities | `copy.capabilities` | Order: product engineering, software architecture, agentic engineering, AI-powered product features |
+| Case studies | `caseStudies` in `src/content/work.ts` | Order (owner's decision, 2026-10-25): the anonymized AI-first platform first (current professional work: architecture and AI integration), then Priorize.me (product ownership), sdd-agentic-flow (agentic engineering) and payments API (correctness). The home shows the first three |
+| Experience and education | `experience` and `education` in `src/content/profile.ts` | Actual role titles; the specialization in progress; client work anonymous where needed |
+| Process | The How I work page, `copy.howIWork` | The actual spec-to-review workflow; no claim that every project uses every step |
+| Contact | `copy.contact` | A neutral line: engineering roles in product teams, consulting or open-source collaboration |
 
 ## Sources
+
+These sources inform terminology and framing. They are not evidence of his
+experience; personal claims rest on the evidence above.
+
+### Agentic engineering and spec-driven development
 
 - Simon Willison, [What is agentic engineering?](https://simonwillison.net/guides/agentic-engineering-patterns/what-is-agentic-engineering)
 - Addy Osmani, [AI Coding Agent](https://addyosmani.com/agentic-engineering/ai-coding-agent/)
 - GitHub, [Spec-driven development with AI: Spec Kit](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/)
+
+### Product engineering and career development
+
 - Gergely Orosz, [The Product-Minded Software Engineer](https://blog.pragmaticengineer.com/the-product-minded-engineer/)
 - Will Larson, [Staff archetypes](https://staffeng.com/guides/staff-archetypes/)
 - PostHog, [Product engineer vs software engineer](https://posthog.com/blog/product-engineer-vs-software-engineer)
 - swyx, [The Rise of the AI Engineer](https://latent.space/p/ai-engineer)
+
+### Education
+
+- PUC Minas, [Distributed Software Architecture: course syllabus (PDF)](https://www.pucminas.br/Pos-Graduacao/IEC/Cursos/Documents/Ementas%20EAD/Arquitetura%20de%20Software%20Distribu%C3%ADdo.pdf)
