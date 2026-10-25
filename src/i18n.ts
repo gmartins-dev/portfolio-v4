@@ -17,10 +17,10 @@ export function localizedPath(locale: Locale, path: string): string {
 
 /** Inverse of localizedPath: which locale a URL path belongs to. */
 export function localeFromPath(pathname: string): Locale {
+	// Case-insensitive, like the router's own route matching.
+	const path = pathname.toLowerCase();
 	const ptPrefix = prefixes["pt-BR"];
-	return pathname === ptPrefix || pathname.startsWith(`${ptPrefix}/`)
-		? "pt-BR"
-		: "en";
+	return path === ptPrefix || path.startsWith(`${ptPrefix}/`) ? "pt-BR" : "en";
 }
 
 /** Strip the locale prefix: "/pt-br/about" -> "/about", "/pt-br" -> "/". */
