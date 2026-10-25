@@ -9,6 +9,7 @@
  * Server-only: used by scripts/prerender.mjs through entry-server.tsx.
  */
 export async function withContentSecurityPolicy(html: string) {
+	if (!html.includes("<head>")) throw new Error("CSP: document has no <head>");
 	const hashes = await Promise.all(inlineScripts(html).map(sha256Source));
 	const policy = [
 		"default-src 'self'",
@@ -22,9 +23,9 @@ export async function withContentSecurityPolicy(html: string) {
 		"form-action 'self'",
 	].join("; ");
 	const meta = `<meta http-equiv="Content-Security-Policy" content="${policy}"/>`;
-	if (!html.includes("<head>")) throw new Error("CSP: document has no <head>");
-	// First thing in <head>, so it applies before any script is parsed.
-	return html.replace("<head>", `<head>${meta}`);
+	// First thing in <head>, so it applies before any script is parsed. A
+	// replacer function keeps `$` in the policy from being read as a pattern.
+	return html.replace("<head>", () => `<head>${meta}`);
 }
 
 /**

@@ -36,4 +36,21 @@ describe("withContentSecurityPolicy", async () => {
 		);
 		expect(html).not.toContain("unsafe-inline");
 	});
+
+	it("only inserts the meta tag, leaving the document untouched", async () => {
+		const source =
+			'<head><script>x("$&$`$\'$$")</script></head><body>$&</body>';
+		const result = await withContentSecurityPolicy(source);
+		const meta = /<meta http-equiv="Content-Security-Policy"[^>]*\/>/.exec(
+			result,
+		)?.[0];
+		expect(meta).toBeDefined();
+		expect(result.replace(meta as string, "")).toBe(source);
+	});
+
+	it("rejects a document without <head>", async () => {
+		await expect(withContentSecurityPolicy("<p>hi</p>")).rejects.toThrow(
+			"CSP: document has no <head>",
+		);
+	});
 });
