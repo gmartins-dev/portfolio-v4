@@ -11,6 +11,7 @@ test("skip link moves focus to the main content", async ({
 	await expect(skip).toBeFocused();
 	await page.keyboard.press("Enter");
 	await expect(page).toHaveURL(/#main$/);
+	await expect(page.locator("main#main")).toBeFocused();
 });
 
 test("work journey: home to case study and back", async ({ page }) => {

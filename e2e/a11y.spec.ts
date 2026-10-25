@@ -43,7 +43,15 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 		isMobile,
 	}) => {
 		test.skip(isMobile, "keyboard journey");
-		for (const path of ["/", "/work/payments-api-node", "/does-not-exist"]) {
+		for (const path of [
+			"/",
+			"/work",
+			"/about",
+			"/work/payments-api-node",
+			"/pt-br",
+			"/pt-br/work/priorize-me",
+			"/does-not-exist",
+		]) {
 			await page.goto(path);
 			const missing: string[] = [];
 			for (let stop = 0; stop < 40; stop++) {
@@ -65,6 +73,23 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 			expect(missing).toEqual([]);
 		}
 	});
+});
+
+test("heading levels never skip on any page (1.3.1)", async ({ page }) => {
+	for (const { path } of [...pages, { path: "/does-not-exist" }]) {
+		await page.goto(path);
+		const levels = await page
+			.locator("h1, h2, h3, h4, h5, h6")
+			.evaluateAll((els) => els.map((el) => Number(el.tagName[1])));
+		expect(levels[0], path).toBe(1);
+		expect(levels.filter((l) => l === 1).length, path).toBe(1);
+		for (let i = 1; i < levels.length; i++) {
+			expect(
+				levels[i] - levels[i - 1],
+				`${path} heading ${i}`,
+			).toBeLessThanOrEqual(1);
+		}
+	}
 });
 
 // axe keeps this rule out of the WCAG tags (it is experimental), so run it on

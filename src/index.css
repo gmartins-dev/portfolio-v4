@@ -96,10 +96,12 @@
 	}
 	/* On paper a link cannot be followed, so show where external ones go. */
 	@media print {
-		main a[href^="http"] {
+		main a[href^="http"],
+		footer a[href^="http"] {
 			display: inline;
 		}
-		main a[href^="http"]::after {
+		main a[href^="http"]::after,
+		footer a[href^="http"]::after {
 			content: " (" attr(href) ")";
 			font-size: 0.875em;
 			font-weight: normal;
@@ -123,8 +125,9 @@
 		@apply outline-2 outline-offset-2 outline-ring;
 	}
 	/* Headings receive programmatic focus after navigation (RouteFocus); they
-	   are not controls, so no outline. */
-	h1[tabindex="-1"]:focus {
+	   are not controls, so no outline. Same for main, the skip link target. */
+	h1[tabindex="-1"]:focus,
+	main[tabindex="-1"]:focus {
 		@apply outline-none;
 	}
 	/* biome-ignore-start lint/complexity/noImportantStyles: reduced motion must win over every component transition. */
