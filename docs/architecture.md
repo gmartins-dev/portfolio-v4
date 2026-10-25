@@ -96,6 +96,21 @@ match.
    position, `HeadContent` updates the head tags, and `RouteFocus` moves focus
    to the new page's `<h1>`.
 
+## Generated assets
+
+The social cards, the diagram images and the case study screenshots are not
+produced by `pnpm build`. Three scripts render them, and their output is
+committed under `public/`, so rerun a script only when its input changes:
+
+| Command | Output | Input |
+| --- | --- | --- |
+| `pnpm build:og-images` | `public/images/og/` social cards and `public/apple-touch-icon.png` | HTML in `scripts/build-og-images.mjs`, rendered in a browser |
+| `pnpm render:diagrams [name ...]` | `public/images/work/<name>-<width>.webp` | `scripts/diagrams/<slug>.mmd` |
+| `pnpm capture:work-images [name ...]` | `public/images/work/<name>-<width>.webp` | Live product sites listed in `scripts/capture-work-images.mjs` |
+
+The capture script reads live sites, so its output changes when those sites
+change.
+
 ## Hosting
 
 Vercel serves `dist/` with clean URLs (`/about` serves `about.html`).

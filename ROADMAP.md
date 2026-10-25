@@ -8,7 +8,7 @@ work moves to the [changelog](CHANGELOG.md).
 | Milestone | Scope | Status |
 | --- | --- | --- |
 | Discovery (Phases 0-5) | Audit, positioning, work selection, information architecture, content, visual direction | Drafted from sources; needs owner review (see below) |
-| M1 Foundation | Tooling, prerender, design tokens, shell, theme, localization | Done |
+| M1 Foundation | Tooling, prerender, design tokens, shell, localization | Done |
 | M2 Core content | Home, About, experience, resume and contact links | Built with draft copy |
 | M3 Engineering evidence | Work listing, case study template, two case studies | Built with draft case studies |
 | M4 Production readiness | SEO, structured data, accessibility, performance, redirects, security | Done, then audited and hardened (see CHANGELOG) |
@@ -23,24 +23,16 @@ checks only the site owner can make; each one is a launch blocker until done.
   written from the resumes, the GitHub profile README and the project
   repositories. Review both languages, especially the hero, the About intro
   and the contact line.
-- ~~**Job titles.**~~ Decided (2026-10-11): the site follows LinkedIn,
-  Software Engineer at Nisien.ai, Backbase, Vochlea and Loop, and Frontend
-  Developer at ChatWith.io. Update the PT-BR resume, which still has the
+- **PT-BR resume titles.** The site follows LinkedIn for job titles
+  (Software Engineer at Nisien.ai, Backbase, Vochlea and Loop, and Frontend
+  Developer at ChatWith.io). Update the PT-BR resume, which still has the
   older titles.
-- ~~**ChatWith.io.**~~ Added (2026-10-11) from the LinkedIn experience page
-  the owner shared: Frontend Developer, October 2022 to March 2023. The
-  freelance entry now ends in October 2022, as on LinkedIn.
-- ~~**LinkedIn check (Phase 0).**~~ Done (2026-10-11) with the transcript
-  the owner shared. Titles still differ; see "Job titles".
 - **Products I worked on.** The `/work` section names Nisien.ai, Backbase,
   Vochlea, Loop and ChatWith.io, with screenshots of their public sites
   (ChatWith.io from its February 2023 Internet Archive copy). The Backbase
   stack (Angular, TypeScript) comes from Backbase's frontend job posts;
   confirm it, and add the Nisien.ai stack, which no public source names.
   Recapture with `pnpm capture:work-images <name>` when the sites change.
-- ~~**Resume PDFs.**~~ Confirmed by the owner (2026-10-11): the site links
-  `/cv` (English) and `/cv-br` (Portuguese), which redirect to the current
-  PDFs. Update the Drive files in place, or the targets in `vercel.json`.
 - **Contact address.** The site uses `contact@gmartins.dev` (from the
   resumes); v3 used `guilhermemm.dev@gmail.com`. Confirm the address is
   monitored. The `/email` short link now opens the contact section: Vercel
@@ -59,7 +51,7 @@ checks only the site owner can make; each one is a launch blocker until done.
   the plan asked for two to compare. Decide whether to keep it, and whether to
   add a headshot.
 
-## M5 — Launch
+## M5 Launch
 
 Checked 2026-10-11: gmartins.dev serves v3 from Vercel (not Firebase), and
 v3's `/resume` publicly shows a third-party career history (Dallas,
@@ -75,10 +67,11 @@ fixes it; until then it stays public.
 - Rollback: promote the previous v4 deployment in Vercel, or move the domain
   back to the v3 project while it still exists.
 - Archive or label the v3 repository.
-- Enable Speed Insights on the Vercel project (ADR-006); the site already
-  loads it. After launch, check real-user Core Web Vitals there (target p75
-  LCP at or below 2.5 s). Lab LCP on simulated slow 4G is 2.0-2.5 s (2026-10-17), with
-  home and work right at 2.48 s, so watch them. If field data misses the
+- Enable Speed Insights on the Vercel project
+  ([ADR-006](docs/adr/006-real-user-web-vitals-with-vercel-speed-insights.md));
+  the site already loads it. After launch, check real-user Core Web Vitals there (target p75
+  LCP at or below 2.5 s). The lab LCP numbers and their limits are in ADR-006;
+  watch `/` and `/work`, which sit at that limit. If field data misses the
   target, the next levers are AVIF images and splitting page code by route.
 - Follow the periodic review in `docs/maintenance.md`.
 
