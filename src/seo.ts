@@ -30,9 +30,17 @@ export const defaultOgImage = (locale: Locale) => ({
 });
 
 /** Social card for the work, projects and about pages (scripts/build-og-images.mjs). */
+/** Page key in copy.meta -> social card file stem under public/images/og/. */
+export const pageOgFiles = {
+	work: "work",
+	projects: "projects",
+	about: "about",
+	howIWork: "how-i-work",
+} as const;
+
 export const pageOgImage =
-	(key: "work" | "projects" | "about") => (locale: Locale) => ({
-		src: `/images/og/page-${key}-${locale}.png`,
+	(key: keyof typeof pageOgFiles) => (locale: Locale) => ({
+		src: `/images/og/page-${pageOgFiles[key]}-${locale}.png`,
 		alt: copy.meta[key].description[locale],
 	});
 

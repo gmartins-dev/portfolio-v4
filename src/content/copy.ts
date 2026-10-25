@@ -55,6 +55,17 @@ export const copy = {
 					"Guilherme Martins, engenheiro de software: engenharia de produto, arquitetura de software e agentic engineering, em fintech, cibersegurança com IA, SaaS e saúde.",
 			},
 		},
+		howIWork: {
+			title: {
+				en: "How I work | Guilherme Martins",
+				"pt-BR": "Como trabalho | Guilherme Martins",
+			},
+			description: {
+				en: "How Guilherme Martins builds software with coding agents: specs first, bounded tasks, the same quality gates for every change, human review and decisions recorded as ADRs.",
+				"pt-BR":
+					"Como Guilherme Martins constrói software com agentes de código: specs primeiro, tarefas delimitadas, os mesmos gates de qualidade em toda mudança, revisão humana e decisões registradas em ADRs.",
+			},
+		},
 		notFound: {
 			title: {
 				en: "Page not found | Guilherme Martins",
@@ -135,6 +146,7 @@ export const copy = {
 		},
 		experienceHeading: { en: "Where I have worked", "pt-BR": "Onde trabalhei" },
 		fullHistory: { en: "Full background", "pt-BR": "Trajetória completa" },
+		howIWorkLink: { en: "How I work", "pt-BR": "Como trabalho" },
 		openSourceHeading: {
 			en: "Client and community work",
 			"pt-BR": "Clientes e comunidade",
@@ -345,6 +357,107 @@ export const copy = {
 			],
 		},
 	],
+	howIWork: {
+		heading: { en: "How I work", "pt-BR": "Como trabalho" },
+		intro: {
+			en: "I use coding agents in every step of the development cycle, inside a process that keeps the work specified, bounded and verified. The agents bring the speed; the process and human review keep the quality.",
+			"pt-BR":
+				"Uso agentes de código em todas as etapas do ciclo de desenvolvimento, dentro de um processo que mantém o trabalho especificado, delimitado e verificado. Os agentes trazem a velocidade; o processo e a revisão humana mantêm a qualidade.",
+		},
+		stepsHeading: { en: "The process", "pt-BR": "O processo" },
+		steps: [
+			{
+				title: { en: "Spec first", "pt-BR": "Spec primeiro" },
+				body: {
+					en: "Every change starts as a written spec: the problem, the scope, what stays out and how to verify the result. Agents work from the spec instead of a chat history.",
+					"pt-BR":
+						"Toda mudança começa como uma spec escrita: o problema, o escopo, o que fica de fora e como verificar o resultado. Os agentes trabalham a partir da spec, e não de um histórico de chat.",
+				},
+			},
+			{
+				title: {
+					en: "Plan and bounded tasks",
+					"pt-BR": "Plano e tarefas delimitadas",
+				},
+				body: {
+					en: "The spec becomes a plan and small tasks, each with its own acceptance check, so an agent only holds the context one task needs.",
+					"pt-BR":
+						"A spec vira um plano e tarefas pequenas, cada uma com seu próprio critério de aceite, para que um agente só carregue o contexto de que uma tarefa precisa.",
+				},
+			},
+			{
+				title: {
+					en: "Implementation by agents",
+					"pt-BR": "Implementação por agentes",
+				},
+				body: {
+					en: "Coding agents implement one task at a time, inside the repository's instructions (AGENTS.md): conventions, commands and the rules they must keep.",
+					"pt-BR":
+						"Agentes de código implementam uma tarefa por vez, dentro das instruções do repositório (AGENTS.md): convenções, comandos e as regras que precisam respeitar.",
+				},
+			},
+			{
+				title: {
+					en: "The same gates for everyone",
+					"pt-BR": "Os mesmos gates para todos",
+				},
+				body: {
+					en: "Every change passes the same gates, whoever wrote it: typecheck, lint, unit and end-to-end tests, accessibility checks and checks on the built output.",
+					"pt-BR":
+						"Toda mudança passa pelos mesmos gates, não importa quem escreveu: typecheck, lint, testes unitários e end-to-end, verificações de acessibilidade e checagens do build gerado.",
+				},
+			},
+			{
+				title: { en: "Human review", "pt-BR": "Revisão humana" },
+				body: {
+					en: "I review every change and merge only what I can explain. Review findings go back to the agent as new tasks.",
+					"pt-BR":
+						"Reviso toda mudança e só faço merge do que consigo explicar. Os achados da revisão voltam para o agente como novas tarefas.",
+				},
+			},
+			{
+				title: { en: "Decisions in ADRs", "pt-BR": "Decisões em ADRs" },
+				body: {
+					en: "Decisions that shape the system are written down as architecture decision records, so the reasoning outlives the session that produced it.",
+					"pt-BR":
+						"Decisões que moldam o sistema são registradas como architecture decision records, para que o raciocínio sobreviva à sessão que o produziu.",
+				},
+			},
+		],
+		evidenceHeading: { en: "Where to see it", "pt-BR": "Onde ver isso" },
+		evidence: [
+			{
+				title: { en: "This site", "pt-BR": "Este site" },
+				body: {
+					en: "Built this way. Its public repository has the agent instructions, the architecture decision records and the CI gates every change passes.",
+					"pt-BR":
+						"Construído desse jeito. O repositório público tem as instruções para agentes, os architecture decision records e os gates de CI pelos quais toda mudança passa.",
+				},
+				href: "https://github.com/gmartins-dev/portfolio-v4",
+				label: { en: "Repository on GitHub", "pt-BR": "Repositório no GitHub" },
+			},
+			{
+				title: { en: "sdd-agentic-flow", "pt-BR": "sdd-agentic-flow" },
+				body: {
+					en: "The process as an open-source harness of skills for Codex, Cursor, Claude Code and GitHub Copilot.",
+					"pt-BR":
+						"O processo como um harness open source de skills para Codex, Cursor, Claude Code e GitHub Copilot.",
+				},
+				to: "/work/sdd-agentic-flow",
+				label: { en: "Read the case study", "pt-BR": "Ler o estudo de caso" },
+			},
+			{
+				title: { en: "AI in products", "pt-BR": "IA em produtos" },
+				body: {
+					en: "The same rule for AI features: AI speeds up the flow, guardrails and people make the decisions.",
+					"pt-BR":
+						"A mesma regra para funcionalidades com IA: a IA acelera o fluxo, guardrails e pessoas tomam as decisões.",
+				},
+				to: "/work/ai-first-online-banking",
+				label: { en: "Read the case study", "pt-BR": "Ler o estudo de caso" },
+			},
+		],
+	},
 	notFound: {
 		heading: { en: "Page not found", "pt-BR": "Página não encontrada" },
 		body: {

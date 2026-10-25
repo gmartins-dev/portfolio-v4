@@ -13,6 +13,7 @@ describe("server render", () => {
 			"/work/priorize-me",
 			"/work/payments-api-node",
 			"/projects",
+			"/how-i-work",
 			"/about",
 			"/pt-br",
 			"/pt-br/work",
@@ -21,6 +22,7 @@ describe("server render", () => {
 			"/pt-br/work/priorize-me",
 			"/pt-br/work/payments-api-node",
 			"/pt-br/projects",
+			"/pt-br/how-i-work",
 			"/pt-br/about",
 		]);
 	});

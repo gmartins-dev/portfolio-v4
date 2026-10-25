@@ -7,6 +7,7 @@ const listingCards = [
 	{ key: "work", heading: copy.work.heading },
 	{ key: "projects", heading: copy.projects.heading },
 	{ key: "about", heading: copy.about.heading },
+	{ key: "how-i-work", heading: copy.howIWork.heading },
 ] as const;
 
 /**

@@ -21,6 +21,7 @@ import { isNotFound } from "./not-found";
 import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
+import { HowIWorkPage } from "./pages/how-i-work";
 import { NotFoundPage } from "./pages/not-found";
 import { ProjectsPage } from "./pages/projects";
 import { WorkPage } from "./pages/work";
@@ -164,6 +165,12 @@ const pages: Page[] = [
 		ogImage: pageOgImage("projects"),
 		structuredData: projectsStructuredData,
 		render: (locale) => <ProjectsPage locale={locale} />,
+	},
+	{
+		path: "/how-i-work",
+		...copy.meta.howIWork,
+		ogImage: pageOgImage("howIWork"),
+		render: (locale) => <HowIWorkPage locale={locale} />,
 	},
 	{
 		path: "/about",

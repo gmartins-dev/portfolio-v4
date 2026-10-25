@@ -73,6 +73,13 @@ export function HomePage({ locale }: { locale: Locale }) {
 				<h2 id="capabilities" className={sectionHeading}>
 					{t(copy.home.capabilitiesHeading, locale)}
 				</h2>
+				<Link
+					to={localizedPath(locale, "/how-i-work")}
+					className="mt-4 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
+				>
+					{t(copy.home.howIWorkLink, locale)}
+					<ArrowRight aria-hidden="true" className="size-3.5" />
+				</Link>
 				<ul className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
 					{copy.capabilities.map((item) => (
 						<li key={item.title.en} className="border-t pt-6">
