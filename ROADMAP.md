@@ -19,10 +19,10 @@ work moves to the [changelog](CHANGELOG.md).
 The code is ready for content to be approved. These items are decisions or
 checks only the site owner can make; each one is a launch blocker until done.
 
-- **Copy approval (Phase 1 and 4).** All copy in `src/content/` is a draft
-  written from the resumes, the GitHub profile README and the project
-  repositories. Review both languages, especially the hero, the About intro
-  and the contact line.
+- **Copy approval (Phase 1 and 4).** Rewritten on 2026-10-25 from the
+  owner's positioning document (product engineering, software architecture,
+  agentic engineering; "Software Engineer" as the identity). Approve the
+  final wording in both languages in the pull request that introduced it.
 - **PT-BR resume titles.** The site follows LinkedIn for job titles
   (Software Engineer at Nisien.ai, Backbase, Vochlea and Loop, and Frontend
   Developer at ChatWith.io). Update the PT-BR resume, which still has the
@@ -41,9 +41,9 @@ checks only the site owner can make; each one is a launch blocker until done.
   joins sdd-agentic-flow and payments-api-node as a case study (live app
   linked, code private), and the Débora Blaso websites appear as client work.
   Still to confirm: the facts on each page.
-- **Anonymized case study.** Confirm the company allows the anonymized
-  description of the AI-first online banking platform (and naming Uber)
-  before launch. Keep `scripts/denylist.json` up to date.
+- ~~**Anonymized case study.**~~ Authorized by the owner (2026-10-25),
+  including the anonymized current role in the experience list. Keep
+  `scripts/denylist.json` up to date.
 - **guitar-ai.** Requested for `/projects`, but
   `github.com/gmartins-dev/guitar-ai` is private or doesn't exist, so it
   isn't listed. Make it public (or share its URL) to add it.

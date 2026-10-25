@@ -1,7 +1,7 @@
 import { formatPeriod } from "./components/work";
 import { copy } from "./content/copy";
 import { professionalWork } from "./content/professional-work";
-import { experience, profile } from "./content/profile";
+import { education, experience, profile } from "./content/profile";
 import { caseStudies, otherWork } from "./content/work";
 import { formatMonth, localizedPath } from "./i18n";
 import { siteUrl } from "./seo";
@@ -60,6 +60,13 @@ export function buildLlmsTxt() {
 		...experience.map(
 			(entry) =>
 				`- ${entry.role}, ${entry.company} (${formatMonth(entry.start, "en")} to ${entry.end ? formatMonth(entry.end, "en") : "present"}): ${entry.context.en}`,
+		),
+		"",
+		"## Education",
+		"",
+		...education.map(
+			(entry) =>
+				`- ${entry.program.en}, ${entry.institution} (${formatMonth(entry.start, "en")} to ${formatMonth(entry.end, "en")}${entry.status === "in-progress" ? ", in progress" : ""})`,
 		),
 		"",
 		"## Optional",

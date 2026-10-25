@@ -3,9 +3,15 @@
 [![CI](https://github.com/gmartins-dev/portfolio-v4/actions/workflows/ci.yml/badge.svg)](https://github.com/gmartins-dev/portfolio-v4/actions/workflows/ci.yml)
 
 Source for [gmartins.dev](https://gmartins.dev), the site of Guilherme
-Martins, Software Engineer: case studies, the public products he worked on,
-more projects, career history, and contact, in English (`/`) and Brazilian
-Portuguese (`/pt-br`).
+Martins, Software Engineer focused on product engineering and software
+architecture: case studies, how he works with coding agents, the public
+products he worked on, more projects, career history, and contact, in
+English (`/`) and Brazilian Portuguese (`/pt-br`).
+
+The repository is also an example of that way of working: changes are
+specified first, implemented with coding agents inside the rules in
+[AGENTS.md](AGENTS.md), recorded as [ADRs](docs/adr/README.md) when they shape
+the system, and merged only after the CI gates and a human review.
 
 ## What's notable
 
