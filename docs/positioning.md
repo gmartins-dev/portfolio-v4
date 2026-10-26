@@ -18,7 +18,7 @@ A Brazilian market version is in [positioning.pt-br.md](positioning.pt-br.md).
 
 | Layer | What it means | Where it shows |
 | --- | --- | --- |
-| Profession | Software Engineer. On the Brazilian Portuguese site the title and meta use "Desenvolvedor Fullstack", the term Brazilian searches use (see [positioning.pt-br.md](positioning.pt-br.md)) | Site title, intro, bios, social cards |
+| Profession | Software Engineer. Same identity on both locales, including the Brazilian Portuguese title and meta (see [positioning.pt-br.md](positioning.pt-br.md)) | Site title, intro, bios, social cards |
 | Seniority | Senior is the current level, not the identity | The current role in the experience list, and hiring contexts where level matters. Not in site titles or descriptions. Historical titles stay as held |
 | Product engineering | Full-stack work from problem definition through production and ongoing improvement | Hero, intro, case studies |
 | Software architecture | Practical decisions about boundaries, consistency, integrations, operations and trade-offs | Capabilities, case studies, education |

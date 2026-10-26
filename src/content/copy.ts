@@ -13,16 +13,16 @@ export const copy = {
 		siteName: { en: "Guilherme Martins", "pt-BR": "Guilherme Martins" },
 		// The profession as shown in titles and social cards. PT-BR uses the
 		// term Brazilian job searches use (owner's decision, 2026-10-25).
-		role: { en: "Software Engineer", "pt-BR": "Desenvolvedor Fullstack" },
+		role: { en: "Software Engineer", "pt-BR": "Software Engineer" },
 		home: {
 			title: {
 				en: "Guilherme Martins | Software Engineer",
-				"pt-BR": "Guilherme Martins | Desenvolvedor Fullstack",
+				"pt-BR": "Guilherme Martins | Software Engineer",
 			},
 			description: {
 				en: "Software Engineer in Belo Horizonte focused on product engineering and software architecture, building full-stack products with AI across the development cycle, for teams in Brazil and the UK.",
 				"pt-BR":
-					"Desenvolvedor Fullstack em Belo Horizonte com foco em engenharia de produto e arquitetura de software, construindo produtos full-stack com IA em todo o ciclo de desenvolvimento, para times no Brasil e no Reino Unido.",
+					"Software Engineer em Belo Horizonte com foco em engenharia de produto e arquitetura de software, construindo produtos full-stack com IA em todo o ciclo de desenvolvimento, para times no Brasil e no Reino Unido.",
 			},
 		},
 		work: {
@@ -50,7 +50,7 @@ export const copy = {
 		about: {
 			title: {
 				en: "About Guilherme Martins | Software Engineer",
-				"pt-BR": "Sobre Guilherme Martins | Desenvolvedor Fullstack",
+				"pt-BR": "Sobre Guilherme Martins | Software Engineer",
 			},
 			description: {
 				en: "Guilherme Martins, software engineer: product engineering, software architecture and agentic engineering, in fintech, AI cybersecurity, SaaS and healthcare.",
@@ -164,9 +164,9 @@ export const copy = {
 				"pt-BR": "Arquitetura de software",
 			},
 			body: {
-				en: "Modular, hexagonal cores with replayable event ingestion, idempotent payment APIs, and decisions recorded as ADRs. On the frontend, application architecture and a design system built from the first version.",
+				en: "Systems that replay ingested events, and payment APIs that are idempotent, so a retry never charges twice (modular hexagonal cores, replayable event ingestion, idempotent payment APIs). Decisions are recorded as ADRs. On the frontend, application architecture and a design system built from the first version.",
 				"pt-BR":
-					"Cores modulares e hexagonais com ingestão de eventos reprocessável, APIs de pagamento idempotentes e decisões registradas em ADRs. No frontend, arquitetura de aplicação e um design system construído desde a primeira versão.",
+					"Sistemas que reprocessam eventos ingeridos e APIs de pagamento idempotentes, em que uma nova tentativa nunca cobra duas vezes (cores modulares e hexagonais, ingestão de eventos reprocessável, idempotência de pagamentos). Decisões registradas em ADRs. No frontend, arquitetura de aplicação e um design system construído desde a primeira versão.",
 			},
 			evidence: {
 				label: {
@@ -269,13 +269,13 @@ export const copy = {
 				"I'm a software engineer focused on product engineering and software architecture. I build full-stack products that hold up in production, and I use coding agents across the development cycle in a spec-driven process with tests, quality gates and human review.",
 				"Architecture is where I am going deepest. On an AI-first credit platform I work on a modular, hexagonal core with replayable event ingestion, and I record decisions as ADRs. I am also studying for a postgraduate specialization in distributed software architecture.",
 				"I work agentically: coding agents take part in every step, from spec to review, inside a spec-driven process I open-sourced as sdd-agentic-flow. AI multiplies the work and judgment stays with people, so nothing ships that I have not reviewed and can explain.",
-				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend architecture and design systems remain among my strongest areas. I want to keep growing as an individual contributor, deeper into architecture and technical direction.",
+				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend architecture and design systems remain among my strongest areas, and architecture and technical direction are where I am focusing next.",
 			],
 			"pt-BR": [
 				"Sou engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção e uso coding agents ao longo do ciclo de desenvolvimento, num processo spec-driven com testes, quality gates e revisão humana.",
 				"Arquitetura é onde estou me aprofundando. Numa plataforma de crédito AI-first, trabalho num core modular e hexagonal com ingestão de eventos reprocessável e registro as decisões em ADRs. Também estou cursando uma especialização em arquitetura de software distribuído.",
 				"Trabalho de forma agêntica: agentes de código participam de cada etapa, da spec ao review, dentro de um processo spec-driven que publiquei como open source, o sdd-agentic-flow. A IA multiplica o trabalho e o julgamento continua com as pessoas, então nada vai para produção sem que eu tenha revisado e saiba explicar.",
-				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Arquitetura de frontend e design systems continuam entre minhas áreas mais fortes. Quero continuar crescendo como contribuidor individual, mais fundo em arquitetura e direção técnica.",
+				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Arquitetura de frontend e design systems continuam entre minhas áreas mais fortes, e arquitetura e direção técnica são o meu próximo foco.",
 			],
 		},
 		confidential: {

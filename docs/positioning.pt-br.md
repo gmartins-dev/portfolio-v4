@@ -28,7 +28,7 @@ responsabilidade continuam humanos.**
 
 | Tema | No Brasil | Como aplicar |
 | --- | --- | --- |
-| Cargo e busca | Vagas e filtros usam tanto "Engenheiro(a) de Software" quanto "Desenvolvedor(a) Fullstack", e muitas empresas de tecnologia escrevem o cargo em inglês | No site em PT, o título e a meta usam "Desenvolvedor Fullstack", que é como se busca no Brasil (decisão do dono, 2026-10-25). No texto corrido, "engenheiro de software". Em inglês, "Software Engineer" |
+| Cargo e busca | Vagas e filtros usam tanto "Engenheiro(a) de Software" quanto "Desenvolvedor(a) Fullstack", e muitas empresas de tecnologia escrevem o cargo em inglês | No site em PT, o título e a meta usam "Software Engineer", a mesma identidade do inglês (revisada em 2026-10-26, substituindo a decisão de 2026-10-25 de usar "Desenvolvedor Fullstack"). No texto corrido, "engenheiro de software". Termos de busca como "Desenvolvimento de software", "full-stack" e "arquitetura de software" entram no texto |
 | Senioridade | Os níveis júnior, pleno e sênior aparecem no título da vaga e são filtro comum de recrutadores | "Sênior" aparece no cargo atual (LinkedIn e currículo) e nas candidaturas. No site, continua fora do título e da intro |
 | Stack | Vagas brasileiras costumam listar a stack em detalhe, e triagens em plataformas de recrutamento buscam palavras exatas | No LinkedIn e no currículo, citar a stack real: TypeScript, React, Next.js, Node.js, NestJS, PostgreSQL, AWS. No site, a stack fica nos estudos de caso e em "Ferramentas que uso" |
 | Modalidade | CLT, PJ e regime (remoto, híbrido, presencial) são decididos cedo na conversa | Nada disso é publicado no site (decisão do dono). CLT, PJ, modalidade e faixa salarial ficam para a conversa |
@@ -103,7 +103,7 @@ A mesma mensagem em todos os canais; muda só o tamanho.
 
 | Preferir | Evitar ou qualificar | Por quê |
 | --- | --- | --- |
-| Desenvolvedor Fullstack (título e meta em PT), engenheiro de software (texto corrido), Software Engineer (EN) | "Engenheiro de IA", "especialista em IA", "Engenheiro de ML" | Indicam outra especialização |
+| Software Engineer (título e meta, nos dois idiomas), engenheiro de software (texto corrido em PT) | "Engenheiro de IA", "especialista em IA", "Engenheiro de ML" | Indicam outra especialização |
 | Sênior no cargo atual e nas candidaturas | "Sênior" em todo título, bio ou descrição do site | Senioridade é o nível; a profissão é a identidade |
 | arquitetura de software, trade-offs, sistemas distribuídos, eventos, APIs, observabilidade, ADRs | "especialista em microsserviços", "arquiteto cloud" sem evidência | Descrever o que foi aplicado |
 | agentic engineering, spec-driven development, coding agents, tarefas delimitadas, testes, quality gates, revisão humana | "a IA escreve meu código", "programo com IA" sem explicar o processo | Explicar o método com responsabilidade e verificação |
@@ -121,9 +121,9 @@ por termo.
 - Toda afirmação aponta para uma evidência acima.
 - Nada de nomes confidenciais. O estudo de caso AI-first é anonimizado e foi
   autorizado em 2026-10-25; cada detalhe fica dentro dessa aprovação.
-- No site em PT, "Desenvolvedor Fullstack" no título e na meta, e
-  "engenheiro de software" no texto corrido; em inglês, "Software Engineer". "Sênior" só onde o nível é a informação. Cargos anteriores
-  ficam como foram exercidos.
+- Identidade "Software Engineer" nos dois idiomas, no título e na meta. No
+  texto corrido em PT, "engenheiro de software". "Sênior" só onde o nível é a
+  informação. Cargos anteriores ficam como foram exercidos.
 - Staff é direção futura, nunca cargo procurado.
 - A especialização aparece sempre como em andamento.
 - Sem promessa de velocidade ou qualidade sem medição.
@@ -138,7 +138,7 @@ por termo.
 
 | Elemento | Onde | Orientação |
 | --- | --- | --- |
-| Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | Título em PT: "Guilherme Martins \| Desenvolvedor Fullstack"; a meta começa do mesmo jeito. O cartão social em PT usa o mesmo termo (`copy.meta.role`) |
+| Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | Título em PT: "Guilherme Martins \| Software Engineer"; a meta começa do mesmo jeito. O cartão social em PT usa o mesmo termo (`copy.meta.role`) |
 | Capacidades e estudos de caso | `copy.capabilities`, `caseStudies` | Mesma ordem da versão em inglês: a plataforma AI-first, Priorize.me e sdd-agentic-flow. A API de pagamentos fica em Mais projetos |
 | Formação | `education` em `src/content/profile.ts` | "Especialização em Arquitetura de Software Distribuído", PUC Minas, em andamento |
 | Contato | `copy.contact` | "Para engenharia de produto, arquitetura ou colaboração em open source…". Sem linguagem de busca de emprego ou disponibilidade no site |

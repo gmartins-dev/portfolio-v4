@@ -33,10 +33,11 @@ checks only the site owner can make; each one is a launch blocker until done.
   stack (Angular, TypeScript) comes from Backbase's frontend job posts;
   confirm it, and add the Nisien.ai stack, which no public source names.
   Recapture with `pnpm capture:work-images <name>` when the sites change.
-- **Contact address.** The site uses `contact@gmartins.dev` (from the
-  resumes); v3 used `guilhermemm.dev@gmail.com`. Confirm the address is
-  monitored. The `/email` short link now opens the contact section: Vercel
-  cannot redirect to `mailto:`, and the v3 link is broken for that reason.
+- ~~**Contact address.**~~ Confirmed monitored by the owner (2026-10-26). The
+  site uses `contact@gmartins.dev` (from the resumes); v3 used
+  `guilhermemm.dev@gmail.com`. The `/email` short link now opens the contact
+  section: Vercel cannot redirect to `mailto:`, and the v3 link is broken for
+  that reason.
 - **Case studies (Phase 2).** Decided by the owner (2026-10-11): Priorize.me
   joins sdd-agentic-flow and payments-api-node as a case study (live app
   linked, code private), and the Débora Blaso websites appear as client work.

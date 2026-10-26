@@ -25,13 +25,13 @@ const saf: CaseStudy = {
 	facts: {
 		en: [
 			"Published on npm under the MIT license",
-			"95 releases since August 2026",
+			"More than 90 releases since August 2026",
 			"12 skills covering plan, implement, check, review and validate",
 			"Zero runtime npm dependencies",
 		],
 		"pt-BR": [
 			"Publicado no npm sob licença MIT",
-			"95 releases desde agosto de 2026",
+			"Mais de 90 versões desde agosto de 2026",
 			"12 skills cobrindo planejamento, implementação, checagem, revisão e validação",
 			"Nenhuma dependência npm em tempo de execução",
 		],
@@ -132,7 +132,7 @@ const saf: CaseStudy = {
 		},
 	],
 	disclosure: "public",
-	reviewed: "2026-10-11",
+	reviewed: "2026-10-26",
 };
 
 // Anonymized professional work, described at the owner's request at the
@@ -456,9 +456,9 @@ export const otherWork: ShortWork[] = [
 		title: "links",
 		kind: { en: "Community project", "pt-BR": "Projeto da comunidade" },
 		summary: {
-			en: "A community-maintained list of free tools and resources for developers, started in 2022. 406 stars and 15 contributors on GitHub.",
+			en: "A community-maintained list of free tools and resources for developers, started in 2022. More than 400 stars and 15 contributors on GitHub.",
 			"pt-BR":
-				"Uma lista mantida pela comunidade com ferramentas e recursos gratuitos para devs, criada em 2022. 406 estrelas e 15 contribuidores no GitHub.",
+				"Uma lista mantida pela comunidade com ferramentas e recursos gratuitos para devs, criada em 2022. Mais de 400 estrelas e 15 contribuidores no GitHub.",
 		},
 		href: "https://github.com/gmartins-dev/links",
 		image: {

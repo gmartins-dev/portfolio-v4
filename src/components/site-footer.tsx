@@ -1,5 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
+import { localizedPath } from "../i18n";
 import { useLocale } from "../use-locale";
 import { buttonVariants } from "./ui/button";
 
@@ -38,6 +40,22 @@ export function SiteFooter() {
 					</p>
 				</section>
 				<ul className="grid content-start gap-2 text-sm md:justify-self-end">
+					<li>
+						<Link
+							to={localizedPath(locale, "/work")}
+							className={footerLinkClass}
+						>
+							{t(copy.nav.work, locale)}
+						</Link>
+					</li>
+					<li>
+						<Link
+							to={localizedPath(locale, "/how-i-work")}
+							className={footerLinkClass}
+						>
+							{t(copy.howIWork.heading, locale)}
+						</Link>
+					</li>
 					<li>
 						<a href={profile.links.github} className={footerLinkClass}>
 							GitHub
