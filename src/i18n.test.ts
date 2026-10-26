@@ -34,7 +34,7 @@ describe("neutralPath", () => {
 
 	it("leaves English paths alone", () => {
 		expect(neutralPath("/")).toBe("/");
-		expect(neutralPath("/work/priorize-me")).toBe("/work/priorize-me");
+		expect(neutralPath("/cases/priorize-me")).toBe("/cases/priorize-me");
 	});
 });
 

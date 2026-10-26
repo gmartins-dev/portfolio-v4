@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
  * After a client-side navigation, move focus to the new page's <h1> so
  * screen readers announce the page and keyboard users continue from its
  * content instead of from <body>. A link to an anchor on another page
- * (/work#vochlea) focuses that anchor instead; the router scrolls to it. The
+ * (/cases#vochlea) focuses that anchor instead; the router scrolls to it. The
  * first render is skipped: a full page load already starts at the top of the
  * document, and the skip link and in-page anchors (hash changes) keep their
  * native behaviour.

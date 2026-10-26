@@ -93,7 +93,7 @@ Projects that don't need a case study go on `/projects`.
 
 ## Add a product from a past job
 
-The "Products I worked on" section of `/work` lists public products built
+The "Products I worked on" section of `/cases` lists public products built
 as an employee or contractor. Use it only when the product and the
 company's involvement are public.
 
@@ -164,7 +164,7 @@ Before you point the domain at a new version or merge a large change:
 
 | When | Do |
 | --- | --- |
-| Monthly | Run Lighthouse on `/`, `/work`, and one case study; check Search Console and Core Web Vitals |
+| Monthly | Run Lighthouse on `/`, `/cases`, and one case study; check Search Console and Core Web Vitals |
 | Quarterly | Re-check case study facts against their repositories and update `reviewed`; refresh screenshots if the projects changed |
 | When a role changes | Update `profile.ts`, both resumes, and LinkedIn together |
 | Whenever `SECURITY.md` lists a finding | Re-check it on its review date |

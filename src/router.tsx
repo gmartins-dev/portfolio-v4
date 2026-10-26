@@ -139,7 +139,7 @@ const pages: Page[] = [
 		render: (locale) => <HomePage locale={locale} />,
 	},
 	{
-		path: "/work",
+		path: "/cases",
 		...copy.meta.work,
 		ogImage: pageOgImage("work"),
 		structuredData: (locale) => workStructuredData(locale, caseStudies),
@@ -147,7 +147,7 @@ const pages: Page[] = [
 	},
 	...caseStudies.map(
 		(study): Page => ({
-			path: `/work/${study.slug}`,
+			path: `/cases/${study.slug}`,
 			title: {
 				en: `${study.title} case study | ${copy.meta.siteName.en}`,
 				"pt-BR": `Estudo de caso: ${study.title} | ${copy.meta.siteName["pt-BR"]}`,

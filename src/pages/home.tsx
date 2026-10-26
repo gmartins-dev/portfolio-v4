@@ -11,7 +11,7 @@ import { experience, profile } from "../content/profile";
 import { caseStudies, otherWork } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
-// The home shows the first case studies; /work lists them all.
+// The home shows the first case studies; /cases lists them all.
 const featuredCaseStudies = 3;
 
 const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
@@ -36,7 +36,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 						{t(copy.contact.email, locale)}
 					</a>
 					<Link
-						to={localizedPath(locale, "/work")}
+						to={localizedPath(locale, "/cases")}
 						className={buttonVariants({
 							variant: "outline",
 						})}

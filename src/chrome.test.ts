@@ -58,7 +58,7 @@ describe("language switch", () => {
 		["/", "/pt-br", "pt-BR"],
 		["/about", "/pt-br/about", "pt-BR"],
 		["/projects", "/pt-br/projects", "pt-BR"],
-		["/work/priorize-me", "/pt-br/work/priorize-me", "pt-BR"],
+		["/cases/priorize-me", "/pt-br/cases/priorize-me", "pt-BR"],
 		["/pt-br", "/", "en"],
 		["/pt-br/projects", "/projects", "en"],
 	])("%s switches to %s", async (path, target, lang) => {
@@ -77,8 +77,8 @@ describe("language switch", () => {
 
 describe("about page", () => {
 	it.each([
-		["/about", "Education", "/work/ai-first-online-banking"],
-		["/pt-br/about", "Formação", "/pt-br/work/ai-first-online-banking"],
+		["/about", "Education", "/cases/ai-first-online-banking"],
+		["/pt-br/about", "Formação", "/pt-br/cases/ai-first-online-banking"],
 	])(
 		"%s lists education and links the current role's case study",
 		async (path, heading, caseStudy) => {

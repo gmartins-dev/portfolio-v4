@@ -153,7 +153,7 @@ export const copy = {
 			},
 			evidence: {
 				label: { en: "Priorize.me", "pt-BR": "Priorize.me" },
-				to: "/work/priorize-me",
+				to: "/cases/priorize-me",
 			},
 		},
 		{
@@ -184,7 +184,7 @@ export const copy = {
 			},
 			evidence: {
 				label: { en: "sdd-agentic-flow", "pt-BR": "sdd-agentic-flow" },
-				to: "/work/sdd-agentic-flow",
+				to: "/cases/sdd-agentic-flow",
 			},
 		},
 		{
@@ -202,7 +202,7 @@ export const copy = {
 					en: "AI-first platform case study",
 					"pt-BR": "Estudo de caso da plataforma AI-first",
 				},
-				to: "/work/ai-first-online-banking",
+				to: "/cases/ai-first-online-banking",
 			},
 		},
 	],
@@ -432,7 +432,7 @@ export const copy = {
 					"pt-BR":
 						"O processo como um harness open source de skills para Codex, Cursor, Claude Code e GitHub Copilot.",
 				},
-				to: "/work/sdd-agentic-flow",
+				to: "/cases/sdd-agentic-flow",
 				label: { en: "Read the case study", "pt-BR": "Ler o estudo de caso" },
 			},
 			{
@@ -442,7 +442,7 @@ export const copy = {
 					"pt-BR":
 						"A mesma regra para funcionalidades com IA: a IA acelera o fluxo, guardrails e pessoas tomam as decisões.",
 				},
-				to: "/work/ai-first-online-banking",
+				to: "/cases/ai-first-online-banking",
 				label: { en: "Read the case study", "pt-BR": "Ler o estudo de caso" },
 			},
 		],

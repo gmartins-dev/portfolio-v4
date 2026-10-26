@@ -35,7 +35,7 @@ export function buildLlmsTxt() {
 		"## Pages",
 		"",
 		`- [Home](${url("/")}): positioning, selected work, capabilities and experience summary`,
-		`- [Cases](${url("/work")}): case studies, public products he worked on, client websites and community work`,
+		`- [Cases](${url("/cases")}): case studies, public products he worked on, client websites and community work`,
 		`- [More projects](${url("/projects")}): smaller projects, technical challenges and earlier work, with demos and source`,
 		`- [How I work](${url("/how-i-work")}): his development process with coding agents: specs, bounded tasks, quality gates, human review and ADRs`,
 		`- [About](${url("/about")}): full professional history, education, tools and resumes`,
@@ -44,7 +44,7 @@ export function buildLlmsTxt() {
 		"",
 		...caseStudies.map(
 			(study) =>
-				`- [${study.title}](${url(`/work/${study.slug}`)}): ${study.summary.en} (${study.kind.en}; facts checked ${study.reviewed})`,
+				`- [${study.title}](${url(`/cases/${study.slug}`)}): ${study.summary.en} (${study.kind.en}; facts checked ${study.reviewed})`,
 		),
 		"",
 		"## Products he worked on",
@@ -52,7 +52,7 @@ export function buildLlmsTxt() {
 		...professionalWork.map((work) => {
 			const job = experience.find((entry) => entry.company === work.company);
 			const role = job ? `${job.role}, ` : "";
-			return `- [${work.product}](${work.url}) by ${work.company} (${role}${url("/work")}#${work.slug}): ${work.summary.en}`;
+			return `- [${work.product}](${work.url}) by ${work.company} (${role}${url("/cases")}#${work.slug}): ${work.summary.en}`;
 		}),
 		"",
 		"## Experience",
@@ -110,7 +110,7 @@ export function buildLlmsFullTxt() {
 		...caseStudies.flatMap((study) => [
 			`## ${study.title}`,
 			"",
-			`- URL: ${url(`/work/${study.slug}`)}`,
+			`- URL: ${url(`/cases/${study.slug}`)}`,
 			`- Kind: ${study.kind.en}`,
 			`- Role: ${study.role.en}`,
 			`- Period: ${formatPeriod(study.period, "en")}`,
@@ -151,7 +151,7 @@ export function buildLlmsFullTxt() {
 				...(job
 					? [
 							`- Role: ${job.role}, ${formatPeriod(job, "en")}`,
-							`- On the site: ${url("/work")}#${work.slug}`,
+							`- On the site: ${url("/cases")}#${work.slug}`,
 						]
 					: []),
 				...(work.stack ? [`- Stack: ${work.stack.join(", ")}`] : []),

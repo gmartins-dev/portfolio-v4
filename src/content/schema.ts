@@ -100,7 +100,7 @@ export const caseStudySchema = z.object({
 	facts: localizedList,
 	image: imageSchema,
 	/**
-	 * A simpler image for teasers (home and /work), when the main one is a
+	 * A simpler image for teasers (home and /cases), when the main one is a
 	 * diagram too detailed to read at teaser size. Teasers hide it from
 	 * assistive tech, so it has no alt text.
 	 */
@@ -156,7 +156,7 @@ export const projectSchema = z.object({
  * location come from the matching `experience` entry (same `company`).
  */
 export const professionalWorkSchema = z.object({
-	/** In-page anchor on /work, linked from the About page. */
+	/** In-page anchor on /cases, linked from the About page. */
 	slug: z.string().regex(/^[a-z0-9-]+$/),
 	company: z.string(),
 	product: z.string(),

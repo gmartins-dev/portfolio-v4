@@ -68,7 +68,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 									{entry.caseStudy && (
 										<p className="mt-3 text-sm">
 											<Link
-												to={localizedPath(locale, `/work/${entry.caseStudy}`)}
+												to={localizedPath(locale, `/cases/${entry.caseStudy}`)}
 												className="inline-flex min-h-6 items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
 											>
 												{t(copy.about.caseStudyLink, locale)}
@@ -80,7 +80,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 									{work && (
 										<p className="mt-3 text-sm">
 											<Link
-												to={localizedPath(locale, "/work")}
+												to={localizedPath(locale, "/cases")}
 												hash={work.slug}
 												className="inline-flex min-h-6 items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
 											>

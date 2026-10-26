@@ -192,13 +192,13 @@ export function workStructuredData(locale: Locale, studies: CaseStudy[]) {
 		graph([
 			{
 				"@type": "CollectionPage",
-				url: pageUrl(locale, "/work"),
+				url: pageUrl(locale, "/cases"),
 				name: copy.meta.work.title[locale],
 				inLanguage: locale,
 				isPartOf: { "@id": websiteId },
 				hasPart: [
 					...studies.map((study) => ({
-						"@id": `${pageUrl(locale, `/work/${study.slug}`)}#article`,
+						"@id": `${pageUrl(locale, `/cases/${study.slug}`)}#article`,
 					})),
 					// Public products he worked on; the company owns each one.
 					...professionalWork.map((work) => ({
@@ -213,7 +213,7 @@ export function workStructuredData(locale: Locale, studies: CaseStudy[]) {
 			},
 			breadcrumbNode(locale, [
 				{ name: copy.nav.home[locale], path: "/" },
-				{ name: copy.nav.work[locale], path: "/work" },
+				{ name: copy.nav.work[locale], path: "/cases" },
 			]),
 			personNode(locale),
 			websiteNode(locale),
@@ -256,7 +256,7 @@ export function projectsStructuredData(locale: Locale) {
  * with dateModified from the last fact check and a breadcrumb.
  */
 export function caseStudyStructuredData(locale: Locale, study: CaseStudy) {
-	const path = `/work/${study.slug}`;
+	const path = `/cases/${study.slug}`;
 	const repository = study.links.find((link) =>
 		link.href.startsWith("https://github.com/"),
 	);
@@ -295,7 +295,7 @@ export function caseStudyStructuredData(locale: Locale, study: CaseStudy) {
 			},
 			breadcrumbNode(locale, [
 				{ name: copy.nav.home[locale], path: "/" },
-				{ name: copy.nav.work[locale], path: "/work" },
+				{ name: copy.nav.work[locale], path: "/cases" },
 				{ name: study.title, path },
 			]),
 			personNode(locale),

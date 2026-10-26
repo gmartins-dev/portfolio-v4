@@ -58,7 +58,7 @@ export function SiteFooter() {
 					</li>
 					<li>
 						<Link
-							to={localizedPath(locale, "/work")}
+							to={localizedPath(locale, "/cases")}
 							className={footerLinkClass}
 						>
 							{t(copy.nav.work, locale)}

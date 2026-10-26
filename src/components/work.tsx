@@ -122,7 +122,7 @@ export function CaseStudyTeaser({
 	/** First teaser on the page: often the mobile LCP element. */
 	priority?: boolean;
 }) {
-	const href = localizedPath(locale, `/work/${study.slug}`);
+	const href = localizedPath(locale, `/cases/${study.slug}`);
 	return (
 		<article className="group relative grid items-center gap-6 md:grid-cols-2 md:gap-12">
 			<div className={cn(reverse && "md:order-last")}>

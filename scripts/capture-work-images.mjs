@@ -18,7 +18,7 @@ const shots = [
 		name: "psicologia-da-moda-clube",
 		url: "https://www.psicologiadamoda.club/grupo-estudos",
 	},
-	// Company sites for /work's professional work section.
+	// Company sites for /cases's professional work section.
 	{
 		name: "nisien-ai",
 		url: "https://nisien.ai/our-solution/hero/",

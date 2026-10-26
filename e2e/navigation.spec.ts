@@ -17,9 +17,9 @@ test("skip link moves focus to the main content", async ({
 test("work journey: home to case study and back", async ({ page }) => {
 	await page.goto("/");
 	await page.getByRole("link", { name: "See the cases" }).click();
-	await expect(page).toHaveURL(/\/work$/);
+	await expect(page).toHaveURL(/\/cases$/);
 	await page.getByRole("link", { name: "Priorize.me" }).first().click();
-	await expect(page).toHaveURL(/\/work\/priorize-me$/);
+	await expect(page).toHaveURL(/\/cases\/priorize-me$/);
 	await expect(page).toHaveTitle("Priorize.me case study | Guilherme Martins");
 	await page.getByRole("link", { name: "All cases" }).click();
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Cases");
@@ -38,17 +38,17 @@ test("client-side navigation moves focus to the new page heading", async ({
 test("language switch keeps the page and updates head tags", async ({
 	page,
 }) => {
-	await page.goto("/work/sdd-agentic-flow");
+	await page.goto("/cases/sdd-agentic-flow");
 	await page.getByRole("link", { name: /ler em português$/ }).click();
-	await expect(page).toHaveURL(/\/pt-br\/work\/sdd-agentic-flow$/);
+	await expect(page).toHaveURL(/\/pt-br\/cases\/sdd-agentic-flow$/);
 	await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
 	await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
 		"href",
-		"https://gmartins.dev/pt-br/work/sdd-agentic-flow",
+		"https://gmartins.dev/pt-br/cases/sdd-agentic-flow",
 	);
 	await expect(page.locator("title")).toHaveCount(1);
 	await page.getByRole("link", { name: /read in English$/ }).click();
-	await expect(page).toHaveURL(/\/work\/sdd-agentic-flow$/);
+	await expect(page).toHaveURL(/\/cases\/sdd-agentic-flow$/);
 });
 
 test("legacy short links redirect", async ({ request }) => {
@@ -77,7 +77,7 @@ test("an About company link opens its product on the Cases page", async ({
 	await page
 		.getByRole("link", { name: /See the product ?\(Nisien\.ai\)/ })
 		.click();
-	await expect(page).toHaveURL(/\/work#nisien-ai$/);
+	await expect(page).toHaveURL(/\/cases#nisien-ai$/);
 	const target = page.locator("#nisien-ai");
 	await expect(target).toBeFocused();
 	await expect(target).toBeInViewport();
@@ -86,16 +86,17 @@ test("an About company link opens its product on the Cases page", async ({
 test.describe("phone header", () => {
 	for (const width of [320, 360, 390]) {
 		for (const path of ["/", "/pt-br"]) {
-			test(`${path} at ${width}px fits in three rows`, async ({ page }) => {
+			test(`${path} at ${width}px fits on two rows`, async ({ page }) => {
 				await page.setViewportSize({ width, height: 800 });
 				await page.goto(path);
 				const top = async (selector: string) =>
 					(await page.getByRole("banner").locator(selector).boundingBox())?.y;
-				// Row 1 is the name; the nav wraps below it on narrow phones.
-				const navTop = await top("nav");
-				expect(navTop).toBeGreaterThan((await top("a[translate=no]")) ?? 0);
+				// Row 1 is the name and the language toggle; the nav is row 2.
+				const nameTop = (await top("a[translate=no]")) ?? 0;
+				expect(await top("a[hreflang]")).toBeCloseTo(nameTop, -1);
+				expect(await top("nav")).toBeGreaterThan(nameTop);
 				const header = await page.getByRole("banner").boundingBox();
-				expect(header?.height).toBeLessThan(160);
+				expect(header?.height).toBeLessThan(110);
 			});
 		}
 	}
@@ -104,17 +105,17 @@ test.describe("phone header", () => {
 test("a case study offers the other case studies at its end", async ({
 	page,
 }) => {
-	await page.goto("/work/sdd-agentic-flow");
+	await page.goto("/cases/sdd-agentic-flow");
 	const others = page.getByRole("navigation", { name: "Other case studies" });
 	await expect(others.getByRole("link")).toHaveCount(2);
 	await expect(
 		others.getByRole("link", { name: "sdd-agentic-flow" }),
 	).toHaveCount(0);
 	await others.getByRole("link", { name: "Priorize.me" }).click();
-	await expect(page).toHaveURL(/\/work\/priorize-me$/);
+	await expect(page).toHaveURL(/\/cases\/priorize-me$/);
 	await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
 
-	await page.goto("/pt-br/work/priorize-me");
+	await page.goto("/pt-br/cases/priorize-me");
 	await expect(
 		page
 			.getByRole("navigation", { name: "Outros estudos de caso" })

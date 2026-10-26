@@ -142,7 +142,7 @@ describe("content", () => {
 		expect(positions).toEqual([...positions].sort((a, b) => a - b));
 	});
 
-	it("gives /work anchors unique ids", () => {
+	it("gives /cases anchors unique ids", () => {
 		const ids = [
 			...professionalWork.map((work) => work.slug),
 			"professional-work",

@@ -27,7 +27,7 @@ checks only the site owner can make; each one is a launch blocker until done.
   (Software Engineer at Nisien.ai, Backbase, Vochlea and Loop, and Frontend
   Developer at ChatWith.io). Update the PT-BR resume, which still has the
   older titles.
-- **Products I worked on.** The `/work` section names Nisien.ai, Backbase,
+- **Products I worked on.** The `/cases` section names Nisien.ai, Backbase,
   Vochlea, Loop and ChatWith.io, with screenshots of their public sites
   (ChatWith.io from its February 2023 Internet Archive copy). The Backbase
   stack (Angular, TypeScript) comes from Backbase's frontend job posts;
@@ -72,7 +72,7 @@ fixes it; until then it stays public.
   ([ADR-006](docs/adr/006-real-user-web-vitals-with-vercel-speed-insights.md));
   the site already loads it. After launch, check real-user Core Web Vitals there (target p75
   LCP at or below 2.5 s). The lab LCP numbers and their limits are in ADR-006;
-  watch `/` and `/work`, which sit at that limit. If field data misses the
+  watch `/` and `/cases`, which sit at that limit. If field data misses the
   target, the next levers are AVIF images and splitting page code by route.
 - Follow the periodic review in `docs/maintenance.md`.
 

@@ -8,7 +8,7 @@ import type { Project } from "./schema";
 export const projects: Project[] = [
 	{
 		// Was a case study until 2026-10-25; moved here by the owner because it
-		// was done for a hiring process. /work/payments-api-node redirects here.
+		// was done for a hiring process.
 		slug: "payments-api-node",
 		title: "Idempotent payments API",
 		year: 2026,

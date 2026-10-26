@@ -36,7 +36,7 @@ export function CaseStudyPage({
 	return (
 		<article className="pt-8 md:pt-16">
 			<Link
-				to={localizedPath(locale, "/work")}
+				to={localizedPath(locale, "/cases")}
 				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground print:hidden"
 			>
 				<ArrowLeft aria-hidden="true" className="size-4" />
@@ -197,7 +197,7 @@ export function CaseStudyPage({
 									]}
 								/>
 								<Link
-									to={localizedPath(locale, `/work/${other.slug}`)}
+									to={localizedPath(locale, `/cases/${other.slug}`)}
 									className="mt-2 inline-flex min-h-6 items-center text-lg font-semibold tracking-tight hover:text-brand"
 									translate="no"
 								>

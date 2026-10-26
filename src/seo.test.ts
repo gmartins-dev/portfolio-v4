@@ -146,8 +146,8 @@ describe("head extras", () => {
 		expect(breadcrumb).toMatchObject({
 			itemListElement: [
 				{ position: 1, item: "https://gmartins.dev/" },
-				{ position: 2, item: "https://gmartins.dev/work" },
-				{ position: 3, item: "https://gmartins.dev/work/sdd-agentic-flow" },
+				{ position: 2, item: "https://gmartins.dev/cases" },
+				{ position: 3, item: "https://gmartins.dev/cases/sdd-agentic-flow" },
 			],
 		});
 		expect(nodes.some((node) => node["@type"] === "Person")).toBe(true);
@@ -193,12 +193,12 @@ describe("head extras", () => {
 		});
 	});
 
-	it("lists case studies and the company-owned products on /work", () => {
+	it("lists case studies and the company-owned products on /cases", () => {
 		const [document] = workStructuredData("en", caseStudies);
 		const [collection] = (document as { "@graph": object[] })["@graph"];
 		const parts = (collection as { hasPart: object[] }).hasPart;
 		expect(parts).toContainEqual({
-			"@id": `https://gmartins.dev/work/${caseStudies[0].slug}#article`,
+			"@id": `https://gmartins.dev/cases/${caseStudies[0].slug}#article`,
 		});
 		expect(parts).toContainEqual(
 			expect.objectContaining({

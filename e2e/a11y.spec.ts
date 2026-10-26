@@ -45,11 +45,11 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 		test.skip(isMobile, "keyboard journey");
 		for (const path of [
 			"/",
-			"/work",
+			"/cases",
 			"/about",
-			"/work/sdd-agentic-flow",
+			"/cases/sdd-agentic-flow",
 			"/pt-br",
-			"/pt-br/work/priorize-me",
+			"/pt-br/cases/priorize-me",
 			"/does-not-exist",
 		]) {
 			await page.goto(path);
@@ -98,7 +98,7 @@ test("heading levels never skip on any page (1.3.1)", async ({ page }) => {
 test("visible link and button text is part of the accessible name (2.5.3) @a11y", async ({
 	page,
 }) => {
-	for (const path of ["/", "/pt-br/work/priorize-me"]) {
+	for (const path of ["/", "/pt-br/cases/priorize-me"]) {
 		await page.goto(path);
 		const results = await new AxeBuilder({ page })
 			.withRules(["label-content-name-mismatch"])
@@ -113,7 +113,7 @@ test.describe("print @a11y", () => {
 	test.use({ viewport: { width: 1024, height: 800 } });
 
 	test("a case study prints readable", async ({ page }) => {
-		await page.goto("/work/sdd-agentic-flow");
+		await page.goto("/cases/sdd-agentic-flow");
 		await page.emulateMedia({ media: "print" });
 
 		// Print drops backgrounds, so text must be dark on the white page.

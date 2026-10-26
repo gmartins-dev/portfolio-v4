@@ -25,8 +25,8 @@ export function SiteHeader() {
 			>
 				{t(copy.nav.skip, locale)}
 			</a>
-			{/* Phones: the name, then nav and controls on one row. DOM order
-			    matches visual order at every width. */}
+			{/* Phones: the name and the language toggle share the first row, and the
+			    nav takes the second. DOM order matches visual order at every width. */}
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
 				<Link
 					to={href("/")}
@@ -35,9 +35,24 @@ export function SiteHeader() {
 				>
 					{profile.name}
 				</Link>
-				<div className="flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-3 sm:w-auto sm:gap-x-6 print:hidden">
-					<nav aria-label={t(copy.nav.label, locale)}>
-						<ul className="flex items-center gap-3 text-sm sm:gap-5">
+				<div className="contents sm:flex sm:items-center sm:gap-x-6 print:hidden">
+					<Link
+						to={href(notFound ? "/" : page, other)}
+						hrefLang={other}
+						lang={other}
+						className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+					>
+						<Languages className="size-5" aria-hidden="true" />
+						<span className="sr-only">
+							{t(copy.nav.language, locale)}
+							{t(copy.nav.languageHint, locale)}
+						</span>
+					</Link>
+					<nav
+						aria-label={t(copy.nav.label, locale)}
+						className="w-full sm:w-auto"
+					>
+						<ul className="flex items-center justify-between gap-3 text-sm sm:justify-normal sm:gap-5">
 							<li>
 								<Link
 									to={href("/about")}
@@ -58,7 +73,7 @@ export function SiteHeader() {
 							</li>
 							<li>
 								<Link
-									to={href("/work")}
+									to={href("/cases")}
 									activeOptions={{ exact: true }}
 									className={navLinkClass}
 								>
@@ -78,20 +93,6 @@ export function SiteHeader() {
 							</li>
 						</ul>
 					</nav>
-					<div className="flex items-center gap-3">
-						<Link
-							to={href(notFound ? "/" : page, other)}
-							hrefLang={other}
-							lang={other}
-							className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
-						>
-							<Languages className="size-5" aria-hidden="true" />
-							<span className="sr-only">
-								{t(copy.nav.language, locale)}
-								{t(copy.nav.languageHint, locale)}
-							</span>
-						</Link>
-					</div>
 				</div>
 			</div>
 		</header>
