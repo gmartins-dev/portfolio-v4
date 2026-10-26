@@ -10,7 +10,11 @@ export function ContactPage({ locale }: { locale: Locale }) {
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(page.heading, locale)}
 			</h1>
-			<p className="mt-8 max-w-prose text-lg">{t(page.intro, locale)}</p>
+			<div className="mt-8 max-w-prose space-y-1 text-lg">
+				{page.intro[locale].map((line) => (
+					<p key={line}>{line}</p>
+				))}
+			</div>
 			<ContactForm locale={locale} />
 			<p className="mt-8 text-sm text-muted-foreground">
 				{t(page.fallback, locale)}{" "}

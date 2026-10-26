@@ -118,9 +118,14 @@ export const copy = {
 	contactPage: {
 		heading: { en: "Contact", "pt-BR": "Contato" },
 		intro: {
-			en: "For product engineering, architecture or open-source collaboration, send me a message and I will reply by email.",
-			"pt-BR":
-				"Para engenharia de produto, arquitetura ou colaboração em open source, envie uma mensagem e eu respondo por email.",
+			en: [
+				"For product engineering, architecture or open-source collaboration,",
+				"send me a message and I will reply by email.",
+			],
+			"pt-BR": [
+				"Para engenharia de produto, arquitetura ou colaboração em open source,",
+				"envie uma mensagem e eu respondo por email.",
+			],
 		},
 		name: { en: "Name", "pt-BR": "Nome" },
 		email: { en: "Email", "pt-BR": "Email" },
