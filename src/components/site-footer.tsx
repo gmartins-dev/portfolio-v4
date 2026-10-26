@@ -25,20 +25,16 @@ export function SiteFooter() {
 					<p className="mt-3 max-w-prose text-muted-foreground">
 						{t(copy.contact.body, locale)}
 					</p>
-					<div className="mt-6 flex flex-wrap gap-3 print:hidden">
-						<a
-							href={`mailto:${profile.email}`}
-							className={buttonVariants({ variant: "brand" })}
-						>
-							{t(copy.contact.email, locale)}
-						</a>
-						<Link
-							to={localizedPath(locale, "/contact")}
-							className={buttonVariants({ variant: "outline" })}
-						>
-							{t(copy.contact.form, locale)}
-						</Link>
-					</div>
+					<Link
+						to={localizedPath(locale, "/contact")}
+						className={buttonVariants({
+							variant: "brand",
+							// The address below is what paper needs.
+							className: "mt-6 print:hidden",
+						})}
+					>
+						{t(copy.contact.email, locale)}
+					</Link>
 					<p className="mt-3 font-mono text-sm text-muted-foreground">
 						{profile.email}
 					</p>

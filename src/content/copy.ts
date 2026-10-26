@@ -114,7 +114,6 @@ export const copy = {
 				"Para engenharia de produto, arquitetura ou colaboração em open source, email é o jeito mais rápido de falar comigo.",
 		},
 		email: { en: "Email me", "pt-BR": "Enviar email" },
-		form: { en: "Use the contact form", "pt-BR": "Usar o formulário" },
 	},
 	contactPage: {
 		heading: { en: "Contact", "pt-BR": "Contato" },

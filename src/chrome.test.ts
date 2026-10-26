@@ -17,13 +17,17 @@ function hrefOf(markup: string, pattern: RegExp) {
 }
 
 describe("contact call to action", () => {
-	it.each(["/", "/pt-br", "/about", "/does-not-exist"])(
-		"footer mailto points at the profile email on %s",
-		async (path) => {
-			const markup = await html(path);
-			expect(hrefOf(markup, /href="mailto:/)).toBe(`mailto:${profile.email}`);
-		},
-	);
+	it.each([
+		["/", "/contact"],
+		["/pt-br", "/pt-br/contact"],
+		["/about", "/contact"],
+		["/does-not-exist", "/contact"],
+	])("footer button opens the contact page on %s", async (path, target) => {
+		const markup = await html(path);
+		const footer = markup.slice(markup.indexOf("<footer"));
+		expect(hrefOf(footer, /href="\/(pt-br\/)?contact"/)).toBe(target);
+		expect(footer).toContain(profile.email);
+	});
 });
 
 describe("resume links", () => {

@@ -38,8 +38,8 @@ CSP: `connect-src` in `src/csp.ts` gains `https://api.web3forms.com`. The
 `vercel.json` header sets no `connect-src`, and `form-action 'self'` stays
 because the form never navigates.
 
-The footer keeps the `mailto` "Email me" button and adds a second button for
-the form, an exception to "one label per intent" in DESIGN.md.
+The footer "Email me" button now opens `/contact`; the address stays printed
+below it, and the contact page links `mailto:` as the fallback.
 
 ### Positive Consequences
 
