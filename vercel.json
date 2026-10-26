@@ -116,6 +116,16 @@
 			"source": "/projects/web/superbid",
 			"destination": "/projects",
 			"permanent": true
+		},
+		{
+			"source": "/work/payments-api-node",
+			"destination": "/projects#payments-api-node",
+			"permanent": true
+		},
+		{
+			"source": "/pt-br/work/payments-api-node",
+			"destination": "/pt-br/projects#payments-api-node",
+			"permanent": true
 		}
 	],
 	"headers": [

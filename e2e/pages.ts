@@ -9,11 +9,6 @@ export const pages = [
 	},
 	{ path: "/work/sdd-agentic-flow", lang: "en", h1: "sdd-agentic-flow" },
 	{ path: "/work/priorize-me", lang: "en", h1: "Priorize.me" },
-	{
-		path: "/work/payments-api-node",
-		lang: "en",
-		h1: "Idempotent payments API",
-	},
 	{ path: "/projects", lang: "en", h1: "More projects" },
 	{ path: "/how-i-work", lang: "en", h1: "How I work" },
 	{ path: "/about", lang: "en", h1: "About" },
@@ -34,11 +29,6 @@ export const pages = [
 		h1: "sdd-agentic-flow",
 	},
 	{ path: "/pt-br/work/priorize-me", lang: "pt-BR", h1: "Priorize.me" },
-	{
-		path: "/pt-br/work/payments-api-node",
-		lang: "pt-BR",
-		h1: "Idempotent payments API",
-	},
 	{ path: "/pt-br/projects", lang: "pt-BR", h1: "Mais projetos" },
 	{ path: "/pt-br/how-i-work", lang: "pt-BR", h1: "Como trabalho" },
 	{ path: "/pt-br/about", lang: "pt-BR", h1: "Sobre" },

@@ -47,7 +47,7 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 			"/",
 			"/work",
 			"/about",
-			"/work/payments-api-node",
+			"/work/sdd-agentic-flow",
 			"/pt-br",
 			"/pt-br/work/priorize-me",
 			"/does-not-exist",
@@ -113,7 +113,7 @@ test.describe("print @a11y", () => {
 	test.use({ viewport: { width: 1024, height: 800 } });
 
 	test("a case study prints readable", async ({ page }) => {
-		await page.goto("/work/payments-api-node");
+		await page.goto("/work/sdd-agentic-flow");
 		await page.emulateMedia({ media: "print" });
 
 		// Print drops backgrounds, so text must be dark on the white page.
@@ -134,11 +134,13 @@ test.describe("print @a11y", () => {
 		await expect(page.getByRole("link", { name: "Email me" })).toBeHidden();
 		await expect(page.getByText("contact@gmartins.dev")).toBeVisible();
 
-		// Code wraps instead of being cut at the page edge.
-		const clipped = await page
-			.locator("pre")
-			.first()
-			.evaluate((element) => element.scrollWidth - element.clientWidth);
-		expect(clipped).toBe(0);
+		// Code wraps instead of being cut at the page edge (when the case
+		// study has a code excerpt).
+		for (const element of await page.locator("pre").all()) {
+			const clipped = await element.evaluate(
+				(pre) => pre.scrollWidth - pre.clientWidth,
+			);
+			expect(clipped).toBe(0);
+		}
 	});
 });

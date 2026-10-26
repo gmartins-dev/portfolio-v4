@@ -62,3 +62,9 @@ pnpm preview      # serve dist/ locally
 Built and tested, not yet live: gmartins.dev still serves the previous
 version. The owner review and launch steps are tracked in
 [ROADMAP.md](ROADMAP.md).
+
+## License
+
+The source code is under the [MIT License](LICENSE). The site content (copy,
+case studies, positioning documents, images and resumes) is all rights
+reserved; see [LICENSE](LICENSE).

@@ -28,11 +28,11 @@ responsabilidade continuam humanos.**
 
 | Tema | No Brasil | Como aplicar |
 | --- | --- | --- |
-| Cargo e busca | Vagas e filtros usam tanto "Engenheiro(a) de Software" quanto "Desenvolvedor(a) Full Stack", e muitas empresas de tecnologia escrevem o cargo em inglês | Identidade: "Software Engineer" / "engenheiro de software". "Desenvolvedor Full Stack" entra como termo de busca no LinkedIn e no currículo, não como identidade |
+| Cargo e busca | Vagas e filtros usam tanto "Engenheiro(a) de Software" quanto "Desenvolvedor(a) Fullstack", e muitas empresas de tecnologia escrevem o cargo em inglês | No site em PT, o título e a meta usam "Desenvolvedor Fullstack", que é como se busca no Brasil (decisão do dono, 2026-10-25). No texto corrido, "engenheiro de software". Em inglês, "Software Engineer" |
 | Senioridade | Os níveis júnior, pleno e sênior aparecem no título da vaga e são filtro comum de recrutadores | "Sênior" aparece no cargo atual (LinkedIn e currículo) e nas candidaturas. No site, continua fora do título e da intro |
 | Stack | Vagas brasileiras costumam listar a stack em detalhe, e triagens em plataformas de recrutamento buscam palavras exatas | No LinkedIn e no currículo, citar a stack real: TypeScript, React, Next.js, Node.js, NestJS, PostgreSQL, AWS. No site, a stack fica nos estudos de caso e em "Ferramentas que uso" |
-| Modalidade | CLT, PJ e regime (remoto, híbrido, presencial) são decididos cedo na conversa | **A definir pelo dono.** O site diz só "remoto de Belo Horizonte". Não publicar modalidade ou faixa salarial sem decisão explícita |
-| Experiência internacional | Trabalho com times do Reino Unido e da Espanha, em inglês, é um diferencial claro | Dizer "trabalhei com times no Brasil, no Reino Unido e na Espanha" e citar o inglês no dia a dia, sem exagerar o nível de fluência |
+| Modalidade | CLT, PJ e regime (remoto, híbrido, presencial) são decididos cedo na conversa | O site diz "remoto ou híbrido em Belo Horizonte" (decisão do dono). CLT ou PJ e faixa salarial ficam para a conversa e não são publicados |
+| Experiência internacional | Trabalho com times do Reino Unido e da Espanha, em inglês, é um diferencial claro | Dizer "trabalhei com times no Brasil, no Reino Unido e na Espanha" e "inglês fluente" |
 | Pós-graduação | A especialização lato sensu é uma formação valorizada, e a PUC Minas é uma instituição conhecida, sobretudo em Minas Gerais | Usar o nome oficial e o status: "Especialização em Arquitetura de Software Distribuído, PUC Minas (em andamento, set. 2026 a mar. 2028)". Não chamar de mestrado nem de MBA |
 | Dados sensíveis | Em fintech e saúde, recrutadores associam dados sensíveis à LGPD | Descrever os guardrails como estão no estudo de caso. Não afirmar conformidade com a LGPD nem trabalho jurídico sem evidência |
 
@@ -53,12 +53,12 @@ português:
 
 | Pilar | Evidência | O que dá para dizer |
 | --- | --- | --- |
-| Engenharia de produto de ponta a ponta | Priorize.me (criador; beta pública; boards colaborativos em tempo real); trabalho independente para clientes de saúde e alimentação; projetos freelance de 2021 a 2022 | "Levo problemas de produto até a produção e continuo evoluindo o software depois do lançamento." |
-| Arquitetura de software e confiabilidade | Plataforma de crédito AI-first (anonimizada): o core, um monólito modular com arquitetura hexagonal e ingestão de eventos reprocessável, e a integração com as camadas de IA; payments-api-node (idempotência com requisições concorrentes); arquitetura de frontend e design system da Nisien.ai; ADRs e quality gates deste repositório | "Tomo e documento decisões de arquitetura sobre fronteiras, consistência, integrações e operação em produção." |
+| Engenharia de produto de ponta a ponta | Priorize.me (criador; beta pública; boards colaborativos em tempo real); trabalho independente para clientes de saúde e alimentação (2025 a 2026, encerrado; mostrar só os anos); projetos freelance de 2021 a 2022 | "Levo problemas de produto até a produção e continuo evoluindo o software depois do lançamento." |
+| Arquitetura de software e confiabilidade | Plataforma de crédito AI-first (anonimizada): o core, um monólito modular com arquitetura hexagonal e ingestão de eventos reprocessável, e a integração com as camadas de IA; payments-api-node (idempotência com requisições concorrentes; desafio de processo seletivo, listado em Mais projetos); arquitetura de frontend e design system da Nisien.ai; ADRs e quality gates deste repositório | "Tomo e documento decisões de arquitetura sobre fronteiras, consistência, integrações e operação em produção." |
 | Agentic engineering | sdd-agentic-flow (criador, open source): harness para trabalho de coding agents spec-first, delimitado e verificável, com revisão humana; documentado para Codex, Cursor, Claude Code e GitHub Copilot | "Uso coding agents em todo o ciclo de desenvolvimento, dentro de um processo spec-driven que publiquei como open source." |
-| Funcionalidades de IA em produtos | Plataforma de crédito: integração do core com as camadas de IA conversacional, com guardrails para dados sensíveis e para etapas do fluxo; Nisien.ai: aplicação principal de um produto de cibersegurança com IA, desde a primeira versão; Backbase: prova de conceito de assistente com IA que venceu o hackathon interno | "Integrei funcionalidades de IA em produtos, com controles e supervisão humana." Nunca sugerir que ele construiu os modelos ou as camadas de IA feitas por colegas |
+| Funcionalidades de IA em produtos | Plataforma de crédito: integração do core com as camadas de IA conversacional, com guardrails para dados sensíveis e para etapas do fluxo; Nisien.ai: aplicação principal de um produto de cibersegurança com IA, desde a primeira versão; Backbase: prova de conceito de assistente com IA que venceu o hackathon interno; Priorize.me: servidor MCP construído por ele, que permite a clientes de IA listar, criar e mover tarefas com as permissões da conta (tool use exposto a agentes, inteiramente dele) | "Integrei funcionalidades de IA em produtos, com controles e supervisão humana." Nunca sugerir que ele construiu os modelos ou as camadas de IA feitas por colegas |
 | Formação em arquitetura | PUC Minas, Especialização em Arquitetura de Software Distribuído, set. 2026 a mar. 2028, em andamento | "Estou aprofundando a formação em arquitetura de software distribuído." Indica estudo em curso, não domínio de toda a ementa |
-| Contexto internacional | Times no Reino Unido (Nisien.ai, Backbase, Vochlea, Loop) e na Espanha (ChatWith.io) | "Trabalhei com times no Brasil, no Reino Unido e na Espanha." |
+| Contexto internacional | Times no Reino Unido (Nisien.ai, Backbase, Vochlea, Loop) e na Espanha (ChatWith.io); inglês fluente, português nativo | "Trabalhei com times no Brasil, no Reino Unido e na Espanha." |
 
 ### Limites honestos
 
@@ -103,9 +103,8 @@ A mesma mensagem em todos os canais; muda só o tamanho.
 
 | Preferir | Evitar ou qualificar | Por quê |
 | --- | --- | --- |
-| engenheiro de software, Software Engineer | "Engenheiro de IA", "especialista em IA", "Engenheiro de ML" | Indicam outra especialização |
+| Desenvolvedor Fullstack (título e meta em PT), engenheiro de software (texto corrido), Software Engineer (EN) | "Engenheiro de IA", "especialista em IA", "Engenheiro de ML" | Indicam outra especialização |
 | Sênior no cargo atual e nas candidaturas | "Sênior" em todo título, bio ou descrição do site | Senioridade é o nível; a profissão é a identidade |
-| Desenvolvedor Full Stack (como termo de busca) | "Desenvolvedor Full Stack" como identidade principal no site | Manter um rótulo único; "desenvolvedor" é título comum no Brasil e não indica nível |
 | arquitetura de software, trade-offs, sistemas distribuídos, eventos, APIs, observabilidade, ADRs | "especialista em microsserviços", "arquiteto cloud" sem evidência | Descrever o que foi aplicado |
 | agentic engineering, spec-driven development, coding agents, tarefas delimitadas, testes, quality gates, revisão humana | "a IA escreve meu código", "programo com IA" sem explicar o processo | Explicar o método com responsabilidade e verificação |
 | funcionalidades de IA, integração com LLM, guardrails, supervisão humana | "sistema agêntico" para qualquer integração com LLM; "construí a IA da empresa" | Precisão sobre o que foi dele |
@@ -122,16 +121,16 @@ por termo.
 - Toda afirmação aponta para uma evidência acima.
 - Nada de nomes confidenciais. O estudo de caso AI-first é anonimizado e foi
   autorizado em 2026-10-25; cada detalhe fica dentro dessa aprovação.
-- "Software Engineer" (ou "engenheiro de software", no texto corrido) é a
-  identidade. "Sênior" só onde o nível é a informação. Cargos anteriores
+- No site em PT, "Desenvolvedor Fullstack" no título e na meta, e
+  "engenheiro de software" no texto corrido; em inglês, "Software Engineer". "Sênior" só onde o nível é a informação. Cargos anteriores
   ficam como foram exercidos.
 - Staff é direção futura, nunca cargo procurado.
 - A especialização aparece sempre como em andamento.
 - Sem promessa de velocidade ou qualidade sem medição.
 - Agentic engineering (como ele desenvolve) fica separado de funcionalidades
   de IA em produtos (o que ele constrói).
-- Modalidade de contratação e faixa salarial só com decisão explícita do
-  dono.
+- CLT ou PJ e faixa salarial não são publicados; o site diz só "remoto ou
+  híbrido em Belo Horizonte".
 - No site: português e inglês sempre juntos, sem travessões (verificado por
   `src/content/content.test.ts`).
 
@@ -139,9 +138,9 @@ por termo.
 
 | Elemento | Onde | Orientação |
 | --- | --- | --- |
-| Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | O título fica "Guilherme Martins \| Software Engineer", igual nas duas línguas. A meta em PT pode usar "engenheiro de software", que é como se busca em português |
-| Linha de disponibilidade | `copy.home.availability` | "Aberto a vagas de engenharia e consultoria · Remoto de Belo Horizonte, UTC-3 · Português e inglês" |
-| Capacidades e estudos de caso | `copy.capabilities`, `caseStudies` | Mesma ordem da versão em inglês: a plataforma AI-first primeiro, depois Priorize.me, sdd-agentic-flow e payments API |
+| Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | Título em PT: "Guilherme Martins \| Desenvolvedor Fullstack"; a meta começa do mesmo jeito. O cartão social em PT usa o mesmo termo (`copy.meta.role`) |
+| Linha de disponibilidade | `copy.home.availability` | "Aberto a vagas de engenharia e consultoria · Remoto ou híbrido em Belo Horizonte, UTC-3 · Português nativo e inglês fluente" |
+| Capacidades e estudos de caso | `copy.capabilities`, `caseStudies` | Mesma ordem da versão em inglês: a plataforma AI-first, Priorize.me e sdd-agentic-flow. A API de pagamentos fica em Mais projetos |
 | Formação | `education` em `src/content/profile.ts` | "Especialização em Arquitetura de Software Distribuído", PUC Minas, em andamento |
 | Contato | `copy.contact` | "Para vagas de engenharia em times de produto, consultoria ou colaboração em open source…" |
 

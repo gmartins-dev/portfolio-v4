@@ -18,11 +18,9 @@ test("work journey: home to case study and back", async ({ page }) => {
 	await page.goto("/");
 	await page.getByRole("link", { name: "See the work" }).click();
 	await expect(page).toHaveURL(/\/work$/);
-	await page.getByRole("link", { name: "Idempotent payments API" }).click();
-	await expect(page).toHaveURL(/\/work\/payments-api-node$/);
-	await expect(page).toHaveTitle(
-		"Idempotent payments API case study | Guilherme Martins",
-	);
+	await page.getByRole("link", { name: "Priorize.me" }).first().click();
+	await expect(page).toHaveURL(/\/work\/priorize-me$/);
+	await expect(page).toHaveTitle("Priorize.me case study | Guilherme Martins");
 	await page.getByRole("link", { name: "All work" }).click();
 	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Work");
 });
@@ -107,11 +105,11 @@ test.describe("phone header", () => {
 test("a case study offers the other case studies at its end", async ({
 	page,
 }) => {
-	await page.goto("/work/payments-api-node");
+	await page.goto("/work/sdd-agentic-flow");
 	const others = page.getByRole("navigation", { name: "Other case studies" });
-	await expect(others.getByRole("link")).toHaveCount(3);
+	await expect(others.getByRole("link")).toHaveCount(2);
 	await expect(
-		others.getByRole("link", { name: "Idempotent payments API" }),
+		others.getByRole("link", { name: "sdd-agentic-flow" }),
 	).toHaveCount(0);
 	await others.getByRole("link", { name: "Priorize.me" }).click();
 	await expect(page).toHaveURL(/\/work\/priorize-me$/);
@@ -122,5 +120,5 @@ test("a case study offers the other case studies at its end", async ({
 		page
 			.getByRole("navigation", { name: "Outros estudos de caso" })
 			.getByRole("link"),
-	).toHaveCount(3);
+	).toHaveCount(2);
 });

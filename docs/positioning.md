@@ -18,7 +18,7 @@ A Brazilian market version is in [positioning.pt-br.md](positioning.pt-br.md).
 
 | Layer | What it means | Where it shows |
 | --- | --- | --- |
-| Profession | Software Engineer | Site title, intro, bios, social cards |
+| Profession | Software Engineer. On the Brazilian Portuguese site the title and meta use "Desenvolvedor Fullstack", the term Brazilian searches use (see [positioning.pt-br.md](positioning.pt-br.md)) | Site title, intro, bios, social cards |
 | Seniority | Senior is the current level, not the identity | The current role in the experience list, and hiring contexts where level matters. Not in site titles or descriptions. Historical titles stay as held |
 | Product engineering | Full-stack work from problem definition through production and ongoing improvement | Hero, intro, case studies |
 | Software architecture | Practical decisions about boundaries, consistency, integrations, operations and trade-offs | Capabilities, case studies, education |
@@ -56,12 +56,12 @@ separate from current study.
 
 | Pillar | Evidence | What can be said |
 | --- | --- | --- |
-| Product engineering end to end | Priorize.me (creator; public beta; collaborative, real-time boards); independent client work in healthcare and food service; freelance projects from 2021 to 2022 | "I take product problems through implementation and production, then keep improving the software." |
-| Software architecture and reliability | The anonymized AI-first credit platform, where his work is the core (a modular monolith with hexagonal architecture and replayable event ingestion) and its integration with the AI layers; payments-api-node (idempotency under concurrent requests); the Nisien.ai frontend architecture and design system; the ADRs and quality gates of this repository | "I make and document architectural trade-offs around boundaries, consistency, integrations and production concerns." Say which decisions were his and where the evidence is public |
+| Product engineering end to end | Priorize.me (creator; public beta; collaborative, real-time boards); independent client work in healthcare and food service (2025 to 2026, finished; show years only); freelance projects from 2021 to 2022 | "I take product problems through implementation and production, then keep improving the software." |
+| Software architecture and reliability | The anonymized AI-first credit platform, where his work is the core (a modular monolith with hexagonal architecture and replayable event ingestion) and its integration with the AI layers; payments-api-node (idempotency under concurrent requests; a hiring challenge, listed under More projects); the Nisien.ai frontend architecture and design system; the ADRs and quality gates of this repository | "I make and document architectural trade-offs around boundaries, consistency, integrations and production concerns." Say which decisions were his and where the evidence is public |
 | Agentic engineering | sdd-agentic-flow (creator, open source): a harness for spec-first, bounded, verifiable coding-agent work with human review, documented for Codex, Cursor, Claude Code and GitHub Copilot | "I use coding agents across the development lifecycle, inside a spec-driven process I published as open source." |
-| AI-powered features in products | Anonymized credit platform: the core integrated with conversational AI layers, with guardrails for sensitive data and workflow steps; Nisien.ai: the main customer-facing application of an AI cybersecurity product, from its first version; Backbase: an AI assistant proof of concept that won the internal hackathon | "I have integrated AI capabilities into products, with controls and human oversight." Never imply he built the models or the AI layers that colleagues owned |
+| AI-powered features in products | Anonymized credit platform: the core integrated with conversational AI layers, with guardrails for sensitive data and workflow steps; Nisien.ai: the main customer-facing application of an AI cybersecurity product, from its first version; Backbase: an AI assistant proof of concept that won the internal hackathon; Priorize.me: an MCP server he built, which lets AI clients list, create and move tasks with the account's own permissions (tool use exposed to agents, and the clearest agent-facing work that is entirely his) | "I have integrated AI capabilities into products, with controls and human oversight." Never imply he built the models or the AI layers that colleagues owned |
 | Formal study in architecture | PUC Minas, Postgraduate Specialization in Distributed Software Architecture, September 2026 to March 2028, in progress | "I am deepening my formal study of distributed software architecture." It signals current learning, not mastery of every subject in the syllabus |
-| International context | Teams in the UK (Nisien.ai, Backbase, Vochlea, Loop) and Spain (ChatWith.io) | "I have worked with teams in Brazil, the UK and Spain." |
+| International context | Teams in the UK (Nisien.ai, Backbase, Vochlea, Loop) and Spain (ChatWith.io); fluent English, native Portuguese | "I have worked with teams in Brazil, the UK and Spain." |
 
 ### Honest limits
 
@@ -142,9 +142,9 @@ The Brazilian Portuguese sentences, adapted to that market, are in
 | Element | Where | Guidance |
 | --- | --- | --- |
 | Title, metadata, intro, social cards | `copy.meta` and `copy.home` in `src/content/copy.ts` | Software Engineer as the identity; product engineering, architecture and agentic engineering in plain language |
-| Availability line | `copy.home.availability` | Engineering roles and consulting, remote from Belo Horizonte, languages. No level, no Staff |
+| Availability line | `copy.home.availability` | Engineering roles and consulting; remote or hybrid in Belo Horizonte, UTC-3; fluent English, native Portuguese. No level, no Staff, no hiring model (CLT or contractor) |
 | Capabilities | `copy.capabilities` | Order: product engineering, software architecture, agentic engineering, AI-powered product features |
-| Case studies | `caseStudies` in `src/content/work.ts` | Order (owner's decision, 2026-10-25): the anonymized AI-first platform first (current professional work: architecture and AI integration), then Priorize.me (product ownership), sdd-agentic-flow (agentic engineering) and payments API (correctness). The home shows the first three |
+| Case studies | `caseStudies` in `src/content/work.ts` | Order (owner's decision, 2026-10-25): the anonymized AI-first platform (current professional work: architecture and AI integration), Priorize.me (product ownership), sdd-agentic-flow (agentic engineering). The payments API, a hiring challenge, is under More projects; the architecture capability links to it |
 | Experience and education | `experience` and `education` in `src/content/profile.ts` | Actual role titles; the specialization in progress; client work anonymous where needed |
 | Process | The How I work page, `copy.howIWork` | The actual spec-to-review workflow; no claim that every project uses every step |
 | Contact | `copy.contact` | A neutral line: engineering roles in product teams, consulting or open-source collaboration |

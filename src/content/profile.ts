@@ -56,7 +56,9 @@ export const experience: Experience[] = [
 			en: "Belo Horizonte, Brazil",
 			"pt-BR": "Belo Horizonte, Brasil",
 		},
-		start: "2025-06",
+		start: "2025",
+		// Ended in 2026; the owner prefers years only for this entry.
+		end: "2026",
 		context: {
 			en: "Independent software engineering for clients in several industries.",
 			"pt-BR":
@@ -64,14 +66,14 @@ export const experience: Experience[] = [
 		},
 		highlights: {
 			en: [
-				"Maintain and evolve a medical workforce management system: shift scheduling, operational workflows and healthcare payments.",
+				"Maintained and evolved a medical workforce management system: shift scheduling, operational workflows and healthcare payments.",
 				"Designed and delivered the menu management feature of a data platform for food-service businesses, including statistical analysis.",
-				"Build marketing and acquisition websites with semantic HTML, performance work and PostHog analytics.",
+				"Built marketing and acquisition websites with semantic HTML, performance work and PostHog analytics.",
 			],
 			"pt-BR": [
-				"Mantenho e evoluo um sistema de gestão de equipes médicas: escalas de plantão, fluxos operacionais e pagamentos na área da saúde.",
+				"Mantive e evoluí um sistema de gestão de equipes médicas: escalas de plantão, fluxos operacionais e pagamentos na área da saúde.",
 				"Projetei e entreguei a funcionalidade de gestão de cardápios de uma plataforma de dados para o setor de alimentação, com análises estatísticas.",
-				"Construo sites de marca e aquisição com HTML semântico, foco em performance e analytics com PostHog.",
+				"Construí sites de marca e aquisição com HTML semântico, foco em performance e analytics com PostHog.",
 			],
 		},
 	},

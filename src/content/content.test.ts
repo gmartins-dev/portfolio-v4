@@ -67,7 +67,11 @@ describe("content", () => {
 	});
 
 	it("lists experience newest first", () => {
-		const starts = experience.map((entry) => entry.start);
+		// A year alone sorts as the end of that year, so a years-only entry
+		// stays above the months it overlaps.
+		const starts = experience.map((entry) =>
+			entry.start.length === 4 ? `${entry.start}-13` : entry.start,
+		);
 		expect(starts).toEqual([...starts].sort().reverse());
 	});
 

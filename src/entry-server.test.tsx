@@ -11,7 +11,6 @@ describe("server render", () => {
 			"/work/ai-first-online-banking",
 			"/work/priorize-me",
 			"/work/sdd-agentic-flow",
-			"/work/payments-api-node",
 			"/projects",
 			"/how-i-work",
 			"/about",
@@ -20,7 +19,6 @@ describe("server render", () => {
 			"/pt-br/work/ai-first-online-banking",
 			"/pt-br/work/priorize-me",
 			"/pt-br/work/sdd-agentic-flow",
-			"/pt-br/work/payments-api-node",
 			"/pt-br/projects",
 			"/pt-br/how-i-work",
 			"/pt-br/about",
@@ -34,7 +32,7 @@ describe("server render", () => {
 		expect(response.status).toBe(200);
 		expect(html).toMatch(/^<!DOCTYPE html><html lang="pt-BR">/);
 		expect(html).toContain(
-			"<title>Sobre Guilherme Martins | Software Engineer</title>",
+			"<title>Sobre Guilherme Martins | Desenvolvedor Fullstack</title>",
 		);
 		expect(html).toContain(
 			'<link rel="canonical" href="https://gmartins.dev/pt-br/about"/>',

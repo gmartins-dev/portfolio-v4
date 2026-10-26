@@ -9,10 +9,6 @@ import { writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 
 const shots = [
-	{
-		name: "payments-api-node",
-		url: "https://payments-api-node-frontend.vercel.app",
-	},
 	// sdd-agentic-flow shows its README workflow diagram instead
 	// (scripts/diagrams/sdd-agentic-flow.mmd, `pnpm render:diagrams`).
 	{ name: "links", url: "https://gmartins-dev.github.io/links/" },

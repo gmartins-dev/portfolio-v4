@@ -12,8 +12,16 @@ is in the [roadmap](ROADMAP.md).
   way of working. New home meta and intro, an Email me primary CTA, a
   one-line availability note, a Contact link in the header, and
   capabilities reordered (product, architecture, agentic engineering,
-  AI-powered product features). Case studies run the AI-first platform,
-  Priorize.me, sdd-agentic-flow, payments API; the home shows the first three.
+  AI-powered product features, with the Priorize.me MCP server as evidence).
+  Case studies run the AI-first platform, Priorize.me and sdd-agentic-flow;
+  the payments API, a hiring challenge, moved to More projects, and its old
+  URL redirects there.
+- Availability: remote or hybrid in Belo Horizonte, fluent English. The
+  Brazilian Portuguese title, meta and social cards say "Desenvolvedor
+  Fullstack". The independent gmartins.dev entry ended (2025 to 2026, years
+  only).
+- LICENSE: MIT for the code; the site content stays all rights reserved.
+  The denylist hashing risk is recorded in SECURITY.md.
 - Positioning brief in `docs/positioning.md`, with a Brazilian market
   version in `docs/positioning.pt-br.md`. Copy makes no speed claims and
   keeps agentic engineering apart from AI features in products.

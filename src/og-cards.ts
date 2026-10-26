@@ -19,13 +19,13 @@ export const ogCards = locales.flatMap((locale) => [
 	{
 		file: `home-${locale}.png`,
 		lang: locale,
-		kicker: `${profile.name}, ${profile.role}`,
+		kicker: `${profile.name}, ${copy.meta.role[locale]}`,
 		title: copy.home.headline[locale],
 	},
 	...listingCards.map(({ key, heading }) => ({
 		file: `page-${key}-${locale}.png`,
 		lang: locale,
-		kicker: `${profile.name}, ${profile.role}`,
+		kicker: `${profile.name}, ${copy.meta.role[locale]}`,
 		title: heading[locale],
 	})),
 	...caseStudies.map((study) => ({

@@ -11,15 +11,18 @@ export const t = (value: Localized, locale: Locale) => value[locale];
 export const copy = {
 	meta: {
 		siteName: { en: "Guilherme Martins", "pt-BR": "Guilherme Martins" },
+		// The profession as shown in titles and social cards. PT-BR uses the
+		// term Brazilian job searches use (owner's decision, 2026-10-25).
+		role: { en: "Software Engineer", "pt-BR": "Desenvolvedor Fullstack" },
 		home: {
 			title: {
 				en: "Guilherme Martins | Software Engineer",
-				"pt-BR": "Guilherme Martins | Software Engineer",
+				"pt-BR": "Guilherme Martins | Desenvolvedor Fullstack",
 			},
 			description: {
 				en: "Software Engineer in Belo Horizonte focused on product engineering and software architecture, building full-stack products with AI across the development cycle, for teams in Brazil and the UK.",
 				"pt-BR":
-					"Software Engineer em Belo Horizonte com foco em engenharia de produto e arquitetura de software, construindo produtos full-stack com IA em todo o ciclo de desenvolvimento, para times no Brasil e no Reino Unido.",
+					"Desenvolvedor Fullstack em Belo Horizonte com foco em engenharia de produto e arquitetura de software, construindo produtos full-stack com IA em todo o ciclo de desenvolvimento, para times no Brasil e no Reino Unido.",
 			},
 		},
 		work: {
@@ -47,7 +50,7 @@ export const copy = {
 		about: {
 			title: {
 				en: "About Guilherme Martins | Software Engineer",
-				"pt-BR": "Sobre Guilherme Martins | Software Engineer",
+				"pt-BR": "Sobre Guilherme Martins | Desenvolvedor Fullstack",
 			},
 			description: {
 				en: "Guilherme Martins, software engineer: product engineering, software architecture and agentic engineering, in fintech, AI cybersecurity, SaaS and healthcare.",
@@ -123,18 +126,18 @@ export const copy = {
 		},
 		workCta: { en: "See the work", "pt-BR": "Ver trabalhos" },
 		// What a recruiter or client screens for first, as one metadata line.
-		// Source: the owner (2026-10-25): remote work from Belo Horizonte,
-		// engineering roles and consulting, English and Portuguese.
+		// Source: the owner (2026-10-25): remote or hybrid from Belo Horizonte,
+		// engineering roles and consulting, fluent English.
 		availability: {
 			en: [
 				"Open to engineering roles and consulting",
-				"Remote from Belo Horizonte, UTC-3",
-				"English and Portuguese",
+				"Remote or hybrid in Belo Horizonte, UTC-3",
+				"Fluent English, native Portuguese",
 			],
 			"pt-BR": [
 				"Aberto a vagas de engenharia e consultoria",
-				"Remoto de Belo Horizonte, UTC-3",
-				"Português e inglês",
+				"Remoto ou híbrido em Belo Horizonte, UTC-3",
+				"Português nativo e inglês fluente",
 			],
 		},
 		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
@@ -182,10 +185,11 @@ export const copy = {
 			},
 			evidence: {
 				label: {
-					en: "Payments case study",
-					"pt-BR": "Estudo de caso de pagamentos",
+					en: "Payments API project",
+					"pt-BR": "Projeto da API de pagamentos",
 				},
-				to: "/work/payments-api-node",
+				to: "/projects",
+				hash: "payments-api-node",
 			},
 		},
 		{
@@ -206,9 +210,9 @@ export const copy = {
 				"pt-BR": "Funcionalidades de IA em produtos",
 			},
 			body: {
-				en: "LLM integrations with guardrails in an AI-first credit platform: AI speeds up the flow, people and rules make the decisions.",
+				en: "LLM integrations with guardrails in an AI-first credit platform, where AI speeds up the flow and people and rules make the decisions. In Priorize.me, an MCP server lets AI clients list, create and move tasks with the account's own permissions.",
 				"pt-BR":
-					"Integrações de LLM com guardrails numa plataforma de crédito AI-first: a IA acelera o fluxo, pessoas e regras tomam as decisões.",
+					"Integrações de LLM com guardrails numa plataforma de crédito AI-first, em que a IA acelera o fluxo e pessoas e regras tomam as decisões. No Priorize.me, um servidor MCP permite que clientes de IA listem, criem e movam tarefas com as permissões da própria conta.",
 			},
 			evidence: {
 				label: {

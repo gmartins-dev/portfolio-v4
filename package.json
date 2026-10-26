@@ -1,6 +1,7 @@
 {
 	"name": "portfolio-v4",
 	"private": true,
+	"license": "SEE LICENSE IN LICENSE",
 	"version": "0.0.0",
 	"type": "module",
 	"packageManager": "pnpm@10.29.3",

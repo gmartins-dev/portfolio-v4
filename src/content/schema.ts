@@ -41,7 +41,7 @@ export const experienceSchema = z.object({
 	location: localized,
 	/** A year alone for confidential work, as in anonymized case studies. */
 	start: yearOrMonth,
-	end: yearMonth.optional(),
+	end: yearOrMonth.optional(),
 	context: localized,
 	highlights: localizedList,
 	/** Slug of the case study that covers this role, linked from About. */

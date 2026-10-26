@@ -92,6 +92,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							</p>
 							<Link
 								to={localizedPath(locale, item.evidence.to)}
+								hash={"hash" in item.evidence ? item.evidence.hash : undefined}
 								className="mt-3 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
 							>
 								{t(item.evidence.label, locale)}
