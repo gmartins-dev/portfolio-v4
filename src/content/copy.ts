@@ -120,9 +120,9 @@ export const copy = {
 			"pt-BR": "Da definição do problema ao software em produção.",
 		},
 		intro: {
-			en: "I'm Guilherme Martins, a software engineer focused on product engineering and software architecture. I build full-stack products that hold up in production, with coding agents in every step inside a spec-driven process that keeps the work reviewed and tested. I have worked with teams in Brazil and the UK in fintech, AI cybersecurity and healthcare.",
+			en: "I'm Guilherme Martins, a Software Engineer focused on product engineering and software architecture. I build and evolve full-stack products, using coding agents throughout the development lifecycle in a spec-driven workflow with scoped tasks, tests, and human review. I've worked with teams in Brazil and the UK across fintech, AI-driven cybersecurity, and healthcare.",
 			"pt-BR":
-				"Sou Guilherme Martins, engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção, com agentes de código em cada etapa dentro de um processo spec-driven que mantém o trabalho revisado e testado. Trabalhei com times no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde.",
+				"Sou Guilherme Martins, Software Engineer com foco em engenharia de produto e arquitetura de software. Construo e evoluo produtos full-stack, usando coding agents ao longo do ciclo de desenvolvimento em um processo orientado por especificações, com tarefas delimitadas, testes e revisão humana. Já trabalhei com equipes no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde.",
 		},
 		workCta: { en: "See the cases", "pt-BR": "Ver cases" },
 		workHeading: { en: "Selected cases", "pt-BR": "Cases selecionados" },
