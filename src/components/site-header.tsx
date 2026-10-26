@@ -25,8 +25,8 @@ export function SiteHeader() {
 			>
 				{t(copy.nav.skip, locale)}
 			</a>
-			{/* Phones: the name and the language toggle share the first row, and the
-			    nav takes the second. DOM order matches visual order at every width. */}
+			{/* The language toggle is the last item, in the DOM and on screen at every
+			    width. On phones the nav takes a full row and the toggle sits below it. */}
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
 				<Link
 					to={href("/")}
@@ -36,18 +36,6 @@ export function SiteHeader() {
 					{profile.name}
 				</Link>
 				<div className="contents sm:flex sm:items-center sm:gap-x-6 print:hidden">
-					<Link
-						to={href(notFound ? "/" : page, other)}
-						hrefLang={other}
-						lang={other}
-						className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
-					>
-						<Languages className="size-5" aria-hidden="true" />
-						<span className="sr-only">
-							{t(copy.nav.language, locale)}
-							{t(copy.nav.languageHint, locale)}
-						</span>
-					</Link>
 					<nav
 						aria-label={t(copy.nav.label, locale)}
 						className="w-full sm:w-auto"
@@ -93,6 +81,18 @@ export function SiteHeader() {
 							</li>
 						</ul>
 					</nav>
+					<Link
+						to={href(notFound ? "/" : page, other)}
+						hrefLang={other}
+						lang={other}
+						className="ml-auto inline-flex min-h-6 min-w-6 items-center justify-center text-sm sm:ml-0 text-muted-foreground transition-colors hover:text-foreground"
+					>
+						<Languages className="size-5" aria-hidden="true" />
+						<span className="sr-only">
+							{t(copy.nav.language, locale)}
+							{t(copy.nav.languageHint, locale)}
+						</span>
+					</Link>
 				</div>
 			</div>
 		</header>

@@ -86,17 +86,21 @@ test("an About company link opens its product on the Cases page", async ({
 test.describe("phone header", () => {
 	for (const width of [320, 360, 390]) {
 		for (const path of ["/", "/pt-br"]) {
-			test(`${path} at ${width}px fits on two rows`, async ({ page }) => {
+			test(`${path} at ${width}px stacks name, nav and language`, async ({
+				page,
+			}) => {
 				await page.setViewportSize({ width, height: 800 });
 				await page.goto(path);
 				const top = async (selector: string) =>
 					(await page.getByRole("banner").locator(selector).boundingBox())?.y;
-				// Row 1 is the name and the language toggle; the nav is row 2.
+				// The language toggle is the last item: below the nav on phones.
 				const nameTop = (await top("a[translate=no]")) ?? 0;
-				expect(await top("a[hreflang]")).toBeCloseTo(nameTop, -1);
-				expect(await top("nav")).toBeGreaterThan(nameTop);
+				const navTop = (await top("nav")) ?? 0;
+				const langTop = (await top("a[hreflang]")) ?? 0;
+				expect(navTop).toBeGreaterThan(nameTop);
+				expect(langTop).toBeGreaterThan(navTop);
 				const header = await page.getByRole("banner").boundingBox();
-				expect(header?.height).toBeLessThan(110);
+				expect(header?.height).toBeLessThan(160);
 			});
 		}
 	}
