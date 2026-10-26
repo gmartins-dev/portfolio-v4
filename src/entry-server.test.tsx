@@ -14,6 +14,7 @@ describe("server render", () => {
 			"/projects",
 			"/how-i-work",
 			"/about",
+			"/contact",
 			"/pt-br",
 			"/pt-br/cases",
 			"/pt-br/cases/ai-first-online-banking",
@@ -22,6 +23,7 @@ describe("server render", () => {
 			"/pt-br/projects",
 			"/pt-br/how-i-work",
 			"/pt-br/about",
+			"/pt-br/contact",
 		]);
 	});
 

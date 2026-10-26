@@ -13,6 +13,7 @@ decision, add a new ADR that supersedes the old one and link both ways.
 | [006](006-real-user-web-vitals-with-vercel-speed-insights.md) | Real-user Core Web Vitals with Vercel Speed Insights | Accepted |
 | [007](007-polar-navy-palette.md) | Polar Navy palette with a derived light theme | Superseded by 008 |
 | [008](008-dark-only.md) | Dark theme only, no theme switcher | Accepted |
+| [009](009-contact-form-with-web3forms.md) | Contact form with Web3Forms | Accepted |
 | [010](010-brand-kit-assets.md) | Brand masters in `brand/`, served copies in `public/` | Accepted |
 
 New ADR: copy the shape of an existing one (MADR: context, drivers, options,

@@ -8,7 +8,7 @@ import { buttonVariants } from "./ui/button";
 const footerLinkClass =
 	"inline-flex min-h-6 items-center text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline";
 
-/** Site-wide contact section: the one "contact" call to action on every page. */
+/** Site-wide contact section: the contact calls to action on every page. */
 export function SiteFooter() {
 	const { locale } = useLocale();
 
@@ -25,8 +25,8 @@ export function SiteFooter() {
 					<p className="mt-3 max-w-prose text-muted-foreground">
 						{t(copy.contact.body, locale)}
 					</p>
-					<a
-						href={`mailto:${profile.email}`}
+					<Link
+						to={localizedPath(locale, "/contact")}
 						className={buttonVariants({
 							variant: "brand",
 							// The address below is what paper needs.
@@ -34,7 +34,7 @@ export function SiteFooter() {
 						})}
 					>
 						{t(copy.contact.email, locale)}
-					</a>
+					</Link>
 					<p className="mt-3 font-mono text-sm text-muted-foreground">
 						{profile.email}
 					</p>

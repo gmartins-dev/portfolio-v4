@@ -5,6 +5,13 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Contact form (2026-10-26)
+
+- `/contact` and `/pt-br/contact` with a Web3Forms form (honeypot, status
+  messages, email fallback), linked from the header and the footer "Email me"
+  button (the address stays printed below it). CSP `connect-src` allows `api.web3forms.com`
+  ([ADR-009](docs/adr/009-contact-form-with-web3forms.md)).
+
 ### Brand kit v1 (2026-10-26)
 
 - Brand masters versioned in `brand/`: logos, icons, social assets, tokens,

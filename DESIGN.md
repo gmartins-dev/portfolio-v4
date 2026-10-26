@@ -31,7 +31,7 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 - **Readable without effects.** No information depends on hover, animation, or
   color alone.
 - **Plain copy.** No em dashes in visible text; one label per intent (for
-  example, "Email me" is the only contact call to action).
+  example, "Email me" is the only contact call to action; it opens /contact).
 
 ## Tokens
 

@@ -20,6 +20,7 @@ import stylesheet from "./index.css?url";
 import { isNotFound } from "./not-found";
 import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
+import { ContactPage } from "./pages/contact";
 import { HomePage } from "./pages/home";
 import { HowIWorkPage } from "./pages/how-i-work";
 import { NotFoundPage } from "./pages/not-found";
@@ -180,6 +181,11 @@ const pages: Page[] = [
 		ogImage: pageOgImage("about"),
 		structuredData: aboutStructuredData,
 		render: (locale) => <AboutPage locale={locale} />,
+	},
+	{
+		path: "/contact",
+		...copy.meta.contact,
+		render: (locale) => <ContactPage locale={locale} />,
 	},
 ];
 

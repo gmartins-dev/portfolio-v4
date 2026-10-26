@@ -119,6 +119,13 @@ company's involvement are public.
 4. Run every quality gate. About links the experience entry to the card,
    and the JSON-LD and `llms.txt` pick the entry up automatically.
 
+## Contact form
+
+Set `VITE_WEB3FORMS_ACCESS_KEY` in the Vercel project (Production and
+Preview); see `.env.example`. A build without it hides the form and shows only
+the email address. To rotate the key, create a new one at web3forms.com, update
+the variable and redeploy. Locally, put it in `.env.local`.
+
 ## Add a page
 
 1. Create the component in `src/pages/`. It receives `locale` as a prop.

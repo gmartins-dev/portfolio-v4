@@ -40,6 +40,11 @@ describe("withContentSecurityPolicy", () => {
 		expect(html).not.toContain("unsafe-inline");
 	});
 
+	it("lets pages post to Web3Forms and nowhere else", () => {
+		expect(html).toContain("connect-src 'self' https://api.web3forms.com;");
+		expect(html).toContain("form-action 'self'");
+	});
+
 	it("only inserts the meta tag, leaving the document untouched", async () => {
 		const source =
 			'<head><script>x("$&$`$\'$$")</script></head><body>$&</body>';

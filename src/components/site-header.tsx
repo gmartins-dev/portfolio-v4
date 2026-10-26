@@ -81,10 +81,13 @@ export function SiteHeader() {
 								</a>
 							</li>
 							<li>
-								{/* The contact section is in the footer of every page. */}
-								<a href="#contact" className={navLinkClass}>
+								<Link
+									to={href("/contact")}
+									activeOptions={{ exact: true }}
+									className={navLinkClass}
+								>
 									{t(copy.nav.contact, locale)}
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</nav>

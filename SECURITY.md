@@ -1,14 +1,19 @@
 # Security
 
 gmartins.dev is a static site: prerendered HTML, CSS, a client bundle and
-images, served by Vercel. There is no backend, no login, no form, no cookie
-and no script from another origin, so the attack surface is the delivered
+images, served by Vercel. There is no backend, no login, no cookie and no
+script from another origin, so the attack surface is the delivered
 markup, its headers, and the build chain.
 
 The one script that sends data is Vercel Speed Insights
 ([ADR-006](docs/adr/006-real-user-web-vitals-with-vercel-speed-insights.md)):
 served from this origin, it sends the page URL and Core Web Vitals timings of
 sampled visits to Vercel, without cookies.
+
+The contact form at `/contact` posts from the browser to
+`https://api.web3forms.com` ([ADR-009](docs/adr/009-contact-form-with-web3forms.md)),
+the only third-party origin the site talks to. Its access key is public by
+design and can only deliver to the owner's inbox.
 
 ## Reporting
 
@@ -20,6 +25,7 @@ issue for a vulnerability.
 | Area | Control | Where |
 | --- | --- | --- |
 | Script injection | Per-page Content-Security-Policy `<meta>`: `script-src 'self'` plus the SHA-256 of each inline script, no `unsafe-inline` | `src/csp.ts`, `src/finalize-html.ts` |
+| Network targets | `connect-src 'self' https://api.web3forms.com` in the page policy | `src/csp.ts` |
 | Framing, plugins, form targets | `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'`, `form-action 'self'` header, plus `X-Frame-Options: DENY` | `vercel.json` |
 | Transport | HSTS (2 years, subdomains) | `vercel.json` |
 | Other headers | `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (camera, microphone, geolocation, payment, USB, serial, HID, MIDI and Topics off), `Cross-Origin-Opener-Policy: same-origin`, `Cross-Origin-Resource-Policy: same-origin` (`cross-origin` for social cards under `/images/og/`) | `vercel.json` |

@@ -79,5 +79,5 @@ fixes it; until then it stays public.
 ## Deferred
 
 These need a demonstrated need before they are planned: blog or engineering
-notes, RSS, site search, project filters, contact form with a backend, CMS,
+notes, RSS, site search, project filters, CMS,
 analytics, dynamic GitHub stats.

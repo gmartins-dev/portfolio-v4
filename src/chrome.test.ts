@@ -17,13 +17,17 @@ function hrefOf(markup: string, pattern: RegExp) {
 }
 
 describe("contact call to action", () => {
-	it.each(["/", "/pt-br", "/about", "/does-not-exist"])(
-		"footer mailto points at the profile email on %s",
-		async (path) => {
-			const markup = await html(path);
-			expect(hrefOf(markup, /href="mailto:/)).toBe(`mailto:${profile.email}`);
-		},
-	);
+	it.each([
+		["/", "/contact"],
+		["/pt-br", "/pt-br/contact"],
+		["/about", "/contact"],
+		["/does-not-exist", "/contact"],
+	])("footer button opens the contact page on %s", async (path, target) => {
+		const markup = await html(path);
+		const footer = markup.slice(markup.indexOf("<footer"));
+		expect(hrefOf(footer, /href="\/(pt-br\/)?contact"/)).toBe(target);
+		expect(footer).toContain(profile.email);
+	});
 });
 
 describe("resume links", () => {
@@ -93,5 +97,18 @@ describe("home case study teasers", () => {
 	it("use the teaser diagram when a case study has one", async () => {
 		const markup = await html("/");
 		expect(markup).toContain("/images/work/ai-first-online-banking-teaser-");
+	});
+});
+
+describe("contact page links", () => {
+	it.each([
+		["/", "/contact"],
+		["/pt-br", "/pt-br/contact"],
+	])("header and footer link the form on %s", async (path, target) => {
+		const markup = await html(path);
+		const header = markup.slice(0, markup.indexOf("</header>"));
+		const footer = markup.slice(markup.indexOf("<footer"));
+		expect(hrefOf(header, new RegExp(`href="${target}"`))).toBe(target);
+		expect(hrefOf(footer, new RegExp(`href="${target}"`))).toBe(target);
 	});
 });
