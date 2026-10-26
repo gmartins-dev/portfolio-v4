@@ -28,12 +28,22 @@ export function SiteHeader() {
 			{/* The language toggle is the last item, in the DOM and on screen at every
 			    width. On phones the nav takes a full row and the toggle sits below it. */}
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
-				<Link
-					to={href("/")}
-					className="font-semibold tracking-tight"
-					translate="no"
-				>
-					{profile.name}
+				{/* The logo is a file from brand/; the light one prints on white paper. */}
+				<Link to={href("/")} className="inline-flex" translate="no">
+					<img
+						src="/brand/logo-primary-dark.svg"
+						alt={profile.name}
+						width={147}
+						height={28}
+						className="h-7 w-auto print:hidden"
+					/>
+					<img
+						src="/brand/logo-primary.svg"
+						alt={profile.name}
+						width={147}
+						height={28}
+						className="hidden h-7 w-auto print:block"
+					/>
 				</Link>
 				<div className="contents sm:flex sm:items-center sm:gap-x-6 print:hidden">
 					<nav

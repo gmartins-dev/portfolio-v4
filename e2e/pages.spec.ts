@@ -23,8 +23,9 @@ test.describe("every page @smoke", () => {
 				`https://gmartins.dev${path}`,
 			);
 
-			// Scroll everything into view so lazy images load, then check them.
-			for (const image of await page.locator("img").all()) {
+			// Scroll every visible image into view so lazy images load, then check
+			// them. The print-only logo is hidden on screen and never scrolls.
+			for (const image of await page.locator("img:visible").all()) {
 				await image.scrollIntoViewIfNeeded();
 				await expect
 					.poll(() =>
