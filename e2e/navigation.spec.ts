@@ -16,13 +16,13 @@ test("skip link moves focus to the main content", async ({
 
 test("work journey: home to case study and back", async ({ page }) => {
 	await page.goto("/");
-	await page.getByRole("link", { name: "See the work" }).click();
+	await page.getByRole("link", { name: "See the cases" }).click();
 	await expect(page).toHaveURL(/\/work$/);
 	await page.getByRole("link", { name: "Priorize.me" }).first().click();
 	await expect(page).toHaveURL(/\/work\/priorize-me$/);
 	await expect(page).toHaveTitle("Priorize.me case study | Guilherme Martins");
-	await page.getByRole("link", { name: "All work" }).click();
-	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Work");
+	await page.getByRole("link", { name: "All cases" }).click();
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText("Cases");
 });
 
 test("client-side navigation moves focus to the new page heading", async ({
@@ -70,7 +70,7 @@ test("legacy short links redirect", async ({ request }) => {
 	}
 });
 
-test("an About company link opens its product on the Work page", async ({
+test("an About company link opens its product on the Cases page", async ({
 	page,
 }) => {
 	await page.goto("/about");
@@ -86,17 +86,16 @@ test("an About company link opens its product on the Work page", async ({
 test.describe("phone header", () => {
 	for (const width of [320, 360, 390]) {
 		for (const path of ["/", "/pt-br"]) {
-			test(`${path} at ${width}px fits on two rows`, async ({ page }) => {
+			test(`${path} at ${width}px fits in three rows`, async ({ page }) => {
 				await page.setViewportSize({ width, height: 800 });
 				await page.goto(path);
 				const top = async (selector: string) =>
 					(await page.getByRole("banner").locator(selector).boundingBox())?.y;
-				// Row 1 is the name; nav and language share row 2.
+				// Row 1 is the name; the nav wraps below it on narrow phones.
 				const navTop = await top("nav");
 				expect(navTop).toBeGreaterThan((await top("a[translate=no]")) ?? 0);
-				expect(await top("a[hreflang]")).toBeCloseTo(navTop ?? 0, -1);
 				const header = await page.getByRole("banner").boundingBox();
-				expect(header?.height).toBeLessThan(110);
+				expect(header?.height).toBeLessThan(160);
 			});
 		}
 	}

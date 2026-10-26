@@ -35,7 +35,7 @@ export function buildLlmsTxt() {
 		"## Pages",
 		"",
 		`- [Home](${url("/")}): positioning, selected work, capabilities and experience summary`,
-		`- [Work](${url("/work")}): case studies, public products he worked on, client websites and community work`,
+		`- [Cases](${url("/work")}): case studies, public products he worked on, client websites and community work`,
 		`- [More projects](${url("/projects")}): smaller projects, technical challenges and earlier work, with demos and source`,
 		`- [How I work](${url("/how-i-work")}): his development process with coding agents: specs, bounded tasks, quality gates, human review and ADRs`,
 		`- [About](${url("/about")}): full professional history, education, tools and resumes`,

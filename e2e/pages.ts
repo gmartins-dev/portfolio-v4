@@ -1,7 +1,7 @@
 /** Every prerendered page, with the h1 it must show. Kept in sync by e2e/pages.spec.ts. */
 export const pages = [
 	{ path: "/", lang: "en", h1: "From problem definition to production." },
-	{ path: "/work", lang: "en", h1: "Work" },
+	{ path: "/work", lang: "en", h1: "Cases" },
 	{
 		path: "/work/ai-first-online-banking",
 		lang: "en",
@@ -17,7 +17,7 @@ export const pages = [
 		lang: "pt-BR",
 		h1: "Da definição do problema ao software em produção.",
 	},
-	{ path: "/pt-br/work", lang: "pt-BR", h1: "Trabalhos" },
+	{ path: "/pt-br/work", lang: "pt-BR", h1: "Cases" },
 	{
 		path: "/pt-br/work/ai-first-online-banking",
 		lang: "pt-BR",

@@ -27,8 +27,8 @@ export const copy = {
 		},
 		work: {
 			title: {
-				en: "Work and case studies | Guilherme Martins",
-				"pt-BR": "Trabalhos e estudos de caso | Guilherme Martins",
+				en: "Cases | Guilherme Martins",
+				"pt-BR": "Cases | Guilherme Martins",
 			},
 			description: {
 				en: "Case studies and projects by Guilherme Martins: a collaborative SaaS, developer tooling, backend consistency, products built at Backbase, Nisien.ai and Vochlea, and client work.",
@@ -83,7 +83,7 @@ export const copy = {
 	nav: {
 		label: { en: "Main", "pt-BR": "Principal" },
 		home: { en: "Home", "pt-BR": "Início" },
-		work: { en: "Work", "pt-BR": "Trabalhos" },
+		work: { en: "Cases", "pt-BR": "Cases" },
 		about: { en: "About", "pt-BR": "Sobre" },
 		resume: { en: "Resume", "pt-BR": "Currículo" },
 		contact: { en: "Contact", "pt-BR": "Contato" },
@@ -124,8 +124,8 @@ export const copy = {
 			"pt-BR":
 				"Sou Guilherme Martins, engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção, com agentes de código em cada etapa dentro de um processo spec-driven que mantém o trabalho revisado e testado. Trabalhei com times no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde.",
 		},
-		workCta: { en: "See the work", "pt-BR": "Ver trabalhos" },
-		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
+		workCta: { en: "See the cases", "pt-BR": "Ver cases" },
+		workHeading: { en: "Selected cases", "pt-BR": "Cases selecionados" },
 		readCaseStudy: {
 			en: "Read the case study",
 			"pt-BR": "Ler o estudo de caso",
@@ -209,7 +209,7 @@ export const copy = {
 		},
 	],
 	work: {
-		heading: { en: "Work", "pt-BR": "Trabalhos" },
+		heading: { en: "Cases", "pt-BR": "Cases" },
 		intro: {
 			en: "Case studies, the public products I helped build, and client and community work. Employer work is under confidentiality terms, so the professional case study is anonymized.",
 			"pt-BR":
@@ -235,7 +235,7 @@ export const copy = {
 		stack: { en: "Stack", "pt-BR": "Stack" },
 		links: { en: "Links", "pt-BR": "Links" },
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
-		back: { en: "All work", "pt-BR": "Todos os trabalhos" },
+		back: { en: "All cases", "pt-BR": "Todos os cases" },
 		otherStudies: {
 			en: "Other case studies",
 			"pt-BR": "Outros estudos de caso",
@@ -249,9 +249,9 @@ export const copy = {
 	projects: {
 		heading: { en: "More projects", "pt-BR": "Mais projetos" },
 		intro: {
-			en: "Smaller projects, technical challenges and earlier work, kept here for reference. The Work page has my current work in depth.",
+			en: "Smaller projects, technical challenges and earlier work, kept here for reference. The Cases page has my current work in depth.",
 			"pt-BR":
-				"Projetos menores, desafios técnicos e trabalhos anteriores, reunidos aqui como referência. A página Trabalhos mostra meu trabalho atual em profundidade.",
+				"Projetos menores, desafios técnicos e trabalhos anteriores, reunidos aqui como referência. A página Cases mostra meu trabalho atual em profundidade.",
 		},
 		recent: {
 			en: "Recent projects and technical challenges",
@@ -279,9 +279,9 @@ export const copy = {
 			],
 		},
 		confidential: {
-			en: "Much of this work is under confidentiality terms. The Work page shows what is public.",
+			en: "Much of this work is under confidentiality terms. The Cases page shows what is public.",
 			"pt-BR":
-				"Boa parte desse trabalho é confidencial. A página Trabalhos mostra o que é público.",
+				"Boa parte desse trabalho é confidencial. A página Cases mostra o que é público.",
 		},
 		experienceHeading: { en: "Experience", "pt-BR": "Experiência" },
 		productLink: { en: "See the product", "pt-BR": "Ver o produto" },

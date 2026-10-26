@@ -130,7 +130,7 @@ test.describe("print @a11y", () => {
 
 		// Controls that do nothing on paper are left out.
 		await expect(page.getByRole("navigation", { name: "Main" })).toBeHidden();
-		await expect(page.getByRole("link", { name: "All work" })).toBeHidden();
+		await expect(page.getByRole("link", { name: "All cases" })).toBeHidden();
 		await expect(page.getByRole("link", { name: "Email me" })).toBeHidden();
 		await expect(page.getByText("contact@gmartins.dev")).toBeVisible();
 

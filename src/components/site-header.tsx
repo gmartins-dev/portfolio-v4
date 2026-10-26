@@ -48,6 +48,15 @@ export function SiteHeader() {
 							</li>
 							<li>
 								<Link
+									to={href("/how-i-work")}
+									activeOptions={{ exact: true }}
+									className={navLinkClass}
+								>
+									{t(copy.howIWork.heading, locale)}
+								</Link>
+							</li>
+							<li>
+								<Link
 									to={href("/about")}
 									activeOptions={{ exact: true }}
 									className={navLinkClass}
