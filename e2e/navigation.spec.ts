@@ -39,9 +39,7 @@ test("language switch keeps the page and updates head tags", async ({
 	page,
 }) => {
 	await page.goto("/work/sdd-agentic-flow");
-	await page
-		.getByRole("link", { name: /ler em português$/ })
-		.click();
+	await page.getByRole("link", { name: /ler em português$/ }).click();
 	await expect(page).toHaveURL(/\/pt-br\/work\/sdd-agentic-flow$/);
 	await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
 	await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
