@@ -26,6 +26,7 @@
 | Why things are built this way | `docs/adr/README.md` |
 | Professional positioning for any copy (Brazilian market: `docs/positioning.pt-br.md`) | `docs/positioning.md` |
 | UI tokens and rules | `DESIGN.md` |
+| Brand masters: logos, icons, social assets, fonts, guidelines | `brand/README.md` |
 | Security controls | `SECURITY.md` |
 | Open work and launch blockers | `ROADMAP.md` |
 

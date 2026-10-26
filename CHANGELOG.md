@@ -5,6 +5,15 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Brand kit v1 (2026-10-26)
+
+- Brand masters versioned in `brand/`: logos, icons, social assets, tokens,
+  fonts and guidelines. The site serves the copies it needs from `public/`.
+- The header shows the logo instead of the name, with a light version for
+  print. The favicon, Apple touch icon and PWA manifest come from the kit.
+- Social cards re-rendered in the brand style: navy background, wordmark and
+  Inter Display. The site accent stays glacial cyan (ADR-008).
+
 ### Positioning review (2026-10-25)
 
 - Copy follows the owner's positioning: Software Engineer as the identity,
