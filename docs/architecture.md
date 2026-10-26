@@ -104,7 +104,7 @@ committed under `public/`, so rerun a script only when its input changes:
 
 | Command | Output | Input |
 | --- | --- | --- |
-| `pnpm build:og-images` | `public/images/og/` social cards and `public/apple-touch-icon.png` | HTML in `scripts/build-og-images.mjs`, rendered in a browser |
+| `pnpm build:og-images` | `public/images/og/` social cards | `scripts/build-og-images.mjs` with the logo and fonts in `brand/`, rendered in a browser |
 | `pnpm render:diagrams [name ...]` | `public/images/work/<name>-<width>.webp` | `scripts/diagrams/<slug>.mmd` |
 | `pnpm capture:work-images [name ...]` | `public/images/work/<name>-<width>.webp` | Live product sites listed in `scripts/capture-work-images.mjs` |
 

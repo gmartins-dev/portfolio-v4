@@ -42,6 +42,14 @@ the GitHub profile, a public repository, or a company's public site. When you re
 update its `reviewed` date; it feeds the visible "Facts checked on" line,
 `dateModified` in JSON-LD, and the sitemap `lastmod`.
 
+## Update the brand
+
+The brand masters live in `brand/` (see [`brand/README.md`](../brand/README.md)).
+Change the master first, then copy it to its path under `public/` in the same
+change: the favicon and icons at the root, the header logos in `public/brand/`.
+When the logo or the fonts change, run `pnpm build:og-images`. Do not edit
+`public/images/og/` by hand.
+
 ## Add a case study
 
 1. Add an entry to `caseStudies` in `src/content/work.ts`. The `CaseStudy`

@@ -47,8 +47,9 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
 Use them through Tailwind utilities (`bg-background`, `text-muted-foreground`,
 `text-brand`). Do not write raw color values in components. These places
 mirror token values by hand and change with them: the `theme-color` meta tag
-in `src/router.tsx` (the `--background` value as hex), `public/favicon.svg`,
-and the social card colors in `scripts/build-og-images.mjs`. The Mermaid theme
+in `src/router.tsx` (the `--background` value as hex), the logo and icon files
+in `public/` (copies of the masters in `brand/`, see `brand/README.md`), and
+the social card colors in `scripts/build-og-images.mjs`. The Mermaid theme
 variables in `scripts/diagrams/` (and the copy in `docs/architecture.md`) use
 the light brand cyan.
 
