@@ -1,4 +1,4 @@
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { copy, t } from "../content/copy";
 import type { Locale } from "../i18n";
 import { buttonVariants } from "./ui/button";
@@ -23,18 +23,26 @@ export function ContactForm({
 }) {
 	const page = copy.contactPage;
 	const [status, setStatus] = useState<Status>("idle");
-	const formRef = useRef<HTMLFormElement>(null);
 
 	if (!accessKey) return null;
 
 	async function onSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form = event.currentTarget;
-		if (!form.checkValidity()) {
+		const data = new FormData(form);
+		// `required` accepts whitespace-only values; treat those as empty too.
+		const blank = ["name", "message"].filter(
+			(field) => !String(data.get(field) ?? "").trim(),
+		);
+		if (blank.length > 0 || !form.checkValidity()) {
 			setStatus("invalid");
+			// noValidate suppresses the browser's own focus on the bad field.
+			const target =
+				form.querySelector<HTMLElement>(":invalid") ??
+				form.querySelector<HTMLElement>(`[name=${blank[0]}]`);
+			target?.focus();
 			return;
 		}
-		const data = new FormData(form);
 		// A bot filled the hidden checkbox: pretend it worked and send nothing.
 		if (data.get("botcheck")) {
 			setStatus("success");
@@ -48,6 +56,8 @@ export function ContactForm({
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},
+				// Do not leave "Sending..." hanging on a stalled connection.
+				signal: AbortSignal.timeout(15_000),
 				body: JSON.stringify({
 					access_key: accessKey,
 					name: data.get("name"),
@@ -60,7 +70,7 @@ export function ContactForm({
 			});
 			const result = (await response.json()) as { success?: boolean };
 			if (response.ok && result.success) {
-				formRef.current?.reset();
+				form.reset();
 				setStatus("success");
 			} else {
 				setStatus("error");
@@ -71,21 +81,18 @@ export function ContactForm({
 	}
 
 	const message =
-		status === "success"
-			? page.success
-			: status === "error"
-				? page.error
-				: status === "invalid"
-					? page.required
-					: null;
+		status === "sending"
+			? page.sending
+			: status === "success"
+				? page.success
+				: status === "error"
+					? page.error
+					: status === "invalid"
+						? page.required
+						: null;
 
 	return (
-		<form
-			ref={formRef}
-			onSubmit={onSubmit}
-			noValidate
-			className="mt-10 grid max-w-xl gap-6"
-		>
+		<form onSubmit={onSubmit} noValidate className="mt-10 grid max-w-xl gap-6">
 			<div>
 				<label htmlFor="contact-name">{t(page.name, locale)}</label>
 				<input

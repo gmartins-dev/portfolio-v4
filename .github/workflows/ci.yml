@@ -28,7 +28,10 @@ jobs:
       # Runtime dependencies only: dev tools never reach visitors. See SECURITY.md.
       - run: pnpm audit --prod --audit-level high
       - run: pnpm check
+      # A placeholder key so the e2e run exercises the contact form (never deployed).
       - run: pnpm build
+        env:
+          VITE_WEB3FORMS_ACCESS_KEY: ci-placeholder-key
       - run: pnpm check:dist
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e

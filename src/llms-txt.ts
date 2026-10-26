@@ -39,6 +39,7 @@ export function buildLlmsTxt() {
 		`- [More projects](${url("/projects")}): smaller projects, technical challenges and earlier work, with demos and source`,
 		`- [How I work](${url("/how-i-work")}): his development process with coding agents: specs, bounded tasks, quality gates, human review and ADRs`,
 		`- [About](${url("/about")}): full professional history, education, tools and resumes`,
+		`- [Contact](${url("/contact")}): contact form and email address`,
 		"",
 		"## Case studies",
 		"",
