@@ -73,7 +73,6 @@ export function SiteHeader() {
 							to={href(notFound ? "/" : page, other)}
 							hrefLang={other}
 							lang={other}
-							aria-label={t(copy.nav.languageLabel, locale)}
 							className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
 						>
 							<span className="sm:hidden">
@@ -81,6 +80,9 @@ export function SiteHeader() {
 							</span>
 							<span className="hidden sm:inline">
 								{t(copy.nav.language, locale)}
+							</span>
+							<span className="sr-only">
+								{t(copy.nav.languageHint, locale)}
 							</span>
 						</Link>
 					</div>

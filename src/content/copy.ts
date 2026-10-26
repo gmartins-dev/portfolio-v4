@@ -89,11 +89,11 @@ export const copy = {
 		contact: { en: "Contact", "pt-BR": "Contato" },
 		skip: { en: "Skip to content", "pt-BR": "Pular para o conteúdo" },
 		language: { en: "Português", "pt-BR": "English" },
-		// Shown on phones. The accessible name (languageLabel) starts with the
-		// desktop text and contains the phone text, so voice control users can
-		// say either (WCAG 2.5.3, label-content-name-mismatch).
+		// Shown on phones. The link has no aria-label: its accessible name is the
+		// visible text at each width plus languageHint (screen readers only), so
+		// the name always starts with what is on screen (WCAG 2.5.3).
 		languageShort: { en: "PT", "pt-BR": "EN" },
-		languageLabel: { en: "Português (PT)", "pt-BR": "English (EN)" },
+		languageHint: { en: ", ler em português", "pt-BR": ", read in English" },
 	},
 	contact: {
 		heading: { en: "Let's talk", "pt-BR": "Vamos conversar" },

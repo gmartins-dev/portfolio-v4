@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { inlineScripts, withContentSecurityPolicy } from "./csp";
 
 const sha = (s: string) =>
@@ -21,8 +21,11 @@ describe("inlineScripts", () => {
 	});
 });
 
-describe("withContentSecurityPolicy", async () => {
-	const html = await withContentSecurityPolicy(page);
+describe("withContentSecurityPolicy", () => {
+	let html: string;
+	beforeAll(async () => {
+		html = await withContentSecurityPolicy(page);
+	});
 
 	it("puts the policy first in <head>", () => {
 		expect(html).toMatch(

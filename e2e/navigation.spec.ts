@@ -39,7 +39,9 @@ test("language switch keeps the page and updates head tags", async ({
 	page,
 }) => {
 	await page.goto("/work/sdd-agentic-flow");
-	await page.getByRole("link", { name: "Português (PT)" }).click();
+	await page
+		.getByRole("link", { name: /ler em português$/ })
+		.click();
 	await expect(page).toHaveURL(/\/pt-br\/work\/sdd-agentic-flow$/);
 	await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
 	await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
@@ -47,7 +49,7 @@ test("language switch keeps the page and updates head tags", async ({
 		"https://gmartins.dev/pt-br/work/sdd-agentic-flow",
 	);
 	await expect(page.locator("title")).toHaveCount(1);
-	await page.getByRole("link", { name: "English (EN)" }).click();
+	await page.getByRole("link", { name: /read in English$/ }).click();
 	await expect(page).toHaveURL(/\/work\/sdd-agentic-flow$/);
 });
 
