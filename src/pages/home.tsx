@@ -11,6 +11,9 @@ import { experience, profile } from "../content/profile";
 import { caseStudies, otherWork } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
+// The home shows the first case studies; /cases lists them all.
+const featuredCaseStudies = 3;
+
 const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 
 export function HomePage({ locale }: { locale: Locale }) {
@@ -20,26 +23,28 @@ export function HomePage({ locale }: { locale: Locale }) {
 				<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 					{t(copy.home.headline, locale)}
 				</h1>
-				<p className="mt-6 max-w-xl text-lg text-muted-foreground">
-					{t(copy.home.intro, locale)}
-				</p>
+				<div className="mt-6 max-w-xl space-y-4 text-lg text-muted-foreground">
+					{copy.home.intro[locale].map((paragraph) => (
+						<p key={paragraph}>{paragraph}</p>
+					))}
+				</div>
 				<div className="mt-8 flex flex-wrap gap-3">
-					<Link
-						to={localizedPath(locale, "/work")}
+					<a
+						href={`mailto:${profile.email}`}
 						className={buttonVariants({
 							variant: "brand",
 						})}
 					>
-						{t(copy.home.primaryCta, locale)}
-					</Link>
-					<a
-						href={profile.resume[locale]}
+						{t(copy.contact.email, locale)}
+					</a>
+					<Link
+						to={localizedPath(locale, "/cases")}
 						className={buttonVariants({
 							variant: "outline",
 						})}
 					>
-						{t(copy.nav.resume, locale)}
-					</a>
+						{t(copy.home.workCta, locale)}
+					</Link>
 				</div>
 			</section>
 
@@ -51,7 +56,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					{t(copy.home.workHeading, locale)}
 				</h2>
 				<div className="mt-10 grid gap-14 md:mt-12 md:gap-20">
-					{caseStudies.map((study, index) => (
+					{caseStudies.slice(0, featuredCaseStudies).map((study, index) => (
 						<CaseStudyTeaser
 							key={study.slug}
 							study={study}
@@ -67,6 +72,13 @@ export function HomePage({ locale }: { locale: Locale }) {
 				<h2 id="capabilities" className={sectionHeading}>
 					{t(copy.home.capabilitiesHeading, locale)}
 				</h2>
+				<Link
+					to={localizedPath(locale, "/how-i-work")}
+					className="mt-4 inline-flex min-h-6 items-center gap-1 text-sm font-medium text-brand underline-offset-4 hover:underline"
+				>
+					{t(copy.home.howIWorkLink, locale)}
+					<ArrowRight aria-hidden="true" className="size-3.5" />
+				</Link>
 				<ul className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
 					{copy.capabilities.map((item) => (
 						<li key={item.title.en} className="border-t pt-6">

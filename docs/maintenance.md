@@ -93,7 +93,7 @@ Projects that don't need a case study go on `/projects`.
 
 ## Add a product from a past job
 
-The "Products I worked on" section of `/work` lists public products built
+The "Products I worked on" section of `/cases` lists public products built
 as an employee or contractor. Use it only when the product and the
 company's involvement are public.
 
@@ -135,9 +135,10 @@ Dependabot opens grouped pull requests every week. For each one:
 
 1. Read the release notes of anything with a new minor version, especially
    React, TanStack Router, and Vite.
-2. Let CI run every gate. Router upgrades have changed internal markup before;
-   the 404 script allowlist and the not-found check were built to survive
-   that, and the e2e suite catches hydration regressions.
+2. Let CI run every gate. Router upgrades have changed internal markup before.
+   The 404 page drops every script (`withoutScripts`), and the not-found check
+   uses public match data, so neither depends on that markup. The e2e suite
+   catches hydration regressions.
 3. If `pnpm audit` reports an advisory without a fix, record it in
    `SECURITY.md` with a reason and a review date.
 
@@ -163,7 +164,7 @@ Before you point the domain at a new version or merge a large change:
 
 | When | Do |
 | --- | --- |
-| Monthly | Run Lighthouse on `/`, `/work`, and one case study; check Search Console and Core Web Vitals |
+| Monthly | Run Lighthouse on `/`, `/cases`, and one case study; check Search Console and Core Web Vitals |
 | Quarterly | Re-check case study facts against their repositories and update `reviewed`; refresh screenshots if the projects changed |
 | When a role changes | Update `profile.ts`, both resumes, and LinkedIn together |
-| By 2027-01-11 | Re-evaluate the accepted dev-only advisory in `SECURITY.md` |
+| Whenever `SECURITY.md` lists a finding | Re-check it on its review date |

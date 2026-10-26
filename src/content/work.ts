@@ -25,13 +25,13 @@ const saf: CaseStudy = {
 	facts: {
 		en: [
 			"Published on npm under the MIT license",
-			"95 releases since August 2026",
+			"More than 90 releases since August 2026",
 			"12 skills covering plan, implement, check, review and validate",
 			"Zero runtime npm dependencies",
 		],
 		"pt-BR": [
 			"Publicado no npm sob licença MIT",
-			"95 releases desde agosto de 2026",
+			"Mais de 90 versões desde agosto de 2026",
 			"12 skills cobrindo planejamento, implementação, checagem, revisão e validação",
 			"Nenhuma dependência npm em tempo de execução",
 		],
@@ -47,6 +47,13 @@ const saf: CaseStudy = {
 			"pt-BR":
 				"O fluxo do sdd-agentic-flow, tirado do README. Planejamento: saf-route leva a saf-create-spec, direto ou passando por saf-brainstorm, com saf-explain sob demanda. Depois saf-create-prompts alimenta saf-implement, direto ou via saf-implement-multi para tarefas dependentes, seguido de saf-check-task. Por fim, saf-create-pr vai para saf-review-pr, que alterna com saf-fix-pr até estar pronto para saf-validate.",
 		},
+	},
+	teaserImage: {
+		src: "/images/work/sdd-agentic-flow-teaser",
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 743,
+		fit: "contain",
 	},
 	links: [
 		{
@@ -125,7 +132,7 @@ const saf: CaseStudy = {
 		},
 	],
 	disclosure: "public",
-	reviewed: "2026-10-11",
+	reviewed: "2026-10-26",
 };
 
 // Anonymized professional work, described at the owner's request at the
@@ -146,9 +153,9 @@ const aiFirstBanking: CaseStudy = {
 			"Uma plataforma de crédito e banking pensada com IA desde o início: IA conversacional cuida do primeiro contato e do onboarding, e um core modular cuida de crédito, antifraude e formalização.",
 	},
 	role: {
-		en: "Software Engineer: core platform, partner landing page, AI integrations",
+		en: "Senior Software Engineer: core platform, partner landing page, AI integrations",
 		"pt-BR":
-			"Software Engineer: core da plataforma, landing page de parceiro, integrações com IA",
+			"Senior Software Engineer: core da plataforma, landing page de parceiro, integrações com IA",
 	},
 	period: { start: "2026" },
 	stack: [
@@ -185,6 +192,13 @@ const aiFirstBanking: CaseStudy = {
 			"pt-BR":
 				"Diagrama de arquitetura: WhatsApp e landing pages de parceiros alimentam um CRM e uma IA conversacional externa, que passa para uma IA interna com guardrails, que chama os módulos de crédito, antifraude e formalização do core. O CRM também envia eventos ao core.",
 		},
+	},
+	teaserImage: {
+		src: "/images/work/ai-first-online-banking-teaser",
+		widths: [480, 720, 1280],
+		width: 1280,
+		height: 727,
+		fit: "contain",
 	},
 	links: [],
 	sections: [
@@ -255,7 +269,7 @@ const aiFirstBanking: CaseStudy = {
 		},
 	],
 	disclosure: "anonymized",
-	reviewed: "2026-10-11",
+	reviewed: "2026-10-25",
 };
 
 // Priorize.me: the owner's product. Facts from the public landing page and
@@ -384,143 +398,10 @@ const priorize: CaseStudy = {
 	reviewed: "2026-10-11",
 };
 
-const payments: CaseStudy = {
-	slug: "payments-api-node",
-	title: "Idempotent payments API",
-	kind: { en: "Technical challenge", "pt-BR": "Desafio técnico" },
-	summary: {
-		en: "A payment API where retries and concurrent requests with the same Idempotency-Key always return the same stored result, without duplicate processing.",
-		"pt-BR":
-			"Uma API de pagamentos em que retentativas e requisições concorrentes com a mesma Idempotency-Key sempre devolvem o mesmo resultado salvo, sem processamento duplicado.",
-	},
-	role: { en: "Sole developer", "pt-BR": "Desenvolvedor único" },
-	period: { start: "2026-03", end: "2026-03" },
-	stack: ["Node.js", "TypeScript", "Express", "PostgreSQL", "React", "Vite"],
-	facts: {
-		en: [
-			"PostgreSQL is the only source of truth",
-			"Integration tests run against a real database",
-			"Frontend on Vercel, API and database on Render",
-		],
-		"pt-BR": [
-			"PostgreSQL é a única fonte de verdade",
-			"Testes de integração rodam contra um banco real",
-			"Frontend na Vercel, API e banco no Render",
-		],
-	},
-	image: {
-		src: "/images/work/payments-api-node",
-		widths: [480, 720, 1280],
-		width: 1280,
-		height: 800,
-		alt: {
-			en: "The live demo, in Portuguese: one key, one stored result, no duplicate processing.",
-			"pt-BR":
-				"A demo publicada: uma chave, um resultado persistido, sem processamento duplicado.",
-		},
-	},
-	links: [
-		{
-			label: { en: "Source on GitHub", "pt-BR": "Código no GitHub" },
-			href: "https://github.com/gmartins-dev/payments-api-node",
-		},
-		{
-			label: { en: "Live demo", "pt-BR": "Demo publicada" },
-			href: "https://payments-api-node-frontend.vercel.app",
-		},
-	],
-	sections: [
-		{
-			heading: { en: "The problem", "pt-BR": "O problema" },
-			body: {
-				en: [
-					"Payment clients retry when a request times out, and two identical requests can arrive at the same moment. Neither case may charge twice, and every retry must get exactly the same HTTP status and body as the first attempt.",
-				],
-				"pt-BR": [
-					"Clientes de pagamento repetem a requisição quando ela expira, e duas requisições idênticas podem chegar no mesmo instante. Nenhum dos casos pode cobrar duas vezes, e toda retentativa precisa receber exatamente o mesmo status HTTP e corpo da primeira tentativa.",
-				],
-			},
-		},
-		{
-			heading: { en: "Approach", "pt-BR": "Abordagem" },
-			body: {
-				en: [
-					"The database decides who processes a payment. The idempotency key is unique, and the first request to insert a PENDING row owns the work. Every other request with that key reads the stored row instead.",
-					"The API stores the final HTTP status code and response body with the payment, so a retry replays exactly the original answer: 200 for a stored success, 503 for a stored failure, and 202 while the first request is still pending after a short poll (every 100 ms, up to 3 s).",
-				],
-				"pt-BR": [
-					"Quem decide qual requisição processa o pagamento é o banco. A chave de idempotência é única, e a primeira requisição que insere a linha PENDING fica com o trabalho. As demais com a mesma chave leem a linha salva.",
-					"A API guarda o status HTTP final e o corpo da resposta junto com o pagamento, então uma retentativa repete exatamente a resposta original: 200 para sucesso salvo, 503 para falha salva e 202 enquanto a primeira requisição ainda está pendente após um polling curto (a cada 100 ms, por até 3 s).",
-				],
-			},
-			code: {
-				language: "ts",
-				caption: {
-					en: "payments.repository.ts: only one request can create the PENDING row.",
-					"pt-BR":
-						"payments.repository.ts: só uma requisição consegue criar a linha PENDING.",
-				},
-				source: `const query = \`
-  insert into payments (idempotency_key, amount, customer_id, status)
-  values ($1, $2, $3, 'PENDING')
-  on conflict (idempotency_key) do nothing
-  returning *
-\`
-const result = await db.query<PaymentRecordRow>(query, [
-  input.idempotencyKey,
-  input.amount,
-  input.customerId,
-])
-// No row back means another request already owns this key.
-return result.rows[0] ? mapPaymentRow(result.rows[0]) : null`,
-			},
-		},
-		{
-			heading: { en: "Trade-offs", "pt-BR": "Trade-offs" },
-			body: {
-				en: [
-					"No Redis, no distributed lock and no queue. A unique constraint with INSERT … ON CONFLICT DO NOTHING gives the same guarantee with one fewer system to run.",
-					"Short polling instead of a notification mechanism, accepted for the scale of the exercise. A stored failure returns 503 so the replay matches the original response exactly.",
-				],
-				"pt-BR": [
-					"Sem Redis, sem lock distribuído e sem fila. Uma constraint única com INSERT … ON CONFLICT DO NOTHING dá a mesma garantia com um sistema a menos para operar.",
-					"Polling curto em vez de um mecanismo de notificação, aceito para a escala do exercício. Uma falha salva retorna 503 para que a repetição seja idêntica à resposta original.",
-				],
-			},
-		},
-		{
-			heading: { en: "Validation", "pt-BR": "Validação" },
-			body: {
-				en: [
-					"Integration tests run against a real PostgreSQL instance and check the persisted state. They prove that only one concurrent request wins and cover retries after success, after failure and while a payment is still pending. Swagger and a Postman collection document the API contract.",
-				],
-				"pt-BR": [
-					"Os testes de integração rodam contra um PostgreSQL real e verificam o estado persistido. Eles provam que só uma requisição concorrente vence e cobrem retentativas após sucesso, após falha e com o pagamento ainda pendente. Swagger e uma collection do Postman documentam o contrato da API.",
-				],
-			},
-		},
-		{
-			heading: { en: "What I would add next", "pt-BR": "Próximos passos" },
-			body: {
-				en: [
-					"A retention window for idempotency keys, explicit rejection when the same key arrives with a different payload, CI for build and tests, and stronger production observability.",
-				],
-				"pt-BR": [
-					"Janela de retenção para as chaves de idempotência, rejeição explícita quando a mesma chave chega com outro payload, CI para build e testes, e mais observabilidade em produção.",
-				],
-			},
-		},
-	],
-	disclosure: "public",
-	reviewed: "2026-10-11",
-};
-
-export const caseStudies: CaseStudy[] = [
-	aiFirstBanking,
-	saf,
-	priorize,
-	payments,
-];
+// Order follows docs/positioning.md (owner's decision, 2026-10-25): the
+// professional AI-first platform first, then product and the way of working. The payments
+// API, a hiring challenge, is listed under projects.
+export const caseStudies: CaseStudy[] = [aiFirstBanking, priorize, saf];
 
 export const otherWork: ShortWork[] = [
 	// deborablaso.com.br and psicologiadamoda.club: built by the owner for the
@@ -575,9 +456,9 @@ export const otherWork: ShortWork[] = [
 		title: "links",
 		kind: { en: "Community project", "pt-BR": "Projeto da comunidade" },
 		summary: {
-			en: "A community-maintained list of free tools and resources for developers, started in 2022. 406 stars and 15 contributors on GitHub.",
+			en: "A community-maintained list of free tools and resources for developers, started in 2022. More than 400 stars and 15 contributors on GitHub.",
 			"pt-BR":
-				"Uma lista mantida pela comunidade com ferramentas e recursos gratuitos para devs, criada em 2022. 406 estrelas e 15 contribuidores no GitHub.",
+				"Uma lista mantida pela comunidade com ferramentas e recursos gratuitos para devs, criada em 2022. Mais de 400 estrelas e 15 contribuidores no GitHub.",
 		},
 		href: "https://github.com/gmartins-dev/links",
 		image: {

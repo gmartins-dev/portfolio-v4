@@ -6,6 +6,21 @@ import type { CaseStudy } from "../content/schema";
 import { caseStudies } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
+/**
+ * Rendered width of the case study image. A diagram ("contain") sits inside
+ * p-4 and is capped by max-h-[36rem], so a tall one renders far narrower
+ * than the 976px column; telling the browser avoids fetching the 1280w file.
+ */
+function heroSizes(image: CaseStudy["image"]) {
+	if (image.fit !== "contain")
+		return "(min-width: 1024px) 976px, calc(100vw - 2rem)";
+	const capped = Math.min(
+		944,
+		Math.round((576 - 32) * (image.width / image.height)),
+	);
+	return `(min-width: 1024px) ${capped}px, min(calc(100vw - 4rem), ${capped}px)`;
+}
+
 export function CaseStudyPage({
 	study,
 	locale,
@@ -21,7 +36,7 @@ export function CaseStudyPage({
 	return (
 		<article className="pt-8 md:pt-16">
 			<Link
-				to={localizedPath(locale, "/work")}
+				to={localizedPath(locale, "/cases")}
 				className="inline-flex min-h-6 items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground print:hidden"
 			>
 				<ArrowLeft aria-hidden="true" className="size-4" />
@@ -72,7 +87,7 @@ export function CaseStudyPage({
 				<WorkImage
 					image={study.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 976px, calc(100vw - 2rem)"
+					sizes={heroSizes(study.image)}
 					priority
 					className="max-h-[36rem]"
 				/>
@@ -182,7 +197,7 @@ export function CaseStudyPage({
 									]}
 								/>
 								<Link
-									to={localizedPath(locale, `/work/${other.slug}`)}
+									to={localizedPath(locale, `/cases/${other.slug}`)}
 									className="mt-2 inline-flex min-h-6 items-center text-lg font-semibold tracking-tight hover:text-brand"
 									translate="no"
 								>

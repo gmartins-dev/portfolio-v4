@@ -43,7 +43,15 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 		isMobile,
 	}) => {
 		test.skip(isMobile, "keyboard journey");
-		for (const path of ["/", "/work/payments-api-node", "/does-not-exist"]) {
+		for (const path of [
+			"/",
+			"/cases",
+			"/about",
+			"/cases/sdd-agentic-flow",
+			"/pt-br",
+			"/pt-br/cases/priorize-me",
+			"/does-not-exist",
+		]) {
 			await page.goto(path);
 			const missing: string[] = [];
 			for (let stop = 0; stop < 40; stop++) {
@@ -67,13 +75,30 @@ test.describe("manual WCAG checks, automated @a11y", () => {
 	});
 });
 
+test("heading levels never skip on any page (1.3.1)", async ({ page }) => {
+	for (const { path } of [...pages, { path: "/does-not-exist" }]) {
+		await page.goto(path);
+		const levels = await page
+			.locator("h1, h2, h3, h4, h5, h6")
+			.evaluateAll((els) => els.map((el) => Number(el.tagName[1])));
+		expect(levels[0], path).toBe(1);
+		expect(levels.filter((l) => l === 1).length, path).toBe(1);
+		for (let i = 1; i < levels.length; i++) {
+			expect(
+				levels[i] - levels[i - 1],
+				`${path} heading ${i}`,
+			).toBeLessThanOrEqual(1);
+		}
+	}
+});
+
 // axe keeps this rule out of the WCAG tags (it is experimental), so run it on
 // its own: visible text must be part of the accessible name (2.5.3), which
 // matters for voice control. Mobile runs it on the short "PT"/"EN" link text.
 test("visible link and button text is part of the accessible name (2.5.3) @a11y", async ({
 	page,
 }) => {
-	for (const path of ["/", "/pt-br/work/priorize-me"]) {
+	for (const path of ["/", "/pt-br/cases/priorize-me"]) {
 		await page.goto(path);
 		const results = await new AxeBuilder({ page })
 			.withRules(["label-content-name-mismatch"])
@@ -88,7 +113,7 @@ test.describe("print @a11y", () => {
 	test.use({ viewport: { width: 1024, height: 800 } });
 
 	test("a case study prints readable", async ({ page }) => {
-		await page.goto("/work/payments-api-node");
+		await page.goto("/cases/sdd-agentic-flow");
 		await page.emulateMedia({ media: "print" });
 
 		// Print drops backgrounds, so text must be dark on the white page.
@@ -105,15 +130,17 @@ test.describe("print @a11y", () => {
 
 		// Controls that do nothing on paper are left out.
 		await expect(page.getByRole("navigation", { name: "Main" })).toBeHidden();
-		await expect(page.getByRole("link", { name: "All work" })).toBeHidden();
+		await expect(page.getByRole("link", { name: "All cases" })).toBeHidden();
 		await expect(page.getByRole("link", { name: "Email me" })).toBeHidden();
 		await expect(page.getByText("contact@gmartins.dev")).toBeVisible();
 
-		// Code wraps instead of being cut at the page edge.
-		const clipped = await page
-			.locator("pre")
-			.first()
-			.evaluate((element) => element.scrollWidth - element.clientWidth);
-		expect(clipped).toBe(0);
+		// Code wraps instead of being cut at the page edge (when the case
+		// study has a code excerpt).
+		for (const element of await page.locator("pre").all()) {
+			const clipped = await element.evaluate(
+				(pre) => pre.scrollWidth - pre.clientWidth,
+			);
+			expect(clipped).toBe(0);
+		}
 	});
 });

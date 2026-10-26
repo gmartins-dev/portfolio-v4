@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { Languages } from "lucide-react";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { otherLocale } from "../i18n";
@@ -24,8 +25,8 @@ export function SiteHeader() {
 			>
 				{t(copy.nav.skip, locale)}
 			</a>
-			{/* Phones: the name, then nav and controls on one row. DOM order
-			    matches visual order at every width. */}
+			{/* The language toggle is the last item, in the DOM and on screen at every
+			    width. On phones the nav takes a full row and the toggle sits below it. */}
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
 				<Link
 					to={href("/")}
@@ -34,18 +35,12 @@ export function SiteHeader() {
 				>
 					{profile.name}
 				</Link>
-				<div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:w-auto sm:gap-x-6 print:hidden">
-					<nav aria-label={t(copy.nav.label, locale)}>
-						<ul className="flex items-center gap-4 text-sm sm:gap-5">
-							<li>
-								<Link
-									to={href("/work")}
-									activeOptions={{ exact: true }}
-									className={navLinkClass}
-								>
-									{t(copy.nav.work, locale)}
-								</Link>
-							</li>
+				<div className="contents sm:flex sm:items-center sm:gap-x-6 print:hidden">
+					<nav
+						aria-label={t(copy.nav.label, locale)}
+						className="w-full sm:w-auto"
+					>
+						<ul className="flex items-center justify-between gap-3 text-sm sm:justify-normal sm:gap-5">
 							<li>
 								<Link
 									to={href("/about")}
@@ -56,28 +51,54 @@ export function SiteHeader() {
 								</Link>
 							</li>
 							<li>
+								<Link
+									to={href("/how-i-work")}
+									activeOptions={{ exact: true }}
+									className={navLinkClass}
+								>
+									{t(copy.howIWork.heading, locale)}
+								</Link>
+							</li>
+							<li>
+								<Link
+									to={href("/cases")}
+									activeOptions={{ exact: true }}
+									className={navLinkClass}
+								>
+									{t(copy.nav.work, locale)}
+								</Link>
+							</li>
+							<li>
 								<a href={profile.resume[locale]} className={navLinkClass}>
 									{t(copy.nav.resume, locale)}
 								</a>
 							</li>
+							<li>
+								{/* The contact section is in the footer of every page. */}
+								<a href="#contact" className={navLinkClass}>
+									{t(copy.nav.contact, locale)}
+								</a>
+							</li>
 						</ul>
 					</nav>
-					<div className="flex items-center gap-3">
-						<Link
-							to={href(notFound ? "/" : page, other)}
-							hrefLang={other}
-							lang={other}
-							aria-label={t(copy.nav.languageLabel, locale)}
-							className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+					<Link
+						to={href(notFound ? "/" : page, other)}
+						hrefLang={other}
+						lang={other}
+						className="ml-auto relative inline-flex min-h-6 min-w-6 items-center justify-center text-sm sm:ml-0 text-muted-foreground transition-colors hover:text-foreground"
+					>
+						<Languages className="size-4" aria-hidden="true" />
+						<span
+							className="absolute -right-1 -bottom-1 rounded bg-background px-0.5 text-xs leading-none font-semibold shadow-sm"
+							aria-hidden="true"
 						>
-							<span className="sm:hidden">
-								{t(copy.nav.languageShort, locale)}
-							</span>
-							<span className="hidden sm:inline">
-								{t(copy.nav.language, locale)}
-							</span>
-						</Link>
-					</div>
+							{t(copy.nav.languageCode, locale)}
+						</span>
+						<span className="sr-only">
+							{t(copy.nav.language, locale)}
+							{t(copy.nav.languageHint, locale)}
+						</span>
+					</Link>
 				</div>
 			</div>
 		</header>

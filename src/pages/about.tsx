@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { formatPeriod } from "../components/work";
+import { formatPeriod, MetaLine } from "../components/work";
 import { copy, t } from "../content/copy";
 import { professionalWork } from "../content/professional-work";
-import { experience, profile } from "../content/profile";
+import { education, experience, profile } from "../content/profile";
 import { type Locale, localizedPath } from "../i18n";
 
 const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
@@ -65,10 +65,22 @@ export function AboutPage({ locale }: { locale: Locale }) {
 											<li key={item}>{item}</li>
 										))}
 									</ul>
+									{entry.caseStudy && (
+										<p className="mt-3 text-sm">
+											<Link
+												to={localizedPath(locale, `/cases/${entry.caseStudy}`)}
+												className="inline-flex min-h-6 items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
+											>
+												{t(copy.about.caseStudyLink, locale)}
+												<span className="sr-only"> ({entry.company})</span>
+												<ArrowRight aria-hidden="true" className="size-4" />
+											</Link>
+										</p>
+									)}
 									{work && (
 										<p className="mt-3 text-sm">
 											<Link
-												to={localizedPath(locale, "/work")}
+												to={localizedPath(locale, "/cases")}
 												hash={work.slug}
 												className="inline-flex min-h-6 items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
 											>
@@ -83,6 +95,34 @@ export function AboutPage({ locale }: { locale: Locale }) {
 						);
 					})}
 				</ol>
+			</section>
+
+			<section aria-labelledby="education" className="mt-20 md:mt-24">
+				<h2 id="education" className={sectionHeading}>
+					{t(copy.about.educationHeading, locale)}
+				</h2>
+				<ul className="mt-8 grid gap-6">
+					{education.map((entry) => (
+						<li
+							key={`${entry.institution}-${entry.start}`}
+							className="border-t pt-6"
+						>
+							<h3 className="text-lg font-semibold">
+								{t(entry.program, locale)}
+							</h3>
+							<MetaLine
+								className="mt-1"
+								parts={[
+									entry.institution,
+									formatPeriod(entry, locale),
+									...(entry.status === "in-progress"
+										? [t(copy.about.inProgress, locale)]
+										: []),
+								]}
+							/>
+						</li>
+					))}
+				</ul>
 			</section>
 
 			<section aria-labelledby="tools" className="mt-20 md:mt-24">

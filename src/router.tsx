@@ -21,6 +21,7 @@ import { isNotFound } from "./not-found";
 import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
 import { HomePage } from "./pages/home";
+import { HowIWorkPage } from "./pages/how-i-work";
 import { NotFoundPage } from "./pages/not-found";
 import { ProjectsPage } from "./pages/projects";
 import { WorkPage } from "./pages/work";
@@ -30,6 +31,7 @@ import {
 	caseStudyOgImage,
 	caseStudyStructuredData,
 	homeStructuredData,
+	pageOgImage,
 	projectsStructuredData,
 	workStructuredData,
 } from "./seo";
@@ -103,6 +105,7 @@ function Document() {
 				<SiteHeader />
 				<main
 					id="main"
+					tabIndex={-1}
 					className="mx-auto w-full max-w-5xl flex-1 px-4 sm:px-6"
 				>
 					<Outlet />
@@ -136,14 +139,15 @@ const pages: Page[] = [
 		render: (locale) => <HomePage locale={locale} />,
 	},
 	{
-		path: "/work",
+		path: "/cases",
 		...copy.meta.work,
+		ogImage: pageOgImage("work"),
 		structuredData: (locale) => workStructuredData(locale, caseStudies),
 		render: (locale) => <WorkPage locale={locale} />,
 	},
 	...caseStudies.map(
 		(study): Page => ({
-			path: `/work/${study.slug}`,
+			path: `/cases/${study.slug}`,
 			title: {
 				en: `${study.title} case study | ${copy.meta.siteName.en}`,
 				"pt-BR": `Estudo de caso: ${study.title} | ${copy.meta.siteName["pt-BR"]}`,
@@ -158,12 +162,20 @@ const pages: Page[] = [
 	{
 		path: "/projects",
 		...copy.meta.projects,
+		ogImage: pageOgImage("projects"),
 		structuredData: projectsStructuredData,
 		render: (locale) => <ProjectsPage locale={locale} />,
 	},
 	{
+		path: "/how-i-work",
+		...copy.meta.howIWork,
+		ogImage: pageOgImage("howIWork"),
+		render: (locale) => <HowIWorkPage locale={locale} />,
+	},
+	{
 		path: "/about",
 		...copy.meta.about,
+		ogImage: pageOgImage("about"),
 		structuredData: aboutStructuredData,
 		render: (locale) => <AboutPage locale={locale} />,
 	},

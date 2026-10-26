@@ -5,26 +5,30 @@ import type { Localized } from "./schema";
 export const t = (value: Localized, locale: Locale) => value[locale];
 
 // Page and interface copy. Factual statements trace back to the resumes and
-// the GitHub profile README (see profile.ts); everything here is draft copy
-// pending the Phase 1 positioning review.
+// the GitHub profile README (see profile.ts). Positioning follows the owner's
+// positioning document (2026-10-25, revision 2), summarized in
+// docs/positioning.md.
 export const copy = {
 	meta: {
 		siteName: { en: "Guilherme Martins", "pt-BR": "Guilherme Martins" },
+		// The profession as shown in titles and social cards. PT-BR uses the
+		// term Brazilian job searches use (owner's decision, 2026-10-25).
+		role: { en: "Software Engineer", "pt-BR": "Software Engineer" },
 		home: {
 			title: {
 				en: "Guilherme Martins | Software Engineer",
 				"pt-BR": "Guilherme Martins | Software Engineer",
 			},
 			description: {
-				en: "Software Engineer in Belo Horizonte with deep frontend and full-stack experience in fintech, AI cybersecurity and healthcare, for teams in Brazil and the UK.",
+				en: "Software Engineer in Belo Horizonte focused on product engineering and software architecture, building full-stack products with AI across the development cycle, for teams in Brazil and the UK.",
 				"pt-BR":
-					"Software Engineer em Belo Horizonte, com experiência em frontend e full-stack em fintech, cibersegurança com IA e saúde, para times no Brasil e no Reino Unido.",
+					"Software Engineer em Belo Horizonte com foco em engenharia de produto e arquitetura de software, construindo produtos full-stack com IA em todo o ciclo de desenvolvimento, para times no Brasil e no Reino Unido.",
 			},
 		},
 		work: {
 			title: {
-				en: "Work and case studies | Guilherme Martins",
-				"pt-BR": "Trabalhos e estudos de caso | Guilherme Martins",
+				en: "Cases | Guilherme Martins",
+				"pt-BR": "Cases | Guilherme Martins",
 			},
 			description: {
 				en: "Case studies and projects by Guilherme Martins: a collaborative SaaS, developer tooling, backend consistency, products built at Backbase, Nisien.ai and Vochlea, and client work.",
@@ -49,9 +53,20 @@ export const copy = {
 				"pt-BR": "Sobre Guilherme Martins | Software Engineer",
 			},
 			description: {
-				en: "Professional background of Guilherme Martins: experience in fintech, cybersecurity, SaaS, healthcare and creative software.",
+				en: "Guilherme Martins, software engineer: product engineering, software architecture and agentic engineering, in fintech, AI cybersecurity, SaaS and healthcare.",
 				"pt-BR":
-					"Trajetória de Guilherme Martins: experiência em fintech, cibersegurança, SaaS, saúde e software criativo.",
+					"Guilherme Martins, engenheiro de software: engenharia de produto, arquitetura de software e agentic engineering, em fintech, cibersegurança com IA, SaaS e saúde.",
+			},
+		},
+		howIWork: {
+			title: {
+				en: "How I work | Guilherme Martins",
+				"pt-BR": "Como trabalho | Guilherme Martins",
+			},
+			description: {
+				en: "How Guilherme Martins builds software with coding agents: specs first, bounded tasks, the same quality gates for every change, human review and decisions recorded as ADRs.",
+				"pt-BR":
+					"Como Guilherme Martins constrói software com agentes de código: specs primeiro, tarefas delimitadas, os mesmos gates de qualidade em toda mudança, revisão humana e decisões registradas em ADRs.",
 			},
 		},
 		notFound: {
@@ -68,25 +83,24 @@ export const copy = {
 	nav: {
 		label: { en: "Main", "pt-BR": "Principal" },
 		home: { en: "Home", "pt-BR": "Início" },
-		work: { en: "Work", "pt-BR": "Trabalhos" },
+		work: { en: "Cases", "pt-BR": "Cases" },
 		about: { en: "About", "pt-BR": "Sobre" },
 		resume: { en: "Resume", "pt-BR": "Currículo" },
+		contact: { en: "Contact", "pt-BR": "Contato" },
 		skip: { en: "Skip to content", "pt-BR": "Pular para o conteúdo" },
 		language: { en: "Português", "pt-BR": "English" },
-		// Shown on phones. The accessible name (languageLabel) contains both
-		// visible texts, so voice control users can say either (WCAG 2.5.3).
-		languageShort: { en: "PT", "pt-BR": "EN" },
-		languageLabel: {
-			en: "Ler em português (PT)",
-			"pt-BR": "Read in English (EN)",
-		},
+		// The toggle is an icon. Its accessible name is the target language plus
+		// languageHint, which screen readers read; the icon is aria-hidden.
+		// The current language, shown on the toggle badge.
+		languageCode: { en: "EN", "pt-BR": "PT" },
+		languageHint: { en: ", ler em português", "pt-BR": ", read in English" },
 	},
 	contact: {
 		heading: { en: "Let's talk", "pt-BR": "Vamos conversar" },
 		body: {
-			en: "For roles, consulting or open-source collaboration, email is the fastest way to reach me.",
+			en: "For product engineering, architecture or open-source collaboration, email is the fastest way to reach me.",
 			"pt-BR":
-				"Para vagas, consultoria ou colaboração em open source, email é o jeito mais rápido de falar comigo.",
+				"Para engenharia de produto, arquitetura ou colaboração em open source, email é o jeito mais rápido de falar comigo.",
 		},
 		email: { en: "Email me", "pt-BR": "Enviar email" },
 	},
@@ -106,12 +120,19 @@ export const copy = {
 			"pt-BR": "Da definição do problema ao software em produção.",
 		},
 		intro: {
-			en: "I'm Guilherme Martins, a full-stack engineer with deep frontend experience. I have built products with teams in Brazil and the UK, from AI cybersecurity to fintech and healthcare.",
-			"pt-BR":
-				"Sou Guilherme Martins, engenheiro full-stack com forte experiência em frontend. Construí produtos com times no Brasil e no Reino Unido, de cibersegurança com IA a fintech e saúde.",
+			en: [
+				"I'm Guilherme Martins, a Software Engineer focused on product engineering and software architecture.",
+				"I build and evolve full-stack products, using coding agents throughout the development lifecycle in a spec-driven workflow with scoped tasks, tests, and human review.",
+				"I've worked with teams in Brazil and the UK across fintech, AI-driven cybersecurity, and healthcare.",
+			],
+			"pt-BR": [
+				"Sou Guilherme Martins, Software Engineer com foco em engenharia de produto e arquitetura de software.",
+				"Construo e evoluo produtos full-stack, usando coding agents ao longo do ciclo de desenvolvimento em um processo orientado por especificações, com tarefas delimitadas, testes e revisão humana.",
+				"Já trabalhei com equipes no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde.",
+			],
 		},
-		primaryCta: { en: "See all work", "pt-BR": "Ver todos os trabalhos" },
-		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
+		workCta: { en: "See the cases", "pt-BR": "Ver cases" },
+		workHeading: { en: "Selected cases", "pt-BR": "Cases selecionados" },
 		readCaseStudy: {
 			en: "Read the case study",
 			"pt-BR": "Ler o estudo de caso",
@@ -122,6 +143,7 @@ export const copy = {
 		},
 		experienceHeading: { en: "Where I have worked", "pt-BR": "Onde trabalhei" },
 		fullHistory: { en: "Full background", "pt-BR": "Trajetória completa" },
+		howIWorkLink: { en: "How I work", "pt-BR": "Como trabalho" },
 		openSourceHeading: {
 			en: "Client and community work",
 			"pt-BR": "Clientes e comunidade",
@@ -140,65 +162,65 @@ export const copy = {
 			},
 			evidence: {
 				label: { en: "Priorize.me", "pt-BR": "Priorize.me" },
-				to: "/work/priorize-me",
+				to: "/cases/priorize-me",
 			},
 		},
 		{
 			title: {
-				en: "Frontend architecture and design systems",
-				"pt-BR": "Arquitetura de frontend e design systems",
+				en: "Software architecture",
+				"pt-BR": "Arquitetura de software",
 			},
 			body: {
-				en: "Built the main application and the design system of an AI cybersecurity product from its first version.",
+				en: "Systems that replay ingested events, and payment APIs that are idempotent, so a retry never charges twice (modular hexagonal cores, replayable event ingestion, idempotent payment APIs). Decisions are recorded as ADRs. On the frontend, application architecture and a design system built from the first version.",
 				"pt-BR":
-					"Construí a aplicação principal e o design system de um produto de cibersegurança com IA desde a primeira versão.",
-			},
-			evidence: {
-				label: { en: "Nisien.ai", "pt-BR": "Nisien.ai" },
-				to: "/work",
-				hash: "nisien-ai",
-			},
-		},
-		{
-			title: {
-				en: "Backend services and data consistency",
-				"pt-BR": "Serviços de backend e consistência de dados",
-			},
-			body: {
-				en: "APIs in Node.js with PostgreSQL, including idempotent payment processing under concurrent requests.",
-				"pt-BR":
-					"APIs em Node.js com PostgreSQL, incluindo processamento idempotente de pagamentos com requisições concorrentes.",
+					"Sistemas que reprocessam eventos ingeridos e APIs de pagamento idempotentes, em que uma nova tentativa nunca cobra duas vezes (cores modulares e hexagonais, ingestão de eventos reprocessável, idempotência de pagamentos). Decisões registradas em ADRs. No frontend, arquitetura de aplicação e um design system construído desde a primeira versão.",
 			},
 			evidence: {
 				label: {
-					en: "Payments case study",
-					"pt-BR": "Estudo de caso de pagamentos",
+					en: "Payments API project",
+					"pt-BR": "Projeto da API de pagamentos",
 				},
-				to: "/work/payments-api-node",
+				to: "/projects",
+				hash: "payments-api-node",
+			},
+		},
+		{
+			title: { en: "Agentic engineering", "pt-BR": "Agentic engineering" },
+			body: {
+				en: "Spec-driven development with coding agents: specs, bounded tasks, tests and human review in every change.",
+				"pt-BR":
+					"Desenvolvimento spec-driven com agentes de código: specs, tarefas delimitadas, testes e revisão humana em cada mudança.",
+			},
+			evidence: {
+				label: { en: "sdd-agentic-flow", "pt-BR": "sdd-agentic-flow" },
+				to: "/cases/sdd-agentic-flow",
 			},
 		},
 		{
 			title: {
-				en: "Developer tooling and AI-assisted engineering",
-				"pt-BR": "Ferramentas para devs e engenharia assistida por IA",
+				en: "AI-powered product features",
+				"pt-BR": "Funcionalidades de IA em produtos",
 			},
 			body: {
-				en: "Creator of an open-source harness that keeps coding-agent work specified, bounded and verifiable.",
+				en: "LLM integrations with guardrails in an AI-first credit platform, where AI speeds up the flow and people and rules make the decisions. In Priorize.me, an MCP server lets AI clients list, create and move tasks with the account's own permissions.",
 				"pt-BR":
-					"Criador de um harness open source que mantém o trabalho de agentes de código especificado, delimitado e verificável.",
+					"Integrações de LLM com guardrails numa plataforma de crédito AI-first, em que a IA acelera o fluxo e pessoas e regras tomam as decisões. No Priorize.me, um servidor MCP permite que clientes de IA listem, criem e movam tarefas com as permissões da própria conta.",
 			},
 			evidence: {
-				label: { en: "sdd-agentic-flow", "pt-BR": "sdd-agentic-flow" },
-				to: "/work/sdd-agentic-flow",
+				label: {
+					en: "AI-first platform case study",
+					"pt-BR": "Estudo de caso da plataforma AI-first",
+				},
+				to: "/cases/ai-first-online-banking",
 			},
 		},
 	],
 	work: {
-		heading: { en: "Work", "pt-BR": "Trabalhos" },
+		heading: { en: "Cases", "pt-BR": "Cases" },
 		intro: {
-			en: "Case studies of personal and public projects, the public products I worked on, and client and community work. Most of my work as an employee, contractor or consultant is private under confidentiality terms, so the one professional case study is anonymized.",
+			en: "Case studies, the public products I helped build, and client and community work. Employer work is under confidentiality terms, so the professional case study is anonymized.",
 			"pt-BR":
-				"Estudos de caso de projetos pessoais e públicos, os produtos públicos em que trabalhei e trabalhos para clientes e comunidade. A maior parte do meu trabalho como funcionário, prestador de serviço ou consultor é privada por termos de confidencialidade, por isso o único estudo de caso profissional é anonimizado.",
+				"Estudos de caso, os produtos públicos que ajudei a construir e trabalhos para clientes e comunidade. O trabalho para empregadores é confidencial, por isso o estudo de caso profissional é anonimizado.",
 		},
 		professionalHeading: {
 			en: "Products I worked on",
@@ -220,7 +242,7 @@ export const copy = {
 		stack: { en: "Stack", "pt-BR": "Stack" },
 		links: { en: "Links", "pt-BR": "Links" },
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
-		back: { en: "All work", "pt-BR": "Todos os trabalhos" },
+		back: { en: "All cases", "pt-BR": "Todos os cases" },
 		otherStudies: {
 			en: "Other case studies",
 			"pt-BR": "Outros estudos de caso",
@@ -234,9 +256,9 @@ export const copy = {
 	projects: {
 		heading: { en: "More projects", "pt-BR": "Mais projetos" },
 		intro: {
-			en: "Smaller projects, technical challenges and earlier work, kept here for reference. The Work page has my current work in depth.",
+			en: "Smaller projects, technical challenges and earlier work, kept here for reference. The Cases page has my current work in depth.",
 			"pt-BR":
-				"Projetos menores, desafios técnicos e trabalhos anteriores, reunidos aqui como referência. A página Trabalhos mostra meu trabalho atual em profundidade.",
+				"Projetos menores, desafios técnicos e trabalhos anteriores, reunidos aqui como referência. A página Cases mostra meu trabalho atual em profundidade.",
 		},
 		recent: {
 			en: "Recent projects and technical challenges",
@@ -251,23 +273,31 @@ export const copy = {
 		heading: { en: "About", "pt-BR": "Sobre" },
 		intro: {
 			en: [
-				"I'm a Software Engineer with deep frontend experience and full-stack range. I build software that runs in production, and I keep working on it after launch.",
-				"I take work from the product requirement to production. I clarify what the business needs, design the technical solution, implement and test it, then deploy and support it.",
-				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend remains one of my strongest areas: complex product interfaces, frontend architecture and design systems.",
+				"I'm a software engineer focused on product engineering and software architecture. I build full-stack products that hold up in production, and I use coding agents across the development cycle in a spec-driven process with tests, quality gates and human review.",
+				"Architecture is where I am going deepest. On an AI-first credit platform I work on a modular, hexagonal core with replayable event ingestion, and I record decisions as ADRs. I am also studying for a postgraduate specialization in distributed software architecture.",
+				"I work agentically: coding agents take part in every step, from spec to review, inside a spec-driven process I open-sourced as sdd-agentic-flow. AI multiplies the work and judgment stays with people, so nothing ships that I have not reviewed and can explain.",
+				"I have worked with teams in Brazil and the UK in fintech, SaaS, AI-driven products, cybersecurity, healthcare and creative software. Frontend architecture and design systems remain among my strongest areas, and architecture and technical direction are where I am focusing next.",
 			],
 			"pt-BR": [
-				"Sou Software Engineer com forte experiência em frontend e atuação full-stack. Construo software que roda em produção e continuo trabalhando nele depois do lançamento.",
-				"Levo o trabalho do requisito de produto até a produção. Entendo o que o negócio precisa, desenho a solução técnica, implemento e testo, coloco no ar e dou suporte.",
-				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Frontend continua sendo uma das minhas áreas mais fortes: interfaces de produto complexas, arquitetura de frontend e design systems.",
+				"Sou engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção e uso coding agents ao longo do ciclo de desenvolvimento, num processo spec-driven com testes, quality gates e revisão humana.",
+				"Arquitetura é onde estou me aprofundando. Numa plataforma de crédito AI-first, trabalho num core modular e hexagonal com ingestão de eventos reprocessável e registro as decisões em ADRs. Também estou cursando uma especialização em arquitetura de software distribuído.",
+				"Trabalho de forma agêntica: agentes de código participam de cada etapa, da spec ao review, dentro de um processo spec-driven que publiquei como open source, o sdd-agentic-flow. A IA multiplica o trabalho e o julgamento continua com as pessoas, então nada vai para produção sem que eu tenha revisado e saiba explicar.",
+				"Trabalhei com times no Brasil e no Reino Unido em fintech, SaaS, produtos com IA, cibersegurança, saúde e software criativo. Arquitetura de frontend e design systems continuam entre minhas áreas mais fortes, e arquitetura e direção técnica são o meu próximo foco.",
 			],
 		},
 		confidential: {
-			en: "Much of the work below was done for employers and clients under confidentiality terms, so I can't share its details. The Work page shows what is public: personal and public projects, and the products I worked on.",
+			en: "Much of this work is under confidentiality terms. The Cases page shows what is public.",
 			"pt-BR":
-				"Boa parte do trabalho abaixo foi feita para empregadores e clientes sob termos de confidencialidade, por isso não posso compartilhar detalhes. A página Trabalhos mostra o que é público: projetos pessoais e públicos, e os produtos em que trabalhei.",
+				"Boa parte desse trabalho é confidencial. A página Cases mostra o que é público.",
 		},
 		experienceHeading: { en: "Experience", "pt-BR": "Experiência" },
 		productLink: { en: "See the product", "pt-BR": "Ver o produto" },
+		caseStudyLink: {
+			en: "Read the case study",
+			"pt-BR": "Ler o estudo de caso",
+		},
+		educationHeading: { en: "Education", "pt-BR": "Formação" },
+		inProgress: { en: "in progress", "pt-BR": "em andamento" },
 		toolsHeading: { en: "Tools I use", "pt-BR": "Ferramentas que uso" },
 		resumeHeading: { en: "Resume", "pt-BR": "Currículo" },
 		resumeBody: {
@@ -276,6 +306,13 @@ export const copy = {
 		},
 	},
 	tools: [
+		{
+			group: {
+				en: "AI-assisted engineering",
+				"pt-BR": "Engenharia assistida por IA",
+			},
+			items: ["Claude Code", "Codex", "Cursor", "GitHub Copilot", "MCP"],
+		},
 		{
 			group: { en: "Languages", "pt-BR": "Linguagens" },
 			items: ["TypeScript", "JavaScript", "Go", "HTML", "CSS", "SQL"],
@@ -318,6 +355,107 @@ export const copy = {
 			],
 		},
 	],
+	howIWork: {
+		heading: { en: "How I work", "pt-BR": "Como trabalho" },
+		intro: {
+			en: "I use coding agents in every step of the development cycle, inside a process that keeps the work specified, bounded, tested and reviewed. Judgment and accountability for what ships stay with me.",
+			"pt-BR":
+				"Uso agentes de código em todas as etapas do ciclo de desenvolvimento, dentro de um processo que mantém o trabalho especificado, delimitado, testado e revisado. O julgamento e a responsabilidade pelo que vai para produção continuam comigo.",
+		},
+		stepsHeading: { en: "The process", "pt-BR": "O processo" },
+		steps: [
+			{
+				title: { en: "Spec first", "pt-BR": "Spec primeiro" },
+				body: {
+					en: "Every change starts as a written spec: the problem, the scope, what stays out and how to verify the result. Agents work from the spec instead of a chat history.",
+					"pt-BR":
+						"Toda mudança começa como uma spec escrita: o problema, o escopo, o que fica de fora e como verificar o resultado. Os agentes trabalham a partir da spec, e não de um histórico de chat.",
+				},
+			},
+			{
+				title: {
+					en: "Plan and bounded tasks",
+					"pt-BR": "Plano e tarefas delimitadas",
+				},
+				body: {
+					en: "The spec becomes a plan and small tasks, and each task is checked when it is done, so an agent only holds the context one task needs.",
+					"pt-BR":
+						"A spec vira um plano e tarefas pequenas, e cada tarefa é verificada ao terminar, para que um agente só carregue o contexto de que uma tarefa precisa.",
+				},
+			},
+			{
+				title: {
+					en: "Implementation by agents",
+					"pt-BR": "Implementação por agentes",
+				},
+				body: {
+					en: "Coding agents implement one task at a time, inside the repository's instructions (AGENTS.md): conventions, commands and the rules they must keep.",
+					"pt-BR":
+						"Agentes de código implementam uma tarefa por vez, dentro das instruções do repositório (AGENTS.md): convenções, comandos e as regras que precisam respeitar.",
+				},
+			},
+			{
+				title: {
+					en: "The same gates for everyone",
+					"pt-BR": "Os mesmos gates para todos",
+				},
+				body: {
+					en: "Every change passes the same gates, whoever wrote it: typecheck, lint, unit and end-to-end tests, accessibility checks and checks on the built output.",
+					"pt-BR":
+						"Toda mudança passa pelos mesmos gates, não importa quem escreveu: typecheck, lint, testes unitários e end-to-end, verificações de acessibilidade e checagens do build gerado.",
+				},
+			},
+			{
+				title: { en: "Human review", "pt-BR": "Revisão humana" },
+				body: {
+					en: "I review every change and merge only what I can explain. Accepted findings go back to the agent to fix, and the change is reviewed again.",
+					"pt-BR":
+						"Reviso toda mudança e só faço merge do que consigo explicar. Os achados aceitos voltam para o agente corrigir, e a mudança é revisada de novo.",
+				},
+			},
+			{
+				title: { en: "Decisions in ADRs", "pt-BR": "Decisões em ADRs" },
+				body: {
+					en: "Decisions that shape the system are written down as architecture decision records, so the reasoning outlives the session that produced it.",
+					"pt-BR":
+						"Decisões que moldam o sistema são registradas como architecture decision records, para que o raciocínio sobreviva à sessão que o produziu.",
+				},
+			},
+		],
+		evidenceHeading: { en: "Where to see it", "pt-BR": "Onde ver isso" },
+		evidence: [
+			{
+				title: { en: "This site", "pt-BR": "Este site" },
+				body: {
+					en: "Its public repository shows the agent instructions, the architecture decision records, the tests and the CI gates every change passes.",
+					"pt-BR":
+						"O repositório público mostra as instruções para agentes, os architecture decision records, os testes e os gates de CI pelos quais toda mudança passa.",
+				},
+				href: "https://github.com/gmartins-dev/portfolio-v4",
+				label: { en: "Repository on GitHub", "pt-BR": "Repositório no GitHub" },
+			},
+			{
+				title: { en: "sdd-agentic-flow", "pt-BR": "sdd-agentic-flow" },
+				body: {
+					en: "The process as an open-source harness of skills for Codex, Cursor, Claude Code and GitHub Copilot.",
+					"pt-BR":
+						"O processo como um harness open source de skills para Codex, Cursor, Claude Code e GitHub Copilot.",
+				},
+				to: "/cases/sdd-agentic-flow",
+				label: { en: "Read the case study", "pt-BR": "Ler o estudo de caso" },
+			},
+			{
+				title: { en: "AI in products", "pt-BR": "IA em produtos" },
+				body: {
+					en: "The same rule for AI features: AI speeds up the flow, guardrails and people make the decisions.",
+					"pt-BR":
+						"A mesma regra para funcionalidades com IA: a IA acelera o fluxo, guardrails e pessoas tomam as decisões.",
+				},
+				to: "/cases/ai-first-online-banking",
+				label: { en: "Read the case study", "pt-BR": "Ler o estudo de caso" },
+			},
+		],
+	},
 	notFound: {
 		heading: { en: "Page not found", "pt-BR": "Página não encontrada" },
 		body: {

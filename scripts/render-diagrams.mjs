@@ -26,29 +26,37 @@ const page = await browser.newPage({
 await page.setContent(
 	'<html><body style="margin:0;background:#fff"><div id="out" style="display:inline-block;padding:32px;background:#fff"></div></body></html>',
 );
+// Pinned to an exact version so regenerated diagrams only change when this
+// line does. No SRI hash: page.addScriptTag cannot set `integrity`, and the
+// diagrams are reviewed in the diff of the committed images anyway.
 await page.addScriptTag({
-	url: "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js",
+	url: "https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js",
 });
 
 for (const file of files) {
 	const name = file.replace(/\.mmd$/, "");
 	const source = await readFile(new URL(file, dir), "utf8");
-	const error = await page.evaluate(async (code) => {
-		try {
-			mermaid.initialize({ startOnLoad: false });
-			const { svg } = await mermaid.render("diagram", code);
-			const out = document.getElementById("out");
-			out.innerHTML = svg;
-			// Mermaid sizes the SVG to its container; pin a readable width.
-			const element = out.querySelector("svg");
-			element.style.maxWidth = "none";
-			element.style.width = "1100px";
-			element.style.height = "auto";
-			return null;
-		} catch (problem) {
-			return String(problem);
-		}
-	}, source);
+	const error = await page.evaluate(
+		async ({ code, width }) => {
+			try {
+				mermaid.initialize({ startOnLoad: false });
+				const { svg } = await mermaid.render("diagram", code);
+				const out = document.getElementById("out");
+				out.innerHTML = svg;
+				// Mermaid sizes the SVG to its container; pin a readable width.
+				// Teasers show at ~480 css px, so they get a narrower canvas and
+				// read at a larger relative text size.
+				const element = out.querySelector("svg");
+				element.style.maxWidth = "none";
+				element.style.width = width;
+				element.style.height = "auto";
+				return null;
+			} catch (problem) {
+				return String(problem);
+			}
+		},
+		{ code: source, width: name.endsWith("-teaser") ? "760px" : "1100px" },
+	);
 	if (error) throw new Error(`${file}: ${error}`);
 
 	const png = await page.locator("#out").screenshot({ type: "png" });

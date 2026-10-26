@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { copy } from "./copy";
 import { professionalWork } from "./professional-work";
-import { experience, profile } from "./profile";
+import { education, experience, profile } from "./profile";
 import { projects } from "./projects";
 import { caseStudyEntrySchema } from "./schema";
 import { validateContent } from "./validate";
@@ -25,6 +25,7 @@ const content = {
 	copy,
 	profile,
 	experience,
+	education,
 	caseStudies,
 	otherWork,
 	projects,
@@ -66,7 +67,11 @@ describe("content", () => {
 	});
 
 	it("lists experience newest first", () => {
-		const starts = experience.map((entry) => entry.start);
+		// A year alone sorts as the end of that year, so a years-only entry
+		// stays above the months it overlaps.
+		const starts = experience.map((entry) =>
+			entry.start.length === 4 ? `${entry.start}-13` : entry.start,
+		);
 		expect(starts).toEqual([...starts].sort().reverse());
 	});
 
@@ -78,7 +83,12 @@ describe("content", () => {
 
 	it("has every image variant on disk", () => {
 		const images = [...caseStudies, ...otherWork, ...professionalWork].flatMap(
-			(item) => (item.image ? [item.image] : []),
+			(item) => [
+				...(item.image ? [item.image] : []),
+				...("teaserImage" in item && item.teaserImage
+					? [item.teaserImage]
+					: []),
+			],
 		);
 		for (const image of images) {
 			for (const width of image.widths) {
@@ -132,7 +142,7 @@ describe("content", () => {
 		expect(positions).toEqual([...positions].sort((a, b) => a - b));
 	});
 
-	it("gives /work anchors unique ids", () => {
+	it("gives /cases anchors unique ids", () => {
 		const ids = [
 			...professionalWork.map((work) => work.slug),
 			"professional-work",

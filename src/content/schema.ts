@@ -39,10 +39,25 @@ export const experienceSchema = z.object({
 	/** Title held at the time; kept identical in both languages on purpose. */
 	role: z.string(),
 	location: localized,
-	start: yearMonth,
-	end: yearMonth.optional(),
+	/** A year alone for confidential work, as in anonymized case studies. */
+	start: yearOrMonth,
+	end: yearOrMonth.optional(),
 	context: localized,
 	highlights: localizedList,
+	/** Slug of the case study that covers this role, linked from About. */
+	caseStudy: z
+		.string()
+		.regex(/^[a-z0-9-]+$/)
+		.optional(),
+});
+
+/** Formal education. In-progress courses are always shown as such. */
+export const educationSchema = z.object({
+	institution: z.string(),
+	program: localized,
+	start: yearMonth,
+	end: yearMonth,
+	status: z.enum(["in-progress", "completed"]),
 });
 
 /**
@@ -60,6 +75,20 @@ const section = z.object({
 		.optional(),
 });
 
+/**
+ * Responsive WebP variants at public<src>-<width>.webp
+ * (scripts/capture-work-images.mjs); width and height are the largest.
+ */
+const imageSchema = z.object({
+	src: z.string().regex(/^\/[\w/-]+$/),
+	widths: z.array(z.number().int().positive()).min(1),
+	width: z.number().int().positive(),
+	height: z.number().int().positive(),
+	alt: localized,
+	/** "contain" shows the whole image (diagrams); default crops to fill. */
+	fit: z.enum(["cover", "contain"]).optional(),
+});
+
 export const caseStudySchema = z.object({
 	slug: z.string().regex(/^[a-z0-9-]+$/),
 	title: z.string(),
@@ -69,19 +98,13 @@ export const caseStudySchema = z.object({
 	period: z.object({ start: yearOrMonth, end: yearOrMonth.optional() }),
 	stack: z.array(z.string()).min(1),
 	facts: localizedList,
+	image: imageSchema,
 	/**
-	 * Responsive WebP variants at public<src>-<width>.webp
-	 * (scripts/capture-work-images.mjs); width and height are the largest.
+	 * A simpler image for teasers (home and /cases), when the main one is a
+	 * diagram too detailed to read at teaser size. Teasers hide it from
+	 * assistive tech, so it has no alt text.
 	 */
-	image: z.object({
-		src: z.string().regex(/^\/[\w/-]+$/),
-		widths: z.array(z.number().int().positive()).min(1),
-		width: z.number().int().positive(),
-		height: z.number().int().positive(),
-		alt: localized,
-		/** "contain" shows the whole image (diagrams); default crops to fill. */
-		fit: z.enum(["cover", "contain"]).optional(),
-	}),
+	teaserImage: imageSchema.omit({ alt: true }).optional(),
 	/** Public links; anonymized work may have none (see the refinement below). */
 	links: z.array(z.object({ label: localized, href: externalUrl })),
 	sections: z.array(section).min(3),
@@ -133,7 +156,7 @@ export const projectSchema = z.object({
  * location come from the matching `experience` entry (same `company`).
  */
 export const professionalWorkSchema = z.object({
-	/** In-page anchor on /work, linked from the About page. */
+	/** In-page anchor on /cases, linked from the About page. */
 	slug: z.string().regex(/^[a-z0-9-]+$/),
 	company: z.string(),
 	product: z.string(),
@@ -149,6 +172,7 @@ export const professionalWorkSchema = z.object({
 
 export type Profile = z.infer<typeof profileSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
+export type Education = z.infer<typeof educationSchema>;
 export type CaseStudy = z.infer<typeof caseStudySchema>;
 export type ShortWork = z.infer<typeof shortWorkSchema>;
 export type Project = z.infer<typeof projectSchema>;

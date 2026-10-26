@@ -28,9 +28,12 @@ export function formatPeriod(
 export function MetaLine({
 	parts,
 	className,
+	nowrap = true,
 }: {
 	parts: string[];
 	className?: string;
+	/** Keep each part on one line; turn off for long parts (phrases). */
+	nowrap?: boolean;
 }) {
 	return (
 		<p className={cn("font-mono text-sm text-muted-foreground", className)}>
@@ -42,7 +45,7 @@ export function MetaLine({
 							<span className="sr-only">, </span>
 						</>
 					)}
-					<span className="whitespace-nowrap">{part}</span>
+					<span className={cn(nowrap && "whitespace-nowrap")}>{part}</span>
 				</Fragment>
 			))}
 		</p>
@@ -119,12 +122,16 @@ export function CaseStudyTeaser({
 	/** First teaser on the page: often the mobile LCP element. */
 	priority?: boolean;
 }) {
-	const href = localizedPath(locale, `/work/${study.slug}`);
+	const href = localizedPath(locale, `/cases/${study.slug}`);
 	return (
 		<article className="group relative grid items-center gap-6 md:grid-cols-2 md:gap-12">
 			<div className={cn(reverse && "md:order-last")}>
 				<WorkImage
-					image={{ ...study.image, alt: { en: "", "pt-BR": "" } }}
+					image={{
+						...study.image,
+						...study.teaserImage,
+						alt: { en: "", "pt-BR": "" },
+					}}
 					locale={locale}
 					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
 					priority={priority}

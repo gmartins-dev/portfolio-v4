@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 // scripts/serve-dist.mjs applies the vercel.json header rules, so these
 // check the production configuration.
 test("pages send the security headers", async ({ request }) => {
-	const headers = (await request.get("/work")).headers();
+	const headers = (await request.get("/cases")).headers();
 	expect(headers["cross-origin-resource-policy"]).toBe("same-origin");
 	expect(headers["x-frame-options"]).toBe("DENY");
 	for (const feature of ["camera", "microphone", "payment", "usb"]) {

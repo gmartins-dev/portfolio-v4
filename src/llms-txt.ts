@@ -1,7 +1,7 @@
 import { formatPeriod } from "./components/work";
 import { copy } from "./content/copy";
 import { professionalWork } from "./content/professional-work";
-import { experience, profile } from "./content/profile";
+import { education, experience, profile } from "./content/profile";
 import { caseStudies, otherWork } from "./content/work";
 import { formatMonth, localizedPath } from "./i18n";
 import { siteUrl } from "./seo";
@@ -27,7 +27,7 @@ export function buildLlmsTxt() {
 		"",
 		`${profile.name} is a ${profile.role} based in ${profile.location.en}.`,
 		current
-			? `Currently: ${current.role} at ${current.company} (since ${formatMonth(current.start, "en")}).`
+			? `Currently: ${current.role}, ${current.company} (since ${formatMonth(current.start, "en")}).`
 			: "",
 		`The site is in English and Brazilian Portuguese (${url("/", "pt-BR")}).`,
 		confidentiality,
@@ -35,15 +35,16 @@ export function buildLlmsTxt() {
 		"## Pages",
 		"",
 		`- [Home](${url("/")}): positioning, selected work, capabilities and experience summary`,
-		`- [Work](${url("/work")}): case studies, public products he worked on, client websites and community work`,
+		`- [Cases](${url("/cases")}): case studies, public products he worked on, client websites and community work`,
 		`- [More projects](${url("/projects")}): smaller projects, technical challenges and earlier work, with demos and source`,
-		`- [About](${url("/about")}): full professional history, tools and resumes`,
+		`- [How I work](${url("/how-i-work")}): his development process with coding agents: specs, bounded tasks, quality gates, human review and ADRs`,
+		`- [About](${url("/about")}): full professional history, education, tools and resumes`,
 		"",
 		"## Case studies",
 		"",
 		...caseStudies.map(
 			(study) =>
-				`- [${study.title}](${url(`/work/${study.slug}`)}): ${study.summary.en} (${study.kind.en}; facts checked ${study.reviewed})`,
+				`- [${study.title}](${url(`/cases/${study.slug}`)}): ${study.summary.en} (${study.kind.en}; facts checked ${study.reviewed})`,
 		),
 		"",
 		"## Products he worked on",
@@ -51,7 +52,7 @@ export function buildLlmsTxt() {
 		...professionalWork.map((work) => {
 			const job = experience.find((entry) => entry.company === work.company);
 			const role = job ? `${job.role}, ` : "";
-			return `- [${work.product}](${work.url}) by ${work.company} (${role}${url("/work")}#${work.slug}): ${work.summary.en}`;
+			return `- [${work.product}](${work.url}) by ${work.company} (${role}${url("/cases")}#${work.slug}): ${work.summary.en}`;
 		}),
 		"",
 		"## Experience",
@@ -59,6 +60,13 @@ export function buildLlmsTxt() {
 		...experience.map(
 			(entry) =>
 				`- ${entry.role}, ${entry.company} (${formatMonth(entry.start, "en")} to ${entry.end ? formatMonth(entry.end, "en") : "present"}): ${entry.context.en}`,
+		),
+		"",
+		"## Education",
+		"",
+		...education.map(
+			(entry) =>
+				`- ${entry.program.en}, ${entry.institution} (${formatMonth(entry.start, "en")} to ${formatMonth(entry.end, "en")}${entry.status === "in-progress" ? ", in progress" : ""})`,
 		),
 		"",
 		"## Optional",
@@ -102,7 +110,7 @@ export function buildLlmsFullTxt() {
 		...caseStudies.flatMap((study) => [
 			`## ${study.title}`,
 			"",
-			`- URL: ${url(`/work/${study.slug}`)}`,
+			`- URL: ${url(`/cases/${study.slug}`)}`,
 			`- Kind: ${study.kind.en}`,
 			`- Role: ${study.role.en}`,
 			`- Period: ${formatPeriod(study.period, "en")}`,
@@ -143,7 +151,7 @@ export function buildLlmsFullTxt() {
 				...(job
 					? [
 							`- Role: ${job.role}, ${formatPeriod(job, "en")}`,
-							`- On the site: ${url("/work")}#${work.slug}`,
+							`- On the site: ${url("/cases")}#${work.slug}`,
 						]
 					: []),
 				...(work.stack ? [`- Stack: ${work.stack.join(", ")}`] : []),

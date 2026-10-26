@@ -1,8 +1,9 @@
 import { professionalWork } from "./professional-work";
-import { experience, profile } from "./profile";
+import { education, experience, profile } from "./profile";
 import { projects } from "./projects";
 import {
 	caseStudyEntrySchema,
+	educationSchema,
 	experienceSchema,
 	professionalWorkSchema,
 	profileSchema,
@@ -19,6 +20,17 @@ import { caseStudies, otherWork } from "./work";
 export function validateContent() {
 	profileSchema.parse(profile);
 	experienceSchema.array().parse(experience);
+	educationSchema.array().parse(education);
+	for (const entry of experience) {
+		if (
+			entry.caseStudy &&
+			!caseStudies.some((study) => study.slug === entry.caseStudy)
+		) {
+			throw new Error(
+				`${entry.company}: unknown case study ${entry.caseStudy}`,
+			);
+		}
+	}
 	caseStudyEntrySchema.array().parse(caseStudies);
 	shortWorkSchema.array().parse(otherWork);
 	projectSchema.array().parse(projects);

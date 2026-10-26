@@ -36,7 +36,13 @@ with both CSP layers and fail on any CSP violation in the console, and
 
 ## Known findings
 
-None. `pnpm audit` (production and development dependencies) reports no
-known vulnerabilities (checked 2026-10-17). The earlier `braces` advisory
+`pnpm audit` (production and development dependencies) reports no known
+vulnerabilities (checked 2026-10-25).
+
+Accepted risk, re-evaluate by 2027-01-25: `scripts/denylist.json` stores
+unsalted SHA-256 hashes of single words and two-word phrases. They keep the
+names out of plain sight, but a dictionary of company names could confirm a
+term. Keyed hashing (HMAC with a CI secret) would close this. The owner
+deferred it on 2026-10-25. The earlier `braces` advisory
 came from the `shadcn` CLI, which is no longer a dependency; run
 `pnpm dlx shadcn` when adding a component.

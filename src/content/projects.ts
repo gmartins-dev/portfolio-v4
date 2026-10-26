@@ -7,6 +7,23 @@ import type { Project } from "./schema";
 // (src/content/validate.ts).
 export const projects: Project[] = [
 	{
+		// Was a case study until 2026-10-25; moved here by the owner because it
+		// was done for a hiring process.
+		slug: "payments-api-node",
+		title: "Idempotent payments API",
+		year: 2026,
+		group: "recent",
+		kind: { en: "Technical challenge", "pt-BR": "Desafio técnico" },
+		summary: {
+			en: "A payment API where retries and concurrent requests with the same Idempotency-Key always return the same stored result, without duplicate processing. PostgreSQL is the only source of truth, and integration tests run against a real database.",
+			"pt-BR":
+				"Uma API de pagamentos em que retentativas e requisições concorrentes com a mesma Idempotency-Key sempre devolvem o mesmo resultado salvo, sem processamento duplicado. O PostgreSQL é a única fonte de verdade, e os testes de integração rodam contra um banco real.",
+		},
+		stack: ["Node.js", "TypeScript", "Express", "PostgreSQL", "React", "Vite"],
+		source: "https://github.com/gmartins-dev/payments-api-node",
+		demo: "https://payments-api-node-frontend.vercel.app",
+	},
+	{
 		slug: "fintech-dashboard",
 		title: "Fintech dashboard",
 		year: 2025,

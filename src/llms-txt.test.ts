@@ -18,14 +18,14 @@ describe("buildLlmsTxt", () => {
 
 	it("links every case study", () => {
 		for (const study of caseStudies) {
-			expect(text).toContain(`https://gmartins.dev/work/${study.slug}`);
+			expect(text).toContain(`https://gmartins.dev/cases/${study.slug}`);
 		}
 	});
 
 	it("lists every public product he worked on", () => {
 		for (const work of professionalWork) {
 			expect(text).toContain(`(${work.url})`);
-			expect(text).toContain(`https://gmartins.dev/work#${work.slug}`);
+			expect(text).toContain(`https://gmartins.dev/cases#${work.slug}`);
 		}
 	});
 
@@ -41,7 +41,7 @@ describe("buildLlmsFullTxt", () => {
 	it("carries every case study in full: facts, sections and code", () => {
 		for (const study of caseStudies) {
 			expect(text).toContain(`## ${study.title}`);
-			expect(text).toContain(`https://gmartins.dev/work/${study.slug}`);
+			expect(text).toContain(`https://gmartins.dev/cases/${study.slug}`);
 			for (const fact of study.facts.en) expect(text).toContain(fact);
 			for (const section of study.sections) {
 				expect(text).toContain(`### ${section.heading.en}`);

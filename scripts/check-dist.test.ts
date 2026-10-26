@@ -14,6 +14,7 @@ const legacyAnchors = [
 	"online-bank",
 	"flappybird",
 	"netflix-clone",
+	"payments-api-node",
 ];
 const neutralPaths = ["/", "/about", "/projects"];
 const localized = (locale: "en" | "pt-BR", path: string) =>

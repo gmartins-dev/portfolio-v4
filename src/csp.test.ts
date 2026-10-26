@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { inlineScripts, withContentSecurityPolicy } from "./csp";
 
 const sha = (s: string) =>
@@ -21,8 +21,11 @@ describe("inlineScripts", () => {
 	});
 });
 
-describe("withContentSecurityPolicy", async () => {
-	const html = await withContentSecurityPolicy(page);
+describe("withContentSecurityPolicy", () => {
+	let html: string;
+	beforeAll(async () => {
+		html = await withContentSecurityPolicy(page);
+	});
 
 	it("puts the policy first in <head>", () => {
 		expect(html).toMatch(
@@ -35,5 +38,22 @@ describe("withContentSecurityPolicy", async () => {
 			`script-src 'self' ${sha("init()")} ${sha('state("a")')}`,
 		);
 		expect(html).not.toContain("unsafe-inline");
+	});
+
+	it("only inserts the meta tag, leaving the document untouched", async () => {
+		const source =
+			'<head><script>x("$&$`$\'$$")</script></head><body>$&</body>';
+		const result = await withContentSecurityPolicy(source);
+		const meta = /<meta http-equiv="Content-Security-Policy"[^>]*\/>/.exec(
+			result,
+		)?.[0];
+		expect(meta).toBeDefined();
+		expect(result.replace(meta as string, "")).toBe(source);
+	});
+
+	it("rejects a document without <head>", async () => {
+		await expect(withContentSecurityPolicy("<p>hi</p>")).rejects.toThrow(
+			"CSP: document has no <head>",
+		);
 	});
 });
