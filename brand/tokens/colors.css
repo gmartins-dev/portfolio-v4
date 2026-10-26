@@ -1,0 +1,15 @@
+:root {
+  --gm-navy-950: #08121C;
+  --gm-navy-900: #0D1A28;
+  --gm-navy-800: #1E2E40;
+  --gm-ink: #0B1726;
+  --gm-mist: #E8EEF5;
+  --gm-paper: #F3F5F8;
+  --gm-slate-400: #8A9BB0;
+  --gm-slate-600: #4A5B70;
+  --gm-blue-400: #5B9BFF;
+  --gm-blue-600: #1F5FD1;
+  --gm-font-display: 'Inter Display', Inter, system-ui, sans-serif;
+  --gm-font-body: Inter, system-ui, sans-serif;
+  --gm-font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
