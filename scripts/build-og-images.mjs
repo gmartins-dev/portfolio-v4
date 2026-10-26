@@ -28,6 +28,7 @@ const style = `
 ${await fontFace("Inter Display", 600, "InterDisplay-SemiBold.otf")}
 ${await fontFace("Inter Display", 700, "InterDisplay-Bold.otf")}
 ${await fontFace("Inter", 400, "Inter-Regular.otf")}
+${await fontFace("Inter", 600, "Inter-SemiBold.otf")}
 * { margin: 0; box-sizing: border-box; }
 body { width: 1200px; height: 630px; background: #08121C; color: #E8EEF5; font-family: Inter, system-ui, sans-serif; }
 .card { height: 100%; padding: 72px 80px; display: flex; flex-direction: column; justify-content: space-between; }

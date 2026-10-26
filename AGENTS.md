@@ -36,7 +36,7 @@
 - Never name confidential employers, clients or internal projects; anonymized work follows `docs/maintenance.md` and must pass the `scripts/denylist.json` check.
 - Update a case study's `reviewed` date when you re-check its facts.
 - No em or en dashes in visible text (enforced by `src/content/content.test.ts`).
-- Token values live only in `src/index.css`; use Tailwind token utilities, never raw colors.
+- Token values live only in `src/index.css`; use Tailwind token utilities, never raw colors. The brand kit's tokens in `brand/tokens/` are a separate master (see `brand/README.md`).
 - New page: add it to the `pages` table in `src/router.tsx` and to `e2e/pages.ts`.
 - Inline scripts must exist before `finalizeHtml()` runs, or the page CSP blocks them.
 - Read router state through public match data, as in `src/not-found.ts`; do not use router-internal fields.

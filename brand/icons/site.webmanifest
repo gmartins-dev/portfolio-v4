@@ -1,25 +1,25 @@
 {
-  "name": "Guilherme Martins",
-  "short_name": "gmartins",
-  "icons": [
-    {
-      "src": "/pwa-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/pwa-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/pwa-512-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "theme_color": "#08121C",
-  "background_color": "#08121C",
-  "display": "standalone"
+	"name": "Guilherme Martins",
+	"short_name": "gmartins",
+	"icons": [
+		{
+			"src": "/pwa-192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/pwa-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/pwa-512-maskable.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"theme_color": "#08121C",
+	"background_color": "#08121C",
+	"display": "standalone"
 }

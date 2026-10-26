@@ -1,4 +1,4 @@
-# ADR-009: Brand masters in brand/, served copies in public/
+# ADR-010: Brand masters in brand/, served copies in public/
 
 - **Date**: 2026-10-26
 - **Status**: Accepted
