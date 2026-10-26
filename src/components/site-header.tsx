@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { Languages } from "lucide-react";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { otherLocale } from "../i18n";
@@ -39,11 +40,11 @@ export function SiteHeader() {
 						<ul className="flex items-center gap-3 text-sm sm:gap-5">
 							<li>
 								<Link
-									to={href("/work")}
+									to={href("/about")}
 									activeOptions={{ exact: true }}
 									className={navLinkClass}
 								>
-									{t(copy.nav.work, locale)}
+									{t(copy.nav.about, locale)}
 								</Link>
 							</li>
 							<li>
@@ -57,11 +58,11 @@ export function SiteHeader() {
 							</li>
 							<li>
 								<Link
-									to={href("/about")}
+									to={href("/work")}
 									activeOptions={{ exact: true }}
 									className={navLinkClass}
 								>
-									{t(copy.nav.about, locale)}
+									{t(copy.nav.work, locale)}
 								</Link>
 							</li>
 							<li>
@@ -84,13 +85,9 @@ export function SiteHeader() {
 							lang={other}
 							className="inline-flex min-h-6 min-w-6 items-center justify-center text-sm text-muted-foreground transition-colors hover:text-foreground"
 						>
-							<span className="sm:hidden">
-								{t(copy.nav.languageShort, locale)}
-							</span>
-							<span className="hidden sm:inline">
-								{t(copy.nav.language, locale)}
-							</span>
+							<Languages className="size-5" aria-hidden="true" />
 							<span className="sr-only">
+								{t(copy.nav.language, locale)}
 								{t(copy.nav.languageHint, locale)}
 							</span>
 						</Link>

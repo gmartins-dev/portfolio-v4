@@ -89,10 +89,8 @@ export const copy = {
 		contact: { en: "Contact", "pt-BR": "Contato" },
 		skip: { en: "Skip to content", "pt-BR": "Pular para o conteúdo" },
 		language: { en: "Português", "pt-BR": "English" },
-		// Shown on phones. The link has no aria-label: its accessible name is the
-		// visible text at each width plus languageHint (screen readers only), so
-		// the name always starts with what is on screen (WCAG 2.5.3).
-		languageShort: { en: "PT", "pt-BR": "EN" },
+		// The toggle is an icon. Its accessible name is the target language plus
+		// languageHint, which screen readers read; the icon is aria-hidden.
 		languageHint: { en: ", ler em português", "pt-BR": ", read in English" },
 	},
 	contact: {

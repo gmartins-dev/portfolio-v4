@@ -42,10 +42,10 @@ export function SiteFooter() {
 				<ul className="grid content-start gap-2 text-sm md:justify-self-end">
 					<li>
 						<Link
-							to={localizedPath(locale, "/work")}
+							to={localizedPath(locale, "/about")}
 							className={footerLinkClass}
 						>
-							{t(copy.nav.work, locale)}
+							{t(copy.nav.about, locale)}
 						</Link>
 					</li>
 					<li>
@@ -57,14 +57,12 @@ export function SiteFooter() {
 						</Link>
 					</li>
 					<li>
-						<a href={profile.links.github} className={footerLinkClass}>
-							GitHub
-						</a>
-					</li>
-					<li>
-						<a href={profile.links.linkedin} className={footerLinkClass}>
-							LinkedIn
-						</a>
+						<Link
+							to={localizedPath(locale, "/work")}
+							className={footerLinkClass}
+						>
+							{t(copy.nav.work, locale)}
+						</Link>
 					</li>
 					<li>
 						<a
@@ -82,6 +80,16 @@ export function SiteFooter() {
 							className={footerLinkClass}
 						>
 							{t(copy.footer.resumePt, locale)}
+						</a>
+					</li>
+					<li>
+						<a href={profile.links.github} className={footerLinkClass}>
+							GitHub
+						</a>
+					</li>
+					<li>
+						<a href={profile.links.linkedin} className={footerLinkClass}>
+							LinkedIn
 						</a>
 					</li>
 				</ul>
