@@ -119,6 +119,10 @@ rules: immutable for hashed `/assets/`, one day with revalidation for
 `/images/`. `scripts/serve-dist.mjs` mimics this behavior locally for the
 end-to-end tests.
 
+The contact form is the only runtime call: the browser posts to Web3Forms
+(ADR-009), with the public key inlined at build time from
+`VITE_WEB3FORMS_ACCESS_KEY`.
+
 ## Next steps
 
 - [Maintenance guide](maintenance.md): how to change content, add pages, and

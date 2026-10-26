@@ -30,8 +30,9 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
   is the one exception (see Print).
 - **Readable without effects.** No information depends on hover, animation, or
   color alone.
-- **Plain copy.** No em dashes in visible text; one label per intent (for
-  example, "Email me" is the only contact call to action).
+- **Plain copy.** No em dashes in visible text; one label per intent. The
+  footer offers two contact actions with different intents: "Email me" (mail
+  client) and the contact form (ADR-009).
 
 ## Tokens
 

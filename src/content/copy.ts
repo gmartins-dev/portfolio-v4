@@ -69,6 +69,17 @@ export const copy = {
 					"Como Guilherme Martins constrói software com agentes de código: specs primeiro, tarefas delimitadas, os mesmos gates de qualidade em toda mudança, revisão humana e decisões registradas em ADRs.",
 			},
 		},
+		contact: {
+			title: {
+				en: "Contact | Guilherme Martins",
+				"pt-BR": "Contato | Guilherme Martins",
+			},
+			description: {
+				en: "Send a message to Guilherme Martins about product engineering, architecture or open-source collaboration.",
+				"pt-BR":
+					"Envie uma mensagem para Guilherme Martins sobre engenharia de produto, arquitetura ou colaboração em open source.",
+			},
+		},
 		notFound: {
 			title: {
 				en: "Page not found | Guilherme Martins",
@@ -103,6 +114,38 @@ export const copy = {
 				"Para engenharia de produto, arquitetura ou colaboração em open source, email é o jeito mais rápido de falar comigo.",
 		},
 		email: { en: "Email me", "pt-BR": "Enviar email" },
+		form: { en: "Use the contact form", "pt-BR": "Usar o formulário" },
+	},
+	contactPage: {
+		heading: { en: "Contact", "pt-BR": "Contato" },
+		intro: {
+			en: "For product engineering, architecture or open-source collaboration, send me a message and I will reply by email.",
+			"pt-BR":
+				"Para engenharia de produto, arquitetura ou colaboração em open source, envie uma mensagem e eu respondo por email.",
+		},
+		name: { en: "Name", "pt-BR": "Nome" },
+		email: { en: "Email", "pt-BR": "Email" },
+		subject: { en: "Subject (optional)", "pt-BR": "Assunto (opcional)" },
+		message: { en: "Message", "pt-BR": "Mensagem" },
+		submit: { en: "Send message", "pt-BR": "Enviar mensagem" },
+		sending: { en: "Sending...", "pt-BR": "Enviando..." },
+		required: {
+			en: "Fill in your name, a valid email and a message.",
+			"pt-BR": "Preencha seu nome, um email válido e a mensagem.",
+		},
+		success: {
+			en: "Message sent. I will reply by email.",
+			"pt-BR": "Mensagem enviada. Respondo por email.",
+		},
+		error: {
+			en: "The message could not be sent. Try again or email me directly.",
+			"pt-BR":
+				"Não foi possível enviar a mensagem. Tente de novo ou me escreva diretamente.",
+		},
+		fallback: {
+			en: "Prefer email? Write to",
+			"pt-BR": "Prefere email? Escreva para",
+		},
 	},
 	footer: {
 		resumeEn: {

@@ -95,3 +95,16 @@ describe("home case study teasers", () => {
 		expect(markup).toContain("/images/work/ai-first-online-banking-teaser-");
 	});
 });
+
+describe("contact page links", () => {
+	it.each([
+		["/", "/contact"],
+		["/pt-br", "/pt-br/contact"],
+	])("header and footer link the form on %s", async (path, target) => {
+		const markup = await html(path);
+		const header = markup.slice(0, markup.indexOf("</header>"));
+		const footer = markup.slice(markup.indexOf("<footer"));
+		expect(hrefOf(header, new RegExp(`href="${target}"`))).toBe(target);
+		expect(hrefOf(footer, new RegExp(`href="${target}"`))).toBe(target);
+	});
+});
