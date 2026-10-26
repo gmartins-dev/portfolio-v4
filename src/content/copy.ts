@@ -98,9 +98,9 @@ export const copy = {
 	contact: {
 		heading: { en: "Let's talk", "pt-BR": "Vamos conversar" },
 		body: {
-			en: "For engineering roles in product teams, consulting or open-source collaboration, email is the fastest way to reach me.",
+			en: "For product engineering, architecture or open-source collaboration, email is the fastest way to reach me.",
 			"pt-BR":
-				"Para vagas de engenharia em times de produto, consultoria ou colaboração em open source, email é o jeito mais rápido de falar comigo.",
+				"Para engenharia de produto, arquitetura ou colaboração em open source, email é o jeito mais rápido de falar comigo.",
 		},
 		email: { en: "Email me", "pt-BR": "Enviar email" },
 	},
@@ -125,21 +125,6 @@ export const copy = {
 				"Sou Guilherme Martins, engenheiro de software com foco em engenharia de produto e arquitetura de software. Construo produtos full-stack que se sustentam em produção, com agentes de código em cada etapa dentro de um processo spec-driven que mantém o trabalho revisado e testado. Trabalhei com times no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde.",
 		},
 		workCta: { en: "See the work", "pt-BR": "Ver trabalhos" },
-		// What a recruiter or client screens for first, as one metadata line.
-		// Source: the owner (2026-10-25): remote or hybrid from Belo Horizonte,
-		// engineering roles and consulting, fluent English.
-		availability: {
-			en: [
-				"Open to engineering roles and consulting",
-				"Remote or hybrid in Belo Horizonte, UTC-3",
-				"Fluent English, native Portuguese",
-			],
-			"pt-BR": [
-				"Aberto a vagas de engenharia e consultoria",
-				"Remoto ou híbrido em Belo Horizonte, UTC-3",
-				"Português nativo e inglês fluente",
-			],
-		},
 		workHeading: { en: "Selected work", "pt-BR": "Trabalhos selecionados" },
 		readCaseStudy: {
 			en: "Read the case study",

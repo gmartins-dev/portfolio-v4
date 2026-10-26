@@ -4,7 +4,6 @@ import { buttonVariants } from "../components/ui/button";
 import {
 	CaseStudyTeaser,
 	formatPeriod,
-	MetaLine,
 	ShortWorkItem,
 } from "../components/work";
 import { copy, t } from "../content/copy";
@@ -45,11 +44,6 @@ export function HomePage({ locale }: { locale: Locale }) {
 						{t(copy.home.workCta, locale)}
 					</Link>
 				</div>
-				<MetaLine
-					className="mt-6"
-					nowrap={false}
-					parts={[...copy.home.availability[locale]]}
-				/>
 			</section>
 
 			<section

@@ -31,7 +31,7 @@ responsabilidade continuam humanos.**
 | Cargo e busca | Vagas e filtros usam tanto "Engenheiro(a) de Software" quanto "Desenvolvedor(a) Fullstack", e muitas empresas de tecnologia escrevem o cargo em inglês | No site em PT, o título e a meta usam "Desenvolvedor Fullstack", que é como se busca no Brasil (decisão do dono, 2026-10-25). No texto corrido, "engenheiro de software". Em inglês, "Software Engineer" |
 | Senioridade | Os níveis júnior, pleno e sênior aparecem no título da vaga e são filtro comum de recrutadores | "Sênior" aparece no cargo atual (LinkedIn e currículo) e nas candidaturas. No site, continua fora do título e da intro |
 | Stack | Vagas brasileiras costumam listar a stack em detalhe, e triagens em plataformas de recrutamento buscam palavras exatas | No LinkedIn e no currículo, citar a stack real: TypeScript, React, Next.js, Node.js, NestJS, PostgreSQL, AWS. No site, a stack fica nos estudos de caso e em "Ferramentas que uso" |
-| Modalidade | CLT, PJ e regime (remoto, híbrido, presencial) são decididos cedo na conversa | O site diz "remoto ou híbrido em Belo Horizonte" (decisão do dono). CLT ou PJ e faixa salarial ficam para a conversa e não são publicados |
+| Modalidade | CLT, PJ e regime (remoto, híbrido, presencial) são decididos cedo na conversa | Nada disso é publicado no site (decisão do dono). CLT, PJ, modalidade e faixa salarial ficam para a conversa |
 | Experiência internacional | Trabalho com times do Reino Unido e da Espanha, em inglês, é um diferencial claro | Dizer "trabalhei com times no Brasil, no Reino Unido e na Espanha" e "inglês fluente" |
 | Pós-graduação | A especialização lato sensu é uma formação valorizada, e a PUC Minas é uma instituição conhecida, sobretudo em Minas Gerais | Usar o nome oficial e o status: "Especialização em Arquitetura de Software Distribuído, PUC Minas (em andamento, set. 2026 a mar. 2028)". Não chamar de mestrado nem de MBA |
 | Dados sensíveis | Em fintech e saúde, recrutadores associam dados sensíveis à LGPD | Descrever os guardrails como estão no estudo de caso. Não afirmar conformidade com a LGPD nem trabalho jurídico sem evidência |
@@ -129,8 +129,8 @@ por termo.
 - Sem promessa de velocidade ou qualidade sem medição.
 - Agentic engineering (como ele desenvolve) fica separado de funcionalidades
   de IA em produtos (o que ele constrói).
-- CLT ou PJ e faixa salarial não são publicados; o site diz só "remoto ou
-  híbrido em Belo Horizonte".
+- Disponibilidade, modalidade (remoto ou híbrido), CLT ou PJ e faixa salarial
+  não são publicados no site.
 - No site: português e inglês sempre juntos, sem travessões (verificado por
   `src/content/content.test.ts`).
 
@@ -139,10 +139,9 @@ por termo.
 | Elemento | Onde | Orientação |
 | --- | --- | --- |
 | Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | Título em PT: "Guilherme Martins \| Desenvolvedor Fullstack"; a meta começa do mesmo jeito. O cartão social em PT usa o mesmo termo (`copy.meta.role`) |
-| Linha de disponibilidade | `copy.home.availability` | "Aberto a vagas de engenharia e consultoria · Remoto ou híbrido em Belo Horizonte, UTC-3 · Português nativo e inglês fluente" |
 | Capacidades e estudos de caso | `copy.capabilities`, `caseStudies` | Mesma ordem da versão em inglês: a plataforma AI-first, Priorize.me e sdd-agentic-flow. A API de pagamentos fica em Mais projetos |
 | Formação | `education` em `src/content/profile.ts` | "Especialização em Arquitetura de Software Distribuído", PUC Minas, em andamento |
-| Contato | `copy.contact` | "Para vagas de engenharia em times de produto, consultoria ou colaboração em open source…" |
+| Contato | `copy.contact` | "Para engenharia de produto, arquitetura ou colaboração em open source…". Sem linguagem de busca de emprego ou disponibilidade no site |
 
 ## Fontes
 
