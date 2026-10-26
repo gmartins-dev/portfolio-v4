@@ -23,9 +23,11 @@ export function HomePage({ locale }: { locale: Locale }) {
 				<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 					{t(copy.home.headline, locale)}
 				</h1>
-				<p className="mt-6 max-w-xl text-lg text-muted-foreground">
-					{t(copy.home.intro, locale)}
-				</p>
+				<div className="mt-6 max-w-xl space-y-4 text-lg text-muted-foreground">
+					{copy.home.intro[locale].map((paragraph) => (
+						<p key={paragraph}>{paragraph}</p>
+					))}
+				</div>
 				<div className="mt-8 flex flex-wrap gap-3">
 					<a
 						href={`mailto:${profile.email}`}
