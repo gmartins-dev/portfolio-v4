@@ -85,9 +85,15 @@ export function SiteHeader() {
 						to={href(notFound ? "/" : page, other)}
 						hrefLang={other}
 						lang={other}
-						className="ml-auto inline-flex min-h-6 min-w-6 items-center justify-center text-sm sm:ml-0 text-muted-foreground transition-colors hover:text-foreground"
+						className="ml-auto relative inline-flex min-h-6 min-w-6 items-center justify-center text-sm sm:ml-0 text-muted-foreground transition-colors hover:text-foreground"
 					>
-						<Languages className="size-5" aria-hidden="true" />
+						<Languages className="size-4" aria-hidden="true" />
+						<span
+							className="absolute -right-1 -bottom-1 rounded bg-background px-0.5 text-xs leading-none font-semibold shadow-sm"
+							aria-hidden="true"
+						>
+							{t(copy.nav.languageCode, locale)}
+						</span>
 						<span className="sr-only">
 							{t(copy.nav.language, locale)}
 							{t(copy.nav.languageHint, locale)}

@@ -91,6 +91,8 @@ export const copy = {
 		language: { en: "Português", "pt-BR": "English" },
 		// The toggle is an icon. Its accessible name is the target language plus
 		// languageHint, which screen readers read; the icon is aria-hidden.
+		// The current language, shown on the toggle badge.
+		languageCode: { en: "EN", "pt-BR": "PT" },
 		languageHint: { en: ", ler em português", "pt-BR": ", read in English" },
 	},
 	contact: {
