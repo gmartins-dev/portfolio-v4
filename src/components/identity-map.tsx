@@ -1,6 +1,7 @@
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import type { Locale } from "../i18n";
+import { useIdentityMapCycle } from "./use-identity-map-cycle";
 
 /**
  * Desktop geometry of the map, in px inside its 30rem (480px) column. Cards
@@ -22,6 +23,47 @@ export const geometry = {
 	connectorRadius: 90,
 	arcRadius: 580,
 };
+
+/**
+ * Timing of the decorative loop, in ms from the start of a step (DESIGN.md,
+ * "Motion"). The keyframes in src/index.css repeat these delays and durations
+ * as literals; identity-map.test.tsx checks every phase ends within the step.
+ */
+export const motion = {
+	stepMs: 3200,
+	/** Outbound pulse along the connector, photo to dot. */
+	pulse: { start: 0, ms: 500 },
+	/** The card turns active (background, border, shift left). */
+	focus: { start: 420, ms: 450 },
+	/** The dot pings. */
+	ping: { start: 450, ms: 500 },
+	/** Light runs around the card border. */
+	trace: { start: 500, ms: 900 },
+	/** A ring spreads from the card. */
+	radiate: { start: 1150, ms: 800 },
+	/** Return pulse, dot to photo. */
+	back: { start: 1450, ms: 500 },
+	/** A ring spreads from the portrait. */
+	ring: { start: 1900, ms: 900 },
+};
+
+/** Card corner radius in px, matching `rounded-lg` (--radius). */
+const cardRadius = 8;
+
+/**
+ * The card border split into two halves that start where the connector meets
+ * the card (left middle) and end at the right middle, one over the top edge
+ * and one under the bottom. Coordinates sit on the 1px border's center.
+ */
+export function cardOutline(offset: number) {
+	const w = geometry.width - offset;
+	const h = geometry.cardHeight;
+	const r = cardRadius;
+	const mid = h / 2;
+	const top = `M0.5 ${mid} V${r + 0.5} A${r} ${r} 0 0 1 ${r + 0.5} 0.5 H${w - r - 0.5} A${r} ${r} 0 0 1 ${w - 0.5} ${r + 0.5} V${mid}`;
+	const bottom = `M0.5 ${mid} V${h - r - 0.5} A${r} ${r} 0 0 0 ${r + 0.5} ${h - 0.5} H${w - r - 0.5} A${r} ${r} 0 0 0 ${w - 0.5} ${h - r - 0.5} V${mid}`;
+	return { width: w, height: h, top, bottom };
+}
 
 export const offsetClasses = [
 	"lg:ml-[198px]",
@@ -59,10 +101,26 @@ const arc = `M${first.x} ${first.y} A${geometry.arcRadius} ${geometry.arcRadius}
 /** Bind each middle dot to the word before it, so no line starts with one. */
 const dotsAtLineEnd = (text: string) => text.replaceAll(" · ", "\u00a0· ");
 
+const cardMotion =
+	"relative transition-[background-color,border-color,transform] duration-[450ms] ease-[cubic-bezier(.2,.7,.2,1)]";
+
+/** Card classes: static (all alike), or the loop's active and resting states. */
+function cardClass(index: number, active: number | null) {
+	const base = `rounded-lg border px-3.5 py-2.5 lg:h-[72px] ${offsetClasses[index]}`;
+	if (active === null) return `${base} border-brand bg-card`;
+	return index === active
+		? `${base} ${cardMotion} border-brand bg-muted delay-[420ms] lg:-translate-x-1.5`
+		: `${base} ${cardMotion} border-border bg-card`;
+}
+
 export function IdentityMap({ locale }: { locale: Locale }) {
 	const map = copy.home.identityMap;
+	const { active, step, sectionRef, onCardEnter, onCardLeave } =
+		useIdentityMapCycle({ count: dots.length, stepMs: motion.stepMs });
+	const activeLine = active === null ? null : connectors[active];
 	return (
 		<section
+			ref={sectionRef}
 			aria-labelledby="identity-map"
 			className="mt-12 lg:mt-0 lg:w-[30rem]"
 		>
@@ -85,27 +143,66 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						strokeWidth="1"
 						strokeDasharray="3 6"
 					/>
-					{connectors.map((line) => (
+					{connectors.map((line, index) => (
 						<line
 							key={`${line.x2}-${line.y2}`}
 							{...line}
 							stroke="currentColor"
 							strokeWidth="1"
-							className="text-brand/40"
+							className={
+								active === null
+									? "text-brand/40"
+									: `text-brand transition-opacity duration-[400ms] ${index === active ? "opacity-90" : "opacity-20"}`
+							}
 						/>
 					))}
-					{dots.map((dot) => (
+					{activeLine && (
+						<>
+							<line
+								key={`pulse-${step}`}
+								{...activeLine}
+								pathLength={1}
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								className="identity-pulse text-foreground"
+							/>
+							<line
+								key={`back-${step}`}
+								{...activeLine}
+								pathLength={1}
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								className="identity-pulse-back text-foreground"
+							/>
+						</>
+					)}
+					{dots.map((dot, index) => (
 						<circle
-							key={`${dot.x}-${dot.y}`}
+							key={
+								index === active
+									? `${dot.x}-${dot.y}-${step}`
+									: `${dot.x}-${dot.y}`
+							}
 							cx={dot.x}
 							cy={dot.y}
 							r="4"
 							fill="currentColor"
-							className="text-brand"
+							className={
+								index === active ? "identity-ping text-brand" : "text-brand"
+							}
 						/>
 					))}
 				</svg>
 				<div className="flex items-center gap-4 lg:absolute lg:top-[161px] lg:left-0 lg:w-[168px] lg:flex-col lg:gap-3 lg:text-center">
+					{active !== null && (
+						<span
+							key={`ring-${step}`}
+							aria-hidden="true"
+							className="identity-ring pointer-events-none absolute top-0 left-1 size-40 rounded-full print:hidden"
+						/>
+					)}
 					<img
 						src="/images/profile/portrait-160.webp"
 						srcSet="/images/profile/portrait-160.webp 1x, /images/profile/portrait-320.webp 2x"
@@ -131,19 +228,56 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					aria-labelledby="identity-map"
 					className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
 				>
-					{map.dimensions.map((dimension, index) => (
-						<li
-							key={dimension.title.en}
-							className={`rounded-lg border border-brand bg-card px-3.5 py-2.5 lg:h-[72px] ${offsetClasses[index]}`}
-						>
-							<p className="text-sm font-semibold">
-								{t(dimension.title, locale)}
-							</p>
-							<p className="mt-0.5 text-xs text-muted-foreground">
-								{dotsAtLineEnd(t(dimension.line, locale))}
-							</p>
-						</li>
-					))}
+					{map.dimensions.map((dimension, index) => {
+						const outline =
+							index === active ? cardOutline(geometry.offsets[index]) : null;
+						return (
+							<li
+								key={dimension.title.en}
+								className={cardClass(index, active)}
+								onMouseEnter={() => onCardEnter(index)}
+								onMouseLeave={onCardLeave}
+							>
+								{outline && (
+									<>
+										<svg
+											key={`trace-${step}`}
+											aria-hidden="true"
+											focusable="false"
+											width={outline.width}
+											height={outline.height}
+											viewBox={`0 0 ${outline.width} ${outline.height}`}
+											fill="none"
+											className="pointer-events-none absolute -top-px -left-px overflow-visible text-foreground print:hidden"
+										>
+											{[outline.top, outline.bottom].map((d) => (
+												<path
+													key={d}
+													d={d}
+													pathLength={1}
+													stroke="currentColor"
+													strokeWidth="1.5"
+													strokeLinecap="round"
+													className="identity-trace"
+												/>
+											))}
+										</svg>
+										<span
+											key={`radiate-${step}`}
+											aria-hidden="true"
+											className="identity-radiate pointer-events-none absolute -inset-px rounded-lg print:hidden"
+										/>
+									</>
+								)}
+								<p className="text-sm font-semibold">
+									{t(dimension.title, locale)}
+								</p>
+								<p className="mt-0.5 text-xs text-muted-foreground">
+									{dotsAtLineEnd(t(dimension.line, locale))}
+								</p>
+							</li>
+						);
+					})}
 				</ol>
 			</div>
 			<div className="mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">

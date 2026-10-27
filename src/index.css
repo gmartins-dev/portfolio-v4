@@ -142,3 +142,129 @@
 	}
 	/* biome-ignore-end lint/complexity/noImportantStyles: see above. */
 }
+
+/*
+ * Hero identity map loop (src/components/identity-map.tsx). Delays and
+ * durations repeat `motion` there; DESIGN.md "Motion" describes the sequence.
+ * Elements are remounted on every step, so each animation plays once.
+ */
+@layer components {
+	.identity-pulse,
+	.identity-pulse-back {
+		stroke-dasharray: 0.16 1.2;
+		opacity: 0;
+		animation: identity-pulse 500ms cubic-bezier(0.4, 0, 0.6, 1) both;
+	}
+	.identity-pulse-back {
+		animation-name: identity-pulse-back;
+		animation-delay: 1450ms;
+	}
+	.identity-ping {
+		transform-box: fill-box;
+		transform-origin: center;
+		animation: identity-ping 500ms ease-out 450ms both;
+	}
+	.identity-trace {
+		stroke-dasharray: 1 1;
+		opacity: 0;
+		animation: identity-trace 900ms cubic-bezier(0.4, 0, 0.2, 1) 500ms both;
+	}
+	.identity-radiate {
+		animation: identity-radiate 800ms ease-out 1150ms both;
+	}
+	.identity-ring {
+		animation: identity-ring 900ms ease-out 1900ms both;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.identity-pulse,
+		.identity-pulse-back,
+		.identity-trace,
+		.identity-radiate,
+		.identity-ring {
+			display: none;
+		}
+		.identity-ping {
+			animation: none;
+		}
+	}
+}
+
+@keyframes identity-pulse {
+	0% {
+		stroke-dashoffset: 0.16;
+		opacity: 1;
+	}
+	99% {
+		stroke-dashoffset: -1;
+		opacity: 1;
+	}
+	100% {
+		stroke-dashoffset: -1;
+		opacity: 0;
+	}
+}
+@keyframes identity-pulse-back {
+	0% {
+		stroke-dashoffset: -1;
+		opacity: 1;
+	}
+	99% {
+		stroke-dashoffset: 0.16;
+		opacity: 1;
+	}
+	100% {
+		stroke-dashoffset: 0.16;
+		opacity: 0;
+	}
+}
+/* The dot also turns foreground, after the outbound pulse arrives. */
+@keyframes identity-ping {
+	0% {
+		transform: scale(1);
+		fill: var(--brand);
+	}
+	40% {
+		transform: scale(1.8);
+		fill: var(--foreground);
+	}
+	100% {
+		transform: scale(1.35);
+		fill: var(--foreground);
+	}
+}
+@keyframes identity-trace {
+	0% {
+		stroke-dashoffset: 1;
+		opacity: 1;
+	}
+	70% {
+		stroke-dashoffset: 0;
+		opacity: 1;
+	}
+	100% {
+		stroke-dashoffset: 0;
+		opacity: 0;
+	}
+}
+@keyframes identity-radiate {
+	0% {
+		box-shadow: 0 0 0 0 transparent;
+	}
+	1% {
+		box-shadow: 0 0 0 0 color-mix(in oklch, var(--brand) 40%, transparent);
+	}
+	100% {
+		box-shadow: 0 0 0 10px transparent;
+	}
+}
+@keyframes identity-ring {
+	0% {
+		box-shadow: 0 0 0 0 transparent;
+	}
+	1% {
+		box-shadow: 0 0 0 0 color-mix(in oklch, var(--brand) 40%, transparent);
+	}
+	100% {
+		box-shadow: 0 0 0 12px transparent;
+	}
+}
