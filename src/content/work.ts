@@ -52,7 +52,7 @@ const saf: CaseStudy = {
 		src: "/images/work/sdd-agentic-flow-teaser",
 		widths: [480, 720, 1280],
 		width: 1280,
-		height: 743,
+		height: 642,
 		fit: "contain",
 	},
 	links: [
@@ -197,7 +197,7 @@ const aiFirstBanking: CaseStudy = {
 		src: "/images/work/ai-first-online-banking-teaser",
 		widths: [480, 720, 1280],
 		width: 1280,
-		height: 727,
+		height: 691,
 		fit: "contain",
 	},
 	links: [],

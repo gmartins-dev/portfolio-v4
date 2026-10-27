@@ -1,22 +1,27 @@
-%%{init: {'theme': 'base', 'themeVariables': {
+%%{init: {'theme': 'base', 'flowchart': {'nodeSpacing': 28, 'rankSpacing': 36, 'wrappingWidth': 320}, 'themeVariables': {
+  'fontSize': '24px',
   'primaryColor': '#e8f5fa', 'primaryTextColor': '#08121c',
-  'primaryBorderColor': '#0b6e8f', 'lineColor': '#94a3b8',
+  'primaryBorderColor': '#0b6e8f', 'lineColor': '#64748b',
   'secondaryColor': '#ecfdf5', 'tertiaryColor': '#f1f5f9',
-  'background': '#ffffff', 'mainBkg': '#f8fafc',
-  'nodeBorder': '#cbd5e1', 'clusterBkg': '#f8fafc',
-  'clusterBorder': '#e2e8f0', 'titleColor': '#08121c',
-  'edgeLabelBackground': '#ffffff', 'textColor': '#3f566b'
+  'background': '#ffffff', 'mainBkg': '#ffffff',
+  'nodeBorder': '#64748b', 'clusterBkg': '#ffffff',
+  'clusterBorder': '#cbd5e1', 'titleColor': '#08121c',
+  'edgeLabelBackground': '#ffffff', 'textColor': '#08121c'
 }}}%%
+%% Teasers show at ~480 css px after inversion on the dark page: larger text,
+%% darker node borders and unfilled groups keep them legible there.
 %% Teaser for the home and /cases: the same flow as the full diagram
 %% (ai-first-online-banking.mmd) with the channels and core collapsed, so it
 %% stays legible in a small 16:10 frame.
 flowchart TB
   subgraph front [" "]
     direction LR
-    channels[Partner landing pages<br/>and WhatsApp] --> ai[Conversational AI<br/>with guardrails]
+    channels["Partner landing pages<br/>and WhatsApp"] --> ai[Conversational AI<br/>with guardrails]
   end
-  subgraph core [Modular core]
+  %% The group title would overlap its nodes at this font size; the edge
+  %% label names it instead.
+  subgraph core [" "]
     direction LR
     credit[Credit] ~~~ fraud[Anti-fraud] ~~~ formalization[Formalization]
   end
-  front --> core
+  front -->|Modular core| core
