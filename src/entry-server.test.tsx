@@ -49,6 +49,17 @@ describe("server render", () => {
 		expect(html).toContain("$_TSR");
 	});
 
+	it("keeps one h1 on the home page next to the identity map", async () => {
+		for (const [path, label] of [
+			["/", "Professional identity map"],
+			["/pt-br", "Mapa de identidade profissional"],
+		]) {
+			const html = await (await render(path, context)).text();
+			expect(html.match(/<h1[\s>]/g), path).toHaveLength(1);
+			expect(html, path).toContain(label);
+		}
+	});
+
 	it("returns 404 for unknown paths", async () => {
 		const response = await render("/does-not-exist", context);
 		expect(response.status).toBe(404);
