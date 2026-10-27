@@ -35,3 +35,6 @@ playwright-report/
 
 # Local test tooling output
 .vitest/
+
+# Local screenshots and scratch output
+tmp/
