@@ -65,6 +65,14 @@ export function SiteFooter() {
 						</Link>
 					</li>
 					<li>
+						<Link
+							to={localizedPath(locale, "/projects")}
+							className={footerLinkClass}
+						>
+							{t(copy.projects.heading, locale)}
+						</Link>
+					</li>
+					<li>
 						<a
 							href={profile.resume.en}
 							hrefLang="en"

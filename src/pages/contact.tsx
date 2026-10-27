@@ -20,7 +20,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
 				{t(page.fallback, locale)}{" "}
 				<a
 					href={`mailto:${profile.email}`}
-					className="font-mono underline underline-offset-4"
+					className="inline-flex min-h-6 items-center font-mono underline underline-offset-4"
 				>
 					{profile.email}
 				</a>
