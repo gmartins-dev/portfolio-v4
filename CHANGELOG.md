@@ -5,6 +5,19 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Hero update (2026-10-27)
+
+- New hero intro in both languages, naming the domains he has worked in
+  (fintech, SaaS, AI, healthcare, real estate, creative technology). The
+  PT headline is "Da definição do problema à produção.", as on the PT
+  social card.
+- The identity map drops the caption under the portrait and shows the
+  portrait at 208px (128px on phones). Cards are reordered (Full-stack
+  Engineering first), AI-powered Features becomes AI-powered Products, and
+  the closing line adds AI leverage.
+- Both hero columns share one height at every desktop width, checked by
+  e2e.
+
 ### Visual audit (2026-10-27)
 
 Audit of every page at 320, 390, 768, 1024 and 1440px in both languages.

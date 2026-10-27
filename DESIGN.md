@@ -110,9 +110,10 @@ the light brand cyan.
 ### Hero identity map
 
 The home hero's right column (`src/components/identity-map.tsx`) shows the
-identity map from `docs/positioning.md`: the circular portrait (the one place
-for `rounded-full`; the ring is baked into the image), name, role and
-location, then six cards on an arc with a quiet principles line below.
+identity map from `docs/positioning.md`: the circular portrait at 208px (the
+one place for `rounded-full`; the ring is baked into the image), with no
+caption (the intro names him), then six cards on an arc in a 32rem column,
+with a quiet principles line below.
 
 - **Why cards here.** It is the one exception to "group with spacing, not
   cards": the six dimensions are separate, parallel items that the
@@ -125,19 +126,26 @@ location, then six cards on an arc with a quiet principles line below.
   through `lg:motion-safe:`, so the prerendered page never flashes six
   highlighted cards) and only the active one gets `border-brand` on
   `bg-muted`. The
-  cards, dots, connectors and role line are this component's only uses of
-  the accent outside links; keep it that way.
-- **Geometry.** Card offsets, card height, photo position and the SVG are
-  derived from one `geometry` constant. Change the numbers there, keep
-  `offsetClasses` in sync (a unit test checks it), and let
-  `e2e/home.spec.ts` confirm the dots stay on the card centers, no text
-  is clipped and no connector crosses the name and location under the
-  photo. Connector angles are scaled so the steepest leaves the photo at
-  `connectorMaxAngle` (35 degrees); pointing straight at the outer dots,
-  the bottom ones would cross that caption. Card lines keep hyphenated
-  words whole and bind each middle dot to the word before it. The decorative SVG is `aria-hidden` and `print:hidden`.
+  cards, dots and connectors are this component's only uses of the accent
+  outside links; keep it that way.
+- **Geometry.** Card offsets, card height (84px), gaps (18px), photo
+  position and the SVG are derived from one `geometry` constant. Change the
+  numbers there, keep `offsetClasses`, `photoTopClass` and the card
+  `lg:h-[84px]` in sync (unit tests check the first two; no inline styles,
+  the page CSP drops them), and let `e2e/home.spec.ts` confirm the dots
+  stay on the card centers and no text is clipped. Connector angles are
+  scaled so the steepest leaves the photo at `connectorMaxAngle` (35
+  degrees), so every connector starts on the portrait's right side. Card
+  lines keep hyphenated words whole and bind each middle dot to the word
+  before it; the principles keep each item on one line. The decorative SVG
+  is `aria-hidden` and `print:hidden`.
+- **Balance.** The two hero columns (headline to buttons, cards to
+  principles) share one height, within 24px at 1024, 1280 and 1440 in both
+  languages (`e2e/home.spec.ts`). The left column is 400px at every `lg`
+  width, so when the hero copy changes, rebalance with the card height and
+  gap.
 - **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
-  or the arc offsets: a portrait row at 96px, then the cards in one column,
+  or the arc offsets: the portrait at 128px, then the cards in one column,
   two from `sm`, then the principles left aligned.
 
 ## Phones
