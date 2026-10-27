@@ -200,7 +200,7 @@ The Brazilian Portuguese sentences, adapted to that market, are in
 | Element | Where | Guidance |
 | --- | --- | --- |
 | Title, metadata, intro, social cards | `copy.meta` and `copy.home` in `src/content/copy.ts` | Software Engineer as the identity; product engineering, architecture and agentic engineering in plain language |
-| Hero identity map | `copy.home.identityMap`, rendered by `src/components/identity-map.tsx` | The six dimensions above, in their order and border hierarchy; the center reuses `profile.name`, `copy.meta.role` and `profile.location`. Communication & Collaboration stays one of the six, never a separate track. Layout rules in `DESIGN.md` |
+| Hero identity map | `copy.home.identityMap`, rendered by `src/components/identity-map.tsx` | The six dimensions above, in their order; the center reuses `profile.name`, `copy.meta.role` and `profile.location`. Communication & Collaboration stays one of the six, never a separate track. Layout rules in `DESIGN.md` |
 | Capabilities | `copy.capabilities` | Order: product engineering, software architecture, agentic engineering, AI-powered product features |
 | Case studies | `caseStudies` in `src/content/work.ts` | Order (owner's decision, 2026-10-25): the anonymized AI-first platform (current professional work: architecture and AI integration), Priorize.me (product ownership), sdd-agentic-flow (agentic engineering). The payments API, a hiring challenge, is under More projects; the architecture capability links to it |
 | Experience and education | `experience` and `education` in `src/content/profile.ts` | Actual role titles; the specialization in progress; client work anonymous where needed |

@@ -56,16 +56,6 @@ const first = dots[0];
 const last = dots[dots.length - 1];
 const arc = `M${first.x} ${first.y} A${geometry.arcRadius} ${geometry.arcRadius} 0 0 1 ${last.x} ${last.y}`;
 
-/** Border hierarchy (DESIGN.md, "Hero identity map"): core, distinctive, breadth. */
-const cardTone = [
-	"border-brand",
-	"border-brand",
-	"",
-	"",
-	"bg-background",
-	"bg-background",
-];
-
 /** Bind each middle dot to the word before it, so no line starts with one. */
 const dotsAtLineEnd = (text: string) => text.replaceAll(" · ", "\u00a0· ");
 
@@ -95,13 +85,13 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						strokeWidth="1"
 						strokeDasharray="3 6"
 					/>
-					{connectors.map((line, index) => (
+					{connectors.map((line) => (
 						<line
 							key={`${line.x2}-${line.y2}`}
 							{...line}
 							stroke="currentColor"
 							strokeWidth="1"
-							className={index < 2 ? "text-brand/40" : undefined}
+							className="text-brand/40"
 						/>
 					))}
 					{dots.map((dot) => (
@@ -144,7 +134,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					{map.dimensions.map((dimension, index) => (
 						<li
 							key={dimension.title.en}
-							className={`rounded-lg border bg-card px-3.5 py-2.5 lg:h-[72px] ${offsetClasses[index]} ${cardTone[index]}`}
+							className={`rounded-lg border border-brand bg-card px-3.5 py-2.5 lg:h-[72px] ${offsetClasses[index]}`}
 						>
 							<p className="text-sm font-semibold">
 								{t(dimension.title, locale)}

@@ -201,7 +201,7 @@ por termo.
 | Elemento | Onde | Orientação |
 | --- | --- | --- |
 | Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | Título em PT: "Guilherme Martins \| Software Engineer"; a meta começa do mesmo jeito. O cartão social em PT usa o mesmo termo (`copy.meta.role`) |
-| Mapa de identidade no hero | `copy.home.identityMap`, renderizado por `src/components/identity-map.tsx` | As seis dimensões acima, na mesma ordem e hierarquia de bordas; o centro reutiliza `profile.name`, `copy.meta.role` e `profile.location`. Comunicação e colaboração seguem como uma das seis, nunca uma trilha à parte. Regras de layout em `DESIGN.md` |
+| Mapa de identidade no hero | `copy.home.identityMap`, renderizado por `src/components/identity-map.tsx` | As seis dimensões acima, na mesma ordem; o centro reutiliza `profile.name`, `copy.meta.role` e `profile.location`. Comunicação e colaboração seguem como uma das seis, nunca uma trilha à parte. Regras de layout em `DESIGN.md` |
 | Capacidades e estudos de caso | `copy.capabilities`, `caseStudies` | Mesma ordem da versão em inglês: a plataforma AI-first, Priorize.me e sdd-agentic-flow. A API de pagamentos fica em Mais projetos |
 | Formação | `education` em `src/content/profile.ts` | "Especialização em Arquitetura de Software Distribuído", PUC Minas, em andamento |
 | Contato | `copy.contact` | "Para engenharia de produto, arquitetura ou colaboração em open source…". Sem linguagem de busca de emprego ou disponibilidade no site |

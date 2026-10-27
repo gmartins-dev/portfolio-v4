@@ -20,8 +20,8 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
   color.
 - **One accent.** `--brand` (glacial cyan) marks links to the next step
   inside the site, focus, list markers, and the primary call to action.
-  Nothing else gets a color, except the hero identity map's dots and role
-  line (see Hero identity map).
+  Nothing else gets a color, except the hero identity map (see Hero
+  identity map).
 - **Links say where they go.** Links within the site use `text-brand` with a
   right arrow (`ArrowRight`). Links that leave the site (products, source,
   resume PDFs, client sites) use the foreground color, turn brand on hover,
@@ -108,12 +108,10 @@ location, then six cards on an arc with a quiet principles line below.
   cards": the six dimensions are separate, parallel items that the
   connectors point at, so each needs a visible edge. Cards are
   `rounded-lg border bg-card`, static, with no links.
-- **Border hierarchy.** Cards 1 and 2 (core positioning) use `border-brand`,
-  cards 3 and 4 (distinctive capabilities) the default `border`, cards 5 and
-  6 (breadth and the human dimension) the default `border` on
-  `bg-background`. The brand dots, the role line and the two brand-tinted
-  connectors are this component's only uses of the accent outside links;
-  keep it that way.
+- **One card style.** All six cards use `border-brand` on `bg-card`, and
+  all connectors use `text-brand/40`: the order carries the hierarchy, not
+  the styling. The cards, dots, connectors and role line are this
+  component's only uses of the accent outside links; keep it that way.
 - **Geometry.** Card offsets, card height, photo position and the SVG are
   derived from one `geometry` constant. Change the numbers there, keep
   `offsetClasses` in sync (a unit test checks it), and let
