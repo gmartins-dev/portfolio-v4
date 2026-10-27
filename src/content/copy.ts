@@ -170,12 +170,12 @@ export const copy = {
 			en: [
 				"I'm Guilherme Martins, a Software Engineer focused on product engineering and software architecture.",
 				"I build and evolve full-stack products, using coding agents throughout the development lifecycle in a spec-driven workflow with scoped tasks, tests, and human review.",
-				"I've worked with teams in Brazil, the UK, and Spain, in areas such as fintech, AI-driven cybersecurity, and healthcare.",
+				"I've worked with teams in Brazil and the UK across fintech, AI-driven cybersecurity, and healthcare, among others.",
 			],
 			"pt-BR": [
 				"Sou Guilherme Martins, Software Engineer com foco em engenharia de produto e arquitetura de software.",
 				"Construo e evoluo produtos full-stack, usando coding agents ao longo do ciclo de desenvolvimento em um processo orientado por especificações, com tarefas delimitadas, testes e revisão humana.",
-				"Já trabalhei com equipes no Brasil, no Reino Unido e na Espanha, em áreas como fintech, cibersegurança com IA e saúde.",
+				"Já trabalhei com equipes no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde, entre outros.",
 			],
 		},
 		workCta: { en: "See the cases", "pt-BR": "Ver cases" },
