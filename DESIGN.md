@@ -109,11 +109,13 @@ location, then six cards on an arc with a quiet principles line below.
   cards": the six dimensions are separate, parallel items that the
   connectors point at, so each needs a visible edge. Cards are
   `rounded-lg border bg-card`, static, with no links.
-- **One card style.** In the static state (server render, below `lg`,
-  reduced motion) all six cards use `border-brand` on `bg-card`, and all
-  connectors use `text-brand/40`: the order carries the hierarchy, not the
-  styling. While the loop runs (see Motion), resting cards use
-  `border-border` and the active one `border-brand` on `bg-muted`. The
+- **One card style.** Below `lg` and under reduced motion all six cards
+  use `border-brand` on `bg-card`, and all connectors use `text-brand/40`:
+  the order carries the hierarchy, not the styling. Where the loop runs
+  (see Motion), cards start at rest (`border-border`, connectors at 20%,
+  through `lg:motion-safe:`, so the prerendered page never flashes six
+  highlighted cards) and only the active one gets `border-brand` on
+  `bg-muted`. The
   cards, dots, connectors and role line are this component's only uses of
   the accent outside links; keep it that way.
 - **Geometry.** Card offsets, card height, photo position and the SVG are

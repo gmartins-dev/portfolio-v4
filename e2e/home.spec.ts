@@ -71,6 +71,29 @@ test.describe("home identity map motion", () => {
 		expect(await activeIndex(page)).toBe(4);
 	});
 
+	test("starts with no card highlighted before the loop runs", async ({
+		browser,
+		isMobile,
+	}) => {
+		test.skip(isMobile, "desktop layout");
+		// Without JavaScript the page shows exactly the prerendered markup.
+		const context = await browser.newContext({
+			viewport: { width: 1440, height: 900 },
+			javaScriptEnabled: false,
+		});
+		const page = await context.newPage();
+		await page.goto(`${test.info().project.use.baseURL}/`);
+		const borders = await cards(page).evaluateAll((items) =>
+			items.map((li) => getComputedStyle(li).borderTopColor),
+		);
+		const brand = await page
+			.locator('section[aria-labelledby="identity-map"] p.text-brand')
+			.evaluate((p) => getComputedStyle(p).color);
+		expect(new Set(borders).size).toBe(1);
+		expect(borders[0]).not.toBe(brand);
+		await context.close();
+	});
+
 	test("stays static under reduced motion", async ({ browser, isMobile }) => {
 		test.skip(isMobile, "desktop layout");
 		const context = await browser.newContext({

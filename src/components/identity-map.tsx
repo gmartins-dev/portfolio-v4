@@ -107,7 +107,10 @@ const cardMotion =
 /** Card classes: static (all alike), or the loop's active and resting states. */
 function cardClass(index: number, active: number | null) {
 	const base = `rounded-lg border px-3.5 py-2.5 lg:h-[72px] ${offsetClasses[index]}`;
-	if (active === null) return `${base} border-brand bg-card`;
+	// Where the loop will run (desktop, motion allowed), cards start at rest so
+	// the first highlight reads as one; elsewhere all six share the brand border.
+	if (active === null)
+		return `${base} border-brand bg-card lg:motion-safe:border-border`;
 	return index === active
 		? `${base} ${cardMotion} border-brand bg-muted delay-[420ms] lg:-translate-x-1.5`
 		: `${base} ${cardMotion} border-border bg-card`;
@@ -151,7 +154,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 							strokeWidth="1"
 							className={
 								active === null
-									? "text-brand/40"
+									? "text-brand/40 lg:motion-safe:text-brand/20"
 									: `text-brand transition-opacity duration-[400ms] ${index === active ? "opacity-90" : "opacity-20"}`
 							}
 						/>
