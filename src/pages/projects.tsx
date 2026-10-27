@@ -24,7 +24,7 @@ function ProjectItem({
 			</h3>
 			<p className="mt-2 text-muted-foreground">{t(project.summary, locale)}</p>
 			<p
-				className="mt-3 font-mono text-xs text-muted-foreground"
+				className="mt-3 font-mono text-sm text-muted-foreground"
 				translate="no"
 			>
 				{project.stack.join(", ")}

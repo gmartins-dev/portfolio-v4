@@ -124,7 +124,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 						<li key={`${entry.company}-${entry.start}`}>
 							<p className="font-medium">{entry.company}</p>
 							<p className="text-sm text-muted-foreground">{entry.role}</p>
-							<p className="mt-1 font-mono text-xs text-muted-foreground">
+							<p className="mt-1 font-mono text-sm text-muted-foreground">
 								{formatPeriod(entry, locale)}
 							</p>
 						</li>
