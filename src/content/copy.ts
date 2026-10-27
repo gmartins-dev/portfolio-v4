@@ -100,10 +100,10 @@ export const copy = {
 		contact: { en: "Contact", "pt-BR": "Contato" },
 		skip: { en: "Skip to content", "pt-BR": "Pular para o conteúdo" },
 		language: { en: "Português", "pt-BR": "English" },
-		// The toggle is an icon. Its accessible name is the target language plus
-		// languageHint, which screen readers read; the icon is aria-hidden.
-		// The current language, shown on the toggle badge.
-		languageCode: { en: "EN", "pt-BR": "PT" },
+		// The toggle shows an icon and languageCode, the language it switches
+		// to. Its accessible name is that code, the target language and
+		// languageHint; the icon is aria-hidden.
+		languageCode: { en: "PT", "pt-BR": "EN" },
 		languageHint: { en: ", ler em português", "pt-BR": ", read in English" },
 	},
 	contact: {

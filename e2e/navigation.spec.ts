@@ -86,21 +86,36 @@ test("an About company link opens its product on the Cases page", async ({
 test.describe("phone header", () => {
 	for (const width of [320, 360, 390]) {
 		for (const path of ["/", "/pt-br"]) {
-			test(`${path} at ${width}px stacks name, nav and language`, async ({
+			test(`${path} at ${width}px puts name and language above the nav`, async ({
 				page,
 			}) => {
 				await page.setViewportSize({ width, height: 800 });
 				await page.goto(path);
-				const top = async (selector: string) =>
-					(await page.getByRole("banner").locator(selector).boundingBox())?.y;
-				// The language toggle is the last item: below the nav on phones.
-				const nameTop = (await top("a[translate=no]")) ?? 0;
-				const navTop = (await top("nav")) ?? 0;
-				const langTop = (await top("a[hreflang]")) ?? 0;
-				expect(navTop).toBeGreaterThan(nameTop);
-				expect(langTop).toBeGreaterThan(navTop);
-				const header = await page.getByRole("banner").boundingBox();
-				expect(header?.height).toBeLessThan(160);
+				const banner = page.getByRole("banner");
+				const box = async (selector: string) =>
+					(await banner
+						.locator(selector)
+						.filter({ visible: true })
+						.boundingBox()) ?? {
+						x: 0,
+						y: 0,
+						width: 0,
+						height: 0,
+					};
+				// One visible toggle, on the name's row; the nav takes the next row.
+				await expect(
+					banner.locator("a[hreflang]").filter({ visible: true }),
+				).toHaveCount(1);
+				const name = await box("a[translate=no]");
+				const nav = await box("nav");
+				const lang = await box("a[hreflang]");
+				expect(
+					Math.abs(lang.y + lang.height / 2 - (name.y + name.height / 2)),
+				).toBeLessThan(4);
+				expect(nav.y).toBeGreaterThanOrEqual(name.y + name.height);
+				const header = await banner.boundingBox();
+				// Two rows; three at 320px in pt-BR, where the nav wraps between items.
+				expect(header?.height).toBeLessThan(120);
 			});
 		}
 	}
