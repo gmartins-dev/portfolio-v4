@@ -179,7 +179,7 @@ export const copy = {
 			],
 		},
 		workCta: { en: "See the cases", "pt-BR": "Ver cases" },
-		workHeading: { en: "Selected cases", "pt-BR": "Cases selecionados" },
+		workHeading: { en: "Cases", "pt-BR": "Cases" },
 		readCaseStudy: {
 			en: "Read the case study",
 			"pt-BR": "Ler o estudo de caso",
