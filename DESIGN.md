@@ -20,7 +20,8 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
   color.
 - **One accent.** `--brand` (glacial cyan) marks links to the next step
   inside the site, focus, list markers, and the primary call to action.
-  Nothing else gets a color.
+  Nothing else gets a color, except the hero identity map (see Hero
+  identity map).
 - **Links say where they go.** Links within the site use `text-brand` with a
   right arrow (`ArrowRight`). Links that leave the site (products, source,
   resume PDFs, client sites) use the foreground color, turn brand on hover,
@@ -78,7 +79,8 @@ the light brand cyan.
   Classes are joined, not merged, so `className` is for layout only (margins,
   `print:hidden`); change padding or colors in the variant itself.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
-- Group related items with spacing and a single top border, not cards.
+- Group related items with spacing and a single top border, not cards
+  (the hero identity map is the one exception).
 - No colored side borders on callouts or list items. A note that needs to
   stand apart uses `bg-muted` with `rounded-lg`; lists use brand markers
   (`list-disc marker:text-brand`).
@@ -94,6 +96,30 @@ the light brand cyan.
   holds the quick facts (case study facts and links), put it first in the
   DOM and move it right with `md:order-last`, so phones see it before the
   prose.
+
+### Hero identity map
+
+The home hero's right column (`src/components/identity-map.tsx`) shows the
+identity map from `docs/positioning.md`: the circular portrait (the one place
+for `rounded-full`; the ring is baked into the image), name, role and
+location, then six cards on an arc with a quiet principles line below.
+
+- **Why cards here.** It is the one exception to "group with spacing, not
+  cards": the six dimensions are separate, parallel items that the
+  connectors point at, so each needs a visible edge. Cards are
+  `rounded-lg border bg-card`, static, with no links.
+- **One card style.** All six cards use `border-brand` on `bg-card`, and
+  all connectors use `text-brand/40`: the order carries the hierarchy, not
+  the styling. The cards, dots, connectors and role line are this
+  component's only uses of the accent outside links; keep it that way.
+- **Geometry.** Card offsets, card height, photo position and the SVG are
+  derived from one `geometry` constant. Change the numbers there, keep
+  `offsetClasses` in sync (a unit test checks it), and let
+  `e2e/home.spec.ts` confirm the dots stay on the card centers and no text
+  is clipped. The decorative SVG is `aria-hidden` and `print:hidden`.
+- **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
+  or the arc offsets: a portrait row at 96px, then the cards in one column,
+  two from `sm`, then the principles left aligned.
 
 ## Phones
 
