@@ -42,6 +42,40 @@ test.describe("home identity map", () => {
 				);
 				expect(clipped, `card ${index} text`).toBe(0);
 			}
+
+			// No connector crosses the name, role or location under the photo.
+			const crossings = await section.evaluate((root) => {
+				const svg = root.querySelector("svg");
+				const caption = root.querySelector("img")?.nextElementSibling;
+				if (!svg || !caption) return ["missing svg or caption"];
+				const origin = svg.getBoundingClientRect();
+				const hits: string[] = [];
+				for (const p of caption.querySelectorAll("p")) {
+					const range = document.createRange();
+					range.selectNodeContents(p);
+					const text = range.getBoundingClientRect();
+					for (const line of svg.querySelectorAll("line")) {
+						const [x1, y1, x2, y2] = ["x1", "y1", "x2", "y2"].map((name) =>
+							Number(line.getAttribute(name)),
+						);
+						for (let step = 0; step <= 100; step++) {
+							const x = origin.x + x1 + ((x2 - x1) * step) / 100;
+							const y = origin.y + y1 + ((y2 - y1) * step) / 100;
+							if (
+								x >= text.left - 4 &&
+								x <= text.right + 4 &&
+								y >= text.top &&
+								y <= text.bottom
+							) {
+								hits.push(p.textContent ?? "");
+								break;
+							}
+						}
+					}
+				}
+				return hits;
+			});
+			expect(crossings).toEqual([]);
 		});
 	}
 });

@@ -21,6 +21,12 @@ export const geometry = {
 	photo: { x: 84, radius: 80 },
 	/** Connectors start on this circle around the photo center. */
 	connectorRadius: 90,
+	/**
+	 * The steepest connector leaves the photo at this angle in degrees; the
+	 * others scale down with it. Pointing straight at the outer dots, the
+	 * bottom connectors would cross the name and location under the photo.
+	 */
+	connectorMaxAngle: 35,
 	arcRadius: 580,
 };
 
@@ -84,8 +90,16 @@ const dots = geometry.offsets.map((offset, index) => ({
 	y: index * (geometry.cardHeight + geometry.cardGap) + geometry.cardHeight / 2,
 }));
 
-const connectors = dots.map((dot) => {
-	const angle = Math.atan2(dot.y - photoY, dot.x - geometry.photo.x);
+const angles = dots.map((dot) =>
+	Math.atan2(dot.y - photoY, dot.x - geometry.photo.x),
+);
+const angleScale =
+	(geometry.connectorMaxAngle * Math.PI) /
+	180 /
+	Math.max(...angles.map(Math.abs));
+
+const connectors = dots.map((dot, index) => {
+	const angle = angles[index] * angleScale;
 	return {
 		x1: geometry.photo.x + geometry.connectorRadius * Math.cos(angle),
 		y1: photoY + geometry.connectorRadius * Math.sin(angle),
@@ -98,8 +112,26 @@ const first = dots[0];
 const last = dots[dots.length - 1];
 const arc = `M${first.x} ${first.y} A${geometry.arcRadius} ${geometry.arcRadius} 0 0 1 ${last.x} ${last.y}`;
 
-/** Bind each middle dot to the word before it, so no line starts with one. */
-const dotsAtLineEnd = (text: string) => text.replaceAll(" · ", "\u00a0· ");
+/**
+ * "a · b · c" with each middle dot bound to the word before it, so no line
+ * starts with one, and hyphenated words kept whole ("trade-offs" never
+ * splits after its hyphen).
+ */
+function dottedItems(text: string) {
+	return text
+		.replaceAll(" · ", "\u00a0· ")
+		.split(/(\S*-\S*)/)
+		.map((piece, index) =>
+			piece.includes("-") ? (
+				// biome-ignore lint/suspicious/noArrayIndexKey: static text, never reordered.
+				<span key={index} className="whitespace-nowrap">
+					{piece}
+				</span>
+			) : (
+				piece
+			),
+		);
+}
 
 const cardMotion =
 	"relative transition-[background-color,border-color,transform] duration-[450ms] ease-[cubic-bezier(.2,.7,.2,1)]";
@@ -276,7 +308,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 									{t(dimension.title, locale)}
 								</p>
 								<p className="mt-0.5 text-xs text-muted-foreground">
-									{dotsAtLineEnd(t(dimension.line, locale))}
+									{dottedItems(t(dimension.line, locale))}
 								</p>
 							</li>
 						);
@@ -284,7 +316,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				</ol>
 			</div>
 			<div className="mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">
-				<p className="font-mono">{dotsAtLineEnd(t(map.principles, locale))}</p>
+				<p className="font-mono">{dottedItems(t(map.principles, locale))}</p>
 				<p>{t(map.grounding, locale)}</p>
 			</div>
 		</section>
