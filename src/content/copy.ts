@@ -278,7 +278,7 @@ export const copy = {
 			},
 			grounding: {
 				en: "Every concept is grounded in engineering practice.",
-				"pt-BR": "Cada conceito se apoia em prática de engenharia.",
+				"pt-BR": "Cada conceito se apoia na prática de engenharia.",
 			},
 		},
 	},
