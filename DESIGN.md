@@ -95,6 +95,32 @@ the light brand cyan.
   DOM and move it right with `md:order-last`, so phones see it before the
   prose.
 
+### Hero identity map
+
+The home hero's right column (`src/components/identity-map.tsx`) shows the
+identity map from `docs/positioning.md`: the circular portrait (the one place
+for `rounded-full`; the ring is baked into the image), name, role and
+location, then six cards on an arc with a quiet principles line below.
+
+- **Why cards here.** It is the one exception to "group with spacing, not
+  cards": the six dimensions are separate, parallel items that the
+  connectors point at, so each needs a visible edge. Cards are
+  `rounded-lg border bg-card`, static, with no links.
+- **Border hierarchy.** Cards 1 and 2 (core positioning) use `border-brand`,
+  cards 3 and 4 (distinctive capabilities) the default `border`, cards 5 and
+  6 (breadth and the human dimension) the default `border` on
+  `bg-background`. The brand dots, the role line and the two brand-tinted
+  connectors are this component's only uses of the accent outside links;
+  keep it that way.
+- **Geometry.** Card offsets, card height, photo position and the SVG are
+  derived from one `geometry` constant. Change the numbers there, keep
+  `offsetClasses` in sync (a unit test checks it), and let
+  `e2e/home.spec.ts` confirm the dots stay on the card centers and no text
+  is clipped. The decorative SVG is `aria-hidden` and `print:hidden`.
+- **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
+  or the arc offsets: a portrait row at 96px, then the cards in one column,
+  two from `sm`, then the principles left aligned.
+
 ## Phones
 
 - The header is two rows below `sm`: the name, then nav with the language
