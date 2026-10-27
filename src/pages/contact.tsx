@@ -10,7 +10,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(page.heading, locale)}
 			</h1>
-			<div className="mt-8 max-w-prose space-y-1 text-lg text-muted-foreground">
+			<div className="mt-8 max-w-measure space-y-1 text-lg text-muted-foreground">
 				{page.intro[locale].map((line) => (
 					<p key={line}>{line}</p>
 				))}

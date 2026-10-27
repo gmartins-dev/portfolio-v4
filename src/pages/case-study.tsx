@@ -53,7 +53,7 @@ export function CaseStudyPage({
 				>
 					{study.title}
 				</h1>
-				<p className="mt-6 max-w-prose text-lg text-muted-foreground">
+				<p className="mt-6 max-w-measure text-lg text-muted-foreground">
 					{t(study.summary, locale)}
 				</p>
 
@@ -147,7 +147,7 @@ export function CaseStudyPage({
 							<h2 className="text-2xl font-semibold tracking-tight">
 								{t(section.heading, locale)}
 							</h2>
-							<div className="mt-4 max-w-prose space-y-4 leading-relaxed">
+							<div className="mt-4 max-w-measure space-y-4 leading-relaxed">
 								{section.body[locale].map((paragraph) => (
 									<p key={paragraph}>{paragraph}</p>
 								))}

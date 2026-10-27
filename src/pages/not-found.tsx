@@ -21,7 +21,7 @@ export function NotFoundPage() {
 							{copy.notFound.heading[locale]}
 						</h2>
 					)}
-					<p className="mt-6 max-w-prose text-lg text-muted-foreground">
+					<p className="mt-6 max-w-measure text-lg text-muted-foreground">
 						{copy.notFound.body[locale]}
 					</p>
 					<a

@@ -14,7 +14,7 @@ export function HowIWorkPage({ locale }: { locale: Locale }) {
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(page.heading, locale)}
 			</h1>
-			<p className="mt-8 max-w-prose text-lg text-muted-foreground">
+			<p className="mt-8 max-w-measure text-lg text-muted-foreground">
 				{t(page.intro, locale)}
 			</p>
 

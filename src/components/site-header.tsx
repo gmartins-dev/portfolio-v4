@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Languages } from "lucide-react";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
-import { otherLocale } from "../i18n";
+import { type Locale, neutralPath, otherLocale } from "../i18n";
 import { isNotFound } from "../not-found";
 import { useLocale } from "../use-locale";
 
@@ -10,12 +10,22 @@ const navLinkClass =
 	"inline-flex min-h-6 items-center whitespace-nowrap underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline data-[section=current]:text-foreground data-[section=current]:underline";
 
 export function SiteHeader() {
-	const { locale, href } = useLocale();
+	const { locale, page, href } = useLocale();
 	// A case study belongs to Cases: mark the section without claiming
-	// aria-current="page", which stays on the exact match only.
+	// aria-current="page", which stays on the exact match only. The matched
+	// route, unlike the raw URL, ignores letter case and is absent on a 404.
 	const inCases = useRouterState({
-		select: (state) => state.location.pathname.startsWith(`${href("/cases")}/`),
+		select: (state) =>
+			neutralPath(
+				state.matches[state.matches.length - 1]?.routeId ?? "",
+			).startsWith("/cases/"),
 	});
+	// On the 404 page there is no equivalent page to switch to; go home instead.
+	const notFound = useRouterState({
+		select: (state) => isNotFound(state.matches),
+	});
+	const other = otherLocale(locale);
+	const toggle = { locale, to: href(notFound ? "/" : page, other) };
 
 	return (
 		<header className="border-b">
@@ -42,7 +52,7 @@ export function SiteHeader() {
 						/>
 					</picture>
 				</Link>
-				<LanguageToggle className="inline-flex sm:hidden" />
+				<LanguageToggle {...toggle} className="inline-flex sm:hidden" />
 				<div className="contents sm:flex sm:items-center sm:gap-x-6 print:hidden">
 					<nav
 						aria-label={t(copy.nav.label, locale)}
@@ -93,7 +103,7 @@ export function SiteHeader() {
 							</li>
 						</ul>
 					</nav>
-					<LanguageToggle className="hidden sm:inline-flex" />
+					<LanguageToggle {...toggle} className="hidden sm:inline-flex" />
 				</div>
 			</div>
 		</header>
@@ -106,16 +116,19 @@ export function SiteHeader() {
  * DOM order matches the visual order at every width; display:none drops the
  * other copy from the accessibility tree, so there is only ever one toggle.
  */
-function LanguageToggle({ className }: { className: string }) {
-	const { locale, page, href } = useLocale();
+function LanguageToggle({
+	locale,
+	to,
+	className,
+}: {
+	locale: Locale;
+	to: string;
+	className: string;
+}) {
 	const other = otherLocale(locale);
-	// On the 404 page there is no equivalent page to switch to; go home instead.
-	const notFound = useRouterState({
-		select: (state) => isNotFound(state.matches),
-	});
 	return (
 		<Link
-			to={href(notFound ? "/" : page, other)}
+			to={to}
 			hrefLang={other}
 			lang={other}
 			className={`${className} min-h-6 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground print:hidden`}

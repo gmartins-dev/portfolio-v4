@@ -5,6 +5,7 @@ import { buttonVariants } from "../components/ui/button";
 import {
 	CaseStudyTeaser,
 	formatPeriod,
+	MetaLine,
 	ShortWorkItem,
 } from "../components/work";
 import { copy, t } from "../content/copy";
@@ -25,7 +26,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 						{t(copy.home.headline, locale)}
 					</h1>
-					<div className="mt-6 max-w-prose space-y-4 text-lg text-muted-foreground">
+					<div className="mt-6 max-w-measure space-y-4 text-lg text-muted-foreground">
 						{copy.home.intro[locale].map((paragraph) => (
 							<p key={paragraph}>{paragraph}</p>
 						))}
@@ -124,9 +125,10 @@ export function HomePage({ locale }: { locale: Locale }) {
 						<li key={`${entry.company}-${entry.start}`}>
 							<p className="font-medium">{entry.company}</p>
 							<p className="text-sm text-muted-foreground">{entry.role}</p>
-							<p className="mt-1 font-mono text-sm text-muted-foreground">
-								{formatPeriod(entry, locale)}
-							</p>
+							<MetaLine
+								className="mt-1"
+								parts={[formatPeriod(entry, locale)]}
+							/>
 						</li>
 					))}
 				</ol>

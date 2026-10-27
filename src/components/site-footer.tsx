@@ -22,7 +22,7 @@ export function SiteFooter() {
 					>
 						{t(copy.contact.heading, locale)}
 					</h2>
-					<p className="mt-3 max-w-prose text-muted-foreground">
+					<p className="mt-3 max-w-measure text-muted-foreground">
 						{t(copy.contact.body, locale)}
 					</p>
 					<Link

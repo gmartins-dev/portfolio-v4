@@ -61,8 +61,9 @@ the light brand cyan.
   metadata only (dates, stacks, file names). Both are self-hosted through
   Fontsource.
 - Headlines use weight and tight tracking, not huge sizes. Body text is
-  capped at about 65 characters per line (`max-w-prose`, set to 36rem in
-  `src/index.css`: Geist's wide "0" made the default 65ch run to 90).
+  capped at about 65 characters per line (`max-w-measure`, 36rem in
+  `src/index.css`; not `max-w-prose`, whose 65ch runs to 90 with Geist's
+  wide "0").
 - The lead paragraph under a page's `h1` is `text-lg text-muted-foreground`
   on every page; body prose (About, case study sections) uses the
   foreground color.

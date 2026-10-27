@@ -18,8 +18,9 @@ Audit of every page at 320, 390, 768, 1024 and 1440px in both languages.
 - The hero identity map's bottom connectors no longer cross the name and
   location under the portrait; e2e checks it. Hyphenated words in the
   cards stay whole.
-- Lead paragraphs share one color on every page, and `max-w-prose` is
-  36rem, so body lines stay near 65 to 75 characters instead of 90.
+- Lead paragraphs share one color on every page, and body text is capped
+  at 36rem (`max-w-measure`), so lines stay near 65 to 75 characters
+  instead of 90.
 - Mono metadata is 14px everywhere (stacks, home dates, the case study
   period, which was sans).
 - Diagram teasers are legible on the dark page: larger text, visible node
