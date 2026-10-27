@@ -61,7 +61,11 @@ the light brand cyan.
   metadata only (dates, stacks, file names). Both are self-hosted through
   Fontsource.
 - Headlines use weight and tight tracking, not huge sizes. Body text is
-  capped at about 65 characters per line (`max-w-prose`).
+  capped at about 65 characters per line (`max-w-prose`, set to 36rem in
+  `src/index.css`: Geist's wide "0" made the default 65ch run to 90).
+- The lead paragraph under a page's `h1` is `text-lg text-muted-foreground`
+  on every page; body prose (About, case study sections) uses the
+  foreground color.
 - No eyebrow labels above headings; the heading carries its own weight. Put
   context in the sentence that follows it.
 - Metadata lines (kind, period, location) use `MetaLine` from
@@ -80,8 +84,9 @@ the light brand cyan.
   Classes are joined, not merged, so `className` is for layout only (margins,
   `print:hidden`); change padding or colors in the variant itself.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
-- Group related items with spacing and a single top border, not cards
-  (the hero identity map is the one exception).
+- Group related items with spacing and a single top border, not cards.
+  Two exceptions: the hero identity map, and the home "Where I have worked"
+  band (`bg-muted rounded-lg`), which breaks up the long home page.
 - No colored side borders on callouts or list items. A note that needs to
   stand apart uses `bg-muted` with `rounded-lg`; lists use brand markers
   (`list-disc marker:text-brand`).
@@ -92,7 +97,10 @@ the light brand cyan.
   README workflow, which reads better than a README screenshot. `WorkImage`
   inverts them and blends the background into the card, so check a new
   diagram on the dark page. Shape it close to 16:10 (rows of
-  `direction LR` subgraphs) so it stays legible in a teaser.
+  `direction LR` subgraphs) so it stays legible in a teaser. Teaser sources
+  (`*-teaser.mmd`) use 24px text, slate node borders and unfilled groups,
+  since they show at about 480 css px; avoid group titles there, which
+  overlap the nodes at that size (name the group on the edge instead).
 - Multi-column layouts collapse to one column below `md`. When a sidebar
   holds the quick facts (case study facts and links), put it first in the
   DOM and move it right with `md:order-last`, so phones see it before the
@@ -121,19 +129,30 @@ location, then six cards on an arc with a quiet principles line below.
 - **Geometry.** Card offsets, card height, photo position and the SVG are
   derived from one `geometry` constant. Change the numbers there, keep
   `offsetClasses` in sync (a unit test checks it), and let
-  `e2e/home.spec.ts` confirm the dots stay on the card centers and no text
-  is clipped. The decorative SVG is `aria-hidden` and `print:hidden`.
+  `e2e/home.spec.ts` confirm the dots stay on the card centers, no text
+  is clipped and no connector crosses the name and location under the
+  photo. Connector angles are scaled so the steepest leaves the photo at
+  `connectorMaxAngle` (35 degrees); pointing straight at the outer dots,
+  the bottom ones would cross that caption. Card lines keep hyphenated
+  words whole and bind each middle dot to the word before it. The decorative SVG is `aria-hidden` and `print:hidden`.
 - **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
   or the arc offsets: a portrait row at 96px, then the cards in one column,
   two from `sm`, then the principles left aligned.
 
 ## Phones
 
-- The header is two rows below `sm`: the name, then nav with the language
-  link. DOM order matches visual order at every width. The
-  language link shows "PT"/"EN" (its accessible name stays the full
-  sentence).
-  e2e checks the two rows at 320, 360 and 390px in both languages.
+- The header is two rows below `sm`: the name with the language link on
+  its right, then the nav. The header renders the language link twice,
+  one copy per breakpoint (`sm:hidden` / `hidden sm:inline-flex`), so DOM
+  order matches visual order at every width. Nav items never break inside
+  a label; at 320px in pt-BR the list wraps between items. e2e checks the
+  rows at 320, 360 and 390px in both languages.
+- The language link shows an icon and the language it switches to ("PT"
+  on the English site). Its accessible name starts with that code, then
+  the full sentence ("PT Português, ler em português").
+- The nav marks the current page with `aria-current="page"` and an
+  underline. A case study also underlines Cases (`data-section`), without
+  `aria-current`.
 - Vertical rhythm steps down below `md`: page tops `pt-12` (`pt-8` on case
   studies), sections `mt-20` instead of `mt-24`/`mt-28`, and teaser lists
   `gap-14` instead of `gap-20`.
