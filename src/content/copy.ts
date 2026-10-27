@@ -195,6 +195,92 @@ export const copy = {
 			en: "Client and community work",
 			"pt-BR": "Clientes e comunidade",
 		},
+		// The hero's identity map (docs/positioning.md, "Identity map"). Name,
+		// role and location come from profile and meta.
+		identityMap: {
+			photoAlt: {
+				en: "Portrait of Guilherme Martins",
+				"pt-BR": "Retrato de Guilherme Martins",
+			},
+			listLabel: {
+				en: "Professional identity map",
+				"pt-BR": "Mapa de identidade profissional",
+			},
+			dimensions: [
+				{
+					title: {
+						en: "Product Engineering",
+						"pt-BR": "Engenharia de produto",
+					},
+					line: {
+						en: "Problem framing · end-to-end ownership · product iteration",
+						"pt-BR":
+							"Definição do problema · ownership de ponta a ponta · evolução do produto",
+					},
+				},
+				{
+					title: {
+						en: "Software Architecture",
+						"pt-BR": "Arquitetura de software",
+					},
+					line: {
+						en: "System design · technical trade-offs · reliability",
+						"pt-BR":
+							"Design de sistemas · trade-offs técnicos · confiabilidade",
+					},
+				},
+				{
+					title: {
+						en: "Agentic Engineering",
+						"pt-BR": "Agentic engineering",
+					},
+					line: {
+						en: "Coding agents · spec-driven workflows · verification",
+						"pt-BR":
+							"Coding agents · workflows orientados por especificação · verificação",
+					},
+				},
+				{
+					title: {
+						en: "AI-powered Features",
+						"pt-BR": "Funcionalidades com IA",
+					},
+					line: {
+						en: "LLM integration · tool use · guardrails",
+						"pt-BR": "Integração com LLMs · tool use · guardrails",
+					},
+				},
+				{
+					title: {
+						en: "Full-stack Engineering",
+						"pt-BR": "Engenharia full-stack",
+					},
+					line: {
+						en: "Frontend · backend · APIs · system integration",
+						"pt-BR": "Frontend · backend · APIs · integração de sistemas",
+					},
+				},
+				{
+					title: {
+						en: "Communication & Collaboration",
+						"pt-BR": "Comunicação e colaboração",
+					},
+					line: {
+						en: "International teams · fluent English · clear communication",
+						"pt-BR":
+							"Times internacionais · inglês fluente · comunicação clara",
+					},
+				},
+			],
+			principles: {
+				en: "Product thinking · engineering rigor · human judgment",
+				"pt-BR": "Visão de produto · rigor de engenharia · julgamento humano",
+			},
+			grounding: {
+				en: "Every concept is grounded in engineering practice.",
+				"pt-BR": "Cada conceito se apoia em prática de engenharia.",
+			},
+		},
 	},
 	capabilities: [
 		{
