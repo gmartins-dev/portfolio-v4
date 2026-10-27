@@ -25,7 +25,11 @@ export function SiteHeader() {
 		select: (state) => isNotFound(state.matches),
 	});
 	const other = otherLocale(locale);
-	const toggle = { locale, to: href(notFound ? "/" : page, other) };
+	const toggle = {
+		locale,
+		target: other,
+		to: href(notFound ? "/" : page, other),
+	};
 
 	return (
 		<header className="border-b">
@@ -118,19 +122,21 @@ export function SiteHeader() {
  */
 function LanguageToggle({
 	locale,
+	target,
 	to,
 	className,
 }: {
 	locale: Locale;
+	/** The locale the link switches to. */
+	target: Locale;
 	to: string;
 	className: string;
 }) {
-	const other = otherLocale(locale);
 	return (
 		<Link
 			to={to}
-			hrefLang={other}
-			lang={other}
+			hrefLang={target}
+			lang={target}
 			className={`${className} min-h-6 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground print:hidden`}
 		>
 			<Languages className="size-4" aria-hidden="true" />

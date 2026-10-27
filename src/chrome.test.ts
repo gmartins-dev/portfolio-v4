@@ -79,6 +79,37 @@ describe("language switch", () => {
 	});
 });
 
+describe("nav section state", () => {
+	/** Opening tag of the header's Cases link. */
+	async function casesLink(path: string, target: string) {
+		const markup = await html(path);
+		const header = markup.slice(0, markup.indexOf("</header>"));
+		return [...header.matchAll(/<a\s[^>]*>/g)]
+			.map(([anchor]) => anchor)
+			.find((anchor) => anchor.includes(`href="${target}"`));
+	}
+
+	it.each([
+		["/cases/priorize-me", "/cases"],
+		["/pt-br/cases/priorize-me", "/pt-br/cases"],
+	])(
+		"%s marks Cases as the current section, not the page",
+		async (path, target) => {
+			const link = await casesLink(path, target);
+			expect(link).toContain('data-section="current"');
+			expect(link).not.toContain("aria-current");
+		},
+	);
+
+	it.each([
+		["/cases", "/cases"],
+		["/about", "/cases"],
+		["/does-not-exist", "/cases"],
+	])("%s leaves the section marker off", async (path, target) => {
+		expect(await casesLink(path, target)).not.toContain("data-section");
+	});
+});
+
 describe("about page", () => {
 	it.each([
 		["/about", "Education", "/cases/ai-first-online-banking"],

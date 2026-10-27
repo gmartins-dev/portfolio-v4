@@ -28,9 +28,7 @@ Audit of every page at 320, 390, 768, 1024 and 1440px in both languages.
   name (WCAG 2.5.3). Nav labels no longer break inside ("Como trabalho"
   at 320px).
 - Cases stays underlined in the nav on a case study.
-- The hero identity map's bottom connectors no longer cross the name and
-  location under the portrait; e2e checks it. Hyphenated words in the
-  cards stay whole.
+- Hyphenated words in the hero identity map cards stay whole.
 - Lead paragraphs share one color on every page, and body text is capped
   at 36rem (`max-w-measure`), so lines stay near 65 to 75 characters
   instead of 90.

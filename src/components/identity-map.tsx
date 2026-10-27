@@ -128,14 +128,23 @@ const arc = `M${first.x} ${first.y} A${geometry.arcRadius} ${geometry.arcRadius}
 function dottedItems(text: string, { wholeItems = false } = {}) {
 	if (wholeItems) {
 		const items = text.split(" · ");
-		return items.map((item, index) => (
-			<Fragment key={item}>
-				<span className="whitespace-nowrap">
-					{index < items.length - 1 ? `${item}\u00a0·` : item}
+		// Screen readers hear a comma instead of the dot, as in MetaLine.
+		return items.map((item, index) =>
+			index < items.length - 1 ? (
+				<Fragment key={item}>
+					<span className="whitespace-nowrap">
+						{item}
+						{"\u00a0"}
+						<span aria-hidden="true">·</span>
+						<span className="sr-only">,</span>
+					</span>{" "}
+				</Fragment>
+			) : (
+				<span key={item} className="whitespace-nowrap">
+					{item}
 				</span>
-				{index < items.length - 1 && " "}
-			</Fragment>
-		));
+			),
+		);
 	}
 	return text
 		.replaceAll(" · ", "\u00a0· ")

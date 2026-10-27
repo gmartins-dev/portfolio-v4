@@ -92,16 +92,14 @@ test.describe("phone header", () => {
 				await page.setViewportSize({ width, height: 800 });
 				await page.goto(path);
 				const banner = page.getByRole("banner");
-				const box = async (selector: string) =>
-					(await banner
+				const box = async (selector: string) => {
+					const found = await banner
 						.locator(selector)
 						.filter({ visible: true })
-						.boundingBox()) ?? {
-						x: 0,
-						y: 0,
-						width: 0,
-						height: 0,
-					};
+						.boundingBox();
+					if (!found) throw new Error(`${selector} not rendered`);
+					return found;
+				};
 				// One visible toggle, on the name's row; the nav takes the next row.
 				await expect(
 					banner.locator("a[hreflang]").filter({ visible: true }),
