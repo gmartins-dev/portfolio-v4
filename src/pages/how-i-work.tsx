@@ -14,7 +14,9 @@ export function HowIWorkPage({ locale }: { locale: Locale }) {
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(page.heading, locale)}
 			</h1>
-			<p className="mt-8 max-w-prose text-lg">{t(page.intro, locale)}</p>
+			<p className="mt-8 max-w-prose text-lg text-muted-foreground">
+				{t(page.intro, locale)}
+			</p>
 
 			<section aria-labelledby="process" className="mt-16 md:mt-20">
 				<h2 id="process" className={sectionHeading}>

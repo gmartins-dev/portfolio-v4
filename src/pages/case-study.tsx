@@ -68,7 +68,7 @@ export function CaseStudyPage({
 						<dt className="text-muted-foreground">
 							{t(copy.work.period, locale)}
 						</dt>
-						<dd className="mt-1 font-medium">
+						<dd className="mt-1 font-mono">
 							{formatPeriod(study.period, locale)}
 						</dd>
 					</div>
@@ -111,7 +111,10 @@ export function CaseStudyPage({
 				{/* First in the DOM so phones get the facts and links before the
 				    prose; from md up it sits in the right column. */}
 				<aside className="border-b pb-10 md:sticky md:top-8 md:order-last md:self-start md:border-0 md:pb-0">
-					<ul className="grid list-disc gap-2 pl-5 text-sm marker:text-brand">
+					<h2 className="text-sm font-medium text-muted-foreground">
+						{t(copy.work.highlights, locale)}
+					</h2>
+					<ul className="mt-2 grid list-disc gap-2 pl-5 text-sm marker:text-brand">
 						{study.facts[locale].map((fact) => (
 							<li key={fact}>{fact}</li>
 						))}

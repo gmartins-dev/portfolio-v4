@@ -7,7 +7,7 @@ import { isNotFound } from "../not-found";
 import { useLocale } from "../use-locale";
 
 const navLinkClass =
-	"inline-flex min-h-6 items-center underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline";
+	"inline-flex min-h-6 items-center underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline data-[section=current]:text-foreground data-[section=current]:underline";
 
 export function SiteHeader() {
 	const { locale, page, href } = useLocale();
@@ -15,6 +15,11 @@ export function SiteHeader() {
 	// On the 404 page there is no equivalent page to switch to; go home instead.
 	const notFound = useRouterState({
 		select: (state) => isNotFound(state.matches),
+	});
+	// A case study belongs to Cases: mark the section without claiming
+	// aria-current="page", which stays on the exact match only.
+	const inCases = useRouterState({
+		select: (state) => state.location.pathname.startsWith(`${href("/cases")}/`),
 	});
 
 	return (
@@ -70,6 +75,7 @@ export function SiteHeader() {
 								<Link
 									to={href("/cases")}
 									activeOptions={{ exact: true }}
+									data-section={inCases ? "current" : undefined}
 									className={navLinkClass}
 								>
 									{t(copy.nav.work, locale)}

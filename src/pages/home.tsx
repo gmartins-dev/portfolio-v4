@@ -25,7 +25,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 					<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 						{t(copy.home.headline, locale)}
 					</h1>
-					<div className="mt-6 max-w-xl space-y-4 text-lg text-muted-foreground">
+					<div className="mt-6 max-w-prose space-y-4 text-lg text-muted-foreground">
 						{copy.home.intro[locale].map((paragraph) => (
 							<p key={paragraph}>{paragraph}</p>
 						))}

@@ -373,6 +373,7 @@ export const copy = {
 		role: { en: "Role", "pt-BR": "Papel" },
 		period: { en: "Period", "pt-BR": "Período" },
 		stack: { en: "Stack", "pt-BR": "Stack" },
+		highlights: { en: "Highlights", "pt-BR": "Destaques" },
 		links: { en: "Links", "pt-BR": "Links" },
 		reviewed: { en: "Facts checked on", "pt-BR": "Fatos verificados em" },
 		back: { en: "All cases", "pt-BR": "Todos os cases" },
