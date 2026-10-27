@@ -8,7 +8,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 
 const master = "brand/social/source/portrait-1024.png";
-const widths = [160, 320];
+const widths = [208, 416];
 
 const png = await readFile(master);
 await mkdir("public/images/profile", { recursive: true });

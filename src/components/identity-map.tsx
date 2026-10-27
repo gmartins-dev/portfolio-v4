@@ -1,10 +1,10 @@
+import { Fragment } from "react";
 import { copy, t } from "../content/copy";
-import { profile } from "../content/profile";
 import type { Locale } from "../i18n";
 import { useIdentityMapCycle } from "./use-identity-map-cycle";
 
 /**
- * Desktop geometry of the map, in px inside its 30rem (480px) column. Cards
+ * Desktop geometry of the map, in px inside its 32rem (512px) column. Cards
  * stack from the top; their left edges follow a circle of `arcRadius` that
  * bulges toward the middle, and the decorative SVG is drawn from the same
  * numbers, so dots stay on the card centers. Tailwind needs literal class
@@ -12,19 +12,20 @@ import { useIdentityMapCycle } from "./use-identity-map-cycle";
  * they match).
  */
 export const geometry = {
-	width: 480,
-	cardHeight: 72,
-	cardGap: 10,
-	offsets: [198, 222, 234, 234, 222, 198],
+	width: 512,
+	cardHeight: 84,
+	cardGap: 18,
+	offsets: [230, 254, 266, 266, 254, 230],
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
-	photo: { x: 84, radius: 80 },
+	/** The portrait, flush with the column's left edge. */
+	photo: { x: 104, radius: 104 },
 	/** Connectors start on this circle around the photo center. */
-	connectorRadius: 90,
+	connectorRadius: 114,
 	/**
 	 * The steepest connector leaves the photo at this angle in degrees; the
-	 * others scale down with it. Pointing straight at the outer dots, the
-	 * bottom connectors would cross the name and location under the photo.
+	 * others scale down with it, so every connector starts on the portrait's
+	 * right side instead of its top or bottom.
 	 */
 	connectorMaxAngle: 35,
 	arcRadius: 580,
@@ -72,13 +73,19 @@ export function cardOutline(offset: number) {
 }
 
 export const offsetClasses = [
-	"lg:ml-[198px]",
-	"lg:ml-[222px]",
-	"lg:ml-[234px]",
-	"lg:ml-[234px]",
-	"lg:ml-[222px]",
-	"lg:ml-[198px]",
+	"lg:ml-[230px]",
+	"lg:ml-[254px]",
+	"lg:ml-[266px]",
+	"lg:ml-[266px]",
+	"lg:ml-[254px]",
+	"lg:ml-[230px]",
 ];
+
+/**
+ * Top of the portrait at lg, centering it on the card stack. A literal for
+ * Tailwind; identity-map.test.tsx checks it against `geometry`.
+ */
+export const photoTopClass = "lg:top-[193px]";
 
 const height =
 	geometry.offsets.length * geometry.cardHeight +
@@ -115,9 +122,21 @@ const arc = `M${first.x} ${first.y} A${geometry.arcRadius} ${geometry.arcRadius}
 /**
  * "a · b · c" with each middle dot bound to the word before it, so no line
  * starts with one, and hyphenated words kept whole ("trade-offs" never
- * splits after its hyphen).
+ * splits after its hyphen). `wholeItems` keeps every item on one line, for
+ * short items such as the principles ("AI leverage" never splits).
  */
-function dottedItems(text: string) {
+function dottedItems(text: string, { wholeItems = false } = {}) {
+	if (wholeItems) {
+		const items = text.split(" · ");
+		return items.map((item, index) => (
+			<Fragment key={item}>
+				<span className="whitespace-nowrap">
+					{index < items.length - 1 ? `${item}\u00a0·` : item}
+				</span>
+				{index < items.length - 1 && " "}
+			</Fragment>
+		));
+	}
 	return text
 		.replaceAll(" · ", "\u00a0· ")
 		.split(/(\S*-\S*)/)
@@ -138,7 +157,7 @@ const cardMotion =
 
 /** Card classes: static (all alike), or the loop's active and resting states. */
 function cardClass(index: number, active: number | null) {
-	const base = `rounded-lg border px-3.5 py-2.5 lg:h-[72px] ${offsetClasses[index]}`;
+	const base = `rounded-lg border px-3.5 py-2.5 lg:flex lg:h-[84px] lg:flex-col lg:justify-center ${offsetClasses[index]}`;
 	// Where the loop will run (desktop, motion allowed), cards start at rest so
 	// the first highlight reads as one; elsewhere all six share the brand border.
 	if (active === null)
@@ -157,7 +176,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 		<section
 			ref={sectionRef}
 			aria-labelledby="identity-map"
-			className="mt-12 lg:mt-0 lg:w-[30rem]"
+			className="mt-12 lg:mt-0 lg:w-[32rem]"
 		>
 			<h2 id="identity-map" className="sr-only">
 				{t(map.listLabel, locale)}
@@ -230,38 +249,31 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						/>
 					))}
 				</svg>
-				<div className="flex items-center gap-4 lg:absolute lg:top-[161px] lg:left-0 lg:w-[168px] lg:flex-col lg:gap-3 lg:text-center">
+				{/* Centered on the card stack. No inline style: the page CSP
+				    (style-src 'self') would drop it. */}
+				<div
+					className={`relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
+				>
 					{active !== null && (
 						<span
 							key={`ring-${step}`}
 							aria-hidden="true"
-							className="identity-ring pointer-events-none absolute top-0 left-1 size-40 rounded-full print:hidden"
+							className="identity-ring pointer-events-none absolute inset-0 rounded-full print:hidden"
 						/>
 					)}
 					<img
-						src="/images/profile/portrait-160.webp"
-						srcSet="/images/profile/portrait-160.webp 1x, /images/profile/portrait-320.webp 2x"
-						width={160}
-						height={160}
+						src="/images/profile/portrait-208.webp"
+						srcSet="/images/profile/portrait-208.webp 1x, /images/profile/portrait-416.webp 2x"
+						width={208}
+						height={208}
 						alt={t(map.photoAlt, locale)}
 						decoding="async"
-						className="size-24 shrink-0 rounded-full lg:size-40"
+						className="size-32 rounded-full lg:size-52"
 					/>
-					<div>
-						<p translate="no" className="text-[15px] font-semibold">
-							{profile.name}
-						</p>
-						<p className="mt-1 font-mono text-xs text-brand">
-							{t(copy.meta.role, locale)}
-						</p>
-						<p className="mt-0.5 font-mono text-xs text-muted-foreground">
-							{t(profile.location, locale)}
-						</p>
-					</div>
 				</div>
 				<ol
 					aria-labelledby="identity-map"
-					className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
+					className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[18px]"
 				>
 					{map.dimensions.map((dimension, index) => {
 						const outline =
@@ -316,7 +328,9 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				</ol>
 			</div>
 			<div className="mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">
-				<p className="font-mono">{dottedItems(t(map.principles, locale))}</p>
+				<p className="font-mono">
+					{dottedItems(t(map.principles, locale), { wholeItems: true })}
+				</p>
 				<p>{t(map.grounding, locale)}</p>
 			</div>
 		</section>

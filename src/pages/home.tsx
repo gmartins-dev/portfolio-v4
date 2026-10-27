@@ -21,7 +21,7 @@ const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<section className="grid pt-12 pb-16 md:pt-24 md:pb-20 lg:grid-cols-[minmax(0,1fr)_30rem] lg:items-center lg:gap-16">
+			<section className="grid pt-12 pb-16 md:pt-24 md:pb-20 lg:grid-cols-[minmax(0,1fr)_32rem] lg:items-center lg:gap-16">
 				<div>
 					<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 						{t(copy.home.headline, locale)}

@@ -9,6 +9,7 @@ import {
 	IdentityMap,
 	motion,
 	offsetClasses,
+	photoTopClass,
 } from "./identity-map";
 
 afterEach(cleanup);
@@ -30,8 +31,8 @@ describe("IdentityMap", () => {
 
 			const photo = screen.getByRole("img", { name: map.photoAlt[locale] });
 			expect(photo.getAttribute("alt")).not.toBe("");
-			expect(photo.getAttribute("width")).toBe("160");
-			expect(photo.getAttribute("height")).toBe("160");
+			expect(photo.getAttribute("width")).toBe("208");
+			expect(photo.getAttribute("height")).toBe("208");
 			expect(photo.getAttribute("loading")).toBeNull();
 
 			expect(container.querySelector("h1")).toBeNull();
@@ -40,6 +41,15 @@ describe("IdentityMap", () => {
 			);
 		});
 	}
+
+	it("centers the portrait on the card stack", () => {
+		const stack =
+			geometry.offsets.length * geometry.cardHeight +
+			(geometry.offsets.length - 1) * geometry.cardGap;
+		expect(photoTopClass).toBe(
+			`lg:top-[${stack / 2 - geometry.photo.radius}px]`,
+		);
+	});
 
 	it("offsets each card by the arc geometry the connectors use", () => {
 		expect(offsetClasses).toEqual(

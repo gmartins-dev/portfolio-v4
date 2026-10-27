@@ -42,41 +42,33 @@ test.describe("home identity map", () => {
 				);
 				expect(clipped, `card ${index} text`).toBe(0);
 			}
-
-			// No connector crosses the name, role or location under the photo.
-			const crossings = await section.evaluate((root) => {
-				const svg = root.querySelector("svg");
-				const caption = root.querySelector("img")?.nextElementSibling;
-				if (!svg || !caption) return ["missing svg or caption"];
-				const origin = svg.getBoundingClientRect();
-				const hits: string[] = [];
-				for (const p of caption.querySelectorAll("p")) {
-					const range = document.createRange();
-					range.selectNodeContents(p);
-					const text = range.getBoundingClientRect();
-					for (const line of svg.querySelectorAll("line")) {
-						const [x1, y1, x2, y2] = ["x1", "y1", "x2", "y2"].map((name) =>
-							Number(line.getAttribute(name)),
-						);
-						for (let step = 0; step <= 100; step++) {
-							const x = origin.x + x1 + ((x2 - x1) * step) / 100;
-							const y = origin.y + y1 + ((y2 - y1) * step) / 100;
-							if (
-								x >= text.left - 4 &&
-								x <= text.right + 4 &&
-								y >= text.top &&
-								y <= text.bottom
-							) {
-								hits.push(p.textContent ?? "");
-								break;
-							}
-						}
-					}
-				}
-				return hits;
-			});
-			expect(crossings).toEqual([]);
 		});
+	}
+});
+
+// The two hero columns (headline to buttons, cards to principles) keep the
+// same height, so neither block hangs below the other (DESIGN.md, "Hero").
+test.describe("home hero balance", () => {
+	for (const width of [1024, 1280, 1440]) {
+		for (const path of ["/", "/pt-br"]) {
+			test(`${path} at ${width}px balances the two columns`, async ({
+				page,
+				isMobile,
+			}) => {
+				test.skip(isMobile, "desktop layout");
+				await page.setViewportSize({ width, height: 900 });
+				await page.goto(path);
+				await page.evaluate(() => document.fonts.ready);
+				const heights = await page
+					.locator("main section")
+					.first()
+					.evaluate((hero) =>
+						[...hero.children].map((el) => el.getBoundingClientRect().height),
+					);
+				expect(heights).toHaveLength(2);
+				expect(Math.abs(heights[0] - heights[1])).toBeLessThanOrEqual(24);
+			});
+		}
 	}
 });
 
@@ -121,8 +113,9 @@ test.describe("home identity map motion", () => {
 			items.map((li) => getComputedStyle(li).borderTopColor),
 		);
 		const brand = await page
-			.locator('section[aria-labelledby="identity-map"] p.text-brand')
-			.evaluate((p) => getComputedStyle(p).color);
+			.locator('section[aria-labelledby="identity-map"] svg circle')
+			.first()
+			.evaluate((dot) => getComputedStyle(dot).color);
 		expect(new Set(borders).size).toBe(1);
 		expect(borders[0]).not.toBe(brand);
 		await context.close();
