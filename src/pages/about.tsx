@@ -16,13 +16,13 @@ export function AboutPage({ locale }: { locale: Locale }) {
 			<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 				{t(copy.about.heading, locale)}
 			</h1>
-			<div className="mt-8 max-w-prose space-y-4 text-lg">
+			<div className="mt-8 max-w-measure space-y-4 text-lg">
 				{copy.about.intro[locale].map((paragraph) => (
 					<p key={paragraph}>{paragraph}</p>
 				))}
 			</div>
 
-			<p className="mt-8 max-w-prose rounded-lg bg-muted px-5 py-4 text-muted-foreground">
+			<p className="mt-8 max-w-measure rounded-lg bg-muted px-5 py-4 text-muted-foreground">
 				{t(copy.about.confidential, locale)}
 			</p>
 
@@ -59,8 +59,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 										)}
 									</h3>
 									<p className="text-muted-foreground">{entry.role}</p>
-									<p className="mt-3 max-w-prose">{t(entry.context, locale)}</p>
-									<ul className="mt-3 max-w-prose list-disc space-y-1.5 pl-5 marker:text-brand">
+									<p className="mt-3 max-w-measure">
+										{t(entry.context, locale)}
+									</p>
+									<ul className="mt-3 max-w-measure list-disc space-y-1.5 pl-5 marker:text-brand">
 										{entry.highlights[locale].map((item) => (
 											<li key={item}>{item}</li>
 										))}

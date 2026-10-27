@@ -241,7 +241,7 @@ export function ProfessionalWorkItem({
 			</ul>
 			{work.stack && (
 				<p
-					className="mt-4 font-mono text-xs text-muted-foreground"
+					className="mt-4 font-mono text-sm text-muted-foreground"
 					translate="no"
 				>
 					{work.stack.join(", ")}

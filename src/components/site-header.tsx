@@ -2,20 +2,34 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Languages } from "lucide-react";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
-import { otherLocale } from "../i18n";
+import { type Locale, neutralPath, otherLocale } from "../i18n";
 import { isNotFound } from "../not-found";
 import { useLocale } from "../use-locale";
 
 const navLinkClass =
-	"inline-flex min-h-6 items-center underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline";
+	"inline-flex min-h-6 items-center whitespace-nowrap underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline data-[section=current]:text-foreground data-[section=current]:underline";
 
 export function SiteHeader() {
 	const { locale, page, href } = useLocale();
-	const other = otherLocale(locale);
+	// A case study belongs to Cases: mark the section without claiming
+	// aria-current="page", which stays on the exact match only. The matched
+	// route, unlike the raw URL, ignores letter case and is absent on a 404.
+	const inCases = useRouterState({
+		select: (state) =>
+			neutralPath(
+				state.matches[state.matches.length - 1]?.routeId ?? "",
+			).startsWith("/cases/"),
+	});
 	// On the 404 page there is no equivalent page to switch to; go home instead.
 	const notFound = useRouterState({
 		select: (state) => isNotFound(state.matches),
 	});
+	const other = otherLocale(locale);
+	const toggle = {
+		locale,
+		target: other,
+		to: href(notFound ? "/" : page, other),
+	};
 
 	return (
 		<header className="border-b">
@@ -25,8 +39,8 @@ export function SiteHeader() {
 			>
 				{t(copy.nav.skip, locale)}
 			</a>
-			{/* The language toggle is the last item, in the DOM and on screen at every
-			    width. On phones the nav takes a full row and the toggle sits below it. */}
+			{/* Phones: two rows, the name with the language toggle, then the nav.
+			    From sm: one row, the name on the left, nav and toggle on the right. */}
 			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
 				{/* The logo is a file from brand/. Print swaps in the light version, so
 				    the dark one is never fetched on paper and the light one never on screen. */}
@@ -42,12 +56,13 @@ export function SiteHeader() {
 						/>
 					</picture>
 				</Link>
+				<LanguageToggle {...toggle} className="inline-flex sm:hidden" />
 				<div className="contents sm:flex sm:items-center sm:gap-x-6 print:hidden">
 					<nav
 						aria-label={t(copy.nav.label, locale)}
 						className="w-full sm:w-auto"
 					>
-						<ul className="flex items-center justify-between gap-3 text-sm sm:justify-normal sm:gap-5">
+						<ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm sm:gap-x-5">
 							<li>
 								<Link
 									to={href("/about")}
@@ -70,6 +85,7 @@ export function SiteHeader() {
 								<Link
 									to={href("/cases")}
 									activeOptions={{ exact: true }}
+									data-section={inCases ? "current" : undefined}
 									className={navLinkClass}
 								>
 									{t(copy.nav.work, locale)}
@@ -91,26 +107,46 @@ export function SiteHeader() {
 							</li>
 						</ul>
 					</nav>
-					<Link
-						to={href(notFound ? "/" : page, other)}
-						hrefLang={other}
-						lang={other}
-						className="ml-auto relative inline-flex min-h-6 min-w-6 items-center justify-center text-sm sm:ml-0 text-muted-foreground transition-colors hover:text-foreground"
-					>
-						<Languages className="size-4" aria-hidden="true" />
-						<span
-							className="absolute -right-1 -bottom-1 rounded bg-background px-0.5 text-xs leading-none font-semibold shadow-sm"
-							aria-hidden="true"
-						>
-							{t(copy.nav.languageCode, locale)}
-						</span>
-						<span className="sr-only">
-							{t(copy.nav.language, locale)}
-							{t(copy.nav.languageHint, locale)}
-						</span>
-					</Link>
+					<LanguageToggle {...toggle} className="hidden sm:inline-flex" />
 				</div>
 			</div>
 		</header>
+	);
+}
+
+/**
+ * The language switch: an icon and the target language code ("PT" on the
+ * English site). The header renders it twice, one copy per breakpoint, so the
+ * DOM order matches the visual order at every width; display:none drops the
+ * other copy from the accessibility tree, so there is only ever one toggle.
+ */
+function LanguageToggle({
+	locale,
+	target,
+	to,
+	className,
+}: {
+	locale: Locale;
+	/** The locale the link switches to. */
+	target: Locale;
+	to: string;
+	className: string;
+}) {
+	return (
+		<Link
+			to={to}
+			hrefLang={target}
+			lang={target}
+			className={`${className} min-h-6 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground print:hidden`}
+		>
+			<Languages className="size-4" aria-hidden="true" />
+			{/* The visible code starts the accessible name (WCAG 2.5.3). */}
+			{t(copy.nav.languageCode, locale)}
+			<span className="sr-only">
+				{" "}
+				{t(copy.nav.language, locale)}
+				{t(copy.nav.languageHint, locale)}
+			</span>
+		</Link>
 	);
 }

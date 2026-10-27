@@ -12,17 +12,16 @@ export function NotFoundPage() {
 		<section className="grid gap-12 pt-16 md:grid-cols-2 md:pt-24">
 			{locales.map((locale) => (
 				<div key={locale} lang={locale}>
-					<p className="font-mono text-sm text-muted-foreground">404</p>
 					{locale === "en" ? (
-						<h1 className="mt-2 text-4xl font-semibold tracking-tight">
+						<h1 className="text-4xl font-semibold tracking-tight">
 							{copy.notFound.heading[locale]}
 						</h1>
 					) : (
-						<h2 className="mt-2 text-4xl font-semibold tracking-tight">
+						<h2 className="text-4xl font-semibold tracking-tight">
 							{copy.notFound.heading[locale]}
 						</h2>
 					)}
-					<p className="mt-6 max-w-prose text-lg text-muted-foreground">
+					<p className="mt-6 max-w-measure text-lg text-muted-foreground">
 						{copy.notFound.body[locale]}
 					</p>
 					<a

@@ -58,6 +58,11 @@
 	--font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
 	--font-mono: "Geist Mono Variable", ui-monospace, monospace;
 
+	/* max-w-measure, the body text measure. Geist's "0" is wide, so
+	   Tailwind's prose width (a fixed 65ch this theme cannot change) gave
+	   lines of 85 to 95 characters at text-lg; 36rem keeps them near 65 to 75. */
+	--container-measure: 36rem;
+
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-card: var(--card);

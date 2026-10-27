@@ -22,7 +22,7 @@ export function SiteFooter() {
 					>
 						{t(copy.contact.heading, locale)}
 					</h2>
-					<p className="mt-3 max-w-prose text-muted-foreground">
+					<p className="mt-3 max-w-measure text-muted-foreground">
 						{t(copy.contact.body, locale)}
 					</p>
 					<Link
@@ -62,6 +62,14 @@ export function SiteFooter() {
 							className={footerLinkClass}
 						>
 							{t(copy.nav.work, locale)}
+						</Link>
+					</li>
+					<li>
+						<Link
+							to={localizedPath(locale, "/projects")}
+							className={footerLinkClass}
+						>
+							{t(copy.projects.heading, locale)}
 						</Link>
 					</li>
 					<li>

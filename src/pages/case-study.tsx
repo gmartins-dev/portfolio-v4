@@ -53,7 +53,7 @@ export function CaseStudyPage({
 				>
 					{study.title}
 				</h1>
-				<p className="mt-6 max-w-prose text-lg text-muted-foreground">
+				<p className="mt-6 max-w-measure text-lg text-muted-foreground">
 					{t(study.summary, locale)}
 				</p>
 
@@ -68,7 +68,7 @@ export function CaseStudyPage({
 						<dt className="text-muted-foreground">
 							{t(copy.work.period, locale)}
 						</dt>
-						<dd className="mt-1 font-medium">
+						<dd className="mt-1 font-mono">
 							{formatPeriod(study.period, locale)}
 						</dd>
 					</div>
@@ -111,7 +111,10 @@ export function CaseStudyPage({
 				{/* First in the DOM so phones get the facts and links before the
 				    prose; from md up it sits in the right column. */}
 				<aside className="border-b pb-10 md:sticky md:top-8 md:order-last md:self-start md:border-0 md:pb-0">
-					<ul className="grid list-disc gap-2 pl-5 text-sm marker:text-brand">
+					<h2 className="text-sm font-medium text-muted-foreground">
+						{t(copy.work.highlights, locale)}
+					</h2>
+					<ul className="mt-2 grid list-disc gap-2 pl-5 text-sm marker:text-brand">
 						{study.facts[locale].map((fact) => (
 							<li key={fact}>{fact}</li>
 						))}
@@ -144,7 +147,7 @@ export function CaseStudyPage({
 							<h2 className="text-2xl font-semibold tracking-tight">
 								{t(section.heading, locale)}
 							</h2>
-							<div className="mt-4 max-w-prose space-y-4 leading-relaxed">
+							<div className="mt-4 max-w-measure space-y-4 leading-relaxed">
 								{section.body[locale].map((paragraph) => (
 									<p key={paragraph}>{paragraph}</p>
 								))}

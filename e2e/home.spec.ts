@@ -46,6 +46,32 @@ test.describe("home identity map", () => {
 	}
 });
 
+// The two hero columns (headline to buttons, cards to principles) keep the
+// same height, so neither block hangs below the other (DESIGN.md, "Hero").
+test.describe("home hero balance", () => {
+	for (const width of [1024, 1280, 1440]) {
+		for (const path of ["/", "/pt-br"]) {
+			test(`${path} at ${width}px balances the two columns`, async ({
+				page,
+				isMobile,
+			}) => {
+				test.skip(isMobile, "desktop layout");
+				await page.setViewportSize({ width, height: 900 });
+				await page.goto(path);
+				await page.evaluate(() => document.fonts.ready);
+				const heights = await page
+					.locator("main section")
+					.first()
+					.evaluate((hero) =>
+						[...hero.children].map((el) => el.getBoundingClientRect().height),
+					);
+				expect(heights).toHaveLength(2);
+				expect(Math.abs(heights[0] - heights[1])).toBeLessThanOrEqual(24);
+			});
+		}
+	}
+});
+
 // The decorative loop (DESIGN.md, "Motion"): desktop only, off under reduced
 // motion, one card active at a time.
 test.describe("home identity map motion", () => {
@@ -87,8 +113,9 @@ test.describe("home identity map motion", () => {
 			items.map((li) => getComputedStyle(li).borderTopColor),
 		);
 		const brand = await page
-			.locator('section[aria-labelledby="identity-map"] p.text-brand')
-			.evaluate((p) => getComputedStyle(p).color);
+			.locator('section[aria-labelledby="identity-map"] svg circle')
+			.first()
+			.evaluate((dot) => getComputedStyle(dot).color);
 		expect(new Set(borders).size).toBe(1);
 		expect(borders[0]).not.toBe(brand);
 		await context.close();

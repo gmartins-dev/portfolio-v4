@@ -24,7 +24,7 @@ function ProjectItem({
 			</h3>
 			<p className="mt-2 text-muted-foreground">{t(project.summary, locale)}</p>
 			<p
-				className="mt-3 font-mono text-xs text-muted-foreground"
+				className="mt-3 font-mono text-sm text-muted-foreground"
 				translate="no"
 			>
 				{project.stack.join(", ")}
@@ -63,7 +63,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
 				<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 					{t(copy.projects.heading, locale)}
 				</h1>
-				<p className="mt-6 max-w-prose text-lg text-muted-foreground">
+				<p className="mt-6 max-w-measure text-lg text-muted-foreground">
 					{t(copy.projects.intro, locale)}
 				</p>
 			</header>

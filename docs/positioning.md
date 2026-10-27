@@ -52,23 +52,24 @@ verification and accountability stay human.**
 ## Identity map: six dimensions
 
 Reference for the hero art and for brand consistency. **Software Engineer** is
-the single professional identity at the center: Guilherme Martins, Software
-Engineer, Belo Horizonte, Brazil. The six branches are complementary
+the single professional identity at the center, shown by the portrait alone
+(the hero intro names him). The six branches are complementary
 dimensions of the same engineering practice, not separate titles. The goal is
 not to list every technology or skill, but to say what kind of engineer he is,
 how he approaches software and what he brings to a team.
 
 | Dimension | Descriptor (short line for art) | What it means |
 | --- | --- | --- |
+| Full-stack Engineering | Frontend · backend · APIs · system integration | Software across application layers, connecting interfaces, services, data and external systems with the whole product experience in mind |
 | Product Engineering | Problem framing · end-to-end ownership · product iteration | Understanding problems before implementing solutions, owning the product lifecycle and improving software from user needs and product goals |
 | Software Architecture | System design · technical trade-offs · reliability | Maintainable systems, clear boundaries and integrations, and deliberate decisions on consistency, reliability and long-term evolution |
 | Agentic Engineering | Coding agents · spec-driven workflows · verification | Coding agents across the lifecycle through explicit specifications, bounded tasks, tests, quality gates, verification and human review |
-| AI-powered Features | LLM integration · tool use · guardrails | AI capabilities integrated into products, connecting models and tools to real workflows with controls, permissions and human oversight |
-| Full-stack Engineering | Frontend · backend · APIs · system integration | Software across application layers, connecting interfaces, services, data and external systems with the whole product experience in mind |
+| AI-powered Products | LLM integration · tool use · guardrails | AI capabilities integrated into products, connecting models and tools to real workflows with controls, permissions and human oversight |
 | Communication & Collaboration | International teams · fluent English · clear communication | Working across disciplines and cultures, communicating technical ideas and trade-offs clearly, and building shared understanding in international teams |
 
-Closing line for the art: *Product thinking · engineering rigor · human
-judgment.* Every concept is grounded in engineering practice.
+Closing line for the art: *Product thinking · Engineering rigor · AI
+leverage · Human judgment.* AI amplifies my capabilities; critical thinking
+and experience guide my decisions.
 
 **Cross-cutting principles**
 
@@ -76,13 +77,15 @@ judgment.* Every concept is grounded in engineering practice.
   outcomes.
 - **Engineering rigor:** make deliberate technical decisions and verify what
   is delivered.
+- **AI leverage:** use AI to amplify what he can deliver, with critical
+  thinking and experience deciding what ships.
 - **Human judgment:** take responsibility for decisions, quality and the use
   of AI.
 - **Collaborative ownership:** communicate clearly, work across boundaries
   and move shared work forward.
 
 **Visual hierarchy.** Product Engineering and Software Architecture set the
-core positioning. Agentic Engineering and AI-powered Features carry the
+core positioning. Agentic Engineering and AI-powered Products carry the
 distinctive capabilities. Full-stack Engineering shows implementation breadth.
 Communication & Collaboration is the human and international dimension. The
 art emphasizes branch names, keeps each supporting line short and leaves out
@@ -199,8 +202,8 @@ The Brazilian Portuguese sentences, adapted to that market, are in
 
 | Element | Where | Guidance |
 | --- | --- | --- |
-| Title, metadata, intro, social cards | `copy.meta` and `copy.home` in `src/content/copy.ts` | Software Engineer as the identity; product engineering, architecture, agentic engineering and AI integration in plain language. The intro names Brazil and the UK only; Spain stays in the International context evidence |
-| Hero identity map | `copy.home.identityMap`, rendered by `src/components/identity-map.tsx` | The six dimensions above, in their order; the center reuses `profile.name`, `copy.meta.role` and `profile.location`. Communication & Collaboration stays one of the six, never a separate track. Layout rules in `DESIGN.md` |
+| Title, metadata, intro, social cards | `copy.meta` and `copy.home` in `src/content/copy.ts` | Software Engineer as the identity; product engineering, architecture, agentic engineering and AI integration in plain language. The intro says "Brazilian and international teams" and names domains backed by the experience list (fintech, SaaS, AI, healthcare, real estate, creative technology) |
+| Hero identity map | `copy.home.identityMap`, rendered by `src/components/identity-map.tsx` | The six dimensions above, in their order (Full-stack Engineering first, owner's decision 2026-10-27); the center is the portrait only, with no caption. Communication & Collaboration stays one of the six, never a separate track. Layout rules in `DESIGN.md` |
 | Capabilities | `copy.capabilities` | Order: product engineering, software architecture, agentic engineering, AI-powered product features |
 | Case studies | `caseStudies` in `src/content/work.ts` | Order (owner's decision, 2026-10-25): the anonymized AI-first platform (current professional work: architecture and AI integration), Priorize.me (product ownership), sdd-agentic-flow (agentic engineering). The payments API, a hiring challenge, is under More projects; the architecture capability links to it |
 | Experience and education | `experience` and `education` in `src/content/profile.ts` | Actual role titles; the specialization in progress; client work anonymous where needed |

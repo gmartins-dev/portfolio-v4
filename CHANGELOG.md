@@ -5,6 +5,41 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Hero update (2026-10-27)
+
+- New hero intro in both languages, naming the domains he has worked in
+  (fintech, SaaS, AI, healthcare, real estate, creative technology). The
+  PT headline is "Da definição do problema à produção.", as on the PT
+  social card.
+- The identity map drops the caption under the portrait and shows the
+  portrait at 208px (128px on phones). Cards are reordered (Full-stack
+  Engineering first), AI-powered Features becomes AI-powered Products, and
+  the closing line adds AI leverage.
+- Both hero columns share one height at every desktop width, checked by
+  e2e.
+
+### Visual audit (2026-10-27)
+
+Audit of every page at 320, 390, 768, 1024 and 1440px in both languages.
+
+- Phone header in two rows instead of three: the language link sits on
+  the name's row. It now shows the language it switches to ("PT" on the
+  English site) next to its icon, and that code starts its accessible
+  name (WCAG 2.5.3). Nav labels no longer break inside ("Como trabalho"
+  at 320px).
+- Cases stays underlined in the nav on a case study.
+- Hyphenated words in the hero identity map cards stay whole.
+- Lead paragraphs share one color on every page, and body text is capped
+  at 36rem (`max-w-measure`), so lines stay near 65 to 75 characters
+  instead of 90.
+- Mono metadata is 14px everywhere (stacks, home dates, the case study
+  period, which was sans).
+- Diagram teasers are legible on the dark page: larger text, visible node
+  borders, no filled groups.
+- Case study facts get a "Highlights" label; the 404 page drops its
+  eyebrow; the contact email link meets the 24px target; the footer links
+  More projects.
+
 ### Identity map motion (2026-10-27)
 
 - The hero identity map cycles through its six dimensions on desktop: a

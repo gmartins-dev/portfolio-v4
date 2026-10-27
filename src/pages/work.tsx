@@ -17,7 +17,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 				<h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
 					{t(copy.work.heading, locale)}
 				</h1>
-				<p className="mt-6 max-w-prose text-lg text-muted-foreground">
+				<p className="mt-6 max-w-measure text-lg text-muted-foreground">
 					{t(copy.work.intro, locale)}
 				</p>
 			</header>
@@ -40,7 +40,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 				>
 					{t(copy.work.professionalHeading, locale)}
 				</h2>
-				<p className="mt-4 max-w-prose text-muted-foreground">
+				<p className="mt-4 max-w-measure text-muted-foreground">
 					{t(copy.work.professionalIntro, locale)}
 				</p>
 				<div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2">
