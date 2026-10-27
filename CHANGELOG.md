@@ -5,6 +5,15 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Identity map motion (2026-10-27)
+
+- The hero identity map cycles through its six dimensions on desktop: a
+  pulse from the portrait to the active card, a trace around its border, a
+  pulse back and a ring on the portrait, one step every 3.2s. Hovering a
+  card holds it. Off below `lg` and under reduced motion, paused off screen
+  and in hidden tabs; the prerendered markup stays static. See DESIGN.md,
+  "Motion".
+
 ### Contact form (2026-10-26)
 
 - `/contact` and `/pt-br/contact` with a Web3Forms form (honeypot, status

@@ -9,7 +9,8 @@ file explains how to use them.
 A developer portfolio read by engineering managers, tech leads, and
 recruiters. Editorial and technical: typography, spacing, and real project
 images carry the page. No gradients, glows, badges walls, or decorative
-motion.
+motion, with one documented exception: the hero identity map's loop (see
+Motion).
 
 This direction is the working choice for v4. It has not yet been compared
 against an alternative (Phase 5 of the plan), so expect adjustments.
@@ -108,10 +109,15 @@ location, then six cards on an arc with a quiet principles line below.
   cards": the six dimensions are separate, parallel items that the
   connectors point at, so each needs a visible edge. Cards are
   `rounded-lg border bg-card`, static, with no links.
-- **One card style.** All six cards use `border-brand` on `bg-card`, and
-  all connectors use `text-brand/40`: the order carries the hierarchy, not
-  the styling. The cards, dots, connectors and role line are this
-  component's only uses of the accent outside links; keep it that way.
+- **One card style.** Below `lg` and under reduced motion all six cards
+  use `border-brand` on `bg-card`, and all connectors use `text-brand/40`:
+  the order carries the hierarchy, not the styling. Where the loop runs
+  (see Motion), cards start at rest (`border-border`, connectors at 20%,
+  through `lg:motion-safe:`, so the prerendered page never flashes six
+  highlighted cards) and only the active one gets `border-brand` on
+  `bg-muted`. The
+  cards, dots, connectors and role line are this component's only uses of
+  the accent outside links; keep it that way.
 - **Geometry.** Card offsets, card height, photo position and the SVG are
   derived from one `geometry` constant. Change the numbers there, keep
   `offsetClasses` in sync (a unit test checks it), and let
@@ -134,9 +140,29 @@ location, then six cards on an arc with a quiet principles line below.
 
 ## Motion
 
-Minimal: color and underline transitions on interactive elements, nothing
-that moves on its own. `prefers-reduced-motion` disables transitions globally
-(`src/index.css`).
+Interactive elements keep short color and underline transitions.
+`prefers-reduced-motion` disables transitions globally (`src/index.css`).
+
+The hero identity map is the one thing that moves on its own: a decorative
+loop that walks the six dimensions in order, one step every 3.2s. In each
+step the active card gets, in sequence: a short pulse from the portrait to
+its dot (0 to 500ms); focus, with `bg-muted`, a 6px shift left and its
+connector at 90% while the others drop to 20% (from 420ms); a ping on the
+dot; light tracing the card border from where the connector meets it
+(500 to 1400ms); a ring spreading from the card (from 1150ms); a pulse back
+to the portrait (1450 to 1950ms); and a ring spreading from the portrait
+(from 1900ms). Hovering a card replays it and holds the loop until the
+pointer leaves.
+
+- The timings live in `motion` (`src/components/identity-map.tsx`), and the
+  keyframes in `src/index.css` repeat them; change both together.
+- Desktop only (`lg`), off under `prefers-reduced-motion`, and paused in a
+  hidden tab or while the map is off screen
+  (`src/components/use-identity-map-cycle.ts`).
+- The server render and the first client render are the static map; the
+  loop starts after hydration. Animated elements are `aria-hidden` and
+  remount each step (keyed by it) so their animations replay. Nothing in
+  the loop carries information, and it adds no live regions.
 
 ## Accessibility
 

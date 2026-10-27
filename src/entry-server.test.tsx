@@ -57,6 +57,9 @@ describe("server render", () => {
 			const html = await (await render(path, context)).text();
 			expect(html.match(/<h1[\s>]/g), path).toHaveLength(1);
 			expect(html, path).toContain(label);
+			// The loop starts after hydration; prerendered markup stays static.
+			expect(html, path).not.toMatch(/identity-(pulse|trace|radiate|ring)/);
+			expect(html, path).not.toContain("bg-muted delay-");
 		}
 	});
 
