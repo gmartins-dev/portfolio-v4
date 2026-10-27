@@ -46,6 +46,66 @@ responsabilidade continuam humanos.**
 | "Arquiteto de Software" como cargo | Arquitetura é foco técnico, não o cargo atual. Mostrar arquitetura com decisões e sistemas em produção |
 | "Agêntico" em produtos | Usar "sistema agêntico" só para trabalho com comportamento de agente demonstrado (orquestração em várias etapas, uso de ferramentas) e só na parte que foi dele. Integração com LLM, interface conversacional ou guardrails, sozinhos, são "funcionalidades de IA" ou "integração de IA" |
 
+## Mapa de identidade: seis dimensões
+
+Referência para a arte do hero e para a consistência da marca. **Software
+Engineer** é a única identidade profissional, no centro: Guilherme Martins,
+Software Engineer, Belo Horizonte, Brasil. Os seis ramos são dimensões
+complementares da mesma prática de engenharia, não títulos separados. O
+objetivo não é listar toda tecnologia ou habilidade, e sim dizer que tipo de
+engenheiro ele é, como aborda software e o que leva para um time. Os
+descritores da arte ficam em inglês, como nos nomes dos ramos, nos dois
+idiomas do site; a tabela abaixo explica cada um em português.
+
+| Dimensão | Descritor (linha curta da arte) | O que significa |
+| --- | --- | --- |
+| Product Engineering | Problem framing · end-to-end ownership · product iteration | Entender o problema antes de implementar a solução, assumir o ciclo de vida do produto e evoluir o software a partir das necessidades dos usuários e dos objetivos do produto |
+| Software Architecture | System design · technical trade-offs · reliability | Sistemas sustentáveis, fronteiras e integrações claras e decisões deliberadas sobre consistência, confiabilidade e evolução de longo prazo |
+| Agentic Engineering | Coding agents · spec-driven workflows · verification | Coding agents ao longo do ciclo, com especificações explícitas, tarefas delimitadas, testes, quality gates, verificação e revisão humana |
+| AI-powered Features | LLM integration · tool use · guardrails | Capacidades de IA integradas a produtos, conectando modelos e ferramentas a fluxos reais, com controles, permissões e supervisão humana |
+| Full-stack Engineering | Frontend · backend · APIs · system integration | Software em todas as camadas da aplicação, conectando interfaces, serviços, dados e sistemas externos com a experiência completa do produto em mente |
+| Communication & Collaboration | International teams · fluent English · clear communication | Trabalhar com pessoas de outras disciplinas e culturas, comunicar ideias e trade-offs técnicos com clareza e construir entendimento compartilhado em times internacionais |
+
+Frase de fechamento da arte: *Product thinking · engineering rigor · human
+judgment.* Todo conceito se apoia em prática de engenharia.
+
+**Princípios transversais**
+
+- **Pensamento de produto:** entender o problema e buscar resultados que
+  importam.
+- **Rigor de engenharia:** tomar decisões técnicas deliberadas e verificar o
+  que é entregue.
+- **Julgamento humano:** assumir responsabilidade por decisões, qualidade e
+  pelo uso de IA.
+- **Ownership colaborativo:** comunicar com clareza, trabalhar além das
+  fronteiras e fazer o trabalho compartilhado avançar.
+
+**Hierarquia visual.** Product Engineering e Software Architecture definem o
+posicionamento central. Agentic Engineering e AI-powered Features carregam as
+capacidades distintivas. Full-stack Engineering mostra amplitude de
+implementação. Communication & Collaboration é a dimensão humana e
+internacional. A arte destaca os nomes dos ramos, mantém cada linha de apoio
+curta e deixa de fora nomes de projetos, stacks e subhabilidades, que ficam
+nas seções do portfólio.
+
+**Regras de consistência**
+
+- Software Engineer é a identidade em todos os canais.
+- Ordem da narrativa principal: engenharia de produto, depois arquitetura,
+  depois agentic engineering e integração de IA. Full-stack e comunicação
+  completam o mapa.
+- Full-stack comunica amplitude sem tornar frontend ou backend a identidade
+  dominante.
+- Comunicação e colaboração fazem parte de engenharia eficaz, não de uma
+  carreira separada. Chamar de "Communication & Collaboration", nunca de
+  "soft skills".
+- Agentic engineering é como o software é feito com coding agents;
+  funcionalidades de IA são IA dentro dos produtos que ele constrói.
+- Tecnologias, projetos e resultados são evidência de apoio em outras partes.
+  A evidência da sexta dimensão é a linha "Contexto internacional" abaixo:
+  times no Brasil, no Reino Unido e na Espanha, inglês fluente. Não incluir
+  afirmações sobre práticas de comunicação que não estejam documentadas.
+
 ## Evidências
 
 As evidências são as de [positioning.md](positioning.md#evidence). Em

@@ -49,6 +49,64 @@ verification and accountability stay human.**
 | Architect as a job title | Architecture is a technical focus, not the current title. Keep the identity hands-on and show architecture through decisions and shipped systems |
 | "Agentic" in products | Use "agentic system" only for work that shows agent-like behavior, such as multi-step orchestration or tool use, and only for his part of it. An LLM integration, a conversational interface or guardrails alone are "AI-powered features" or "AI integration" |
 
+## Identity map: six dimensions
+
+Reference for the hero art and for brand consistency. **Software Engineer** is
+the single professional identity at the center: Guilherme Martins, Software
+Engineer, Belo Horizonte, Brazil. The six branches are complementary
+dimensions of the same engineering practice, not separate titles. The goal is
+not to list every technology or skill, but to say what kind of engineer he is,
+how he approaches software and what he brings to a team.
+
+| Dimension | Descriptor (short line for art) | What it means |
+| --- | --- | --- |
+| Product Engineering | Problem framing · end-to-end ownership · product iteration | Understanding problems before implementing solutions, owning the product lifecycle and improving software from user needs and product goals |
+| Software Architecture | System design · technical trade-offs · reliability | Maintainable systems, clear boundaries and integrations, and deliberate decisions on consistency, reliability and long-term evolution |
+| Agentic Engineering | Coding agents · spec-driven workflows · verification | Coding agents across the lifecycle through explicit specifications, bounded tasks, tests, quality gates, verification and human review |
+| AI-powered Features | LLM integration · tool use · guardrails | AI capabilities integrated into products, connecting models and tools to real workflows with controls, permissions and human oversight |
+| Full-stack Engineering | Frontend · backend · APIs · system integration | Software across application layers, connecting interfaces, services, data and external systems with the whole product experience in mind |
+| Communication & Collaboration | International teams · fluent English · clear communication | Working across disciplines and cultures, communicating technical ideas and trade-offs clearly, and building shared understanding in international teams |
+
+Closing line for the art: *Product thinking · engineering rigor · human
+judgment.* Every concept is grounded in engineering practice.
+
+**Cross-cutting principles**
+
+- **Product thinking:** understand the problem and focus on meaningful
+  outcomes.
+- **Engineering rigor:** make deliberate technical decisions and verify what
+  is delivered.
+- **Human judgment:** take responsibility for decisions, quality and the use
+  of AI.
+- **Collaborative ownership:** communicate clearly, work across boundaries
+  and move shared work forward.
+
+**Visual hierarchy.** Product Engineering and Software Architecture set the
+core positioning. Agentic Engineering and AI-powered Features carry the
+distinctive capabilities. Full-stack Engineering shows implementation breadth.
+Communication & Collaboration is the human and international dimension. The
+art emphasizes branch names, keeps each supporting line short and leaves out
+project names, technology stacks and detailed subskills; those belong in the
+portfolio sections.
+
+**Consistency rules**
+
+- Software Engineer is the identity in every channel.
+- Primary narrative order: product engineering, then architecture, then
+  agentic engineering and AI integration. Full-stack and communication
+  complete the map.
+- Full-stack communicates breadth without making frontend or backend the
+  dominant identity.
+- Communication and collaboration are part of effective engineering, not a
+  separate career track. Name it "Communication & Collaboration", not "Soft
+  Skills".
+- Agentic engineering is how software is built with coding agents;
+  AI-powered features are AI inside the products being built.
+- Technologies, projects and outcomes are supporting evidence elsewhere. The
+  evidence for the sixth dimension is the International context row below:
+  teams in Brazil, the UK and Spain, fluent English. Do not add claims about
+  communication practices that are not documented.
+
 ## Evidence
 
 Every public claim maps to a concrete example. Demonstrated work stays
