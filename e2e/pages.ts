@@ -16,7 +16,7 @@ export const pages = [
 	{
 		path: "/pt-br",
 		lang: "pt-BR",
-		h1: "Da definição do problema ao software em produção.",
+		h1: "Da definição do problema à produção.",
 	},
 	{ path: "/pt-br/cases", lang: "pt-BR", h1: "Cases" },
 	{

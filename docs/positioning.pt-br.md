@@ -49,8 +49,8 @@ responsabilidade continuam humanos.**
 ## Mapa de identidade: seis dimensões
 
 Referência para a arte do hero e para a consistência da marca. **Software
-Engineer** é a única identidade profissional, no centro: Guilherme Martins,
-Software Engineer, Belo Horizonte, Brasil. Os seis ramos são dimensões
+Engineer** é a única identidade profissional, no centro, representada só pelo
+retrato (a intro do hero traz o nome). Os seis ramos são dimensões
 complementares da mesma prática de engenharia, não títulos separados. O
 objetivo não é listar toda tecnologia ou habilidade, e sim dizer que tipo de
 engenheiro ele é, como aborda software e o que leva para um time. A tabela
@@ -61,15 +61,18 @@ do dono em 2026-10-27), mantendo em inglês os termos que o mercado usa assim
 
 | Dimensão | Descritor (linha curta da arte) | O que significa |
 | --- | --- | --- |
+| Full-stack Engineering | Frontend · backend · APIs · system integration | Software em todas as camadas da aplicação, conectando interfaces, serviços, dados e sistemas externos com a experiência completa do produto em mente |
 | Product Engineering | Problem framing · end-to-end ownership · product iteration | Entender o problema antes de implementar a solução, assumir o ciclo de vida do produto e evoluir o software a partir das necessidades dos usuários e dos objetivos do produto |
 | Software Architecture | System design · technical trade-offs · reliability | Sistemas sustentáveis, fronteiras e integrações claras e decisões deliberadas sobre consistência, confiabilidade e evolução de longo prazo |
 | Agentic Engineering | Coding agents · spec-driven workflows · verification | Coding agents ao longo do ciclo, com especificações explícitas, tarefas delimitadas, testes, quality gates, verificação e revisão humana |
-| AI-powered Features | LLM integration · tool use · guardrails | Capacidades de IA integradas a produtos, conectando modelos e ferramentas a fluxos reais, com controles, permissões e supervisão humana |
-| Full-stack Engineering | Frontend · backend · APIs · system integration | Software em todas as camadas da aplicação, conectando interfaces, serviços, dados e sistemas externos com a experiência completa do produto em mente |
+| AI-powered Products | LLM integration · tool use · guardrails | Capacidades de IA integradas a produtos, conectando modelos e ferramentas a fluxos reais, com controles, permissões e supervisão humana |
 | Communication & Collaboration | International teams · fluent English · clear communication | Trabalhar com pessoas de outras disciplinas e culturas, comunicar ideias e trade-offs técnicos com clareza e construir entendimento compartilhado em times internacionais |
 
-Frase de fechamento da arte: *Product thinking · engineering rigor · human
-judgment.* Todo conceito se apoia em prática de engenharia.
+Frase de fechamento da arte: *Product thinking · Engineering rigor · AI
+leverage · Human judgment.* No site em português: "Visão de produto · Rigor
+de engenharia · IA como acelerador · Julgamento humano" e "A IA amplia
+minhas capacidades; o pensamento crítico e a experiência orientam minhas
+decisões".
 
 **Princípios transversais**
 
@@ -77,13 +80,15 @@ judgment.* Todo conceito se apoia em prática de engenharia.
   importam.
 - **Rigor de engenharia:** tomar decisões técnicas deliberadas e verificar o
   que é entregue.
+- **IA como acelerador:** usar IA para ampliar o que ele entrega, com
+  pensamento crítico e experiência decidindo o que vai para produção.
 - **Julgamento humano:** assumir responsabilidade por decisões, qualidade e
   pelo uso de IA.
 - **Ownership colaborativo:** comunicar com clareza, trabalhar além das
   fronteiras e fazer o trabalho compartilhado avançar.
 
 **Hierarquia visual.** Product Engineering e Software Architecture definem o
-posicionamento central. Agentic Engineering e AI-powered Features carregam as
+posicionamento central. Agentic Engineering e AI-powered Products carregam as
 capacidades distintivas. Full-stack Engineering mostra amplitude de
 implementação. Communication & Collaboration é a dimensão humana e
 internacional. A arte destaca os nomes dos ramos, mantém cada linha de apoio
@@ -201,7 +206,7 @@ por termo.
 | Elemento | Onde | Orientação |
 | --- | --- | --- |
 | Título, meta, intro | `copy.meta` e `copy.home` em `src/content/copy.ts` | Título em PT: "Guilherme Martins \| Software Engineer"; a meta começa do mesmo jeito. O cartão social em PT usa o mesmo termo (`copy.meta.role`) |
-| Mapa de identidade no hero | `copy.home.identityMap`, renderizado por `src/components/identity-map.tsx` | As seis dimensões acima, na mesma ordem; o centro reutiliza `profile.name`, `copy.meta.role` e `profile.location`. Comunicação e colaboração seguem como uma das seis, nunca uma trilha à parte. Regras de layout em `DESIGN.md` |
+| Mapa de identidade no hero | `copy.home.identityMap`, renderizado por `src/components/identity-map.tsx` | As seis dimensões acima, na mesma ordem (Full-stack Engineering primeiro, decisão do dono em 2026-10-27); o centro é só o retrato, sem legenda. Comunicação e colaboração seguem como uma das seis, nunca uma trilha à parte. Regras de layout em `DESIGN.md` |
 | Capacidades e estudos de caso | `copy.capabilities`, `caseStudies` | Mesma ordem da versão em inglês: a plataforma AI-first, Priorize.me e sdd-agentic-flow. A API de pagamentos fica em Mais projetos |
 | Formação | `education` em `src/content/profile.ts` | "Especialização em Arquitetura de Software Distribuído", PUC Minas, em andamento |
 | Contato | `copy.contact` | "Para engenharia de produto, arquitetura ou colaboração em open source…". Sem linguagem de busca de emprego ou disponibilidade no site |

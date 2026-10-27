@@ -164,18 +164,18 @@ export const copy = {
 	home: {
 		headline: {
 			en: "From problem definition to production.",
-			"pt-BR": "Da definição do problema ao software em produção.",
+			"pt-BR": "Da definição do problema à produção.",
 		},
 		intro: {
 			en: [
 				"I'm Guilherme Martins, a Software Engineer focused on product engineering and software architecture.",
 				"I build and evolve full-stack products, integrating AI capabilities where they make sense. I use coding agents throughout the development lifecycle in a spec-driven workflow with scoped tasks, tests, and human review.",
-				"I've worked with teams in Brazil and the UK across fintech, AI-driven cybersecurity, and healthcare, among others.",
+				"I've partnered with Brazilian and international teams across diverse domains, including fintech, SaaS, AI-powered solutions, healthcare, real estate, and creative technology.",
 			],
 			"pt-BR": [
-				"Sou Guilherme Martins, Software Engineer com foco em engenharia de produto e arquitetura de software.",
+				"Sou Guilherme Martins, engenheiro de software com foco em engenharia de produto e arquitetura de software.",
 				"Construo e evoluo produtos full-stack, integrando funcionalidades de IA quando fazem sentido. Uso coding agents ao longo do ciclo de desenvolvimento, em um processo orientado por especificações, com tarefas delimitadas, testes e revisão humana.",
-				"Já trabalhei com equipes no Brasil e no Reino Unido em fintech, cibersegurança com IA e saúde, entre outros.",
+				"Já colaborei com equipes brasileiras e internacionais em diferentes áreas, incluindo fintech, SaaS, soluções com IA, saúde, mercado imobiliário e tecnologia criativa.",
 			],
 		},
 		workCta: { en: "See the cases", "pt-BR": "Ver cases" },
@@ -207,6 +207,16 @@ export const copy = {
 				"pt-BR": "Mapa de identidade profissional",
 			},
 			dimensions: [
+				{
+					title: {
+						en: "Full-stack Engineering",
+						"pt-BR": "Engenharia full-stack",
+					},
+					line: {
+						en: "Frontend · backend · APIs · system integration",
+						"pt-BR": "Frontend · backend · APIs · integração de sistemas",
+					},
+				},
 				{
 					title: {
 						en: "Product Engineering",
@@ -242,22 +252,12 @@ export const copy = {
 				},
 				{
 					title: {
-						en: "AI-powered Features",
-						"pt-BR": "Funcionalidades com IA",
+						en: "AI-powered Products",
+						"pt-BR": "Produtos com IA integrada",
 					},
 					line: {
 						en: "LLM integration · tool use · guardrails",
 						"pt-BR": "Integração com LLMs · tool use · guardrails",
-					},
-				},
-				{
-					title: {
-						en: "Full-stack Engineering",
-						"pt-BR": "Engenharia full-stack",
-					},
-					line: {
-						en: "Frontend · backend · APIs · system integration",
-						"pt-BR": "Frontend · backend · APIs · integração de sistemas",
 					},
 				},
 				{
@@ -273,12 +273,14 @@ export const copy = {
 				},
 			],
 			principles: {
-				en: "Product thinking · engineering rigor · human judgment",
-				"pt-BR": "Visão de produto · rigor de engenharia · julgamento humano",
+				en: "Product thinking · Engineering rigor · AI leverage · Human judgment",
+				"pt-BR":
+					"Visão de produto · Rigor de engenharia · IA como acelerador · Julgamento humano",
 			},
 			grounding: {
-				en: "Every concept is grounded in engineering practice.",
-				"pt-BR": "Cada conceito se apoia na prática de engenharia.",
+				en: "AI amplifies my capabilities; critical thinking and experience guide my decisions.",
+				"pt-BR":
+					"A IA amplia minhas capacidades; o pensamento crítico e a experiência orientam minhas decisões.",
 			},
 		},
 	},
