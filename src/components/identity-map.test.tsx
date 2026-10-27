@@ -14,12 +14,13 @@ describe("IdentityMap", () => {
 			const map = copy.home.identityMap;
 
 			const list = screen.getByRole("list", { name: map.listLabel[locale] });
-			const titles = within(list)
-				.getAllByRole("listitem")
-				.map((item) => item.querySelector("p")?.textContent);
-			expect(titles).toEqual(
-				map.dimensions.map((dimension) => dimension.title[locale]),
-			);
+			const items = within(list).getAllByRole("listitem");
+			expect(items).toHaveLength(6);
+			for (const [index, dimension] of map.dimensions.entries()) {
+				expect(
+					within(items[index]).getByText(dimension.title[locale]),
+				).toBeTruthy();
+			}
 
 			const photo = screen.getByRole("img", { name: map.photoAlt[locale] });
 			expect(photo.getAttribute("alt")).not.toBe("");

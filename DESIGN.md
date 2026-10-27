@@ -20,7 +20,8 @@ against an alternative (Phase 5 of the plan), so expect adjustments.
   color.
 - **One accent.** `--brand` (glacial cyan) marks links to the next step
   inside the site, focus, list markers, and the primary call to action.
-  Nothing else gets a color.
+  Nothing else gets a color, except the hero identity map's dots and role
+  line (see Hero identity map).
 - **Links say where they go.** Links within the site use `text-brand` with a
   right arrow (`ArrowRight`). Links that leave the site (products, source,
   resume PDFs, client sites) use the foreground color, turn brand on hover,
@@ -78,7 +79,8 @@ the light brand cyan.
   Classes are joined, not merged, so `className` is for layout only (margins,
   `print:hidden`); change padding or colors in the variant itself.
 - Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
-- Group related items with spacing and a single top border, not cards.
+- Group related items with spacing and a single top border, not cards
+  (the hero identity map is the one exception).
 - No colored side borders on callouts or list items. A note that needs to
   stand apart uses `bg-muted` with `rounded-lg`; lists use brand markers
   (`list-disc marker:text-brand`).
