@@ -48,7 +48,9 @@ The brand masters live in `brand/` (see [`brand/README.md`](../brand/README.md))
 Change the master first, then copy it to its path under `public/` in the same
 change: the favicon and icons at the root, the header logos in `public/brand/`.
 When the logo or the fonts change, run `pnpm build:og-images`. Do not edit
-`public/images/og/` by hand.
+`public/images/og/` by hand. The hero portrait's master is
+`brand/social/source/portrait-1024.png`; after replacing it, run
+`pnpm export:portrait` to regenerate `public/images/profile/`.
 
 ## Add a case study
 

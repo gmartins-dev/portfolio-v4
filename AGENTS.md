@@ -16,6 +16,7 @@
 | Full e2e (first run: `pnpm exec playwright install chromium`) | `pnpm test:e2e` |
 | Recapture screenshots (hits live URLs; optional shot names) | `pnpm capture:work-images [name ...]` |
 | Re-render social cards | `pnpm build:og-images` |
+| Re-export the hero portrait from its brand master | `pnpm export:portrait` |
 | Re-render diagrams (optional names) | `pnpm render:diagrams [name ...]` |
 
 ## External References
@@ -40,7 +41,7 @@
 - New page: add it to the `pages` table in `src/router.tsx` and to `e2e/pages.ts`.
 - Inline scripts must exist before `finalizeHtml()` runs, or the page CSP blocks them.
 - Read router state through public match data, as in `src/not-found.ts`; do not use router-internal fields.
-- Do not edit generated output in `dist/`, `public/images/og/`, or `public/images/work/` by hand; rerun the scripts above.
+- Do not edit generated output in `dist/`, `public/images/og/`, `public/images/profile/`, or `public/images/work/` by hand; rerun the scripts above.
 - Record new architectural decisions as an ADR in `docs/adr/`.
 
 ## Commit Attribution

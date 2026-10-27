@@ -25,7 +25,8 @@
 		"test:e2e": "playwright test",
 		"test:e2e:a11y": "playwright test --grep @a11y",
 		"check:dist": "node scripts/check-dist.mjs",
-		"render:diagrams": "node scripts/render-diagrams.mjs"
+		"render:diagrams": "node scripts/render-diagrams.mjs",
+		"export:portrait": "node scripts/export-portrait.mjs"
 	},
 	"dependencies": {
 		"@fontsource-variable/geist": "^5.3.0",
