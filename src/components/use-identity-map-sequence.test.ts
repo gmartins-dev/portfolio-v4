@@ -79,6 +79,35 @@ describe("useIdentityMapSequence", () => {
 		expect(result.current.reached).toBe(1);
 	});
 
+	it("shows every card at once, without replaying, back at lg", async () => {
+		const media = { wide: true };
+		const listeners = new Set<() => void>();
+		vi.stubGlobal("matchMedia", (query: string) => ({
+			get matches() {
+				return query.includes("min-width") ? media.wide : false;
+			},
+			media: query,
+			addEventListener: (_: string, listener: () => void) =>
+				listeners.add(listener),
+			removeEventListener: (_: string, listener: () => void) =>
+				listeners.delete(listener),
+		}));
+		const resize = (wide: boolean) =>
+			act(() => {
+				media.wide = wide;
+				for (const listener of listeners) listener();
+			});
+		const { result } = await render();
+		advance(stepMs);
+		expect(result.current).toEqual({ reached: 2, instant: false });
+
+		resize(false);
+		expect(result.current.reached).toBeNull();
+		resize(true);
+		expect(result.current).toEqual({ reached: 6, instant: true });
+		expect(vi.getTimerCount()).toBe(0);
+	});
+
 	it("clears its timer on unmount", async () => {
 		mockMedia();
 		const { unmount } = await render();

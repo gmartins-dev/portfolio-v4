@@ -51,6 +51,16 @@ describe("IdentityMap", () => {
 		);
 	});
 
+	it("sizes the column and the portrait from the geometry", () => {
+		const { container } = render(<IdentityMap locale="en" />);
+		expect(container.querySelector("section")?.className).toContain(
+			`lg:w-[${geometry.width}px]`,
+		);
+		expect(screen.getByRole("img").className).toContain(
+			`lg:size-[${geometry.photo.radius * 2}px]`,
+		);
+	});
+
 	it("offsets each card by the arc geometry the connectors use", () => {
 		expect(offsetClasses).toEqual(
 			geometry.offsets.map((offset) => `lg:ml-[${offset}px]`),
