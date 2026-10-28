@@ -21,7 +21,10 @@ const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<section className="hero-stage grid pt-8 pb-16 md:pt-12 md:pb-20 lg:pt-8 lg:grid-cols-[minmax(0,1fr)_528px] lg:items-center lg:gap-10">
+			{/* From lg the hero fills the window under the header and centers in
+			    it: the same space above (to the header) and below (to the fold),
+			    at least 1.5rem each when the window is short. */}
+			<section className="hero-stage grid pt-8 pb-16 md:pt-12 md:pb-20 lg:min-h-[calc(100svh-var(--header-height))] lg:grid-cols-[minmax(0,1fr)_552px] lg:content-center lg:items-center lg:gap-4 lg:py-6">
 				<div>
 					<h1 className="hero-headline max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05] lg:text-hero-title">
 						{/* The last two words stay together ("to production"), whatever

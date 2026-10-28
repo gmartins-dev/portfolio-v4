@@ -119,10 +119,10 @@ the light brand cyan.
 ### Hero identity map
 
 The home hero's right column (`src/components/identity-map.tsx`) shows the
-identity map from `docs/positioning.md`: the circular portrait at 240px (the
+identity map from `docs/positioning.md`: the circular portrait at 232px (the
 one place for `rounded-full`; the ring, in `--brand`, is baked into the image), with no
-caption (the intro names him), then six cards on an arc in a 528px column,
-with a quiet principles line below. A 40px gap separates it from the text
+caption (the intro names him), then six cards on an arc in a 552px column,
+with a quiet principles line below. A 16px gap separates it from the text
 column, close enough that the hero reads as one composition.
 
 - **Why cards here.** It is the one exception to "group with spacing, not
@@ -147,16 +147,21 @@ column, close enough that the hero reads as one composition.
   the page CSP drops them), and let `e2e/home.spec.ts` confirm the dots
   stay on the card centers and no text is clipped. Connector angles are
   scaled so the steepest leaves the photo at `connectorMaxAngle` (35
-  degrees), so every connector starts on the portrait's right side. Card
+  degrees), so every connector starts on the portrait's right side. The
+  card offsets follow one circle (the dashed arc, radius 841), 38px deeper
+  in the middle than at the ends, with about 64px between the portrait and
+  the middle cards: the cards wrap around the portrait. Keep that curve and
+  that clearance when resizing the portrait or the column; flattening the
+  arc to make room for a bigger portrait reads as a straight list. Card
   lines keep hyphenated words whole and bind each middle dot to the word
   before it; the principles keep each item on one line. The decorative SVG
   is `aria-hidden` and `print:hidden`. At `lg` card titles are 15/22px and
   lines 13/17px with `py-1.5`, sized so the longest title holds one line
-  and the longest pt-BR line (Agentic engineering, three lines) fits the
+  and the longest pt-BR line (up to three lines) fits the
   card height.
 - **Balance.** The two hero columns (headline to buttons, cards to
   principles) share one height, within 24px at 1024, 1280 and 1440 in both
-  languages (`e2e/home.spec.ts`). The map column is a fixed 528px; the
+  languages (`e2e/home.spec.ts`). The map column is a fixed 552px; the
   text column takes the rest, 408px at 1024 growing to 536px from 1152px.
   The hero type grows with it through fluid tokens in `src/index.css`
   (`text-hero-title` 60 to 64px, `text-hero-intro` 18/28 to 20/34px,
@@ -164,7 +169,11 @@ column, close enough that the hero reads as one composition.
   The headline's last two words never split ("to production").
 - **First screen.** The whole hero, headline to buttons and cards to
   principles, fits a 1440x790 window (Chrome on a 900px-tall screen) in
-  both languages, with `lg:pt-8` under the header (`e2e/home.spec.ts`). It
+  both languages (`e2e/home.spec.ts`). From `lg` the hero fills the window
+  under the header (`--header-height`, the one-row header's 61px) and
+  centers in it, so the space above it, to the header, equals the space
+  below it, to the fold, where the next section's border sits; at least
+  24px each on short windows. It
   is the first impression, so this outranks bigger type or cards: when the
   hero copy changes, rebalance with the type tokens, the card height and
   the gap without growing the hero past it.

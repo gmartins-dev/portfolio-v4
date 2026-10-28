@@ -63,6 +63,11 @@
 	   lines of 85 to 95 characters at text-lg; 36rem keeps them near 65 to 75. */
 	--container-measure: 36rem;
 
+	/* The header's height from lg up, where it is one row. The home hero
+	   fills the rest of the window with it (h-(--header-height) on the
+	   header, src/pages/home.tsx). */
+	--header-height: 3.8125rem;
+
 	/* Home hero type from lg up (text-hero-title, text-hero-intro). Between
 	   1024 and 1152px the hero's text column widens from 408 to 536px with
 	   the page column (src/components/page-shell.ts); the type grows with it,

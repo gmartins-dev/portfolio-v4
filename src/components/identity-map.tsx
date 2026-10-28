@@ -13,23 +13,23 @@ import { useIdentityMapSequence } from "./use-identity-map-sequence";
  * they match).
  */
 export const geometry = {
-	width: 528,
+	width: 552,
 	cardHeight: 90,
 	cardGap: 10,
-	offsets: [258, 270, 278, 278, 270, 258],
+	offsets: [258, 282, 296, 296, 282, 258],
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
-	photo: { x: 120, radius: 120 },
+	photo: { x: 116, radius: 116 },
 	/** Connectors start on this circle around the photo center. */
-	connectorRadius: 130,
+	connectorRadius: 126,
 	/**
 	 * The steepest connector leaves the photo at this angle in degrees; the
 	 * others scale down with it, so every connector starts on the portrait's
 	 * right side instead of its top or bottom.
 	 */
 	connectorMaxAngle: 35,
-	arcRadius: 650,
+	arcRadius: 841,
 };
 
 /**
@@ -72,10 +72,10 @@ export function cardOutline(offset: number) {
 
 export const offsetClasses = [
 	"lg:ml-[258px]",
-	"lg:ml-[270px]",
-	"lg:ml-[278px]",
-	"lg:ml-[278px]",
-	"lg:ml-[270px]",
+	"lg:ml-[282px]",
+	"lg:ml-[296px]",
+	"lg:ml-[296px]",
+	"lg:ml-[282px]",
 	"lg:ml-[258px]",
 ];
 
@@ -83,7 +83,7 @@ export const offsetClasses = [
  * Top of the portrait at lg, centering it on the card stack. A literal for
  * Tailwind; identity-map.test.tsx checks it against `geometry`.
  */
-export const photoTopClass = "lg:top-[175px]";
+export const photoTopClass = "lg:top-[179px]";
 
 const height =
 	geometry.offsets.length * geometry.cardHeight +
@@ -187,7 +187,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 	return (
 		<section
 			aria-labelledby="identity-map"
-			className="mt-12 lg:mt-0 lg:w-[528px]"
+			className="mt-12 lg:mt-0 lg:w-[552px]"
 		>
 			<h2 id="identity-map" className="sr-only">
 				{t(map.listLabel, locale)}
@@ -284,7 +284,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						height={240}
 						alt={t(map.photoAlt, locale)}
 						decoding="async"
-						className="size-32 rounded-full lg:size-[240px]"
+						className="size-32 rounded-full lg:size-[232px]"
 					/>
 				</div>
 				<ol

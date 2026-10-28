@@ -13,8 +13,10 @@ is in the [roadmap](ROADMAP.md).
   16px on phones and 24px from `sm`.
 - The whole home hero fits a 1440x790 window in both languages (it was
   cut below the buttons on windows under about 950px tall): the identity
-  map is more compact (90px cards, 10px gaps), the hero sits 32px under
-  the header, and its type grows fluidly between 1024 and 1152px
+  map is more compact (90px cards, 10px gaps; portrait at 232px so the
+  cards keep their arc around it, 64px clear of it in the middle), a 16px
+  gap between the columns, and the hero centers in the window under the
+  header, with equal space above and below it, and its type grows fluidly between 1024 and 1152px
   (headline 60 to 64px, intro 18/28 to 20/34px) as its text column widens,
   so both columns stay level. The headline keeps "to production" together.
 - "Where to see it" (How I work) goes three across from `lg` instead of

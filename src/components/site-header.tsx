@@ -33,7 +33,7 @@ export function SiteHeader() {
 	};
 
 	return (
-		<header className="border-b">
+		<header className="border-b lg:h-(--header-height)">
 			<a
 				href="#main"
 				className="sr-only rounded-lg bg-brand px-3 py-2 text-brand-foreground focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10"
@@ -43,7 +43,7 @@ export function SiteHeader() {
 			{/* Phones: two rows, the name with the language toggle, then the nav.
 			    From sm: one row, the name on the left, nav and toggle on the right. */}
 			<div
-				className={`${pageShell} flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-3 sm:gap-y-3 sm:py-4`}
+				className={`${pageShell} flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-3 sm:gap-y-3 sm:py-4 lg:h-full lg:py-0`}
 			>
 				{/* The logo is a file from brand/. Print swaps in the light version, so
 				    the dark one is never fetched on paper and the light one never on screen. */}

@@ -68,6 +68,31 @@ test.describe("home hero first screen", () => {
 				);
 			expect(bottom).toBeLessThanOrEqual(790);
 		});
+
+		test(`${path} centers between the header and the fold`, async ({
+			page,
+			isMobile,
+		}) => {
+			test.skip(isMobile, "desktop layout");
+			await page.setViewportSize({ width: 1536, height: 864 });
+			await page.goto(path);
+			await page.evaluate(() => document.fonts.ready);
+			const { above, below } = await page.evaluate(() => {
+				const header = document.querySelector("header");
+				const hero = document.querySelector("main section");
+				if (!header || !hero) throw new Error("hero not rendered");
+				const boxes = [...hero.children].map((el) =>
+					el.getBoundingClientRect(),
+				);
+				return {
+					above:
+						Math.min(...boxes.map((box) => box.top)) -
+						header.getBoundingClientRect().bottom,
+					below: innerHeight - Math.max(...boxes.map((box) => box.bottom)),
+				};
+			});
+			expect(Math.abs(above - below)).toBeLessThanOrEqual(2);
+		});
 	}
 });
 
