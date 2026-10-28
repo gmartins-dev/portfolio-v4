@@ -5,6 +5,7 @@ import { profile } from "../content/profile";
 import { type Locale, neutralPath, otherLocale } from "../i18n";
 import { isNotFound } from "../not-found";
 import { useLocale } from "../use-locale";
+import { pageShell } from "./page-shell";
 
 const navLinkClass =
 	"inline-flex min-h-6 items-center whitespace-nowrap underline-offset-[6px] decoration-2 decoration-brand text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline data-[section=current]:text-foreground data-[section=current]:underline";
@@ -32,7 +33,7 @@ export function SiteHeader() {
 	};
 
 	return (
-		<header className="border-b">
+		<header className="border-b lg:h-(--header-height)">
 			<a
 				href="#main"
 				className="sr-only rounded-lg bg-brand px-3 py-2 text-brand-foreground focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10"
@@ -41,7 +42,9 @@ export function SiteHeader() {
 			</a>
 			{/* Phones: two rows, the name with the language toggle, then the nav.
 			    From sm: one row, the name on the left, nav and toggle on the right. */}
-			<div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-3 sm:gap-y-3 sm:px-6 sm:py-4">
+			<div
+				className={`${pageShell} flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-3 sm:gap-y-3 sm:py-4 lg:h-full lg:py-0`}
+			>
 				{/* The logo is a file from brand/. Print swaps in the light version, so
 				    the dark one is never fetched on paper and the light one never on screen. */}
 				<Link to={href("/")} className="inline-flex" translate="no">

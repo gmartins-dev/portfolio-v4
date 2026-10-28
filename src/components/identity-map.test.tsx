@@ -31,8 +31,8 @@ describe("IdentityMap", () => {
 
 			const photo = screen.getByRole("img", { name: map.photoAlt[locale] });
 			expect(photo.getAttribute("alt")).not.toBe("");
-			expect(photo.getAttribute("width")).toBe("208");
-			expect(photo.getAttribute("height")).toBe("208");
+			expect(photo.getAttribute("width")).toBe("240");
+			expect(photo.getAttribute("height")).toBe("240");
 			expect(photo.getAttribute("loading")).toBeNull();
 
 			expect(container.querySelector("h1")).toBeNull();
@@ -51,6 +51,37 @@ describe("IdentityMap", () => {
 		);
 	});
 
+	it("sizes the column and the portrait from the geometry", () => {
+		const { container } = render(<IdentityMap locale="en" />);
+		expect(container.querySelector("section")?.className).toContain(
+			`lg:w-[${geometry.width}px]`,
+		);
+		expect(screen.getByRole("img").className).toContain(
+			`lg:size-[${geometry.photo.radius * 2}px]`,
+		);
+	});
+
+	it("puts every dot on the dashed arc", () => {
+		const stack =
+			geometry.offsets.length * geometry.cardHeight +
+			(geometry.offsets.length - 1) * geometry.cardGap;
+		const dots = geometry.offsets.map((offset, index) => ({
+			x: offset - geometry.dotInset,
+			y:
+				index * (geometry.cardHeight + geometry.cardGap) +
+				geometry.cardHeight / 2,
+		}));
+		// The arc runs from the first dot to the last, so its center sits on
+		// the stack's middle line, to the left of the dots.
+		const first = dots[0];
+		const centerX =
+			first.x - Math.sqrt(geometry.arcRadius ** 2 - (stack / 2 - first.y) ** 2);
+		for (const dot of dots) {
+			const distance = Math.hypot(dot.x - centerX, dot.y - stack / 2);
+			expect(Math.abs(distance - geometry.arcRadius)).toBeLessThan(1);
+		}
+	});
+
 	it("offsets each card by the arc geometry the connectors use", () => {
 		expect(offsetClasses).toEqual(
 			geometry.offsets.map((offset) => `lg:ml-[${offset}px]`),
@@ -58,7 +89,7 @@ describe("IdentityMap", () => {
 		expect(offsetClasses).toHaveLength(copy.home.identityMap.dimensions.length);
 	});
 
-	it("renders the static map without the loop's overlays", () => {
+	it("renders the static map without the sequence's overlays", () => {
 		const { container } = render(<IdentityMap locale="en" />);
 		for (const item of screen.getAllByRole("listitem")) {
 			expect(item.className).toContain("border-brand");
@@ -66,15 +97,16 @@ describe("IdentityMap", () => {
 		}
 		expect(
 			container.querySelector(
-				".identity-pulse, .identity-pulse-back, .identity-trace, .identity-radiate, .identity-ring",
+				".identity-pulse, .identity-trace, .identity-radiate",
 			),
 		).toBeNull();
 	});
 
-	it("ends every motion phase within one step", () => {
+	it("finishes the whole sequence within four seconds", () => {
 		const { stepMs, ...phases } = motion;
+		const lastStart = (copy.home.identityMap.dimensions.length - 1) * stepMs;
 		for (const [name, phase] of Object.entries(phases)) {
-			expect(phase.start + phase.ms, name).toBeLessThan(stepMs);
+			expect(lastStart + phase.start + phase.ms, name).toBeLessThan(4000);
 		}
 	});
 

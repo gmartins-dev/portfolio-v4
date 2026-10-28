@@ -7,18 +7,19 @@ import { caseStudies } from "../content/work";
 import { type Locale, localizedPath } from "../i18n";
 
 /**
- * Rendered width of the case study image. A diagram ("contain") sits inside
- * p-4 and is capped by max-h-[36rem], so a tall one renders far narrower
- * than the 976px column; telling the browser avoids fetching the 1280w file.
+ * Rendered width of the case study image: the page column (1104px from
+ * 1152px up, src/components/page-shell.ts). A diagram ("contain") sits inside
+ * p-4 and is capped by max-h-[36rem], so a tall one renders far narrower than
+ * the column; telling the browser avoids fetching the 1280w file.
  */
 function heroSizes(image: CaseStudy["image"]) {
 	if (image.fit !== "contain")
-		return "(min-width: 1024px) 976px, calc(100vw - 2rem)";
+		return "(min-width: 1152px) 1104px, (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)";
 	const capped = Math.min(
-		944,
+		1072,
 		Math.round((576 - 32) * (image.width / image.height)),
 	);
-	return `(min-width: 1024px) ${capped}px, min(calc(100vw - 4rem), ${capped}px)`;
+	return `(min-width: 1152px) ${capped}px, (min-width: 640px) min(calc(100vw - 5rem), ${capped}px), min(calc(100vw - 4rem), ${capped}px)`;
 }
 
 export function CaseStudyPage({
@@ -188,7 +189,7 @@ export function CaseStudyPage({
 				>
 					{t(copy.work.otherStudies, locale)}
 				</h2>
-				<ul className="mt-8 grid gap-8 md:grid-cols-3">
+				<ul className="mt-8 grid gap-8 md:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
 					{caseStudies
 						.filter((other) => other.slug !== study.slug)
 						.map((other) => (

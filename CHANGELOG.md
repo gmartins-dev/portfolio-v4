@@ -5,6 +5,47 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Responsive layout (2026-10-27)
+
+- The content column grows from 64rem to 72rem (1104px of content from
+  1152px up), shared by header, main and footer through one `pageShell`
+  constant, so wide screens no longer show a narrow strip; gutters stay
+  16px on phones and 24px from `sm`.
+- The whole home hero fits a 1440x790 window in both languages (it was
+  cut below the buttons on windows under about 950px tall): the identity
+  map is more compact (90px cards, 10px gaps; portrait at 232px so the
+  cards keep their arc around it, 64px clear of it in the middle), a 16px
+  gap between the columns, and the hero centers in the window under the
+  header, with equal space above and below it, and its type grows fluidly between 1024 and 1152px
+  (headline 60 to 64px, intro 18/28 to 20/34px) as its text column widens,
+  so both columns stay level. The headline keeps "to production" together.
+- "Where to see it" (How I work) goes three across from `lg` instead of
+  `md`, and "Other case studies" uses two columns for its two items.
+- Image `sizes` follow the wider column, so browsers fetch the right file.
+- Checked 13 pages at 17 widths from 320 to 2560px: no horizontal overflow,
+  header, main and footer edges aligned at every width.
+
+### Hero entrance (2026-10-27)
+
+- The home hero welcomes the visitor once per page load: a soft front of
+  brand light reveals the headline left to right; pulses leave the portrait
+  along the six connectors and each card arrives as its pulse lands.
+- Then the identity map's activation sequence lights the cards one by one,
+  first to last, every 450ms: a beam travels to the card, which turns
+  active and stays active. With all six active the map holds still. This
+  replaces the endless loop and its hover replay; the beam is faster
+  (360ms) and only travels out, and the portrait no longer pulses.
+- It waits for the first paint and the final font (an inline script in
+  `<head>`, `src/hero-entrance.ts`), so nothing animates in a fallback font
+  and swaps. Static without JavaScript, under reduced motion, after a
+  client navigation, or when fonts take over 1.2s.
+- The hero sits closer to the header (`pt-8 md:pt-12`) and fills its
+  width better: portrait at 240px (re-exported at 240/480px), a 40px gap
+  to the text, a 64px headline with a 20px intro, and 100px cards with
+  15/13px text in a 528px column.
+- e2e waits for the entrance before axe runs and checks that it does not
+  replay after a client navigation or play under reduced motion.
+
 ### Hero update (2026-10-27)
 
 - New hero intro in both languages, naming the domains he has worked in

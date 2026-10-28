@@ -133,7 +133,7 @@ export function CaseStudyTeaser({
 						alt: { en: "", "pt-BR": "" },
 					}}
 					locale={locale}
-					sizes="(min-width: 1024px) 480px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
+					sizes="(min-width: 1152px) 528px, (min-width: 768px) calc(50vw - 3rem), (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
 					priority={priority}
 					className="aspect-[16/10]"
 				/>
@@ -193,7 +193,7 @@ export function ShortWorkItem({
 				<WorkImage
 					image={item.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 590px, (min-width: 768px) 58vw, calc(100vw - 2rem)"
+					sizes="(min-width: 1152px) 634px, (min-width: 768px) calc(60vw - 3.6rem), (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
 					className="aspect-[16/9]"
 				/>
 			)}
@@ -221,7 +221,7 @@ export function ProfessionalWorkItem({
 				<WorkImage
 					image={work.image}
 					locale={locale}
-					sizes="(min-width: 1024px) 464px, (min-width: 768px) 45vw, calc(100vw - 2rem)"
+					sizes="(min-width: 1152px) 528px, (min-width: 768px) calc(50vw - 3rem), (min-width: 640px) calc(100vw - 3rem), calc(100vw - 2rem)"
 					className="mb-6 aspect-[16/10]"
 				/>
 			)}

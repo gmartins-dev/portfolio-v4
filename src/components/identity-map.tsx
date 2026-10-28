@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import { copy, t } from "../content/copy";
+import { whenHeroEntranceSettled } from "../hero-entrance";
 import type { Locale } from "../i18n";
-import { useIdentityMapCycle } from "./use-identity-map-cycle";
+import { useIdentityMapSequence } from "./use-identity-map-sequence";
 
 /**
- * Desktop geometry of the map, in px inside its 32rem (512px) column. Cards
+ * Desktop geometry of the map, in px inside its 552px column. Cards
  * stack from the top; their left edges follow a circle of `arcRadius` that
  * bulges toward the middle, and the decorative SVG is drawn from the same
  * numbers, so dots stay on the card centers. Tailwind needs literal class
@@ -12,46 +13,43 @@ import { useIdentityMapCycle } from "./use-identity-map-cycle";
  * they match).
  */
 export const geometry = {
-	width: 512,
-	cardHeight: 84,
-	cardGap: 18,
-	offsets: [230, 254, 266, 266, 254, 230],
+	width: 552,
+	cardHeight: 90,
+	cardGap: 10,
+	offsets: [255, 283, 296, 296, 283, 255],
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
-	photo: { x: 104, radius: 104 },
+	photo: { x: 116, radius: 116 },
 	/** Connectors start on this circle around the photo center. */
-	connectorRadius: 114,
+	connectorRadius: 126,
 	/**
 	 * The steepest connector leaves the photo at this angle in degrees; the
 	 * others scale down with it, so every connector starts on the portrait's
 	 * right side instead of its top or bottom.
 	 */
 	connectorMaxAngle: 35,
-	arcRadius: 580,
+	arcRadius: 750,
 };
 
 /**
- * Timing of the decorative loop, in ms from the start of a step (DESIGN.md,
- * "Motion"). The keyframes in src/index.css repeat these delays and durations
- * as literals; identity-map.test.tsx checks every phase ends within the step.
+ * Timing of the activation sequence (DESIGN.md, "Motion"): a card turns
+ * active every `stepMs`, and each phase below runs in ms from that moment.
+ * The keyframes in src/index.css repeat these delays and durations as
+ * literals; change both together.
  */
 export const motion = {
-	stepMs: 3200,
-	/** Outbound pulse along the connector, photo to dot. */
-	pulse: { start: 0, ms: 500 },
+	stepMs: 450,
+	/** The beam, with its halo, travels one way: photo to dot. */
+	pulse: { start: 0, ms: 360 },
 	/** The card turns active (background, border, shift left). */
-	focus: { start: 420, ms: 450 },
-	/** The dot pings. */
-	ping: { start: 450, ms: 500 },
+	focus: { start: 300, ms: 450 },
+	/** The dot pings and stays bright. */
+	ping: { start: 330, ms: 500 },
 	/** Light runs around the card border. */
-	trace: { start: 500, ms: 900 },
+	trace: { start: 340, ms: 700 },
 	/** A ring spreads from the card. */
-	radiate: { start: 1150, ms: 800 },
-	/** Return pulse, dot to photo. */
-	back: { start: 1450, ms: 500 },
-	/** A ring spreads from the portrait. */
-	ring: { start: 1900, ms: 900 },
+	radiate: { start: 700, ms: 800 },
 };
 
 /** Card corner radius in px, matching `rounded-lg` (--radius). */
@@ -73,19 +71,19 @@ export function cardOutline(offset: number) {
 }
 
 export const offsetClasses = [
-	"lg:ml-[230px]",
-	"lg:ml-[254px]",
-	"lg:ml-[266px]",
-	"lg:ml-[266px]",
-	"lg:ml-[254px]",
-	"lg:ml-[230px]",
+	"lg:ml-[255px]",
+	"lg:ml-[283px]",
+	"lg:ml-[296px]",
+	"lg:ml-[296px]",
+	"lg:ml-[283px]",
+	"lg:ml-[255px]",
 ];
 
 /**
  * Top of the portrait at lg, centering it on the card stack. A literal for
  * Tailwind; identity-map.test.tsx checks it against `geometry`.
  */
-export const photoTopClass = "lg:top-[193px]";
+export const photoTopClass = "lg:top-[179px]";
 
 const height =
 	geometry.offsets.length * geometry.cardHeight +
@@ -162,30 +160,34 @@ function dottedItems(text: string, { wholeItems = false } = {}) {
 }
 
 const cardMotion =
-	"relative transition-[background-color,border-color,transform] duration-[450ms] ease-[cubic-bezier(.2,.7,.2,1)]";
+	"transition-[background-color,border-color,translate] duration-[450ms] ease-[cubic-bezier(.2,.7,.2,1)]";
 
-/** Card classes: static (all alike), or the loop's active and resting states. */
-function cardClass(index: number, active: number | null) {
-	const base = `rounded-lg border px-3.5 py-2.5 lg:flex lg:h-[84px] lg:flex-col lg:justify-center ${offsetClasses[index]}`;
-	// Where the loop will run (desktop, motion allowed), cards start at rest so
-	// the first highlight reads as one; elsewhere all six share the brand border.
-	if (active === null)
+/** Card classes: static (all alike), or the sequence's active and resting states. */
+function cardClass(index: number, reached: number | null) {
+	const base = `relative rounded-lg border px-3.5 py-2.5 lg:flex lg:py-1.5 lg:h-[90px] lg:flex-col lg:justify-center ${offsetClasses[index]}`;
+	// Where the sequence will run (desktop, motion allowed), cards start at
+	// rest so each activation reads as one; elsewhere all six share the brand
+	// border.
+	if (reached === null)
 		return `${base} border-brand bg-card lg:motion-safe:border-border`;
-	return index === active
-		? `${base} ${cardMotion} border-brand bg-muted delay-[420ms] lg:-translate-x-1.5`
+	return index < reached
+		? `${base} ${cardMotion} border-brand bg-muted delay-[300ms] lg:-translate-x-1.5`
 		: `${base} ${cardMotion} border-border bg-card`;
 }
 
 export function IdentityMap({ locale }: { locale: Locale }) {
 	const map = copy.home.identityMap;
-	const { active, step, sectionRef, onCardEnter, onCardLeave } =
-		useIdentityMapCycle({ count: dots.length, stepMs: motion.stepMs });
-	const activeLine = active === null ? null : connectors[active];
+	// The sequence starts once the hero entrance has played out.
+	const { reached, instant } = useIdentityMapSequence({
+		count: dots.length,
+		stepMs: motion.stepMs,
+		startAfter: whenHeroEntranceSettled,
+	});
+	const isActive = (index: number) => reached !== null && index < reached;
 	return (
 		<section
-			ref={sectionRef}
 			aria-labelledby="identity-map"
-			className="mt-12 lg:mt-0 lg:w-[32rem]"
+			className={`mt-12 lg:mt-0 lg:w-[552px]${instant ? " identity-instant" : ""}`}
 		>
 			<h2 id="identity-map" className="sr-only">
 				{t(map.listLabel, locale)}
@@ -198,7 +200,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					height={height}
 					viewBox={`0 0 ${geometry.width} ${height}`}
 					fill="none"
-					className="pointer-events-none absolute inset-0 hidden text-border lg:block print:hidden"
+					className="hero-lines pointer-events-none absolute inset-0 hidden text-border lg:block print:hidden"
 				>
 					<path
 						d={arc}
@@ -213,47 +215,59 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 							stroke="currentColor"
 							strokeWidth="1"
 							className={
-								active === null
+								reached === null
 									? "text-brand/40 lg:motion-safe:text-brand/20"
-									: `text-brand transition-opacity duration-[400ms] ${index === active ? "opacity-90" : "opacity-20"}`
+									: `text-brand transition-opacity duration-[400ms] ${isActive(index) ? "opacity-90" : "opacity-20"}`
 							}
 						/>
 					))}
-					{activeLine && (
-						<>
+					{/* The entrance's pulses, one per connector (src/index.css). */}
+					<g>
+						{connectors.map((line) => (
 							<line
-								key={`pulse-${step}`}
-								{...activeLine}
+								key={`boot-${line.x2}-${line.y2}`}
+								{...line}
 								pathLength={1}
 								stroke="currentColor"
 								strokeWidth="2"
 								strokeLinecap="round"
-								className="identity-pulse text-foreground"
+								className="hero-boot text-brand"
 							/>
-							<line
-								key={`back-${step}`}
-								{...activeLine}
-								pathLength={1}
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								className="identity-pulse-back text-foreground"
-							/>
-						</>
+						))}
+					</g>
+					{/* Each card's beam mounts when it activates and plays once. */}
+					{connectors.map(
+						(line, index) =>
+							isActive(index) && (
+								<Fragment key={`beam-${line.x2}-${line.y2}`}>
+									<line
+										{...line}
+										pathLength={1}
+										stroke="currentColor"
+										strokeWidth="6"
+										strokeLinecap="round"
+										className="identity-pulse identity-halo text-brand"
+									/>
+									<line
+										{...line}
+										pathLength={1}
+										stroke="currentColor"
+										strokeWidth="2"
+										strokeLinecap="round"
+										className="identity-pulse text-foreground"
+									/>
+								</Fragment>
+							),
 					)}
 					{dots.map((dot, index) => (
 						<circle
-							key={
-								index === active
-									? `${dot.x}-${dot.y}-${step}`
-									: `${dot.x}-${dot.y}`
-							}
+							key={`${dot.x}-${dot.y}`}
 							cx={dot.x}
 							cy={dot.y}
 							r="4"
 							fill="currentColor"
 							className={
-								index === active ? "identity-ping text-brand" : "text-brand"
+								isActive(index) ? "identity-ping text-brand" : "text-brand"
 							}
 						/>
 					))}
@@ -261,43 +275,34 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				{/* Centered on the card stack. No inline style: the page CSP
 				    (style-src 'self') would drop it. */}
 				<div
-					className={`relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
+					className={`hero-portrait relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
 				>
-					{active !== null && (
-						<span
-							key={`ring-${step}`}
-							aria-hidden="true"
-							className="identity-ring pointer-events-none absolute inset-0 rounded-full print:hidden"
-						/>
-					)}
 					<img
-						src="/images/profile/portrait-208.webp"
-						srcSet="/images/profile/portrait-208.webp 1x, /images/profile/portrait-416.webp 2x"
-						width={208}
-						height={208}
+						src="/images/profile/portrait-240.webp"
+						srcSet="/images/profile/portrait-240.webp 1x, /images/profile/portrait-480.webp 2x"
+						width={240}
+						height={240}
 						alt={t(map.photoAlt, locale)}
 						decoding="async"
-						className="size-32 rounded-full lg:size-52"
+						className="size-32 rounded-full lg:size-[232px]"
 					/>
 				</div>
 				<ol
 					aria-labelledby="identity-map"
-					className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[18px]"
+					className="hero-cards relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
 				>
 					{map.dimensions.map((dimension, index) => {
-						const outline =
-							index === active ? cardOutline(geometry.offsets[index]) : null;
+						const outline = isActive(index)
+							? cardOutline(geometry.offsets[index])
+							: null;
 						return (
 							<li
 								key={dimension.title.en}
-								className={cardClass(index, active)}
-								onMouseEnter={() => onCardEnter(index)}
-								onMouseLeave={onCardLeave}
+								className={cardClass(index, reached)}
 							>
 								{outline && (
 									<>
 										<svg
-											key={`trace-${step}`}
 											aria-hidden="true"
 											focusable="false"
 											width={outline.width}
@@ -319,16 +324,15 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 											))}
 										</svg>
 										<span
-											key={`radiate-${step}`}
 											aria-hidden="true"
 											className="identity-radiate pointer-events-none absolute -inset-px rounded-lg print:hidden"
 										/>
 									</>
 								)}
-								<p className="text-sm font-semibold">
+								<p className="text-sm font-semibold lg:text-[15px] lg:leading-[22px]">
 									{t(dimension.title, locale)}
 								</p>
-								<p className="mt-0.5 text-xs text-muted-foreground">
+								<p className="mt-0.5 text-xs text-muted-foreground lg:text-[13px] lg:leading-[17px]">
 									{dottedItems(t(dimension.line, locale))}
 								</p>
 							</li>
@@ -336,11 +340,11 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					})}
 				</ol>
 			</div>
-			<div className="mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">
+			<div className="hero-principles mt-6 space-y-1 text-xs text-muted-foreground lg:mt-5 lg:text-center">
 				<p className="font-mono">
 					{dottedItems(t(map.principles, locale), { wholeItems: true })}
 				</p>
-				<p>{t(map.grounding, locale)}</p>
+				<p className="lg:text-[13px]">{t(map.grounding, locale)}</p>
 			</div>
 		</section>
 	);

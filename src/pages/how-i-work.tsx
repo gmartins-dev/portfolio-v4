@@ -41,11 +41,11 @@ export function HowIWorkPage({ locale }: { locale: Locale }) {
 				<h2 id="evidence" className={sectionHeading}>
 					{t(page.evidenceHeading, locale)}
 				</h2>
-				<ul className="mt-8 grid gap-8 md:grid-cols-3">
+				<ul className="mt-8 grid gap-8 lg:grid-cols-3">
 					{page.evidence.map((item) => (
 						<li key={item.title.en} className="border-t pt-6">
 							<h3 className="font-semibold">{t(item.title, locale)}</h3>
-							<p className="mt-2 text-muted-foreground">
+							<p className="mt-2 max-w-measure text-muted-foreground">
 								{t(item.body, locale)}
 							</p>
 							<p className="mt-3">

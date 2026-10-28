@@ -54,7 +54,8 @@ O site serve estas cópias a partir de `public/` (nada copia sozinho):
 | --- | --- |
 | `icons/favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `pwa-*.png`, `site.webmanifest` | raiz de `public/` |
 | `logos/svg/logo-primary.svg`, `logo-primary-dark.svg` | `public/brand/` |
-| `social/source/portrait-1024.png` (retrato do hero, com o anel já aplicado) | `public/images/profile/portrait-208.webp` e `-416.webp`, gerados por `pnpm export:portrait` |
+| `social/source/portrait-photo-2026.png` (foto original do retrato) | `social/source/portrait-1024.png`, gerado por `pnpm compose:portrait` (fundo nas cores do site, rosto intacto, anel em `--brand`) |
+| `social/source/portrait-1024.png` (retrato do hero, com o anel já aplicado) | `public/images/profile/portrait-240.webp` e `-480.webp`, gerados por `pnpm export:portrait` |
 
 Ao alterar um mestre, copie-o para o caminho correspondente em `public/` no mesmo PR. Depois rode `pnpm build:og-images`, que lê `logos/svg/logo-primary-dark.svg` e `fonts/` para gerar os cards em `public/images/og/`. Esses PNGs são gerados: não os edite à mão.
 

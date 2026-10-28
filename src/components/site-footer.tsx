@@ -3,6 +3,7 @@ import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
 import { localizedPath } from "../i18n";
 import { useLocale } from "../use-locale";
+import { pageShell } from "./page-shell";
 import { buttonVariants } from "./ui/button";
 
 const footerLinkClass =
@@ -14,7 +15,9 @@ export function SiteFooter() {
 
 	return (
 		<footer className="mt-20 border-t md:mt-24">
-			<div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[3fr_2fr] md:py-16">
+			<div
+				className={`${pageShell} grid gap-10 py-12 md:grid-cols-[3fr_2fr] md:py-16`}
+			>
 				<section id="contact" aria-labelledby="contact-heading">
 					<h2
 						id="contact-heading"
@@ -102,7 +105,7 @@ export function SiteFooter() {
 					</li>
 				</ul>
 			</div>
-			<div className="mx-auto max-w-5xl px-4 pb-10 text-sm text-muted-foreground sm:px-6">
+			<div className={`${pageShell} pb-10 text-sm text-muted-foreground`}>
 				<p>
 					{profile.name}, {t(profile.location, locale)}
 				</p>

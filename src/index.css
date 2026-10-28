@@ -63,6 +63,62 @@
 	   lines of 85 to 95 characters at text-lg; 36rem keeps them near 65 to 75. */
 	--container-measure: 36rem;
 
+	/* The header's height from lg up, where it is one row. The home hero
+	   fills the rest of the window with it (h-(--header-height) on the
+	   header, src/pages/home.tsx). */
+	--header-height: 3.8125rem;
+
+	/* Home hero type from lg up (text-hero-title, text-hero-intro). As the
+	   hero widens from 976 to 1104px (1024 to 1152px windows, see
+	   src/components/page-shell.ts), its text column grows from 408 to
+	   536px; the type grows with it, so the column keeps the identity map's
+	   height beside it and the whole hero fits a 790px-tall window. 60 to
+	   64px for the headline, 18/28 to 20/34px for the intro; fixed outside
+	   that range. Measured in cqw of the hero (an @container), not vw, so a
+	   classic scrollbar does not shift the ramp. */
+	--text-hero-title: clamp(
+		3.75rem,
+		calc(3.75rem + (100cqw - 61rem) * 0.03125),
+		4rem
+	);
+	--text-hero-intro: clamp(
+		1.125rem,
+		calc(1.125rem + (100cqw - 61rem) * 0.015625),
+		1.25rem
+	);
+	--text-hero-intro--line-height: clamp(
+		1.75rem,
+		calc(1.75rem + (100cqw - 61rem) * 0.046875),
+		2.125rem
+	);
+
+	/* The header's height from lg up, where it is one row. The home hero
+	   fills the rest of the window with it (h-(--header-height) on the
+	   header, src/pages/home.tsx). */
+	--header-height: 3.8125rem;
+
+	/* Home hero type from lg up (text-hero-title, text-hero-intro). Between
+	   1024 and 1152px the hero's text column widens from 408 to 536px with
+	   the page column (src/components/page-shell.ts); the type grows with it,
+	   so the column keeps the identity map's height beside it and the whole
+	   hero fits a 790px-tall window. 60 to 64px for the headline, 18/28 to
+	   20/34px for the intro; fixed outside that range. */
+	--text-hero-title: clamp(
+		3.75rem,
+		calc(3.75rem + (100vw - 64rem) * 0.03125),
+		4rem
+	);
+	--text-hero-intro: clamp(
+		1.125rem,
+		calc(1.125rem + (100vw - 64rem) * 0.015625),
+		1.25rem
+	);
+	--text-hero-intro--line-height: clamp(
+		1.75rem,
+		calc(1.75rem + (100vw - 64rem) * 0.046875),
+		2.125rem
+	);
+
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-card: var(--card);
@@ -149,48 +205,290 @@
 }
 
 /*
- * Hero identity map loop (src/components/identity-map.tsx). Delays and
- * durations repeat `motion` there; DESIGN.md "Motion" describes the sequence.
- * Elements are remounted on every step, so each animation plays once.
+ * Identity map activation sequence (src/components/identity-map.tsx). Delays
+ * and durations repeat `motion` there; DESIGN.md "Motion" describes it. Each
+ * card's overlays mount when it activates, so every animation plays once.
  */
 @layer components {
-	.identity-pulse,
-	.identity-pulse-back {
+	.identity-pulse {
 		stroke-dasharray: 0.16 1.2;
 		opacity: 0;
-		animation: identity-pulse 500ms cubic-bezier(0.4, 0, 0.6, 1) both;
+		animation: identity-pulse 360ms var(--ease-beam) both;
 	}
-	.identity-pulse-back {
-		animation-name: identity-pulse-back;
-		animation-delay: 1450ms;
+	/* A soft brand glow under the pulse; the keyframes own opacity. */
+	.identity-halo {
+		stroke-opacity: 0.3;
 	}
 	.identity-ping {
 		transform-box: fill-box;
 		transform-origin: center;
-		animation: identity-ping 500ms ease-out 450ms both;
+		animation: identity-ping 500ms ease-out 330ms both;
 	}
 	.identity-trace {
 		stroke-dasharray: 1 1;
 		opacity: 0;
-		animation: identity-trace 900ms cubic-bezier(0.4, 0, 0.2, 1) 500ms both;
+		animation: identity-trace 700ms cubic-bezier(0.4, 0, 0.2, 1) 340ms both;
 	}
 	.identity-radiate {
-		animation: identity-radiate 800ms ease-out 1150ms both;
+		animation: identity-radiate 800ms ease-out 700ms both;
 	}
-	.identity-ring {
-		animation: identity-ring 900ms ease-out 1900ms both;
+	/* Re-shown at lg after the sequence ran: jump to the end state. */
+	.identity-instant
+		:is(.identity-pulse, .identity-ping, .identity-trace, .identity-radiate) {
+		animation-delay: 0s;
+		animation-duration: 0s;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.identity-pulse,
-		.identity-pulse-back,
 		.identity-trace,
-		.identity-radiate,
-		.identity-ring {
+		.identity-radiate {
 			display: none;
 		}
 		.identity-ping {
 			animation: none;
 		}
+	}
+}
+
+/*
+ * Hero entrance (src/hero-entrance.ts explains `data-entrance`; DESIGN.md
+ * "Hero entrance" tells the sequence). Three beats, once per document load:
+ *
+ * 1. Light. A soft front of brand light crosses the headline left to right
+ *    and leaves the text behind it, from problem to production. The front is
+ *    an overlay in the page color that slides away (transform only), so the
+ *    text itself is never repainted.
+ * 2. Connection. Pulses leave the portrait along the six connectors (the
+ *    loop's own pulse, src/components/identity-map.tsx), and each card
+ *    arrives, with a brief brand edge, as its pulse lands.
+ * 3. Ready. The principles fade in; then the identity map's activation
+ *    sequence takes over and lights the cards one by one.
+ *
+ * Animations describe their start state and fill backwards, so each ends on
+ * the element's own style. Flashes and rings rest at opacity 0.
+ */
+:root {
+	--ease-entrance: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-sweep: cubic-bezier(0.32, 0.72, 0, 1);
+	/* Beams moving along a connector: quick, smooth at both ends. */
+	--ease-beam: cubic-bezier(0.77, 0, 0.175, 1);
+}
+@layer components {
+	html[data-entrance="pending"]
+		:is(
+			.hero-intro,
+			.hero-actions,
+			.hero-portrait,
+			.hero-lines,
+			.hero-cards > li,
+			.hero-principles
+		) {
+		opacity: 0;
+	}
+
+	/* Beat 1. Two layers over the heading, each 150% of its width and
+	   starting half a heading to its left, slide right together:
+	   - ::after, the cover: page color with a feathered left edge (12 to
+	     31%), opaque from just before the heading starts. Letters surface
+	     through the feather, never at a hard edge. Being page color on page
+	     color, its own edges never show, and at rest it sits past the
+	     heading (140%), hidden by the clip.
+	   - ::before, the light: a brand band on that feathered edge. It has
+	     its own envelope, lighting up once it is over the text and gone
+	     before it reaches the clip on the right, so no edge of it shows
+	     either. The vertical mask fades it above and below the text.
+	   The heading's clip leaves room for pt-BR accents and descenders, and
+	   1em on the right, past the 1rem gap into the identity map column, where
+	   nothing sits beside the headline (the portrait paints above it). The
+	   stage clips sideways, so the travel never becomes page overflow (a
+	   horizontal scroll on phones). */
+	html[data-entrance] .hero-stage {
+		overflow-x: clip;
+	}
+	html[data-entrance] .hero-headline {
+		position: relative;
+		clip-path: inset(-0.3em -1em -0.3em -0.2em);
+	}
+	html[data-entrance] .hero-headline::before,
+	html[data-entrance] .hero-headline::after {
+		content: "";
+		position: absolute;
+		inset: -0.3em -1em -0.3em 0;
+		left: -50%;
+		pointer-events: none;
+		transform: translateX(140%);
+	}
+	html[data-entrance] .hero-headline::before {
+		z-index: 1;
+		background: linear-gradient(
+			90deg,
+			transparent 4%,
+			color-mix(in oklch, var(--brand) 26%, transparent) 20%,
+			transparent 33%
+		);
+		mask-image: linear-gradient(
+			to bottom,
+			transparent,
+			#000 0.3em,
+			#000 calc(100% - 0.3em),
+			transparent
+		);
+		opacity: 0;
+	}
+	html[data-entrance] .hero-headline::after {
+		background: linear-gradient(90deg, transparent 12%, var(--background) 31%);
+	}
+	html[data-entrance="pending"] .hero-headline::after {
+		background: var(--background);
+		transform: none;
+	}
+	html[data-entrance="play"] .hero-headline::after {
+		animation: hero-sweep 1700ms var(--ease-sweep) backwards;
+	}
+	html[data-entrance="play"] .hero-headline::before {
+		animation:
+			hero-sweep 1700ms var(--ease-sweep) backwards,
+			hero-glow 480ms ease both;
+	}
+
+	html[data-entrance="play"] .hero-intro {
+		animation: hero-rise 900ms var(--ease-entrance) 450ms backwards;
+	}
+	html[data-entrance="play"] .hero-actions {
+		animation: hero-rise 800ms var(--ease-entrance) 600ms backwards;
+	}
+
+	/* Beat 2. */
+	html[data-entrance="play"] .hero-portrait {
+		animation: hero-settle 1000ms var(--ease-entrance) 150ms backwards;
+	}
+	html[data-entrance="play"] .hero-lines {
+		animation: hero-fade 500ms var(--ease-entrance) 550ms backwards;
+	}
+	.hero-boot {
+		display: none;
+	}
+	html[data-entrance="play"] .hero-boot {
+		display: inline;
+		stroke-dasharray: 0.16 1.2;
+		opacity: 0;
+		animation: identity-pulse 360ms var(--ease-beam) 850ms both;
+	}
+	html[data-entrance] .hero-cards > li::after {
+		content: "";
+		position: absolute;
+		inset: -1px;
+		border: 1px solid var(--brand);
+		border-radius: inherit;
+		opacity: 0;
+		pointer-events: none;
+	}
+	html[data-entrance="play"] .hero-cards > li {
+		animation: hero-arrive 700ms var(--ease-entrance) 1200ms backwards;
+	}
+	html[data-entrance="play"] .hero-cards > li::after {
+		animation: hero-flash 1000ms var(--ease-entrance) 1200ms both;
+	}
+	/* Pulse n (in its own <g>, so nth-of-type counts only pulses) leaves 90ms
+	   after the one before and lands about 350ms later,
+	   where card n arrives. */
+	html[data-entrance="play"] .hero-boot:nth-of-type(2) {
+		animation-delay: 940ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(3) {
+		animation-delay: 1030ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(4) {
+		animation-delay: 1120ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(5) {
+		animation-delay: 1210ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(6) {
+		animation-delay: 1300ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(2),
+	html[data-entrance="play"] .hero-cards > li:nth-child(2)::after {
+		animation-delay: 1290ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(3),
+	html[data-entrance="play"] .hero-cards > li:nth-child(3)::after {
+		animation-delay: 1380ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(4),
+	html[data-entrance="play"] .hero-cards > li:nth-child(4)::after {
+		animation-delay: 1470ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(5),
+	html[data-entrance="play"] .hero-cards > li:nth-child(5)::after {
+		animation-delay: 1560ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(6),
+	html[data-entrance="play"] .hero-cards > li:nth-child(6)::after {
+		animation-delay: 1650ms;
+	}
+
+	/* Beat 3. */
+	html[data-entrance="play"] .hero-principles {
+		animation: hero-fade 700ms var(--ease-entrance) 1800ms backwards;
+	}
+}
+
+@keyframes hero-sweep {
+	from {
+		transform: translateX(0);
+	}
+}
+/* The light's envelope: up as it reaches the text, gone before the clip. */
+@keyframes hero-glow {
+	0%,
+	12% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 0.2;
+	}
+	75%,
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes hero-rise {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+}
+@keyframes hero-settle {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+@keyframes hero-fade {
+	from {
+		opacity: 0;
+	}
+}
+/* Cards arrive from the portrait's side. */
+@keyframes hero-arrive {
+	from {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+}
+@keyframes hero-flash {
+	0% {
+		opacity: 0;
+	}
+	15% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
 
@@ -205,20 +503,6 @@
 	}
 	100% {
 		stroke-dashoffset: -1;
-		opacity: 0;
-	}
-}
-@keyframes identity-pulse-back {
-	0% {
-		stroke-dashoffset: -1;
-		opacity: 1;
-	}
-	99% {
-		stroke-dashoffset: 0.16;
-		opacity: 1;
-	}
-	100% {
-		stroke-dashoffset: 0.16;
 		opacity: 0;
 	}
 }
@@ -260,16 +544,5 @@
 	}
 	100% {
 		box-shadow: 0 0 0 10px transparent;
-	}
-}
-@keyframes identity-ring {
-	0% {
-		box-shadow: 0 0 0 0 transparent;
-	}
-	1% {
-		box-shadow: 0 0 0 0 color-mix(in oklch, var(--brand) 40%, transparent);
-	}
-	100% {
-		box-shadow: 0 0 0 12px transparent;
 	}
 }

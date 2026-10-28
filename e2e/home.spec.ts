@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { heroAnimations, settleHeroEntrance } from "./hero";
 
 // The desktop identity map draws its dots and connectors from fixed geometry
 // (src/components/identity-map.tsx), so check the rendered cards still match it.
@@ -46,6 +47,55 @@ test.describe("home identity map", () => {
 	}
 });
 
+// The hero is the first impression: all of it, buttons and principles
+// included, fits a 1440x790 window (DESIGN.md, "First screen").
+test.describe("home hero first screen", () => {
+	for (const path of ["/", "/pt-br"]) {
+		test(`${path} fits a 1440x790 window`, async ({ page, isMobile }) => {
+			test.skip(isMobile, "desktop layout");
+			await page.setViewportSize({ width: 1440, height: 790 });
+			await page.goto(path);
+			await page.evaluate(() => document.fonts.ready);
+			const bottom = await page
+				.locator("main section")
+				.first()
+				.evaluate((hero) =>
+					Math.max(
+						...[...hero.children].map(
+							(el) => el.getBoundingClientRect().bottom,
+						),
+					),
+				);
+			expect(bottom).toBeLessThanOrEqual(790);
+		});
+
+		test(`${path} centers between the header and the fold`, async ({
+			page,
+			isMobile,
+		}) => {
+			test.skip(isMobile, "desktop layout");
+			await page.setViewportSize({ width: 1536, height: 864 });
+			await page.goto(path);
+			await page.evaluate(() => document.fonts.ready);
+			const { above, below } = await page.evaluate(() => {
+				const header = document.querySelector("header");
+				const hero = document.querySelector("main section");
+				if (!header || !hero) throw new Error("hero not rendered");
+				const boxes = [...hero.children].map((el) =>
+					el.getBoundingClientRect(),
+				);
+				return {
+					above:
+						Math.min(...boxes.map((box) => box.top)) -
+						header.getBoundingClientRect().bottom,
+					below: innerHeight - Math.max(...boxes.map((box) => box.bottom)),
+				};
+			});
+			expect(Math.abs(above - below)).toBeLessThanOrEqual(2);
+		});
+	}
+});
+
 // The two hero columns (headline to buttons, cards to principles) keep the
 // same height, so neither block hangs below the other (DESIGN.md, "Hero").
 test.describe("home hero balance", () => {
@@ -72,32 +122,44 @@ test.describe("home hero balance", () => {
 	}
 });
 
-// The decorative loop (DESIGN.md, "Motion"): desktop only, off under reduced
-// motion, one card active at a time.
+// The activation sequence (DESIGN.md, "Motion"): after the entrance, the
+// cards turn active one by one, stay active, and the map then holds still.
+// Desktop only, off under reduced motion.
 test.describe("home identity map motion", () => {
 	const cards = (page: import("@playwright/test").Page) =>
 		page.locator('section[aria-labelledby="identity-map"] ol > li');
-	const activeIndex = (page: import("@playwright/test").Page) =>
+	const activeCards = (page: import("@playwright/test").Page) =>
 		cards(page).evaluateAll((items) =>
-			items.findIndex((li) => li.className.includes("bg-muted")),
+			items.map((li) => li.className.includes("bg-muted")),
 		);
 
-	test("cycles through the cards on desktop", async ({ page, isMobile }) => {
+	test("activates the cards in order and stops with all active", async ({
+		page,
+		isMobile,
+	}) => {
 		test.skip(isMobile, "desktop layout");
 		await page.setViewportSize({ width: 1440, height: 900 });
 		await page.goto("/");
-		await expect.poll(() => activeIndex(page)).toBe(0);
-		await expect.poll(() => activeIndex(page), { timeout: 5000 }).toBe(1);
-		await expect(cards(page).nth(0)).toHaveClass(/border-border/);
-
-		// Hover pins a card.
-		await cards(page).nth(4).hover();
-		await expect.poll(() => activeIndex(page)).toBe(4);
-		await page.waitForTimeout(3500);
-		expect(await activeIndex(page)).toBe(4);
+		// Active cards always form a prefix: first to last, none turned off.
+		const seen = new Set<number>();
+		await expect
+			.poll(
+				async () => {
+					const active = await activeCards(page);
+					const count = active.filter(Boolean).length;
+					expect(active).toEqual(active.map((_, index) => index < count));
+					seen.add(count);
+					return count;
+				},
+				{ timeout: 10_000, intervals: [100] },
+			)
+			.toBe(6);
+		expect(seen.size).toBeGreaterThan(2);
+		await page.waitForTimeout(2000);
+		expect(await activeCards(page)).toEqual(Array(6).fill(true));
 	});
 
-	test("starts with no card highlighted before the loop runs", async ({
+	test("starts with no card highlighted before the sequence runs", async ({
 		browser,
 		isMobile,
 	}) => {
@@ -130,7 +192,7 @@ test.describe("home identity map motion", () => {
 		const page = await context.newPage();
 		await page.goto(`${test.info().project.use.baseURL}/`);
 		await page.waitForTimeout(3500);
-		expect(await activeIndex(page)).toBe(-1);
+		expect(await activeCards(page)).toEqual(Array(6).fill(false));
 		for (const card of await cards(page).all()) {
 			await expect(card).toHaveClass(/border-brand/);
 		}
@@ -141,7 +203,57 @@ test.describe("home identity map motion", () => {
 		await page.setViewportSize({ width: 390, height: 844 });
 		await page.goto("/");
 		await page.waitForTimeout(3500);
-		expect(await activeIndex(page)).toBe(-1);
+		expect(await activeCards(page)).toEqual(Array(6).fill(false));
 		await expect(page.locator("[class*=identity-]")).toHaveCount(0);
+	});
+});
+
+// The hero entrance (DESIGN.md, "Hero entrance") plays on a document load and
+// not when a link brings the visitor back to the home page.
+test.describe("home hero entrance", () => {
+	test("plays on load, not after a client navigation", async ({ page }) => {
+		await page.goto("/");
+		// The entrance plays, or falls back to static when fonts miss their
+		// 1.2s budget on a busy machine (src/hero-entrance.ts); either way it
+		// must not replay below.
+		await page.waitForFunction(
+			() => document.documentElement.dataset.entrance !== "pending",
+		);
+		const played = await page.evaluate(
+			() => document.documentElement.dataset.entrance === "play",
+		);
+		if (played) expect(await heroAnimations(page)).toBeGreaterThan(0);
+		await settleHeroEntrance(page);
+		await page.getByRole("link", { name: "See the cases" }).click();
+		await expect(page.getByRole("heading", { level: 1 })).toHaveText("Cases");
+		await page.goBack();
+		await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+			"From problem definition to production.",
+		);
+		expect(await heroAnimations(page)).toBe(0);
+	});
+
+	test("does not play under reduced motion", async ({ browser }) => {
+		const context = await browser.newContext({ reducedMotion: "reduce" });
+		const page = await context.newPage();
+		await page.goto(`${test.info().project.use.baseURL}/`);
+		expect(
+			await page.evaluate(() => document.documentElement.dataset.entrance),
+		).toBeUndefined();
+		expect(await heroAnimations(page)).toBe(0);
+		await context.close();
+	});
+
+	test("keeps the hero visible without JavaScript", async ({ browser }) => {
+		const context = await browser.newContext({ javaScriptEnabled: false });
+		const page = await context.newPage();
+		await page.goto(`${test.info().project.use.baseURL}/`);
+		// No cover over the headline, and the rest of the hero at rest.
+		const cover = await page
+			.locator(".hero-headline")
+			.evaluate((h1) => getComputedStyle(h1, "::after").content);
+		expect(cover).toBe("none");
+		await expect(page.locator(".hero-intro")).toHaveCSS("opacity", "1");
+		await context.close();
 	});
 });

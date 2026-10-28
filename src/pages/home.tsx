@@ -21,17 +21,24 @@ const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<section className="grid pt-12 pb-16 md:pt-24 md:pb-20 lg:grid-cols-[minmax(0,1fr)_32rem] lg:items-center lg:gap-16">
+			{/* From lg the hero fills the window under the header, up to 56rem
+			    (so tall tablets get no blank bands), and centers in it: the same
+			    space above (to the header) and below (to the fold), at least
+			    1.5rem each when the window is short. It is also the query
+			    container its fluid type measures (src/index.css). */}
+			<section className="hero-stage @container grid pt-8 pb-16 md:pt-12 md:pb-20 lg:min-h-[min(calc(100svh-var(--header-height)),56rem)] lg:grid-cols-[minmax(0,1fr)_552px] lg:content-center lg:items-center lg:gap-4 lg:py-6">
 				<div>
-					<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
-						{t(copy.home.headline, locale)}
+					<h1 className="hero-headline max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05] lg:text-hero-title">
+						{/* The last two words stay together ("to production"), whatever
+						    the width the balanced lines get. */}
+						{t(copy.home.headline, locale).replace(/ (?=\S+$)/, "\u00a0")}
 					</h1>
-					<div className="mt-6 max-w-measure space-y-4 text-lg text-muted-foreground">
+					<div className="hero-intro mt-6 max-w-measure space-y-4 text-lg text-muted-foreground lg:text-hero-intro">
 						{copy.home.intro[locale].map((paragraph) => (
 							<p key={paragraph}>{paragraph}</p>
 						))}
 					</div>
-					<div className="mt-8 flex flex-wrap gap-3">
+					<div className="hero-actions mt-8 flex flex-wrap gap-3">
 						<a
 							href={`mailto:${profile.email}`}
 							className={buttonVariants({

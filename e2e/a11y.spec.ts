@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { settleHeroEntrance } from "./hero";
 import { pages } from "./pages";
 
 // WCAG 2.2 AA, checked on the dark theme (DESIGN.md).
@@ -9,6 +10,8 @@ test.describe("accessibility @a11y", () => {
 	for (const { path } of [...pages, { path: "/does-not-exist" }]) {
 		test(path, async ({ page }) => {
 			await page.goto(path);
+			// Mid-fade text would read as low contrast; check the settled hero.
+			await settleHeroEntrance(page);
 			const results = await new AxeBuilder({ page }).withTags(tags).analyze();
 			expect(
 				results.violations.map((v) => ({

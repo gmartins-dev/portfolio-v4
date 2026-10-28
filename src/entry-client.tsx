@@ -10,6 +10,15 @@ const router = createAppRouter({
 	entryScript: new URL(import.meta.url).pathname,
 });
 
+// The hero entrance plays once per document load (src/hero-entrance.ts).
+// Ending it as the first client navigation starts means a home page reached
+// by a link renders at rest.
+const stopWatching = router.subscribe("onBeforeNavigate", (event) => {
+	if (!event.fromLocation || !event.pathChanged) return;
+	delete document.documentElement.dataset.entrance;
+	stopWatching();
+});
+
 hydrateRoot(
 	document,
 	<StrictMode>

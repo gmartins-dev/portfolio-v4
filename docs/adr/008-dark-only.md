@@ -3,6 +3,7 @@
 - **Date**: 2026-10-18
 - **Status**: Accepted
 - **Supersedes**: [ADR-007](007-polar-navy-palette.md)
+- **Amended by**: [ADR-011](011-hero-entrance-gated-by-inline-head-script.md) (a second inline script)
 - **Tags**: design, simplicity
 
 ## Context and Problem Statement
