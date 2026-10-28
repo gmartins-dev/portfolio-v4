@@ -51,6 +51,8 @@ export function HomePage({ locale }: { locale: Locale }) {
 							to={localizedPath(locale, "/cases")}
 							className={buttonVariants({
 								variant: "outline",
+								// Right edge below sm, even when it wraps to its own line.
+								className: "ml-auto sm:ml-0",
 							})}
 						>
 							{t(copy.home.workCta, locale)}

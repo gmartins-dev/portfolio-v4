@@ -5,6 +5,15 @@ import type { Locale } from "../i18n";
 import { useIdentityMapSequence } from "./use-identity-map-sequence";
 
 /**
+ * The ring baked into the portrait master (scripts/compose-portrait.mjs), as
+ * fractions of the master's radius: its stroke is centered at 493 of 512 and
+ * ends at 500.
+ */
+const masterRing = { center: 493 / 512, outer: 500 / 512 };
+
+const photoRadius = 116;
+
+/**
  * Desktop geometry of the map, in px inside its 552px column. Cards
  * stack from the top; their left edges follow a circle of `arcRadius` that
  * bulges toward the middle, and the decorative SVG is drawn from the same
@@ -20,9 +29,12 @@ export const geometry = {
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
-	photo: { x: 116, radius: 116 },
-	/** Connectors start on this circle around the photo center. */
-	connectorRadius: 126,
+	photo: { x: photoRadius, radius: photoRadius },
+	/**
+	 * Connectors start on this circle around the photo center, 4px outside
+	 * the ring baked into the image (its outer edge sits near 113px).
+	 */
+	connectorRadius: photoRadius * masterRing.outer + 4,
 	/**
 	 * The steepest connector leaves the photo at this angle in degrees; the
 	 * others scale down with it, so every connector starts on the portrait's
@@ -66,8 +78,8 @@ export const absorb = {
 	charge: { start: 2340, ms: 700 },
 };
 
-/** The ring baked into the portrait sits this far inside its edge. */
-const ringInset = 1.5;
+/** The center of the portrait's ring sits this far inside its edge, about 4.3px. */
+const ringInset = geometry.photo.radius * (1 - masterRing.center);
 
 /** Card corner radius in px, matching `rounded-lg` (--radius). */
 const cardRadius = 8;
@@ -317,7 +329,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				{/* Centered on the card stack. No inline style: the page CSP
 				    (style-src 'self') would drop it. */}
 				<div
-					className={`hero-portrait relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
+					className={`hero-portrait relative mx-auto w-fit lg:absolute lg:left-0 ${photoTopClass}`}
 				>
 					<img
 						src="/images/profile/portrait-240.webp"
@@ -326,7 +338,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						height={240}
 						alt={t(map.photoAlt, locale)}
 						decoding="async"
-						className="size-32 rounded-full lg:size-[232px]"
+						className="size-48 rounded-full sm:size-56 lg:size-[232px]"
 					/>
 					{/* Over the portrait's ring: one orbit of light, starting and
 					    ending on the right, where the connectors meet it, then a
@@ -364,7 +376,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				</div>
 				<ol
 					aria-labelledby="identity-map"
-					className="hero-cards relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
+					className="hero-cards relative mt-8 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
 				>
 					{map.dimensions.map((dimension, index) => {
 						const outline = isActive(index)
@@ -415,11 +427,24 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					})}
 				</ol>
 			</div>
-			<div className="hero-principles mt-6 space-y-1 text-xs text-muted-foreground lg:mt-5 lg:text-center">
+			<div className="hero-principles mt-6 space-y-1 text-center text-xs text-muted-foreground lg:mt-5">
 				<p className="font-mono">
 					{dottedItems(t(map.principles, locale), { wholeItems: true })}
 				</p>
-				<p className="lg:text-[13px]">{t(map.grounding, locale)}</p>
+				{/* One line when it fits; otherwise it wraps after the semicolon,
+				    since each clause is an inline block. */}
+				<p className="lg:text-[13px]">
+					{t(map.grounding, locale)
+						.split("; ")
+						.map((clause, index, clauses) => (
+							<Fragment key={clause}>
+								{index > 0 && " "}
+								<span className="inline-block">
+									{index < clauses.length - 1 ? `${clause};` : clause}
+								</span>
+							</Fragment>
+						))}
+				</p>
 			</div>
 		</section>
 	);
