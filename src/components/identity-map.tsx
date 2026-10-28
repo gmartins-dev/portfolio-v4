@@ -52,6 +52,23 @@ export const motion = {
 	radiate: { start: 700, ms: 800 },
 };
 
+/**
+ * The close of the sequence, in ms from the moment the last card activates
+ * (DESIGN.md, "Motion"): the portrait absorbs the energy of all six cards.
+ * src/index.css repeats these as literals; change both together.
+ */
+export const absorb = {
+	/** Six beams travel back at once, dot to portrait. */
+	beams: { start: 800, ms: 420 },
+	/** As they land, light runs once around the portrait's ring. */
+	orbit: { start: 1180, ms: 1200 },
+	/** The ring glows once as the orbit closes, then settles. */
+	charge: { start: 2340, ms: 700 },
+};
+
+/** The ring baked into the portrait sits this far inside its edge. */
+const ringInset = 1.5;
+
 /** Card corner radius in px, matching `rounded-lg` (--radius). */
 const cardRadius = 8;
 
@@ -184,6 +201,9 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 		startAfter: whenHeroEntranceSettled,
 	});
 	const isActive = (index: number) => reached !== null && index < reached;
+	// Mounts with the last card, so its delays count from that moment. Not
+	// after a jump back to lg: then the cards just show active.
+	const absorbing = reached === dots.length && !instant;
 	return (
 		<section
 			aria-labelledby="identity-map"
@@ -259,6 +279,28 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 								</Fragment>
 							),
 					)}
+					{/* The energy comes back: every dot to the portrait at once. */}
+					{absorbing &&
+						connectors.map((line) => (
+							<Fragment key={`absorb-${line.x2}-${line.y2}`}>
+								<line
+									{...line}
+									pathLength={1}
+									stroke="currentColor"
+									strokeWidth="6"
+									strokeLinecap="round"
+									className="identity-absorb identity-halo text-brand"
+								/>
+								<line
+									{...line}
+									pathLength={1}
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									className="identity-absorb text-foreground"
+								/>
+							</Fragment>
+						))}
 					{dots.map((dot, index) => (
 						<circle
 							key={`${dot.x}-${dot.y}`}
@@ -286,6 +328,39 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						decoding="async"
 						className="size-32 rounded-full lg:size-[232px]"
 					/>
+					{/* Over the portrait's ring: one orbit of light, starting and
+					    ending on the right, where the connectors meet it, then a
+					    glow of the whole ring. */}
+					{absorbing && (
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							viewBox={`0 0 ${geometry.photo.radius * 2} ${geometry.photo.radius * 2}`}
+							fill="none"
+							className="pointer-events-none absolute inset-0 size-full overflow-visible print:hidden"
+						>
+							{[
+								{
+									width: 10,
+									className: "identity-orbit identity-halo text-brand",
+								},
+								{ width: 3, className: "identity-orbit text-foreground" },
+								{ width: 3, className: "identity-charge text-brand" },
+							].map((ring) => (
+								<circle
+									key={ring.className}
+									cx={geometry.photo.radius}
+									cy={geometry.photo.radius}
+									r={geometry.photo.radius - ringInset}
+									pathLength={1}
+									stroke="currentColor"
+									strokeWidth={ring.width}
+									strokeLinecap="round"
+									className={ring.className}
+								/>
+							))}
+						</svg>
+					)}
 				</div>
 				<ol
 					aria-labelledby="identity-map"
