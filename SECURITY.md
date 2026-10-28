@@ -11,7 +11,7 @@ served from this origin, it sends the page URL and Core Web Vitals timings of
 sampled visits to Vercel, without cookies.
 
 The browser stores one value, the language picked with the header toggle, in
-`localStorage`; it never leaves the browser
+`localStorage` (or `sessionStorage` when that is blocked); it never leaves the browser
 ([ADR-012](docs/adr/012-first-visit-locale-detection.md)).
 
 The contact form at `/contact` posts from the browser to

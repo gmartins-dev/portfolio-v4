@@ -8,6 +8,8 @@ type Env = {
 	language?: string;
 	saved?: string | null;
 	storageThrows?: boolean;
+	/** Value in sessionStorage, the fallback when localStorage is blocked. */
+	session?: string | null;
 };
 
 /** Runs the script against stubbed browser globals; returns the redirect target. */
@@ -17,6 +19,7 @@ function run({
 	language = "en-US",
 	saved = null,
 	storageThrows = false,
+	session = null,
 }: Env) {
 	let target: string | undefined;
 	const location = {
@@ -33,12 +36,17 @@ function run({
 			return key === localeStorageKey ? saved : null;
 		},
 	};
+	const sessionStorage = {
+		getItem: (key: string) => (key === localeStorageKey ? session : null),
+	};
 	const navigator = { languages, language };
-	new Function("location", "navigator", "localStorage", localeRedirectScript)(
-		location,
-		navigator,
-		localStorage,
-	);
+	new Function(
+		"location",
+		"navigator",
+		"localStorage",
+		"sessionStorage",
+		localeRedirectScript,
+	)(location, navigator, localStorage, sessionStorage);
 	return target;
 }
 
@@ -87,5 +95,11 @@ describe("localeRedirectScript", () => {
 		expect(run({ languages: ["pt-BR"], storageThrows: true })).toBe(
 			"/pt-br?utm=x#contact",
 		);
+	});
+
+	it("falls back to sessionStorage when localStorage is blocked", () => {
+		expect(
+			run({ languages: ["pt-BR"], storageThrows: true, session: "en" }),
+		).toBeUndefined();
 	});
 });

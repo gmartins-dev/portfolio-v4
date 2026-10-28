@@ -27,7 +27,7 @@ site should open in the visitor's language: Portuguese for `pt`, `pt-BR`,
 ## Decision Outcome
 
 Chosen option: **3**. `src/locale-redirect.ts` exports the script, rendered
-inline in `<head>` by `src/router.tsx` next to the hero entrance script
+inline in `<head>` of the English home page only by `src/router.tsx`, next to the hero entrance script
 (ADR-011); its hash enters the page CSP automatically. It runs only on `/`.
 A saved choice (`localStorage["locale"]`, written by the header toggle) wins;
 otherwise the first Portuguese or English tag in `navigator.languages`
@@ -41,7 +41,10 @@ extension, for a flash it only partly removes. Option 1 was the status quo.
 - Google advises against redirecting automatically by presumed language. The
   risk is limited: only `/` redirects, every localized URL stays reachable,
   `x-default` still points at `/`, and crawlers do not run the preference.
-- A visitor with JavaScript disabled, or with storage blocked, still reaches
+- Other pages carry no copy of the script and no extra CSP hash.
+- The choice is written to `localStorage`, or to `sessionStorage` when that
+  is blocked, so it lasts at least for the tab.
+- A visitor with JavaScript disabled, or with all storage blocked, still reaches
   both languages through the toggle; blocked storage only loses the memory of
   the choice.
 - A short flash of the English home is possible before the redirect; the

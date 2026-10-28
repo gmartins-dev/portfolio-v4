@@ -127,7 +127,12 @@ function rememberLocale(locale: Locale) {
 	try {
 		localStorage.setItem(localeStorageKey, locale);
 	} catch {
-		// Storage can be blocked; the switch itself still works.
+		try {
+			// Lasts for the tab at least; the switch itself works either way.
+			sessionStorage.setItem(localeStorageKey, locale);
+		} catch {
+			// Storage can be blocked entirely.
+		}
 	}
 }
 

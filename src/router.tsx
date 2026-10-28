@@ -107,10 +107,13 @@ function Document() {
 					// biome-ignore lint/security/noDangerouslySetInnerHtml: a constant from this repo, allowed by hash in the page CSP.
 					dangerouslySetInnerHTML={{ __html: heroEntranceScript }}
 				/>
-				<script
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: a constant from this repo, allowed by hash in the page CSP.
-					dangerouslySetInnerHTML={{ __html: localeRedirectScript }}
-				/>
+				{/* Only the English home redirects; other pages carry no script. */}
+				{pathname === "/" && (
+					<script
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: a constant from this repo, allowed by hash in the page CSP.
+						dangerouslySetInnerHTML={{ __html: localeRedirectScript }}
+					/>
+				)}
 				<HeadContent />
 				{/* Browser UI color, mirroring --background in index.css. */}
 				<meta name="theme-color" content="#08121c" />

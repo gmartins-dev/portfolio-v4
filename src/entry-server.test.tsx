@@ -50,9 +50,19 @@ describe("server render", () => {
 		expect(html).toContain("$_TSR");
 	});
 
-	it("inlines the first-visit language script in the home page head", async () => {
-		const html = await (await render("/", context)).text();
-		expect(html).toContain(localeRedirectScript);
+	it("inlines the first-visit language script on the home page only", async () => {
+		const inlined = async (path: string) =>
+			(await (await render(path, context)).text()).includes(
+				localeRedirectScript,
+			);
+		expect(await inlined("/")).toBe(true);
+		for (const path of [
+			"/pt-br",
+			"/about",
+			"/pt-br/contact",
+			"/does-not-exist",
+		])
+			expect(await inlined(path), path).toBe(false);
 	});
 
 	it("keeps one h1 on the home page next to the identity map", async () => {
