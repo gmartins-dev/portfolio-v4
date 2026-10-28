@@ -5,6 +5,23 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Hero entrance (2026-10-27)
+
+- The home hero welcomes the visitor once per page load, in three beats: a
+  soft front of brand light reveals the headline left to right; pulses
+  leave the portrait along the six connectors and each card arrives as its
+  pulse lands; a ring of light leaves the portrait and the loop takes over.
+- It waits for the first paint and the final font (an inline script in
+  `<head>`, `src/hero-entrance.ts`), so nothing animates in a fallback font
+  and swaps. Static without JavaScript, under reduced motion, after a
+  client navigation, or when fonts take over 1.2s.
+- The identity map loop starts once the entrance has finished. Its pulse
+  now only travels out, with a brand halo, and the portrait sends it with a
+  ring; the return pulse is gone.
+- The hero sits closer to the header (`pt-8 md:pt-12`).
+- e2e waits for the entrance before axe runs and checks that it does not
+  replay after a client navigation or play under reduced motion.
+
 ### Hero update (2026-10-27)
 
 - New hero intro in both languages, naming the domains he has worked in

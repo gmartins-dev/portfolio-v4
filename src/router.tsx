@@ -15,6 +15,7 @@ import { SiteHeader } from "./components/site-header";
 import { copy, t } from "./content/copy";
 import type { Localized } from "./content/schema";
 import { caseStudies } from "./content/work";
+import { heroEntranceScript } from "./hero-entrance";
 import { type Locale, localeFromPath, locales, localizedPath } from "./i18n";
 import stylesheet from "./index.css?url";
 import { isNotFound } from "./not-found";
@@ -97,8 +98,14 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 function Document() {
 	const { pathname } = useLocation();
 	return (
-		<html lang={localeFromPath(pathname)}>
+		// The entrance script sets data-entrance before hydration.
+		<html lang={localeFromPath(pathname)} suppressHydrationWarning>
 			<head>
+				{/* Inline in <head>, so it runs before the body is painted. */}
+				<script
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: a constant from this repo, allowed by hash in the page CSP.
+					dangerouslySetInnerHTML={{ __html: heroEntranceScript }}
+				/>
 				<HeadContent />
 				{/* Browser UI color, mirroring --background in index.css. */}
 				<meta name="theme-color" content="#08121c" />

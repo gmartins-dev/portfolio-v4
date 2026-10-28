@@ -66,7 +66,7 @@ describe("IdentityMap", () => {
 		}
 		expect(
 			container.querySelector(
-				".identity-pulse, .identity-pulse-back, .identity-trace, .identity-radiate, .identity-ring",
+				".identity-pulse, .identity-trace, .identity-radiate, .identity-ring",
 			),
 		).toBeNull();
 	});

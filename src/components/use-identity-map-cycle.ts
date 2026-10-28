@@ -12,14 +12,17 @@ type Cycle = { active: number | null; step: number };
  * reduced motion, so the static markup is what everyone else gets. `step`
  * changes on every activation; keying animated elements by it restarts their
  * CSS animations. The loop pauses in a hidden tab, off screen and while a card
- * is hovered (which pins that card).
+ * is hovered (which pins that card). With `startAfter`, the loop stays off
+ * until that promise resolves.
  */
 export function useIdentityMapCycle({
 	count,
 	stepMs,
+	startAfter,
 }: {
 	count: number;
 	stepMs: number;
+	startAfter?: () => Promise<void>;
 }) {
 	const sectionRef = useRef<HTMLElement>(null);
 	const [cycle, setCycle] = useState<Cycle>({ active: null, step: 0 });
@@ -36,8 +39,10 @@ export function useIdentityMapCycle({
 		let inView = true;
 		let pinned = false;
 		let timer: ReturnType<typeof setTimeout> | undefined;
+		let started = !startAfter;
+		let disposed = false;
 
-		const enabled = () => wide.matches && !reduce.matches;
+		const enabled = () => started && wide.matches && !reduce.matches;
 		const runnable = () => enabled() && visible && inView && !pinned;
 		const stop = () => {
 			clearTimeout(timer);
@@ -107,9 +112,16 @@ export function useIdentityMapCycle({
 		wide.addEventListener("change", sync);
 		reduce.addEventListener("change", sync);
 		document.addEventListener("visibilitychange", onVisibility);
-		sync();
+		if (startAfter)
+			startAfter().then(() => {
+				if (disposed) return;
+				started = true;
+				sync();
+			});
+		else sync();
 
 		return () => {
+			disposed = true;
 			stop();
 			observer?.disconnect();
 			wide.removeEventListener("change", sync);
@@ -117,7 +129,7 @@ export function useIdentityMapCycle({
 			document.removeEventListener("visibilitychange", onVisibility);
 			handlers.current = { enter: () => {}, leave: () => {} };
 		};
-	}, [count, stepMs]);
+	}, [count, stepMs, startAfter]);
 
 	const onCardEnter = useCallback(
 		(index: number) => handlers.current.enter(index),

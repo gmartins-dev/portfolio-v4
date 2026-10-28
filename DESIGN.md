@@ -9,8 +9,8 @@ file explains how to use them.
 A developer portfolio read by engineering managers, tech leads, and
 recruiters. Editorial and technical: typography, spacing, and real project
 images carry the page. No gradients, glows, badges walls, or decorative
-motion, with one documented exception: the hero identity map's loop (see
-Motion).
+motion, with two documented exceptions in the home hero: its entrance and
+the identity map's loop (see Motion).
 
 This direction is the working choice for v4. It has not yet been compared
 against an alternative (Phase 5 of the plan), so expect adjustments.
@@ -162,24 +162,27 @@ with a quiet principles line below.
 - The nav marks the current page with `aria-current="page"` and an
   underline. A case study also underlines Cases (`data-section`), without
   `aria-current`.
-- Vertical rhythm steps down below `md`: page tops `pt-12` (`pt-8` on case
-  studies), sections `mt-20` instead of `mt-24`/`mt-28`, and teaser lists
-  `gap-14` instead of `gap-20`.
+- Vertical rhythm steps down below `md`: page tops `pt-12` (`pt-8` on the
+  home hero and case studies), sections `mt-20` instead of `mt-24`/`mt-28`,
+  and teaser lists `gap-14` instead of `gap-20`. The home hero sits closer
+  to the header than other pages (`md:pt-12`, not `md:pt-24`): it is the
+  page's opening and its two columns are already tall.
 
 ## Motion
 
 Interactive elements keep short color and underline transitions.
 `prefers-reduced-motion` disables transitions globally (`src/index.css`).
 
-The hero identity map is the one thing that moves on its own: a decorative
-loop that walks the six dimensions in order, one step every 3.2s. In each
+The home hero moves on its own in two ways: a one-time entrance (see Hero
+entrance) and the identity map's decorative loop that walks the six dimensions in order, one step every 3.2s. In each
 step the active card gets, in sequence: a short pulse from the portrait to
 its dot (0 to 500ms); focus, with `bg-muted`, a 6px shift left and its
 connector at 90% while the others drop to 20% (from 420ms); a ping on the
 dot; light tracing the card border from where the connector meets it
-(500 to 1400ms); a ring spreading from the card (from 1150ms); a pulse back
-to the portrait (1450 to 1950ms); and a ring spreading from the portrait
-(from 1900ms). Hovering a card replays it and holds the loop until the
+(500 to 1400ms); and a ring spreading from the card (from 1150ms). The
+pulse only travels out, with a soft brand halo under it, and the portrait
+sends it with a ring of its own (0 to 900ms): the energy flows from the
+person to each dimension. Hovering a card replays it and holds the loop until the
 pointer leaves.
 
 - The timings live in `motion` (`src/components/identity-map.tsx`), and the
@@ -188,9 +191,50 @@ pointer leaves.
   hidden tab or while the map is off screen
   (`src/components/use-identity-map-cycle.ts`).
 - The server render and the first client render are the static map; the
-  loop starts after hydration. Animated elements are `aria-hidden` and
-  remount each step (keyed by it) so their animations replay. Nothing in
-  the loop carries information, and it adds no live regions.
+  loop starts after hydration, once the hero entrance has finished. Animated elements are `aria-hidden` and remount each step
+  (keyed by it) so their animations replay. Nothing in the loop carries
+  information, and it adds no live regions.
+
+### Hero entrance
+
+When the home page loads, the hero welcomes the visitor in three beats,
+then holds still for good. Each beat tells part of the positioning:
+
+1. **Light** (0 to about 350ms). A soft front of brand light crosses the
+   headline left to right and leaves the text behind it: from problem
+   definition to production. The intro rises in from 450ms, the buttons
+   from 600ms.
+2. **Connection** (550 to about 2350ms). The portrait settles, the
+   connectors, arc and dots fade in, then a pulse leaves the portrait along
+   each connector, 90ms apart (the loop's own pulse), and each card arrives
+   from the portrait's side, with a brief brand edge, as its pulse lands.
+3. **Ready** (from 1800ms). The principles fade in, a ring of light leaves
+   the portrait, and the identity map loop takes over.
+
+Rules:
+
+- Compositor-only where it matters: the headline light is two overlays
+  that slide (`transform`) over text that never repaints; cards, flashes
+  and the ring use `opacity` and `transform`. The pulses reuse the loop's
+  stroke animation on six short lines. Curves: `--ease-sweep` (the drawer
+  curve) for the light, `--ease-entrance` for everything that arrives.
+- The headline light never shows an edge: the cover is page color with a
+  feathered left side, and the light has its own envelope, on only while
+  it is over the text. The hero section clips sideways, so the travel never
+  becomes page overflow on phones. The overlays assume the headline sits
+  on `--background`.
+- `src/hero-entrance.ts` gates it with `data-entrance` on `<html>`, from an
+  inline script in `<head>` (hashed into the page CSP). The hero waits,
+  hidden and covered, until the first frame has painted and the fonts are
+  ready, so it never animates in a fallback font that then swaps; if fonts
+  take over 1.2s, the hero simply appears static.
+- Static without JavaScript, under `prefers-reduced-motion`, and after the
+  first client navigation (`src/entry-client.tsx` removes the attribute),
+  so it plays once per document load.
+- The identity map loop starts only once every `hero-*` animation has
+  finished (`whenHeroEntranceSettled`).
+- e2e waits for the entrance (`e2e/hero.ts`) before axe runs, so mid-fade
+  text is never measured for contrast.
 
 ## Accessibility
 

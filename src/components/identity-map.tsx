@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { copy, t } from "../content/copy";
+import { whenHeroEntranceSettled } from "../hero-entrance";
 import type { Locale } from "../i18n";
 import { useIdentityMapCycle } from "./use-identity-map-cycle";
 
@@ -38,7 +39,9 @@ export const geometry = {
  */
 export const motion = {
 	stepMs: 3200,
-	/** Outbound pulse along the connector, photo to dot. */
+	/** A ring spreads from the portrait as it sends the pulse. */
+	ring: { start: 0, ms: 900 },
+	/** The pulse, with its halo, travels one way: photo to dot. */
 	pulse: { start: 0, ms: 500 },
 	/** The card turns active (background, border, shift left). */
 	focus: { start: 420, ms: 450 },
@@ -48,10 +51,6 @@ export const motion = {
 	trace: { start: 500, ms: 900 },
 	/** A ring spreads from the card. */
 	radiate: { start: 1150, ms: 800 },
-	/** Return pulse, dot to photo. */
-	back: { start: 1450, ms: 500 },
-	/** A ring spreads from the portrait. */
-	ring: { start: 1900, ms: 900 },
 };
 
 /** Card corner radius in px, matching `rounded-lg` (--radius). */
@@ -179,7 +178,12 @@ function cardClass(index: number, active: number | null) {
 export function IdentityMap({ locale }: { locale: Locale }) {
 	const map = copy.home.identityMap;
 	const { active, step, sectionRef, onCardEnter, onCardLeave } =
-		useIdentityMapCycle({ count: dots.length, stepMs: motion.stepMs });
+		useIdentityMapCycle({
+			count: dots.length,
+			stepMs: motion.stepMs,
+			// The first pulse waits until the hero entrance has played out.
+			startAfter: whenHeroEntranceSettled,
+		});
 	const activeLine = active === null ? null : connectors[active];
 	return (
 		<section
@@ -198,7 +202,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					height={height}
 					viewBox={`0 0 ${geometry.width} ${height}`}
 					fill="none"
-					className="pointer-events-none absolute inset-0 hidden text-border lg:block print:hidden"
+					className="hero-lines pointer-events-none absolute inset-0 hidden text-border lg:block print:hidden"
 				>
 					<path
 						d={arc}
@@ -219,8 +223,31 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 							}
 						/>
 					))}
+					{/* The entrance's pulses, one per connector (src/index.css). */}
+					<g>
+						{connectors.map((line) => (
+							<line
+								key={`boot-${line.x2}-${line.y2}`}
+								{...line}
+								pathLength={1}
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								className="hero-boot text-brand"
+							/>
+						))}
+					</g>
 					{activeLine && (
 						<>
+							<line
+								key={`halo-${step}`}
+								{...activeLine}
+								pathLength={1}
+								stroke="currentColor"
+								strokeWidth="6"
+								strokeLinecap="round"
+								className="identity-pulse identity-halo text-brand"
+							/>
 							<line
 								key={`pulse-${step}`}
 								{...activeLine}
@@ -229,15 +256,6 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 								strokeWidth="2"
 								strokeLinecap="round"
 								className="identity-pulse text-foreground"
-							/>
-							<line
-								key={`back-${step}`}
-								{...activeLine}
-								pathLength={1}
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								className="identity-pulse-back text-foreground"
 							/>
 						</>
 					)}
@@ -261,7 +279,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				{/* Centered on the card stack. No inline style: the page CSP
 				    (style-src 'self') would drop it. */}
 				<div
-					className={`relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
+					className={`hero-portrait relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
 				>
 					{active !== null && (
 						<span
@@ -282,7 +300,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				</div>
 				<ol
 					aria-labelledby="identity-map"
-					className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[18px]"
+					className="hero-cards relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[18px]"
 				>
 					{map.dimensions.map((dimension, index) => {
 						const outline =
@@ -336,7 +354,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					})}
 				</ol>
 			</div>
-			<div className="mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">
+			<div className="hero-principles mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">
 				<p className="font-mono">
 					{dottedItems(t(map.principles, locale), { wholeItems: true })}
 				</p>

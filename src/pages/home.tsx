@@ -21,17 +21,17 @@ const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<section className="grid pt-12 pb-16 md:pt-24 md:pb-20 lg:grid-cols-[minmax(0,1fr)_32rem] lg:items-center lg:gap-16">
+			<section className="hero-stage grid pt-8 pb-16 md:pt-12 md:pb-20 lg:grid-cols-[minmax(0,1fr)_32rem] lg:items-center lg:gap-16">
 				<div>
-					<h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
+					<h1 className="hero-headline max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
 						{t(copy.home.headline, locale)}
 					</h1>
-					<div className="mt-6 max-w-measure space-y-4 text-lg text-muted-foreground">
+					<div className="hero-intro mt-6 max-w-measure space-y-4 text-lg text-muted-foreground">
 						{copy.home.intro[locale].map((paragraph) => (
 							<p key={paragraph}>{paragraph}</p>
 						))}
 					</div>
-					<div className="mt-8 flex flex-wrap gap-3">
+					<div className="hero-actions mt-8 flex flex-wrap gap-3">
 						<a
 							href={`mailto:${profile.email}`}
 							className={buttonVariants({

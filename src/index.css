@@ -154,15 +154,14 @@
  * Elements are remounted on every step, so each animation plays once.
  */
 @layer components {
-	.identity-pulse,
-	.identity-pulse-back {
+	.identity-pulse {
 		stroke-dasharray: 0.16 1.2;
 		opacity: 0;
 		animation: identity-pulse 500ms cubic-bezier(0.4, 0, 0.6, 1) both;
 	}
-	.identity-pulse-back {
-		animation-name: identity-pulse-back;
-		animation-delay: 1450ms;
+	/* A soft brand glow under the pulse; the keyframes own opacity. */
+	.identity-halo {
+		stroke-opacity: 0.3;
 	}
 	.identity-ping {
 		transform-box: fill-box;
@@ -178,11 +177,10 @@
 		animation: identity-radiate 800ms ease-out 1150ms both;
 	}
 	.identity-ring {
-		animation: identity-ring 900ms ease-out 1900ms both;
+		animation: identity-ring 900ms ease-out both;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.identity-pulse,
-		.identity-pulse-back,
 		.identity-trace,
 		.identity-radiate,
 		.identity-ring {
@@ -191,6 +189,272 @@
 		.identity-ping {
 			animation: none;
 		}
+	}
+}
+
+/*
+ * Hero entrance (src/hero-entrance.ts explains `data-entrance`; DESIGN.md
+ * "Hero entrance" tells the sequence). Three beats, once per document load:
+ *
+ * 1. Light. A soft front of brand light crosses the headline left to right
+ *    and leaves the text behind it, from problem to production. The front is
+ *    an overlay in the page color that slides away (transform only), so the
+ *    text itself is never repainted.
+ * 2. Connection. Pulses leave the portrait along the six connectors (the
+ *    loop's own pulse, src/components/identity-map.tsx), and each card
+ *    arrives, with a brief brand edge, as its pulse lands.
+ * 3. Ready. A ring of light leaves the portrait; then the loop takes over.
+ *
+ * Animations describe their start state and fill backwards, so each ends on
+ * the element's own style. Flashes and rings rest at opacity 0.
+ */
+:root {
+	--ease-entrance: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-sweep: cubic-bezier(0.32, 0.72, 0, 1);
+}
+@layer components {
+	html[data-entrance="pending"]
+		:is(
+			.hero-intro,
+			.hero-actions,
+			.hero-portrait,
+			.hero-lines,
+			.hero-cards > li,
+			.hero-principles
+		) {
+		opacity: 0;
+	}
+
+	/* Beat 1. Two layers over the heading, each 150% of its width and
+	   starting half a heading to its left, slide right together:
+	   - ::after, the cover: page color with a feathered left edge (12 to
+	     31%), opaque from just before the heading starts. Letters surface
+	     through the feather, never at a hard edge. Being page color on page
+	     color, its own edges never show, and at rest it sits past the
+	     heading (140%), hidden by the clip.
+	   - ::before, the light: a brand band on that feathered edge. It has
+	     its own envelope, lighting up once it is over the text and gone
+	     before it reaches the clip on the right, so no edge of it shows
+	     either. The vertical mask fades it above and below the text.
+	   The heading's clip leaves room for pt-BR accents and descenders, and
+	   1em on the right, inside the 4rem gap before the identity map. The
+	   stage clips sideways, so the travel never becomes page overflow (a
+	   horizontal scroll on phones). */
+	html[data-entrance] .hero-stage {
+		overflow-x: clip;
+	}
+	html[data-entrance] .hero-headline {
+		position: relative;
+		clip-path: inset(-0.3em -1em -0.3em -0.2em);
+	}
+	html[data-entrance] .hero-headline::before,
+	html[data-entrance] .hero-headline::after {
+		content: "";
+		position: absolute;
+		inset: -0.3em -1em -0.3em 0;
+		left: -50%;
+		pointer-events: none;
+		transform: translateX(140%);
+	}
+	html[data-entrance] .hero-headline::before {
+		z-index: 1;
+		background: linear-gradient(
+			90deg,
+			transparent 4%,
+			color-mix(in oklch, var(--brand) 26%, transparent) 20%,
+			transparent 33%
+		);
+		mask-image: linear-gradient(
+			to bottom,
+			transparent,
+			#000 0.3em,
+			#000 calc(100% - 0.3em),
+			transparent
+		);
+		opacity: 0;
+	}
+	html[data-entrance] .hero-headline::after {
+		background: linear-gradient(90deg, transparent 12%, var(--background) 31%);
+	}
+	html[data-entrance="pending"] .hero-headline::after {
+		background: var(--background);
+		transform: none;
+	}
+	html[data-entrance="play"] .hero-headline::after {
+		animation: hero-sweep 1700ms var(--ease-sweep) backwards;
+	}
+	html[data-entrance="play"] .hero-headline::before {
+		animation:
+			hero-sweep 1700ms var(--ease-sweep) backwards,
+			hero-glow 480ms ease both;
+	}
+
+	html[data-entrance="play"] .hero-intro {
+		animation: hero-rise 900ms var(--ease-entrance) 450ms backwards;
+	}
+	html[data-entrance="play"] .hero-actions {
+		animation: hero-rise 800ms var(--ease-entrance) 600ms backwards;
+	}
+
+	/* Beat 2. */
+	html[data-entrance="play"] .hero-portrait {
+		animation: hero-settle 1000ms var(--ease-entrance) 150ms backwards;
+	}
+	html[data-entrance="play"] .hero-lines {
+		animation: hero-fade 500ms var(--ease-entrance) 550ms backwards;
+	}
+	.hero-boot {
+		display: none;
+	}
+	html[data-entrance="play"] .hero-boot {
+		display: inline;
+		stroke-dasharray: 0.16 1.2;
+		opacity: 0;
+		animation: identity-pulse 500ms cubic-bezier(0.4, 0, 0.6, 1) 850ms both;
+	}
+	html[data-entrance] .hero-cards > li {
+		position: relative;
+	}
+	html[data-entrance] .hero-cards > li::after {
+		content: "";
+		position: absolute;
+		inset: -1px;
+		border: 1px solid var(--brand);
+		border-radius: inherit;
+		opacity: 0;
+		pointer-events: none;
+	}
+	html[data-entrance="play"] .hero-cards > li {
+		animation: hero-arrive 700ms var(--ease-entrance) 1200ms backwards;
+	}
+	html[data-entrance="play"] .hero-cards > li::after {
+		animation: hero-flash 1000ms var(--ease-entrance) 1200ms both;
+	}
+	/* Pulse n (in its own <g>, so nth-of-type counts only pulses) leaves 90ms
+	   after the one before and lands about 350ms later,
+	   where card n arrives. */
+	html[data-entrance="play"] .hero-boot:nth-of-type(2) {
+		animation-delay: 940ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(3) {
+		animation-delay: 1030ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(4) {
+		animation-delay: 1120ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(5) {
+		animation-delay: 1210ms;
+	}
+	html[data-entrance="play"] .hero-boot:nth-of-type(6) {
+		animation-delay: 1300ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(2),
+	html[data-entrance="play"] .hero-cards > li:nth-child(2)::after {
+		animation-delay: 1290ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(3),
+	html[data-entrance="play"] .hero-cards > li:nth-child(3)::after {
+		animation-delay: 1380ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(4),
+	html[data-entrance="play"] .hero-cards > li:nth-child(4)::after {
+		animation-delay: 1470ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(5),
+	html[data-entrance="play"] .hero-cards > li:nth-child(5)::after {
+		animation-delay: 1560ms;
+	}
+	html[data-entrance="play"] .hero-cards > li:nth-child(6),
+	html[data-entrance="play"] .hero-cards > li:nth-child(6)::after {
+		animation-delay: 1650ms;
+	}
+
+	/* Beat 3. */
+	html[data-entrance] .hero-portrait::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border: 1.5px solid var(--brand);
+		border-radius: 9999px;
+		opacity: 0;
+		pointer-events: none;
+	}
+	html[data-entrance="play"] .hero-portrait::after {
+		animation: hero-ring 900ms var(--ease-entrance) 1900ms both;
+	}
+	html[data-entrance="play"] .hero-principles {
+		animation: hero-fade 700ms var(--ease-entrance) 1800ms backwards;
+	}
+}
+
+@keyframes hero-sweep {
+	from {
+		transform: translateX(0);
+	}
+}
+/* The light's envelope: up as it reaches the text, gone before the clip. */
+@keyframes hero-glow {
+	0%,
+	12% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 0.2;
+	}
+	75%,
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes hero-rise {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+}
+@keyframes hero-settle {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+@keyframes hero-fade {
+	from {
+		opacity: 0;
+	}
+}
+/* Cards arrive from the portrait's side. */
+@keyframes hero-arrive {
+	from {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+}
+@keyframes hero-flash {
+	0% {
+		opacity: 0;
+	}
+	15% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes hero-ring {
+	0% {
+		opacity: 0;
+		transform: scale(1);
+	}
+	12% {
+		opacity: 0.8;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.16);
 	}
 }
 
@@ -205,20 +469,6 @@
 	}
 	100% {
 		stroke-dashoffset: -1;
-		opacity: 0;
-	}
-}
-@keyframes identity-pulse-back {
-	0% {
-		stroke-dashoffset: -1;
-		opacity: 1;
-	}
-	99% {
-		stroke-dashoffset: 0.16;
-		opacity: 1;
-	}
-	100% {
-		stroke-dashoffset: 0.16;
 		opacity: 0;
 	}
 }

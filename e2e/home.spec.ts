@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { heroAnimations, settleHeroEntrance } from "./hero";
 
 // The desktop identity map draws its dots and connectors from fixed geometry
 // (src/components/identity-map.tsx), so check the rendered cards still match it.
@@ -143,5 +144,49 @@ test.describe("home identity map motion", () => {
 		await page.waitForTimeout(3500);
 		expect(await activeIndex(page)).toBe(-1);
 		await expect(page.locator("[class*=identity-]")).toHaveCount(0);
+	});
+});
+
+// The hero entrance (DESIGN.md, "Hero entrance") plays on a document load and
+// not when a link brings the visitor back to the home page.
+test.describe("home hero entrance", () => {
+	test("plays on load, not after a client navigation", async ({ page }) => {
+		await page.goto("/");
+		await page.waitForFunction(
+			() => document.documentElement.dataset.entrance === "play",
+		);
+		expect(await heroAnimations(page)).toBeGreaterThan(0);
+		await settleHeroEntrance(page);
+		await page.getByRole("link", { name: "See the cases" }).click();
+		await expect(page.getByRole("heading", { level: 1 })).toHaveText("Cases");
+		await page.goBack();
+		await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+			"From problem definition to production.",
+		);
+		expect(await heroAnimations(page)).toBe(0);
+	});
+
+	test("does not play under reduced motion", async ({ browser }) => {
+		const context = await browser.newContext({ reducedMotion: "reduce" });
+		const page = await context.newPage();
+		await page.goto(`${test.info().project.use.baseURL}/`);
+		expect(
+			await page.evaluate(() => document.documentElement.dataset.entrance),
+		).toBeUndefined();
+		expect(await heroAnimations(page)).toBe(0);
+		await context.close();
+	});
+
+	test("keeps the hero visible without JavaScript", async ({ browser }) => {
+		const context = await browser.newContext({ javaScriptEnabled: false });
+		const page = await context.newPage();
+		await page.goto(`${test.info().project.use.baseURL}/`);
+		// No cover over the headline, and the rest of the hero at rest.
+		const cover = await page
+			.locator(".hero-headline")
+			.evaluate((h1) => getComputedStyle(h1, "::after").content);
+		expect(cover).toBe("none");
+		await expect(page.locator(".hero-intro")).toHaveCSS("opacity", "1");
+		await context.close();
 	});
 });

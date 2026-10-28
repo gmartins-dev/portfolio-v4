@@ -94,6 +94,26 @@ describe("useIdentityMapCycle", () => {
 		expect(result.current.active).toBe(1);
 	});
 
+	it("stays off until startAfter resolves", async () => {
+		mockMedia();
+		let start = () => {};
+		const startAfter = () =>
+			new Promise<void>((resolve) => {
+				start = resolve;
+			});
+		const { result } = renderHook(() =>
+			useIdentityMapCycle({ count: 6, stepMs, startAfter }),
+		);
+		act(() => result.current.onCardEnter(2));
+		advance(stepMs * 2);
+		expect(result.current.active).toBeNull();
+
+		await act(async () => start());
+		expect(result.current.active).toBe(0);
+		advance(stepMs);
+		expect(result.current.active).toBe(1);
+	});
+
 	it("clears its timer on unmount", () => {
 		mockMedia();
 		const { unmount } = render();
