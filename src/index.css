@@ -203,6 +203,12 @@
 	.identity-radiate {
 		animation: identity-radiate 800ms ease-out 700ms both;
 	}
+	/* Re-shown at lg after the sequence ran: jump to the end state. */
+	.identity-instant
+		:is(.identity-pulse, .identity-ping, .identity-trace, .identity-radiate) {
+		animation-delay: 0s;
+		animation-duration: 0s;
+	}
 	@media (prefers-reduced-motion: reduce) {
 		.identity-pulse,
 		.identity-trace,
@@ -337,9 +343,6 @@
 		stroke-dasharray: 0.16 1.2;
 		opacity: 0;
 		animation: identity-pulse 360ms var(--ease-beam) 850ms both;
-	}
-	html[data-entrance] .hero-cards > li {
-		position: relative;
 	}
 	html[data-entrance] .hero-cards > li::after {
 		content: "";

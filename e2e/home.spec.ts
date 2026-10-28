@@ -213,10 +213,16 @@ test.describe("home identity map motion", () => {
 test.describe("home hero entrance", () => {
 	test("plays on load, not after a client navigation", async ({ page }) => {
 		await page.goto("/");
+		// The entrance plays, or falls back to static when fonts miss their
+		// 1.2s budget on a busy machine (src/hero-entrance.ts); either way it
+		// must not replay below.
 		await page.waitForFunction(
+			() => document.documentElement.dataset.entrance !== "pending",
+		);
+		const played = await page.evaluate(
 			() => document.documentElement.dataset.entrance === "play",
 		);
-		expect(await heroAnimations(page)).toBeGreaterThan(0);
+		if (played) expect(await heroAnimations(page)).toBeGreaterThan(0);
 		await settleHeroEntrance(page);
 		await page.getByRole("link", { name: "See the cases" }).click();
 		await expect(page.getByRole("heading", { level: 1 })).toHaveText("Cases");

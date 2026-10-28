@@ -11,7 +11,8 @@ const reduceQuery = "(prefers-reduced-motion: reduce)";
  * counts the active cards. It stays null on the server, on the first client
  * render, below `lg` and under reduced motion, so the static markup is what
  * everyone else gets. If the map becomes eligible again after it started (a
- * resize back to `lg`), every card shows active at once rather than replaying.
+ * resize back to `lg`), every card shows active at once rather than replaying:
+ * `instant` turns true, and the map skips its overlays to their end state.
  */
 export function useIdentityMapSequence({
 	count,
@@ -23,6 +24,7 @@ export function useIdentityMapSequence({
 	startAfter?: () => Promise<void>;
 }) {
 	const [reached, setReached] = useState<number | null>(null);
+	const [instant, setInstant] = useState(false);
 
 	useEffect(() => {
 		if (typeof window.matchMedia !== "function") return;
@@ -48,6 +50,7 @@ export function useIdentityMapSequence({
 			if (!started) return;
 			if (active === 0) return advance();
 			active = count;
+			setInstant(true);
 			setReached(count);
 		};
 
@@ -67,5 +70,5 @@ export function useIdentityMapSequence({
 		};
 	}, [count, stepMs, startAfter]);
 
-	return { reached };
+	return { reached, instant };
 }

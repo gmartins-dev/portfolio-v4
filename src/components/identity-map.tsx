@@ -178,7 +178,7 @@ function cardClass(index: number, reached: number | null) {
 export function IdentityMap({ locale }: { locale: Locale }) {
 	const map = copy.home.identityMap;
 	// The sequence starts once the hero entrance has played out.
-	const { reached } = useIdentityMapSequence({
+	const { reached, instant } = useIdentityMapSequence({
 		count: dots.length,
 		stepMs: motion.stepMs,
 		startAfter: whenHeroEntranceSettled,
@@ -187,7 +187,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 	return (
 		<section
 			aria-labelledby="identity-map"
-			className="mt-12 lg:mt-0 lg:w-[552px]"
+			className={`mt-12 lg:mt-0 lg:w-[552px]${instant ? " identity-instant" : ""}`}
 		>
 			<h2 id="identity-map" className="sr-only">
 				{t(map.listLabel, locale)}
