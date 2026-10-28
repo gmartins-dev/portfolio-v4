@@ -260,8 +260,18 @@ the portrait to its dot (0 to 360ms); the card turns active (from 300ms);
 the dot pings and stays bright (from 330ms); light runs around the card
 border from where the connector meets it (340 to 1040ms); a ring spreads
 from the card (from 700ms). The beam only travels out, and the portrait
-itself does not pulse. About 3.75s after it starts, all six are active and
-the map holds still.
+itself does not pulse while the cards light.
+
+The sequence closes once, as the last card activates, with the portrait
+absorbing the energy of all six (`absorb` in
+`src/components/identity-map.tsx`, timed from that moment): six beams run
+back at once, dot to portrait, the pulse in reverse (800 to 1220ms); as
+they land, one short arc of light, a bright core over a brand halo, runs a
+single lap of the portrait's ring, leaving and returning at its right side,
+where the connectors meet it (1180 to 2380ms); and the whole ring glows
+once as the lap closes (2340 to 3040ms). It is light along the ring and
+the connectors, never a ring spreading outward. About 5.3s after the
+sequence starts, the map holds still, all six cards active.
 
 - The timings live in `motion` (`src/components/identity-map.tsx`), and the
   keyframes in `src/index.css` repeat them; change both together.

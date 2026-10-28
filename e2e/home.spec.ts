@@ -159,6 +159,40 @@ test.describe("home identity map motion", () => {
 		expect(await activeCards(page)).toEqual(Array(6).fill(true));
 	});
 
+	test("closes with one orbit of the portrait after the last card", async ({
+		page,
+		isMobile,
+	}) => {
+		test.skip(isMobile, "desktop layout");
+		await page.setViewportSize({ width: 1440, height: 900 });
+		await page.goto("/");
+		const orbit = page.locator(".identity-orbit");
+		// Nothing absorbs while cards are still lighting.
+		await expect
+			.poll(async () => (await activeCards(page)).filter(Boolean).length, {
+				timeout: 10_000,
+			})
+			.toBeGreaterThan(2);
+		if ((await activeCards(page)).filter(Boolean).length < 6)
+			await expect(orbit).toHaveCount(0);
+		await expect(orbit.first()).toBeAttached({ timeout: 10_000 });
+		expect(await activeCards(page)).toEqual(Array(6).fill(true));
+		// It plays once and lets go: no identity animation is left running.
+		await page.waitForFunction(
+			() =>
+				document
+					.getAnimations()
+					.filter(
+						(a) =>
+							a instanceof CSSAnimation &&
+							a.animationName.startsWith("identity-"),
+					)
+					.every((a) => a.playState === "finished"),
+			null,
+			{ timeout: 10_000 },
+		);
+	});
+
 	test("starts with no card highlighted before the sequence runs", async ({
 		browser,
 		isMobile,

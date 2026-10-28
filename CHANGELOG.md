@@ -5,6 +5,15 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Identity map close (2026-10-28)
+
+- When the activation sequence lights the last card, the portrait absorbs
+  the energy of all six: beams run back from every dot to the portrait at
+  once, one arc of light runs a single lap of the portrait's ring, and the
+  ring glows once as the lap closes. Then the map holds still.
+- Not played below `lg`, under reduced motion, or when the map is shown
+  again after a resize (the cards just show active).
+
 ### Responsive layout (2026-10-27)
 
 - The content column grows from 64rem to 72rem (1104px of content from

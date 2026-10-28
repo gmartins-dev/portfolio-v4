@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { copy } from "../content/copy";
 import { locales } from "../i18n";
 import {
+	absorb,
 	cardOutline,
 	geometry,
 	IdentityMap,
@@ -97,9 +98,24 @@ describe("IdentityMap", () => {
 		}
 		expect(
 			container.querySelector(
-				".identity-pulse, .identity-trace, .identity-radiate",
+				".identity-pulse, .identity-trace, .identity-radiate, .identity-absorb, .identity-orbit, .identity-charge",
 			),
 		).toBeNull();
+	});
+
+	it("closes with beams back, then one orbit, then the glow", () => {
+		const end = (phase: { start: number; ms: number }) =>
+			phase.start + phase.ms;
+		// The orbit starts as the beams land, the glow as the orbit closes.
+		expect(
+			Math.abs(absorb.orbit.start - end(absorb.beams)),
+		).toBeLessThanOrEqual(60);
+		expect(
+			Math.abs(absorb.charge.start - end(absorb.orbit)),
+		).toBeLessThanOrEqual(60);
+		// The last card's own effects are under way before the beams leave.
+		expect(absorb.beams.start).toBeGreaterThanOrEqual(motion.radiate.start);
+		expect(end(absorb.charge)).toBeLessThan(3500);
 	});
 
 	it("finishes the whole sequence within four seconds", () => {

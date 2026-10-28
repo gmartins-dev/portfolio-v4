@@ -232,6 +232,25 @@
 	.identity-radiate {
 		animation: identity-radiate 800ms ease-out 700ms both;
 	}
+	/* The close, once the last card activates (`absorb` in identity-map.tsx):
+	   beams run back from every dot (the pulse in reverse), light orbits
+	   the portrait's ring once, and the ring glows as the orbit closes. */
+	.identity-absorb {
+		stroke-dasharray: 0.16 1.2;
+		opacity: 0;
+		animation: identity-absorb 420ms var(--ease-beam) 800ms both;
+	}
+	/* One short dash, one lap: it enters at the ring's start (3 o'clock)
+	   and leaves past its end, so it is never seen twice. */
+	.identity-orbit {
+		stroke-dasharray: 0.2 1;
+		opacity: 0;
+		animation: identity-orbit 1200ms var(--ease-beam) 1180ms both;
+	}
+	.identity-charge {
+		opacity: 0;
+		animation: identity-charge 700ms ease-out 2340ms both;
+	}
 	/* Re-shown at lg after the sequence ran: jump to the end state. */
 	.identity-instant
 		:is(.identity-pulse, .identity-ping, .identity-trace, .identity-radiate) {
@@ -241,7 +260,10 @@
 	@media (prefers-reduced-motion: reduce) {
 		.identity-pulse,
 		.identity-trace,
-		.identity-radiate {
+		.identity-radiate,
+		.identity-absorb,
+		.identity-orbit,
+		.identity-charge {
 			display: none;
 		}
 		.identity-ping {
@@ -492,6 +514,40 @@
 	}
 }
 
+/* The pulse in reverse: from the dot back to the portrait. */
+@keyframes identity-absorb {
+	0% {
+		stroke-dashoffset: -1;
+		opacity: 1;
+	}
+	99% {
+		stroke-dashoffset: 0.16;
+		opacity: 1;
+	}
+	100% {
+		stroke-dashoffset: 0.16;
+		opacity: 0;
+	}
+}
+@keyframes identity-orbit {
+	0% {
+		stroke-dashoffset: 0.2;
+		opacity: 1;
+	}
+	99% {
+		stroke-dashoffset: -1;
+		opacity: 1;
+	}
+	100% {
+		stroke-dashoffset: -1;
+		opacity: 0;
+	}
+}
+@keyframes identity-charge {
+	30% {
+		opacity: 0.7;
+	}
+}
 @keyframes identity-pulse {
 	0% {
 		stroke-dashoffset: 0.16;
