@@ -185,8 +185,8 @@ column, close enough that the hero reads as one composition.
   hero's face where there is no map around it, then the cards in one column,
   two from `sm`, then the principles centered.
 - **Hero buttons on phones.** Below `sm` the two hero buttons sit at the
-  column's left and right edges (`justify-between`); from `sm` they group on
-  the left.
+  column's left and right edges (`ml-auto` on the second, which keeps it
+  right even when it wraps); from `sm` they group on the left.
 
 ## Phones
 

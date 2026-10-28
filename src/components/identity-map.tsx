@@ -5,6 +5,15 @@ import type { Locale } from "../i18n";
 import { useIdentityMapSequence } from "./use-identity-map-sequence";
 
 /**
+ * The ring baked into the portrait master (scripts/compose-portrait.mjs), as
+ * fractions of the master's radius: its stroke is centered at 493 of 512 and
+ * ends at 500.
+ */
+const masterRing = { center: 493 / 512, outer: 500 / 512 };
+
+const photoRadius = 116;
+
+/**
  * Desktop geometry of the map, in px inside its 552px column. Cards
  * stack from the top; their left edges follow a circle of `arcRadius` that
  * bulges toward the middle, and the decorative SVG is drawn from the same
@@ -20,13 +29,12 @@ export const geometry = {
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
-	photo: { x: 116, radius: 116 },
+	photo: { x: photoRadius, radius: photoRadius },
 	/**
-	 * Connectors start on this circle around the photo center: about 4px
-	 * outside the ring baked into the image, whose outer edge sits near
-	 * 113px (500 of 512 in the master).
+	 * Connectors start on this circle around the photo center, 4px outside
+	 * the ring baked into the image (its outer edge sits near 113px).
 	 */
-	connectorRadius: 117,
+	connectorRadius: photoRadius * masterRing.outer + 4,
 	/**
 	 * The steepest connector leaves the photo at this angle in degrees; the
 	 * others scale down with it, so every connector starts on the portrait's
@@ -70,8 +78,8 @@ export const absorb = {
 	charge: { start: 2340, ms: 700 },
 };
 
-/** The ring baked into the portrait sits this far inside its edge. */
-const ringInset = 1.5;
+/** The center of the portrait's ring sits this far inside its edge, about 4.3px. */
+const ringInset = geometry.photo.radius * (1 - masterRing.center);
 
 /** Card corner radius in px, matching `rounded-lg` (--radius). */
 const cardRadius = 8;
@@ -321,7 +329,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				{/* Centered on the card stack. No inline style: the page CSP
 				    (style-src 'self') would drop it. */}
 				<div
-					className={`hero-portrait relative mx-auto w-fit lg:absolute lg:left-0 lg:mx-0 ${photoTopClass}`}
+					className={`hero-portrait relative mx-auto w-fit lg:absolute lg:left-0 ${photoTopClass}`}
 				>
 					<img
 						src="/images/profile/portrait-240.webp"
@@ -427,11 +435,13 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				    since each clause is an inline block. */}
 				<p className="lg:text-[13px]">
 					{t(map.grounding, locale)
-						.split(/(?<=;) /)
-						.map((clause, index) => (
+						.split("; ")
+						.map((clause, index, clauses) => (
 							<Fragment key={clause}>
 								{index > 0 && " "}
-								<span className="inline-block">{clause}</span>
+								<span className="inline-block">
+									{index < clauses.length - 1 ? `${clause};` : clause}
+								</span>
 							</Fragment>
 						))}
 				</p>

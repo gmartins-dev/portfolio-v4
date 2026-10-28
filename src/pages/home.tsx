@@ -38,7 +38,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							<p key={paragraph}>{paragraph}</p>
 						))}
 					</div>
-					<div className="hero-actions mt-8 flex flex-wrap justify-between gap-3 sm:justify-start">
+					<div className="hero-actions mt-8 flex flex-wrap gap-3">
 						<a
 							href={`mailto:${profile.email}`}
 							className={buttonVariants({
@@ -51,6 +51,8 @@ export function HomePage({ locale }: { locale: Locale }) {
 							to={localizedPath(locale, "/cases")}
 							className={buttonVariants({
 								variant: "outline",
+								// Right edge below sm, even when it wraps to its own line.
+								className: "ml-auto sm:ml-0",
 							})}
 						>
 							{t(copy.home.workCta, locale)}
