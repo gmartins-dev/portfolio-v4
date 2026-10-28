@@ -5,6 +5,17 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### First-visit language and PWA removal (2026-10-28)
+
+- A visitor whose browser prefers Portuguese (pt, pt-BR, pt-PT...) who opens
+  `/` is sent to `/pt-br`; every other language stays in English. Only `/`
+  redirects, the query string and hash are kept, and a language picked with
+  the header toggle is remembered in `localStorage` and wins from then on
+  ([ADR-012](docs/adr/012-first-visit-locale-detection.md)).
+- Removed: the web app manifest (`site.webmanifest`) and the PWA icons. The
+  site never had a service worker, so nothing installable or offline went
+  away. Favicons, the Apple touch icon and `theme-color` stay.
+
 ### Identity map close (2026-10-28)
 
 - When the activation sequence lights the last card, the portrait absorbs

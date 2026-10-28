@@ -78,7 +78,6 @@ Todas sob SIL Open Font License. O wordmark já está em contornos.
 
 - **Favicon:** `icons/favicon.svg` + `favicon.ico` (16, 32, 48) com o símbolo simplificado.
 - **Apple touch icon:** 180 × 180, fundo navy-950 sem transparência.
-- **PWA:** 192 e 512; maskable 512 com o símbolo dentro da zona segura.
 - **Open Graph:** 1200 × 630, versões EN e pt-BR.
 - **LinkedIn:** capa 1584 × 396 com o conteúdo à direita (a foto de perfil cobre o canto inferior esquerdo); avatar 1024 com anel azul.
 - **Apps:** iOS 1024 e Google Play 512 (variante gm em `app/alt-gm/`).

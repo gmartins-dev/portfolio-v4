@@ -21,7 +21,7 @@ brand/
 │   ├── svg/        arquivos-mestre vetoriais (use estes na web)
 │   ├── png/        exportações transparentes para uploads fora do repositório
 │   └── print/      PDFs vetoriais para fornecedores e impressão
-├── icons/          favicon, apple touch icon, PWA e site.webmanifest
+├── icons/          favicon e apple touch icon
 ├── app/            ícone iOS 1024, Google Play 512 (alt-gm/ com a variante gm)
 ├── social/         Open Graph EN e pt-BR, capa LinkedIn, avatar (+ source/ em HTML/SVG)
 ├── tokens/         colors.css, tokens.json (cores, fontes)
@@ -52,7 +52,7 @@ O site serve estas cópias a partir de `public/` (nada copia sozinho):
 
 | Mestre em `brand/` | Servido em |
 | --- | --- |
-| `icons/favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `pwa-*.png`, `site.webmanifest` | raiz de `public/` |
+| `icons/favicon.svg`, `favicon.ico`, `apple-touch-icon.png` | raiz de `public/` |
 | `logos/svg/logo-primary.svg`, `logo-primary-dark.svg` | `public/brand/` |
 | `social/source/portrait-photo-2026.png` (foto original do retrato) | `social/source/portrait-1024.png`, gerado por `pnpm compose:portrait` (fundo nas cores do site, rosto intacto, anel em `--brand`) |
 | `social/source/portrait-1024.png` (retrato do hero, com o anel já aplicado) | `public/images/profile/portrait-240.webp` e `-480.webp`, gerados por `pnpm export:portrait` |

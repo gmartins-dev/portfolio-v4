@@ -3,7 +3,7 @@
 // navy background, the wordmark from brand/logos/svg and Inter Display from
 // brand/fonts. Run manually after changing a headline or adding a case study:
 // `pnpm build:og-images`. The PNGs are committed, so builds and CI do not need
-// a browser. The apple-touch-icon and PWA icons ship from brand/icons/.
+// a browser. The apple-touch-icon ships from brand/icons/.
 import { mkdir, readFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { createServer } from "vite";

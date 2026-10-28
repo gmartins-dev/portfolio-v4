@@ -14,6 +14,8 @@ export default defineConfig({
 	reporter: process.env.CI ? [["github"], ["list"]] : "list",
 	use: {
 		baseURL: `http://localhost:${port}`,
+		// First-visit detection redirects "/" by browser language; pin it for the suite.
+		locale: "en-US",
 		trace: "retain-on-failure",
 	},
 	projects: [

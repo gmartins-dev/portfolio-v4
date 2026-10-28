@@ -19,6 +19,7 @@ import { caseStudies } from "./content/work";
 import { heroEntranceScript } from "./hero-entrance";
 import { type Locale, localeFromPath, locales, localizedPath } from "./i18n";
 import stylesheet from "./index.css?url";
+import { localeRedirectScript } from "./locale-redirect";
 import { isNotFound } from "./not-found";
 import { AboutPage } from "./pages/about";
 import { CaseStudyPage } from "./pages/case-study";
@@ -81,7 +82,6 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 			{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
 			{ rel: "icon", href: "/favicon.ico", sizes: "32x32" },
 			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-			{ rel: "manifest", href: "/site.webmanifest" },
 		],
 		scripts: [
 			// The page is fully prerendered; hydration can wait behind the LCP image.
@@ -107,6 +107,13 @@ function Document() {
 					// biome-ignore lint/security/noDangerouslySetInnerHtml: a constant from this repo, allowed by hash in the page CSP.
 					dangerouslySetInnerHTML={{ __html: heroEntranceScript }}
 				/>
+				{/* Only the English home redirects; other pages carry no script. */}
+				{pathname === "/" && (
+					<script
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: a constant from this repo, allowed by hash in the page CSP.
+						dangerouslySetInnerHTML={{ __html: localeRedirectScript }}
+					/>
+				)}
 				<HeadContent />
 				{/* Browser UI color, mirroring --background in index.css. */}
 				<meta name="theme-color" content="#08121c" />

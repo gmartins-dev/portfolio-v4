@@ -1,6 +1,9 @@
 export const locales = ["en", "pt-BR"] as const;
 export type Locale = (typeof locales)[number];
 
+/** localStorage key holding the language picked with the header toggle. */
+export const localeStorageKey = "locale";
+
 /** URL prefix per locale. English lives at the root; PT-BR under /pt-br. */
 const prefixes: Record<Locale, string> = {
 	en: "",

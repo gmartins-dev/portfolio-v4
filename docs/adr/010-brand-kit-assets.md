@@ -47,3 +47,5 @@ cards.
 - `biome` excludes `brand/` because it holds design sources, not code.
 - Social cards and the site no longer share a font: the cards use Inter Display,
   the site Geist. This is deliberate and follows the brand guidelines.
+- The kit no longer ships PWA icons or a web app manifest: the site has no
+  service worker or offline mode, so nothing used them (2026-10-28).
