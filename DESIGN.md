@@ -65,8 +65,8 @@ the light brand cyan.
   `src/index.css`; not `max-w-prose`, whose 65ch runs to 90 with Geist's
   wide "0").
 - The lead paragraph under a page's `h1` is `text-lg text-muted-foreground`
-  on every page (the home hero steps up to `text-xl` with `leading-8` at
-  `lg`, with its 64px headline); body prose (About, case study sections) uses the
+  on every page (the home hero steps up at `lg` with `text-hero-title` and
+  `text-hero-intro`, see Hero identity map, Balance); body prose (About, case study sections) uses the
   foreground color.
 - No eyebrow labels above headings; the heading carries its own weight. Put
   context in the sentence that follows it.
@@ -85,7 +85,15 @@ the light brand cyan.
   `src/components/ui/button.tsx` (variants `brand` and `outline`, one size).
   Classes are joined, not merged, so `className` is for layout only (margins,
   `print:hidden`); change padding or colors in the variant itself.
-- Content width `max-w-5xl`, page gutter `px-4` (mobile) to `px-6`.
+- One content column for header, main and footer: `pageShell`
+  (`src/components/page-shell.ts`), `max-w-6xl` (72rem: 1104px of content
+  from 1152px up) with a `px-4` gutter on phones and `px-6` from `sm`.
+  Within it, reading text stays at `max-w-measure`; images, grids and the
+  hero use the full column. Change the width there, never per page, and
+  update the image `sizes` in `src/components/work.tsx` and
+  `src/pages/case-study.tsx`, which are computed from it.
+- Grids gain columns only when each column has room for its text: three
+  short text items go three across from `lg`, not `md`.
 - Group related items with spacing and a single top border, not cards.
   Two exceptions: the hero identity map, and the home "Where I have worked"
   band (`bg-muted rounded-lg`), which breaks up the long home page.
@@ -112,7 +120,7 @@ the light brand cyan.
 
 The home hero's right column (`src/components/identity-map.tsx`) shows the
 identity map from `docs/positioning.md`: the circular portrait at 240px (the
-one place for `rounded-full`; the ring is baked into the image), with no
+one place for `rounded-full`; the ring, in `--brand`, is baked into the image), with no
 caption (the intro names him), then six cards on an arc in a 528px column,
 with a quiet principles line below. A 40px gap separates it from the text
 column, close enough that the hero reads as one composition.
@@ -131,10 +139,10 @@ column, close enough that the hero reads as one composition.
   the foreground color) and stays active. The cards, dots and connectors
   are this component's only uses of the accent outside links; keep it that
   way.
-- **Geometry.** Card offsets, card height (100px), gaps (18px), photo
+- **Geometry.** Card offsets, card height (90px), gaps (10px), photo
   position and the SVG are derived from one `geometry` constant. Change the
   numbers there, keep `offsetClasses`, `photoTopClass` and the card
-  `lg:h-[100px]`, the column width in `home.tsx` and the portrait size in
+  `lg:h-[90px]`, the column width in `home.tsx` and the portrait size in
   sync (unit tests check the first two; no inline styles,
   the page CSP drops them), and let `e2e/home.spec.ts` confirm the dots
   stay on the card centers and no text is clipped. Connector angles are
@@ -142,14 +150,24 @@ column, close enough that the hero reads as one composition.
   degrees), so every connector starts on the portrait's right side. Card
   lines keep hyphenated words whole and bind each middle dot to the word
   before it; the principles keep each item on one line. The decorative SVG
-  is `aria-hidden` and `print:hidden`. At `lg` card titles are 15px and
-  lines 13px, sized so the longest title holds one line and the longest
-  pt-BR line at most three, inside the card height.
+  is `aria-hidden` and `print:hidden`. At `lg` card titles are 15/22px and
+  lines 13/17px with `py-1.5`, sized so the longest title holds one line
+  and the longest pt-BR line (Agentic engineering, three lines) fits the
+  card height.
 - **Balance.** The two hero columns (headline to buttons, cards to
   principles) share one height, within 24px at 1024, 1280 and 1440 in both
-  languages (`e2e/home.spec.ts`). The left column is 408px at every `lg`
-  width, so when the hero copy changes, rebalance with the card height and
-  gap.
+  languages (`e2e/home.spec.ts`). The map column is a fixed 528px; the
+  text column takes the rest, 408px at 1024 growing to 536px from 1152px.
+  The hero type grows with it through fluid tokens in `src/index.css`
+  (`text-hero-title` 60 to 64px, `text-hero-intro` 18/28 to 20/34px,
+  between 1024 and 1152px), so the columns stay level across that range.
+  The headline's last two words never split ("to production").
+- **First screen.** The whole hero, headline to buttons and cards to
+  principles, fits a 1440x790 window (Chrome on a 900px-tall screen) in
+  both languages, with `lg:pt-8` under the header (`e2e/home.spec.ts`). It
+  is the first impression, so this outranks bigger type or cards: when the
+  hero copy changes, rebalance with the type tokens, the card height and
+  the gap without growing the hero past it.
 - **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
   or the arc offsets: the portrait at 128px, then the cards in one column,
   two from `sm`, then the principles left aligned.

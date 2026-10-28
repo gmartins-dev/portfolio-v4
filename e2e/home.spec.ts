@@ -47,6 +47,30 @@ test.describe("home identity map", () => {
 	}
 });
 
+// The hero is the first impression: all of it, buttons and principles
+// included, fits a 1440x790 window (DESIGN.md, "First screen").
+test.describe("home hero first screen", () => {
+	for (const path of ["/", "/pt-br"]) {
+		test(`${path} fits a 1440x790 window`, async ({ page, isMobile }) => {
+			test.skip(isMobile, "desktop layout");
+			await page.setViewportSize({ width: 1440, height: 790 });
+			await page.goto(path);
+			await page.evaluate(() => document.fonts.ready);
+			const bottom = await page
+				.locator("main section")
+				.first()
+				.evaluate((hero) =>
+					Math.max(
+						...[...hero.children].map(
+							(el) => el.getBoundingClientRect().bottom,
+						),
+					),
+				);
+			expect(bottom).toBeLessThanOrEqual(790);
+		});
+	}
+});
+
 // The two hero columns (headline to buttons, cards to principles) keep the
 // same height, so neither block hangs below the other (DESIGN.md, "Hero").
 test.describe("home hero balance", () => {

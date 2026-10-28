@@ -14,9 +14,9 @@ import { useIdentityMapSequence } from "./use-identity-map-sequence";
  */
 export const geometry = {
 	width: 528,
-	cardHeight: 100,
-	cardGap: 18,
-	offsets: [258, 274, 284, 284, 274, 258],
+	cardHeight: 90,
+	cardGap: 10,
+	offsets: [258, 270, 278, 278, 270, 258],
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
@@ -72,10 +72,10 @@ export function cardOutline(offset: number) {
 
 export const offsetClasses = [
 	"lg:ml-[258px]",
-	"lg:ml-[274px]",
-	"lg:ml-[284px]",
-	"lg:ml-[284px]",
-	"lg:ml-[274px]",
+	"lg:ml-[270px]",
+	"lg:ml-[278px]",
+	"lg:ml-[278px]",
+	"lg:ml-[270px]",
 	"lg:ml-[258px]",
 ];
 
@@ -83,7 +83,7 @@ export const offsetClasses = [
  * Top of the portrait at lg, centering it on the card stack. A literal for
  * Tailwind; identity-map.test.tsx checks it against `geometry`.
  */
-export const photoTopClass = "lg:top-[225px]";
+export const photoTopClass = "lg:top-[175px]";
 
 const height =
 	geometry.offsets.length * geometry.cardHeight +
@@ -164,7 +164,7 @@ const cardMotion =
 
 /** Card classes: static (all alike), or the sequence's active and resting states. */
 function cardClass(index: number, reached: number | null) {
-	const base = `relative rounded-lg border px-3.5 py-2.5 lg:flex lg:h-[100px] lg:flex-col lg:justify-center ${offsetClasses[index]}`;
+	const base = `relative rounded-lg border px-3.5 py-2.5 lg:flex lg:py-1.5 lg:h-[90px] lg:flex-col lg:justify-center ${offsetClasses[index]}`;
 	// Where the sequence will run (desktop, motion allowed), cards start at
 	// rest so each activation reads as one; elsewhere all six share the brand
 	// border.
@@ -289,7 +289,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				</div>
 				<ol
 					aria-labelledby="identity-map"
-					className="hero-cards relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[18px]"
+					className="hero-cards relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
 				>
 					{map.dimensions.map((dimension, index) => {
 						const outline = isActive(index)
@@ -332,7 +332,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 								<p className="text-sm font-semibold lg:text-[15px] lg:leading-[22px]">
 									{t(dimension.title, locale)}
 								</p>
-								<p className="mt-0.5 text-xs text-muted-foreground lg:text-[13px] lg:leading-[18px]">
+								<p className="mt-0.5 text-xs text-muted-foreground lg:text-[13px] lg:leading-[17px]">
 									{dottedItems(t(dimension.line, locale))}
 								</p>
 							</li>
@@ -340,7 +340,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					})}
 				</ol>
 			</div>
-			<div className="hero-principles mt-6 space-y-1 text-xs text-muted-foreground lg:mt-8 lg:text-center">
+			<div className="hero-principles mt-6 space-y-1 text-xs text-muted-foreground lg:mt-5 lg:text-center">
 				<p className="font-mono">
 					{dottedItems(t(map.principles, locale), { wholeItems: true })}
 				</p>

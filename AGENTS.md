@@ -16,6 +16,7 @@
 | Full e2e (first run: `pnpm exec playwright install chromium`) | `pnpm test:e2e` |
 | Recapture screenshots (hits live URLs; optional shot names) | `pnpm capture:work-images [name ...]` |
 | Re-render social cards | `pnpm build:og-images` |
+| Recompose the hero portrait master from its photo | `pnpm compose:portrait` |
 | Re-export the hero portrait from its brand master | `pnpm export:portrait` |
 | Re-render diagrams (optional names) | `pnpm render:diagrams [name ...]` |
 

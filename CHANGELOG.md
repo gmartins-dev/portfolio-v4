@@ -5,6 +5,24 @@ is in the [roadmap](ROADMAP.md).
 
 ## Unreleased
 
+### Responsive layout (2026-10-27)
+
+- The content column grows from 64rem to 72rem (1104px of content from
+  1152px up), shared by header, main and footer through one `pageShell`
+  constant, so wide screens no longer show a narrow strip; gutters stay
+  16px on phones and 24px from `sm`.
+- The whole home hero fits a 1440x790 window in both languages (it was
+  cut below the buttons on windows under about 950px tall): the identity
+  map is more compact (90px cards, 10px gaps), the hero sits 32px under
+  the header, and its type grows fluidly between 1024 and 1152px
+  (headline 60 to 64px, intro 18/28 to 20/34px) as its text column widens,
+  so both columns stay level. The headline keeps "to production" together.
+- "Where to see it" (How I work) goes three across from `lg` instead of
+  `md`, and "Other case studies" uses two columns for its two items.
+- Image `sizes` follow the wider column, so browsers fetch the right file.
+- Checked 13 pages at 17 widths from 320 to 2560px: no horizontal overflow,
+  header, main and footer edges aligned at every width.
+
 ### Hero entrance (2026-10-27)
 
 - The home hero welcomes the visitor once per page load: a soft front of

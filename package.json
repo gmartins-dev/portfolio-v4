@@ -26,6 +26,7 @@
 		"test:e2e:a11y": "playwright test --grep @a11y",
 		"check:dist": "node scripts/check-dist.mjs",
 		"render:diagrams": "node scripts/render-diagrams.mjs",
+		"compose:portrait": "node scripts/compose-portrait.mjs",
 		"export:portrait": "node scripts/export-portrait.mjs"
 	},
 	"dependencies": {

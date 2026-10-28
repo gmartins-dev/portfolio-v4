@@ -63,6 +63,28 @@
 	   lines of 85 to 95 characters at text-lg; 36rem keeps them near 65 to 75. */
 	--container-measure: 36rem;
 
+	/* Home hero type from lg up (text-hero-title, text-hero-intro). Between
+	   1024 and 1152px the hero's text column widens from 408 to 536px with
+	   the page column (src/components/page-shell.ts); the type grows with it,
+	   so the column keeps the identity map's height beside it and the whole
+	   hero fits a 790px-tall window. 60 to 64px for the headline, 18/28 to
+	   20/34px for the intro; fixed outside that range. */
+	--text-hero-title: clamp(
+		3.75rem,
+		calc(3.75rem + (100vw - 64rem) * 0.03125),
+		4rem
+	);
+	--text-hero-intro: clamp(
+		1.125rem,
+		calc(1.125rem + (100vw - 64rem) * 0.015625),
+		1.25rem
+	);
+	--text-hero-intro--line-height: clamp(
+		1.75rem,
+		calc(1.75rem + (100vw - 64rem) * 0.046875),
+		2.125rem
+	);
+
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-card: var(--card);

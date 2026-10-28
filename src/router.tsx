@@ -9,6 +9,7 @@ import {
 	useLocation,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { pageShell } from "./components/page-shell";
 import { RouteFocus } from "./components/route-focus";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
@@ -113,11 +114,7 @@ function Document() {
 			</head>
 			<body className="flex min-h-dvh flex-col">
 				<SiteHeader />
-				<main
-					id="main"
-					tabIndex={-1}
-					className="mx-auto w-full max-w-5xl flex-1 px-4 sm:px-6"
-				>
+				<main id="main" tabIndex={-1} className={`${pageShell} flex-1`}>
 					<Outlet />
 				</main>
 				<SiteFooter />
