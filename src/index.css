@@ -149,15 +149,15 @@
 }
 
 /*
- * Hero identity map loop (src/components/identity-map.tsx). Delays and
- * durations repeat `motion` there; DESIGN.md "Motion" describes the sequence.
- * Elements are remounted on every step, so each animation plays once.
+ * Identity map activation sequence (src/components/identity-map.tsx). Delays
+ * and durations repeat `motion` there; DESIGN.md "Motion" describes it. Each
+ * card's overlays mount when it activates, so every animation plays once.
  */
 @layer components {
 	.identity-pulse {
 		stroke-dasharray: 0.16 1.2;
 		opacity: 0;
-		animation: identity-pulse 500ms cubic-bezier(0.4, 0, 0.6, 1) both;
+		animation: identity-pulse 360ms var(--ease-beam) both;
 	}
 	/* A soft brand glow under the pulse; the keyframes own opacity. */
 	.identity-halo {
@@ -166,24 +166,20 @@
 	.identity-ping {
 		transform-box: fill-box;
 		transform-origin: center;
-		animation: identity-ping 500ms ease-out 450ms both;
+		animation: identity-ping 500ms ease-out 330ms both;
 	}
 	.identity-trace {
 		stroke-dasharray: 1 1;
 		opacity: 0;
-		animation: identity-trace 900ms cubic-bezier(0.4, 0, 0.2, 1) 500ms both;
+		animation: identity-trace 700ms cubic-bezier(0.4, 0, 0.2, 1) 340ms both;
 	}
 	.identity-radiate {
-		animation: identity-radiate 800ms ease-out 1150ms both;
-	}
-	.identity-ring {
-		animation: identity-ring 900ms ease-out both;
+		animation: identity-radiate 800ms ease-out 700ms both;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.identity-pulse,
 		.identity-trace,
-		.identity-radiate,
-		.identity-ring {
+		.identity-radiate {
 			display: none;
 		}
 		.identity-ping {
@@ -203,7 +199,8 @@
  * 2. Connection. Pulses leave the portrait along the six connectors (the
  *    loop's own pulse, src/components/identity-map.tsx), and each card
  *    arrives, with a brief brand edge, as its pulse lands.
- * 3. Ready. A ring of light leaves the portrait; then the loop takes over.
+ * 3. Ready. The principles fade in; then the identity map's activation
+ *    sequence takes over and lights the cards one by one.
  *
  * Animations describe their start state and fill backwards, so each ends on
  * the element's own style. Flashes and rings rest at opacity 0.
@@ -211,6 +208,8 @@
 :root {
 	--ease-entrance: cubic-bezier(0.23, 1, 0.32, 1);
 	--ease-sweep: cubic-bezier(0.32, 0.72, 0, 1);
+	/* Beams moving along a connector: quick, smooth at both ends. */
+	--ease-beam: cubic-bezier(0.77, 0, 0.175, 1);
 }
 @layer components {
 	html[data-entrance="pending"]
@@ -310,7 +309,7 @@
 		display: inline;
 		stroke-dasharray: 0.16 1.2;
 		opacity: 0;
-		animation: identity-pulse 500ms cubic-bezier(0.4, 0, 0.6, 1) 850ms both;
+		animation: identity-pulse 360ms var(--ease-beam) 850ms both;
 	}
 	html[data-entrance] .hero-cards > li {
 		position: relative;
@@ -370,18 +369,6 @@
 	}
 
 	/* Beat 3. */
-	html[data-entrance] .hero-portrait::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		border: 1.5px solid var(--brand);
-		border-radius: 9999px;
-		opacity: 0;
-		pointer-events: none;
-	}
-	html[data-entrance="play"] .hero-portrait::after {
-		animation: hero-ring 900ms var(--ease-entrance) 1900ms both;
-	}
 	html[data-entrance="play"] .hero-principles {
 		animation: hero-fade 700ms var(--ease-entrance) 1800ms backwards;
 	}
@@ -444,19 +431,6 @@
 		opacity: 0;
 	}
 }
-@keyframes hero-ring {
-	0% {
-		opacity: 0;
-		transform: scale(1);
-	}
-	12% {
-		opacity: 0.8;
-	}
-	100% {
-		opacity: 0;
-		transform: scale(1.16);
-	}
-}
 
 @keyframes identity-pulse {
 	0% {
@@ -510,16 +484,5 @@
 	}
 	100% {
 		box-shadow: 0 0 0 10px transparent;
-	}
-}
-@keyframes identity-ring {
-	0% {
-		box-shadow: 0 0 0 0 transparent;
-	}
-	1% {
-		box-shadow: 0 0 0 0 color-mix(in oklch, var(--brand) 40%, transparent);
-	}
-	100% {
-		box-shadow: 0 0 0 12px transparent;
 	}
 }

@@ -9,8 +9,8 @@ file explains how to use them.
 A developer portfolio read by engineering managers, tech leads, and
 recruiters. Editorial and technical: typography, spacing, and real project
 images carry the page. No gradients, glows, badges walls, or decorative
-motion, with two documented exceptions in the home hero: its entrance and
-the identity map's loop (see Motion).
+motion, with one documented exception: the home hero's opening, its
+entrance and then the identity map's activation sequence (see Motion).
 
 This direction is the working choice for v4. It has not yet been compared
 against an alternative (Phase 5 of the plan), so expect adjustments.
@@ -65,7 +65,8 @@ the light brand cyan.
   `src/index.css`; not `max-w-prose`, whose 65ch runs to 90 with Geist's
   wide "0").
 - The lead paragraph under a page's `h1` is `text-lg text-muted-foreground`
-  on every page; body prose (About, case study sections) uses the
+  on every page (the home hero steps up to `text-xl` with `leading-8` at
+  `lg`, with its 64px headline); body prose (About, case study sections) uses the
   foreground color.
 - No eyebrow labels above headings; the heading carries its own weight. Put
   context in the sentence that follows it.
@@ -110,38 +111,43 @@ the light brand cyan.
 ### Hero identity map
 
 The home hero's right column (`src/components/identity-map.tsx`) shows the
-identity map from `docs/positioning.md`: the circular portrait at 208px (the
+identity map from `docs/positioning.md`: the circular portrait at 240px (the
 one place for `rounded-full`; the ring is baked into the image), with no
-caption (the intro names him), then six cards on an arc in a 32rem column,
-with a quiet principles line below.
+caption (the intro names him), then six cards on an arc in a 528px column,
+with a quiet principles line below. A 40px gap separates it from the text
+column, close enough that the hero reads as one composition.
 
 - **Why cards here.** It is the one exception to "group with spacing, not
   cards": the six dimensions are separate, parallel items that the
   connectors point at, so each needs a visible edge. Cards are
   `rounded-lg border bg-card`, static, with no links.
-- **One card style.** Below `lg` and under reduced motion all six cards
-  use `border-brand` on `bg-card`, and all connectors use `text-brand/40`:
-  the order carries the hierarchy, not the styling. Where the loop runs
-  (see Motion), cards start at rest (`border-border`, connectors at 20%,
-  through `lg:motion-safe:`, so the prerendered page never flashes six
-  highlighted cards) and only the active one gets `border-brand` on
-  `bg-muted`. The
-  cards, dots and connectors are this component's only uses of the accent
-  outside links; keep it that way.
-- **Geometry.** Card offsets, card height (84px), gaps (18px), photo
+- **One card style.** Below `lg`, under reduced motion and without
+  JavaScript, all six cards use `border-brand` on `bg-card`, and all
+  connectors use `text-brand/40`: the order carries the hierarchy, not the
+  styling. Where the activation sequence runs (see Motion), cards start at
+  rest (`border-border`, connectors at 20%, through `lg:motion-safe:`, so
+  the prerendered page never flashes six highlighted cards) and each turns
+  active (`border-brand` on `bg-muted`, 6px left, connector at 90%, dot in
+  the foreground color) and stays active. The cards, dots and connectors
+  are this component's only uses of the accent outside links; keep it that
+  way.
+- **Geometry.** Card offsets, card height (100px), gaps (18px), photo
   position and the SVG are derived from one `geometry` constant. Change the
   numbers there, keep `offsetClasses`, `photoTopClass` and the card
-  `lg:h-[84px]` in sync (unit tests check the first two; no inline styles,
+  `lg:h-[100px]`, the column width in `home.tsx` and the portrait size in
+  sync (unit tests check the first two; no inline styles,
   the page CSP drops them), and let `e2e/home.spec.ts` confirm the dots
   stay on the card centers and no text is clipped. Connector angles are
   scaled so the steepest leaves the photo at `connectorMaxAngle` (35
   degrees), so every connector starts on the portrait's right side. Card
   lines keep hyphenated words whole and bind each middle dot to the word
   before it; the principles keep each item on one line. The decorative SVG
-  is `aria-hidden` and `print:hidden`.
+  is `aria-hidden` and `print:hidden`. At `lg` card titles are 15px and
+  lines 13px, sized so the longest title holds one line and the longest
+  pt-BR line at most three, inside the card height.
 - **Balance.** The two hero columns (headline to buttons, cards to
   principles) share one height, within 24px at 1024, 1280 and 1440 in both
-  languages (`e2e/home.spec.ts`). The left column is 400px at every `lg`
+  languages (`e2e/home.spec.ts`). The left column is 408px at every `lg`
   width, so when the hero copy changes, rebalance with the card height and
   gap.
 - **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
@@ -173,51 +179,32 @@ with a quiet principles line below.
 Interactive elements keep short color and underline transitions.
 `prefers-reduced-motion` disables transitions globally (`src/index.css`).
 
-The home hero moves on its own in two ways: a one-time entrance (see Hero
-entrance) and the identity map's decorative loop that walks the six dimensions in order, one step every 3.2s. In each
-step the active card gets, in sequence: a short pulse from the portrait to
-its dot (0 to 500ms); focus, with `bg-muted`, a 6px shift left and its
-connector at 90% while the others drop to 20% (from 420ms); a ping on the
-dot; light tracing the card border from where the connector meets it
-(500 to 1400ms); and a ring spreading from the card (from 1150ms). The
-pulse only travels out, with a soft brand halo under it, and the portrait
-sends it with a ring of its own (0 to 900ms): the energy flows from the
-person to each dimension. Hovering a card replays it and holds the loop until the
-pointer leaves.
-
-- The timings live in `motion` (`src/components/identity-map.tsx`), and the
-  keyframes in `src/index.css` repeat them; change both together.
-- Desktop only (`lg`), off under `prefers-reduced-motion`, and paused in a
-  hidden tab or while the map is off screen
-  (`src/components/use-identity-map-cycle.ts`).
-- The server render and the first client render are the static map; the
-  loop starts after hydration, once the hero entrance has finished. Animated elements are `aria-hidden` and remount each step
-  (keyed by it) so their animations replay. Nothing in the loop carries
-  information, and it adds no live regions.
+The home hero is the one thing that moves on its own, once per page load
+and in two parts: the entrance assembles it, then the identity map's
+activation sequence lights the six cards. Then everything holds still;
+nothing loops.
 
 ### Hero entrance
-
-When the home page loads, the hero welcomes the visitor in three beats,
-then holds still for good. Each beat tells part of the positioning:
 
 1. **Light** (0 to about 350ms). A soft front of brand light crosses the
    headline left to right and leaves the text behind it: from problem
    definition to production. The intro rises in from 450ms, the buttons
    from 600ms.
-2. **Connection** (550 to about 2350ms). The portrait settles, the
+2. **Connection** (150ms to about 2.35s). The portrait settles, the
    connectors, arc and dots fade in, then a pulse leaves the portrait along
-   each connector, 90ms apart (the loop's own pulse), and each card arrives
-   from the portrait's side, with a brief brand edge, as its pulse lands.
-3. **Ready** (from 1800ms). The principles fade in, a ring of light leaves
-   the portrait, and the identity map loop takes over.
+   each connector, 90ms apart, and each card arrives from the portrait's
+   side, with a brief brand edge, as its pulse lands. The cards arrive at
+   rest.
+3. **Ready** (from 1800ms). The principles fade in.
 
 Rules:
 
 - Compositor-only where it matters: the headline light is two overlays
-  that slide (`transform`) over text that never repaints; cards, flashes
-  and the ring use `opacity` and `transform`. The pulses reuse the loop's
-  stroke animation on six short lines. Curves: `--ease-sweep` (the drawer
-  curve) for the light, `--ease-entrance` for everything that arrives.
+  that slide (`transform`) over text that never repaints; cards and
+  flashes use `opacity` and `transform`. The pulses are short stroke
+  animations on six lines. Curves: `--ease-sweep` (the drawer curve) for
+  the light, `--ease-beam` (a strong ease-in-out) for anything travelling
+  a connector, `--ease-entrance` for everything that arrives.
 - The headline light never shows an edge: the cover is page color with a
   feathered left side, and the light has its own envelope, on only while
   it is over the text. The hero section clips sideways, so the travel never
@@ -231,10 +218,31 @@ Rules:
 - Static without JavaScript, under `prefers-reduced-motion`, and after the
   first client navigation (`src/entry-client.tsx` removes the attribute),
   so it plays once per document load.
-- The identity map loop starts only once every `hero-*` animation has
-  finished (`whenHeroEntranceSettled`).
 - e2e waits for the entrance (`e2e/hero.ts`) before axe runs, so mid-fade
   text is never measured for contrast.
+
+### Identity map activation
+
+Once every `hero-*` animation has finished (`whenHeroEntranceSettled`), the
+cards turn active one by one, first to last, every 450ms, and stay active.
+For each card: a beam (a bright core over a soft brand halo) travels from
+the portrait to its dot (0 to 360ms); the card turns active (from 300ms);
+the dot pings and stays bright (from 330ms); light runs around the card
+border from where the connector meets it (340 to 1040ms); a ring spreads
+from the card (from 700ms). The beam only travels out, and the portrait
+itself does not pulse. About 3.75s after it starts, all six are active and
+the map holds still.
+
+- The timings live in `motion` (`src/components/identity-map.tsx`), and the
+  keyframes in `src/index.css` repeat them; change both together.
+- Desktop only (`lg`), off under `prefers-reduced-motion`
+  (`src/components/use-identity-map-sequence.ts`). If the map becomes
+  eligible again later (a resize back to `lg`), every card shows active at
+  once instead of replaying.
+- The server render and the first client render are the static map at
+  rest. Each card's overlays are `aria-hidden` and mount when it activates,
+  so each animation plays once. Nothing in the sequence carries
+  information, and it adds no live regions.
 
 ## Accessibility
 

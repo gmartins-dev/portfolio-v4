@@ -73,32 +73,44 @@ test.describe("home hero balance", () => {
 	}
 });
 
-// The decorative loop (DESIGN.md, "Motion"): desktop only, off under reduced
-// motion, one card active at a time.
+// The activation sequence (DESIGN.md, "Motion"): after the entrance, the
+// cards turn active one by one, stay active, and the map then holds still.
+// Desktop only, off under reduced motion.
 test.describe("home identity map motion", () => {
 	const cards = (page: import("@playwright/test").Page) =>
 		page.locator('section[aria-labelledby="identity-map"] ol > li');
-	const activeIndex = (page: import("@playwright/test").Page) =>
+	const activeCards = (page: import("@playwright/test").Page) =>
 		cards(page).evaluateAll((items) =>
-			items.findIndex((li) => li.className.includes("bg-muted")),
+			items.map((li) => li.className.includes("bg-muted")),
 		);
 
-	test("cycles through the cards on desktop", async ({ page, isMobile }) => {
+	test("activates the cards in order and stops with all active", async ({
+		page,
+		isMobile,
+	}) => {
 		test.skip(isMobile, "desktop layout");
 		await page.setViewportSize({ width: 1440, height: 900 });
 		await page.goto("/");
-		await expect.poll(() => activeIndex(page)).toBe(0);
-		await expect.poll(() => activeIndex(page), { timeout: 5000 }).toBe(1);
-		await expect(cards(page).nth(0)).toHaveClass(/border-border/);
-
-		// Hover pins a card.
-		await cards(page).nth(4).hover();
-		await expect.poll(() => activeIndex(page)).toBe(4);
-		await page.waitForTimeout(3500);
-		expect(await activeIndex(page)).toBe(4);
+		// Active cards always form a prefix: first to last, none turned off.
+		const seen = new Set<number>();
+		await expect
+			.poll(
+				async () => {
+					const active = await activeCards(page);
+					const count = active.filter(Boolean).length;
+					expect(active).toEqual(active.map((_, index) => index < count));
+					seen.add(count);
+					return count;
+				},
+				{ timeout: 10_000, intervals: [100] },
+			)
+			.toBe(6);
+		expect(seen.size).toBeGreaterThan(2);
+		await page.waitForTimeout(2000);
+		expect(await activeCards(page)).toEqual(Array(6).fill(true));
 	});
 
-	test("starts with no card highlighted before the loop runs", async ({
+	test("starts with no card highlighted before the sequence runs", async ({
 		browser,
 		isMobile,
 	}) => {
@@ -131,7 +143,7 @@ test.describe("home identity map motion", () => {
 		const page = await context.newPage();
 		await page.goto(`${test.info().project.use.baseURL}/`);
 		await page.waitForTimeout(3500);
-		expect(await activeIndex(page)).toBe(-1);
+		expect(await activeCards(page)).toEqual(Array(6).fill(false));
 		for (const card of await cards(page).all()) {
 			await expect(card).toHaveClass(/border-brand/);
 		}
@@ -142,7 +154,7 @@ test.describe("home identity map motion", () => {
 		await page.setViewportSize({ width: 390, height: 844 });
 		await page.goto("/");
 		await page.waitForTimeout(3500);
-		expect(await activeIndex(page)).toBe(-1);
+		expect(await activeCards(page)).toEqual(Array(6).fill(false));
 		await expect(page.locator("[class*=identity-]")).toHaveCount(0);
 	});
 });

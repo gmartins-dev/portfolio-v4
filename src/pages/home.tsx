@@ -21,12 +21,12 @@ const sectionHeading = "text-2xl font-semibold tracking-tight md:text-3xl";
 export function HomePage({ locale }: { locale: Locale }) {
 	return (
 		<>
-			<section className="hero-stage grid pt-8 pb-16 md:pt-12 md:pb-20 lg:grid-cols-[minmax(0,1fr)_32rem] lg:items-center lg:gap-16">
+			<section className="hero-stage grid pt-8 pb-16 md:pt-12 md:pb-20 lg:grid-cols-[minmax(0,1fr)_528px] lg:items-center lg:gap-10">
 				<div>
-					<h1 className="hero-headline max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05]">
+					<h1 className="hero-headline max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl md:leading-[1.05] lg:text-[4rem]">
 						{t(copy.home.headline, locale)}
 					</h1>
-					<div className="hero-intro mt-6 max-w-measure space-y-4 text-lg text-muted-foreground">
+					<div className="hero-intro mt-6 max-w-measure space-y-4 text-lg text-muted-foreground lg:text-xl lg:leading-8">
 						{copy.home.intro[locale].map((paragraph) => (
 							<p key={paragraph}>{paragraph}</p>
 						))}

@@ -7,18 +7,22 @@ is in the [roadmap](ROADMAP.md).
 
 ### Hero entrance (2026-10-27)
 
-- The home hero welcomes the visitor once per page load, in three beats: a
-  soft front of brand light reveals the headline left to right; pulses
-  leave the portrait along the six connectors and each card arrives as its
-  pulse lands; a ring of light leaves the portrait and the loop takes over.
+- The home hero welcomes the visitor once per page load: a soft front of
+  brand light reveals the headline left to right; pulses leave the portrait
+  along the six connectors and each card arrives as its pulse lands.
+- Then the identity map's activation sequence lights the cards one by one,
+  first to last, every 450ms: a beam travels to the card, which turns
+  active and stays active. With all six active the map holds still. This
+  replaces the endless loop and its hover replay; the beam is faster
+  (360ms) and only travels out, and the portrait no longer pulses.
 - It waits for the first paint and the final font (an inline script in
   `<head>`, `src/hero-entrance.ts`), so nothing animates in a fallback font
   and swaps. Static without JavaScript, under reduced motion, after a
   client navigation, or when fonts take over 1.2s.
-- The identity map loop starts once the entrance has finished. Its pulse
-  now only travels out, with a brand halo, and the portrait sends it with a
-  ring; the return pulse is gone.
-- The hero sits closer to the header (`pt-8 md:pt-12`).
+- The hero sits closer to the header (`pt-8 md:pt-12`) and fills its
+  width better: portrait at 240px (re-exported at 240/480px), a 40px gap
+  to the text, a 64px headline with a 20px intro, and 100px cards with
+  15/13px text in a 528px column.
 - e2e waits for the entrance before axe runs and checks that it does not
   replay after a client navigation or play under reduced motion.
 

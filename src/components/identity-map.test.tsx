@@ -31,8 +31,8 @@ describe("IdentityMap", () => {
 
 			const photo = screen.getByRole("img", { name: map.photoAlt[locale] });
 			expect(photo.getAttribute("alt")).not.toBe("");
-			expect(photo.getAttribute("width")).toBe("208");
-			expect(photo.getAttribute("height")).toBe("208");
+			expect(photo.getAttribute("width")).toBe("240");
+			expect(photo.getAttribute("height")).toBe("240");
 			expect(photo.getAttribute("loading")).toBeNull();
 
 			expect(container.querySelector("h1")).toBeNull();
@@ -58,7 +58,7 @@ describe("IdentityMap", () => {
 		expect(offsetClasses).toHaveLength(copy.home.identityMap.dimensions.length);
 	});
 
-	it("renders the static map without the loop's overlays", () => {
+	it("renders the static map without the sequence's overlays", () => {
 		const { container } = render(<IdentityMap locale="en" />);
 		for (const item of screen.getAllByRole("listitem")) {
 			expect(item.className).toContain("border-brand");
@@ -66,15 +66,16 @@ describe("IdentityMap", () => {
 		}
 		expect(
 			container.querySelector(
-				".identity-pulse, .identity-trace, .identity-radiate, .identity-ring",
+				".identity-pulse, .identity-trace, .identity-radiate",
 			),
 		).toBeNull();
 	});
 
-	it("ends every motion phase within one step", () => {
+	it("finishes the whole sequence within four seconds", () => {
 		const { stepMs, ...phases } = motion;
+		const lastStart = (copy.home.identityMap.dimensions.length - 1) * stepMs;
 		for (const [name, phase] of Object.entries(phases)) {
-			expect(phase.start + phase.ms, name).toBeLessThan(stepMs);
+			expect(lastStart + phase.start + phase.ms, name).toBeLessThan(4000);
 		}
 	});
 
