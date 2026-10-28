@@ -38,7 +38,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 							<p key={paragraph}>{paragraph}</p>
 						))}
 					</div>
-					<div className="hero-actions mt-8 flex flex-wrap gap-3">
+					<div className="hero-actions mt-8 flex flex-wrap justify-between gap-3 sm:justify-start">
 						<a
 							href={`mailto:${profile.email}`}
 							className={buttonVariants({

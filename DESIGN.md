@@ -184,6 +184,9 @@ column, close enough that the hero reads as one composition.
   or the arc offsets: the portrait centered, 192px (224px from `sm`) so it reads as the
   hero's face where there is no map around it, then the cards in one column,
   two from `sm`, then the principles centered.
+- **Hero buttons on phones.** Below `sm` the two hero buttons sit at the
+  column's left and right edges (`justify-between`); from `sm` they group on
+  the left.
 
 ## Phones
 

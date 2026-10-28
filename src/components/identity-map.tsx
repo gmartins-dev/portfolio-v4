@@ -21,8 +21,12 @@ export const geometry = {
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
 	photo: { x: 116, radius: 116 },
-	/** Connectors start on this circle around the photo center. */
-	connectorRadius: 126,
+	/**
+	 * Connectors start on this circle around the photo center: about 4px
+	 * outside the ring baked into the image, whose outer edge sits near
+	 * 113px (500 of 512 in the master).
+	 */
+	connectorRadius: 117,
 	/**
 	 * The steepest connector leaves the photo at this angle in degrees; the
 	 * others scale down with it, so every connector starts on the portrait's
@@ -419,7 +423,18 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				<p className="font-mono">
 					{dottedItems(t(map.principles, locale), { wholeItems: true })}
 				</p>
-				<p className="lg:text-[13px]">{t(map.grounding, locale)}</p>
+				{/* One line when it fits; otherwise it wraps after the semicolon,
+				    since each clause is an inline block. */}
+				<p className="lg:text-[13px]">
+					{t(map.grounding, locale)
+						.split(/(?<=;) /)
+						.map((clause, index) => (
+							<Fragment key={clause}>
+								{index > 0 && " "}
+								<span className="inline-block">{clause}</span>
+							</Fragment>
+						))}
+				</p>
 			</div>
 		</section>
 	);
