@@ -2,7 +2,12 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Languages } from "lucide-react";
 import { copy, t } from "../content/copy";
 import { profile } from "../content/profile";
-import { type Locale, neutralPath, otherLocale } from "../i18n";
+import {
+	type Locale,
+	localeStorageKey,
+	neutralPath,
+	otherLocale,
+} from "../i18n";
 import { isNotFound } from "../not-found";
 import { useLocale } from "../use-locale";
 import { pageShell } from "./page-shell";
@@ -117,6 +122,15 @@ export function SiteHeader() {
 	);
 }
 
+/** Keep an explicit choice, so first-visit detection never overrides it. */
+function rememberLocale(locale: Locale) {
+	try {
+		localStorage.setItem(localeStorageKey, locale);
+	} catch {
+		// Storage can be blocked; the switch itself still works.
+	}
+}
+
 /**
  * The language switch: an icon and the target language code ("PT" on the
  * English site). The header renders it twice, one copy per breakpoint, so the
@@ -140,6 +154,7 @@ function LanguageToggle({
 			to={to}
 			hrefLang={target}
 			lang={target}
+			onClick={() => rememberLocale(target)}
 			className={`${className} min-h-6 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground print:hidden`}
 		>
 			<Languages className="size-4" aria-hidden="true" />

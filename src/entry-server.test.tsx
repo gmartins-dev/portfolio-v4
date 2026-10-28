@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { prerenderPaths, render } from "./entry-server";
+import { localeRedirectScript } from "./locale-redirect";
 
 const context = { entryScript: "/assets/entry-client-test.js" };
 
@@ -47,6 +48,11 @@ describe("server render", () => {
 		);
 		// Dehydrated router state the client hydrates from.
 		expect(html).toContain("$_TSR");
+	});
+
+	it("inlines the first-visit language script in every page head", async () => {
+		const html = await (await render("/", context)).text();
+		expect(html).toContain(localeRedirectScript);
 	});
 
 	it("keeps one h1 on the home page next to the identity map", async () => {

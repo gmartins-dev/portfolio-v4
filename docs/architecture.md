@@ -78,6 +78,7 @@ page is a child route, registered once per locale from the `pages` table.
 | Head tags, JSON-LD, sitemap | `src/seo.ts` |
 | Locales and localized paths (`/` and `/pt-br`) | `src/i18n.ts`, `src/use-locale.ts` |
 | Server render and hydration | `src/entry-server.tsx`, `src/entry-client.tsx` |
+| First-visit language redirect (inline head script) | `src/locale-redirect.ts` |
 | CSP, NUL escaping, script stripping | `src/csp.ts`, `src/finalize-html.ts` |
 
 The dev server (`pnpm dev`) renders HTML through the same `entry-server.tsx`
