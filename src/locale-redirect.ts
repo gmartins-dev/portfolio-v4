@@ -1,4 +1,7 @@
-import { localeStorageKey } from "./i18n";
+import { type Locale, localeStorageKey, localizedPath } from "./i18n";
+
+const english: Locale = "en";
+const portuguese: Locale = "pt-BR";
 
 /**
  * First-visit language (docs/adr/012-first-visit-locale-detection.md).
@@ -13,4 +16,4 @@ import { localeStorageKey } from "./i18n";
  * query string and hash are kept. Its hash enters the page CSP like any other
  * inline script (src/csp.ts).
  */
-export const localeRedirectScript = `(()=>{try{if(location.pathname!=="/")return;let saved=null;try{saved=localStorage.getItem(${JSON.stringify(localeStorageKey)})}catch{}if(saved==="en")return;let pt=saved==="pt-BR";if(!saved){const tags=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language];for(const tag of tags){const lang=String(tag).toLowerCase();if(lang==="pt"||lang.startsWith("pt-")){pt=true;break}if(lang==="en"||lang.startsWith("en-"))break}}if(pt)location.replace("/pt-br"+location.search+location.hash)}catch{}})();`;
+export const localeRedirectScript = `(()=>{try{if(location.pathname!=="/")return;let saved=null;try{saved=localStorage.getItem(${JSON.stringify(localeStorageKey)})}catch{}if(saved===${JSON.stringify(english)})return;let pt=saved===${JSON.stringify(portuguese)};if(!pt){const tags=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language];for(const tag of tags){const lang=String(tag).toLowerCase();if(lang==="pt"||lang.startsWith("pt-")){pt=true;break}if(lang==="en"||lang.startsWith("en-"))break}}if(pt)location.replace(${JSON.stringify(localizedPath(portuguese, "/"))}+location.search+location.hash)}catch{}})();`;

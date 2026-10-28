@@ -50,7 +50,7 @@ describe("server render", () => {
 		expect(html).toContain("$_TSR");
 	});
 
-	it("inlines the first-visit language script in every page head", async () => {
+	it("inlines the first-visit language script in the home page head", async () => {
 		const html = await (await render("/", context)).text();
 		expect(html).toContain(localeRedirectScript);
 	});

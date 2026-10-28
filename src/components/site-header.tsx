@@ -154,7 +154,11 @@ function LanguageToggle({
 			to={to}
 			hrefLang={target}
 			lang={target}
-			onClick={() => rememberLocale(target)}
+			onClick={(event) => {
+				// Modified clicks open a new tab or window, not a switch.
+				if (!(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey))
+					rememberLocale(target);
+			}}
 			className={`${className} min-h-6 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground print:hidden`}
 		>
 			<Languages className="size-4" aria-hidden="true" />

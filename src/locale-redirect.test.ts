@@ -70,8 +70,11 @@ describe("localeRedirectScript", () => {
 		);
 	});
 
-	it("ignores an invalid saved value", () => {
-		expect(run({ languages: ["pt-BR"], saved: "xx" })).toBeUndefined();
+	it("ignores an invalid saved value and detects from the browser", () => {
+		expect(run({ languages: ["pt-BR"], saved: "xx" })).toBe(
+			"/pt-br?utm=x#contact",
+		);
+		expect(run({ languages: ["en-US"], saved: "xx" })).toBeUndefined();
 	});
 
 	it("acts only on the home page", () => {
