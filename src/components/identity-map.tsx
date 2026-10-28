@@ -317,7 +317,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				{/* Centered on the card stack. No inline style: the page CSP
 				    (style-src 'self') would drop it. */}
 				<div
-					className={`hero-portrait relative w-fit lg:absolute lg:left-0 ${photoTopClass}`}
+					className={`hero-portrait relative mx-auto w-fit lg:absolute lg:left-0 lg:mx-0 ${photoTopClass}`}
 				>
 					<img
 						src="/images/profile/portrait-240.webp"
@@ -326,7 +326,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 						height={240}
 						alt={t(map.photoAlt, locale)}
 						decoding="async"
-						className="size-32 rounded-full lg:size-[232px]"
+						className="size-48 rounded-full sm:size-56 lg:size-[232px]"
 					/>
 					{/* Over the portrait's ring: one orbit of light, starting and
 					    ending on the right, where the connectors meet it, then a
@@ -364,7 +364,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 				</div>
 				<ol
 					aria-labelledby="identity-map"
-					className="hero-cards relative mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
+					className="hero-cards relative mt-8 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:grid-cols-1 lg:gap-[10px]"
 				>
 					{map.dimensions.map((dimension, index) => {
 						const outline = isActive(index)
@@ -415,7 +415,7 @@ export function IdentityMap({ locale }: { locale: Locale }) {
 					})}
 				</ol>
 			</div>
-			<div className="hero-principles mt-6 space-y-1 text-xs text-muted-foreground lg:mt-5 lg:text-center">
+			<div className="hero-principles mt-6 space-y-1 text-center text-xs text-muted-foreground lg:mt-5">
 				<p className="font-mono">
 					{dottedItems(t(map.principles, locale), { wholeItems: true })}
 				</p>

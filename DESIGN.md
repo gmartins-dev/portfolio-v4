@@ -181,8 +181,9 @@ column, close enough that the hero reads as one composition.
   hero copy changes, rebalance with the type tokens, the card height and
   the gap without growing the hero past it.
 - **Below `lg`.** The map moves under the buttons (`mt-12`) without the SVG
-  or the arc offsets: the portrait at 128px, then the cards in one column,
-  two from `sm`, then the principles left aligned.
+  or the arc offsets: the portrait centered, 192px (224px from `sm`) so it reads as the
+  hero's face where there is no map around it, then the cards in one column,
+  two from `sm`, then the principles centered.
 
 ## Phones
 
