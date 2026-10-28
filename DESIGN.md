@@ -148,7 +148,8 @@ column, close enough that the hero reads as one composition.
   stay on the card centers and no text is clipped. Connector angles are
   scaled so the steepest leaves the photo at `connectorMaxAngle` (35
   degrees), so every connector starts on the portrait's right side. The
-  card offsets follow one circle (the dashed arc, radius 841), 38px deeper
+  card offsets follow one circle (the dashed arc, radius 750; a unit test
+  keeps every dot within 1px of it), 41px deeper
   in the middle than at the ends, with about 64px between the portrait and
   the middle cards: the cards wrap around the portrait. Keep that curve and
   that clearance when resizing the portrait or the column; flattening the
@@ -165,13 +166,15 @@ column, close enough that the hero reads as one composition.
   text column takes the rest, 408px at 1024 growing to 536px from 1152px.
   The hero type grows with it through fluid tokens in `src/index.css`
   (`text-hero-title` 60 to 64px, `text-hero-intro` 18/28 to 20/34px,
-  between 1024 and 1152px), so the columns stay level across that range.
+  between 1024 and 1152px windows), so the columns stay level across that
+  range. The tokens use `cqw` of the hero (an `@container`), not `vw`, so a
+  classic scrollbar does not shift them.
   The headline's last two words never split ("to production").
 - **First screen.** The whole hero, headline to buttons and cards to
   principles, fits a 1440x790 window (Chrome on a 900px-tall screen) in
   both languages (`e2e/home.spec.ts`). From `lg` the hero fills the window
-  under the header (`--header-height`, the one-row header's 61px) and
-  centers in it, so the space above it, to the header, equals the space
+  under the header (`--header-height`, the one-row header's 61px), up to
+  56rem so tall tablets get no blank bands, and centers in it, so the space above it, to the header, equals the space
   below it, to the fold, where the next section's border sits; at least
   24px each on short windows. It
   is the first impression, so this outranks bigger type or cards: when the

@@ -5,7 +5,7 @@ import type { Locale } from "../i18n";
 import { useIdentityMapSequence } from "./use-identity-map-sequence";
 
 /**
- * Desktop geometry of the map, in px inside its 32rem (512px) column. Cards
+ * Desktop geometry of the map, in px inside its 552px column. Cards
  * stack from the top; their left edges follow a circle of `arcRadius` that
  * bulges toward the middle, and the decorative SVG is drawn from the same
  * numbers, so dots stay on the card centers. Tailwind needs literal class
@@ -16,7 +16,7 @@ export const geometry = {
 	width: 552,
 	cardHeight: 90,
 	cardGap: 10,
-	offsets: [258, 282, 296, 296, 282, 258],
+	offsets: [255, 283, 296, 296, 283, 255],
 	/** Dots sit this far left of their card. */
 	dotInset: 12,
 	/** The portrait, flush with the column's left edge. */
@@ -29,7 +29,7 @@ export const geometry = {
 	 * right side instead of its top or bottom.
 	 */
 	connectorMaxAngle: 35,
-	arcRadius: 841,
+	arcRadius: 750,
 };
 
 /**
@@ -71,12 +71,12 @@ export function cardOutline(offset: number) {
 }
 
 export const offsetClasses = [
-	"lg:ml-[258px]",
-	"lg:ml-[282px]",
+	"lg:ml-[255px]",
+	"lg:ml-[283px]",
 	"lg:ml-[296px]",
 	"lg:ml-[296px]",
-	"lg:ml-[282px]",
-	"lg:ml-[258px]",
+	"lg:ml-[283px]",
+	"lg:ml-[255px]",
 ];
 
 /**

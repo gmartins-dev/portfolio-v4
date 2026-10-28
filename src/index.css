@@ -68,6 +68,35 @@
 	   header, src/pages/home.tsx). */
 	--header-height: 3.8125rem;
 
+	/* Home hero type from lg up (text-hero-title, text-hero-intro). As the
+	   hero widens from 976 to 1104px (1024 to 1152px windows, see
+	   src/components/page-shell.ts), its text column grows from 408 to
+	   536px; the type grows with it, so the column keeps the identity map's
+	   height beside it and the whole hero fits a 790px-tall window. 60 to
+	   64px for the headline, 18/28 to 20/34px for the intro; fixed outside
+	   that range. Measured in cqw of the hero (an @container), not vw, so a
+	   classic scrollbar does not shift the ramp. */
+	--text-hero-title: clamp(
+		3.75rem,
+		calc(3.75rem + (100cqw - 61rem) * 0.03125),
+		4rem
+	);
+	--text-hero-intro: clamp(
+		1.125rem,
+		calc(1.125rem + (100cqw - 61rem) * 0.015625),
+		1.25rem
+	);
+	--text-hero-intro--line-height: clamp(
+		1.75rem,
+		calc(1.75rem + (100cqw - 61rem) * 0.046875),
+		2.125rem
+	);
+
+	/* The header's height from lg up, where it is one row. The home hero
+	   fills the rest of the window with it (h-(--header-height) on the
+	   header, src/pages/home.tsx). */
+	--header-height: 3.8125rem;
+
 	/* Home hero type from lg up (text-hero-title, text-hero-intro). Between
 	   1024 and 1152px the hero's text column widens from 408 to 536px with
 	   the page column (src/components/page-shell.ts); the type grows with it,
@@ -269,7 +298,8 @@
 	     before it reaches the clip on the right, so no edge of it shows
 	     either. The vertical mask fades it above and below the text.
 	   The heading's clip leaves room for pt-BR accents and descenders, and
-	   1em on the right, inside the 4rem gap before the identity map. The
+	   1em on the right, past the 1rem gap into the identity map column, where
+	   nothing sits beside the headline (the portrait paints above it). The
 	   stage clips sideways, so the travel never becomes page overflow (a
 	   horizontal scroll on phones). */
 	html[data-entrance] .hero-stage {

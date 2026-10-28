@@ -19,7 +19,7 @@ function heroSizes(image: CaseStudy["image"]) {
 		1072,
 		Math.round((576 - 32) * (image.width / image.height)),
 	);
-	return `(min-width: 1152px) ${capped}px, min(calc(100vw - 4rem), ${capped}px)`;
+	return `(min-width: 1152px) ${capped}px, (min-width: 640px) min(calc(100vw - 5rem), ${capped}px), min(calc(100vw - 4rem), ${capped}px)`;
 }
 
 export function CaseStudyPage({
@@ -189,7 +189,7 @@ export function CaseStudyPage({
 				>
 					{t(copy.work.otherStudies, locale)}
 				</h2>
-				<ul className="mt-8 grid gap-8 md:grid-cols-2">
+				<ul className="mt-8 grid gap-8 md:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
 					{caseStudies
 						.filter((other) => other.slug !== study.slug)
 						.map((other) => (

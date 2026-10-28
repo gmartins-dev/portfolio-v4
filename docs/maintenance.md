@@ -51,7 +51,7 @@ When the logo or the fonts change, run `pnpm build:og-images`. Do not edit
 `public/images/og/` by hand. The hero portrait's master is
 `brand/social/source/portrait-1024.png`, composed from the photo
 `brand/social/source/portrait-photo-2026.png` by `pnpm compose:portrait`
-(backdrop and ring in the site tokens, face pixels untouched); after
+(backdrop and ring in the site tokens, face not recolored); after
 replacing the photo or the master, run `pnpm export:portrait` to regenerate
 `public/images/profile/`.
 

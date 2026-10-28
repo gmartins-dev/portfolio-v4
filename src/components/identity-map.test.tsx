@@ -61,6 +61,27 @@ describe("IdentityMap", () => {
 		);
 	});
 
+	it("puts every dot on the dashed arc", () => {
+		const stack =
+			geometry.offsets.length * geometry.cardHeight +
+			(geometry.offsets.length - 1) * geometry.cardGap;
+		const dots = geometry.offsets.map((offset, index) => ({
+			x: offset - geometry.dotInset,
+			y:
+				index * (geometry.cardHeight + geometry.cardGap) +
+				geometry.cardHeight / 2,
+		}));
+		// The arc runs from the first dot to the last, so its center sits on
+		// the stack's middle line, to the left of the dots.
+		const first = dots[0];
+		const centerX =
+			first.x - Math.sqrt(geometry.arcRadius ** 2 - (stack / 2 - first.y) ** 2);
+		for (const dot of dots) {
+			const distance = Math.hypot(dot.x - centerX, dot.y - stack / 2);
+			expect(Math.abs(distance - geometry.arcRadius)).toBeLessThan(1);
+		}
+	});
+
 	it("offsets each card by the arc geometry the connectors use", () => {
 		expect(offsetClasses).toEqual(
 			geometry.offsets.map((offset) => `lg:ml-[${offset}px]`),

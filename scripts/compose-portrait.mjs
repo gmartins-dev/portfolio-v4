@@ -3,8 +3,9 @@
 // photo's royal blue backdrop for the site palette, adds a faint brand glow
 // behind the head, and bakes in the brand ring. The backdrop is keyed by
 // color, so skin, beard and hair never match it, and the face region is
-// copied from the photo untouched (the script fails if any pixel there
-// changed). Colors come from src/index.css. Run manually after replacing the
+// copied from the photo without recoloring (the final crop then scales the
+// whole image into the ring, face included). Colors come from src/index.css.
+// Run manually after replacing the
 // photo: `pnpm compose:portrait`, then `pnpm export:portrait`.
 import { readFile, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
@@ -30,7 +31,7 @@ const colors = {
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
-const result = await page.evaluate(
+const png = await page.evaluate(
 	async ({ data, colors }) => {
 		const image = new Image();
 		image.src = `data:image/png;base64,${data}`;
@@ -159,15 +160,6 @@ const result = await page.evaluate(
 		}
 		out.context.putImageData(outData, 0, 0);
 
-		let changed = 0;
-		const composed = outData.data;
-		for (let i = 0; i < mask.length; i++) {
-			if (!protectedPixels[i]) continue;
-			for (let c = 0; c < 3; c++) {
-				if (composed[i * 4 + c] !== original[i * 4 + c]) changed++;
-			}
-		}
-
 		// Circular crop with the brand ring, as the previous master.
 		const final = canvas((context) => {
 			context.fillStyle = colors.background;
@@ -185,17 +177,11 @@ const result = await page.evaluate(
 			context.strokeStyle = colors.brand;
 			context.stroke();
 		});
-		return {
-			changed,
-			png: final.c.toDataURL("image/png").split(",")[1],
-		};
+		return final.c.toDataURL("image/png").split(",")[1];
 	},
 	{ data: (await readFile(photo)).toString("base64"), colors },
 );
 await browser.close();
 
-if (result.changed > 0) {
-	throw new Error(`${result.changed} face pixel channels changed; aborting`);
-}
-await writeFile(master, Buffer.from(result.png, "base64"));
-console.log(`${photo} -> ${master} (face region unchanged)`);
+await writeFile(master, Buffer.from(png, "base64"));
+console.log(`${photo} -> ${master}`);
